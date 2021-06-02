@@ -1,0 +1,34 @@
+// Screen sizes
+$screen-sm: 576px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+$screen-xxl: 1300px;
+$screen-full: 1400px;
+
+// Colors
+$bgColor: #1c3faa;
+$bgSecondaryColor: #e0e1e7;
+$bgComponentColor: #ffffff;
+
+$textPrimaryColor: #545454;
+$textSecondaryColor: #a7a8a7;
+
+$textDarkColor: #353535;
+$textLightColor: #eeedf8;
+
+
+$warningColor: #b3465c;
+
+// Text Extends
+%titles-text {
+    font-size: 15px;
+    font-weight: 50px;
+    color: $textPrimaryColor;
+}
+
+%descr-text {
+    font-size: 14px;
+    font-weight: 25px;
+    color: $textSecondaryColor;
+}

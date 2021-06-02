@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './newsPage.module.scss';
+import styles from './newsPage.scss';
 
 
 

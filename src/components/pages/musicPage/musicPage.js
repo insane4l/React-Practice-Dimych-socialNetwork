@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './musicPage.module.scss';
+import styles from './musicPage.scss';
 
 
 
