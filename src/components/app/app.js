@@ -1,9 +1,20 @@
 import React from 'react';
-import styles from './app.scss';
+import Header from '../header';
+import NavBar from '../navBar';
+import MainSection from '../mainSection';
+
+
+import './app.scss';
 
 function App() {
   return (
-    <h1>Hello</h1>
+    <div className="app__wrapper">
+      <Header />
+      <div className="container">
+        <NavBar/>
+        <MainSection/>
+      </div>
+    </div>
   );
 }
 

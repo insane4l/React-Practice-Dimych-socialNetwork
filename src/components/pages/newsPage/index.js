@@ -1,3 +1,3 @@
-import NewsPage from './app';
+import NewsPage from './newsPage';
 
 export default NewsPage;

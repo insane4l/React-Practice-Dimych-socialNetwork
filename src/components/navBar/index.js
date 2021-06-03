@@ -1,3 +1,3 @@
-import NavBar from './app';
+import NavBar from './navBar';
 
 export default NavBar;

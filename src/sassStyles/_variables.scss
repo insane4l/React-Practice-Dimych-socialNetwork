@@ -7,7 +7,7 @@ $screen-xxl: 1300px;
 $screen-full: 1400px;
 
 // Colors
-$bgColor: #1c3faa;
+$bgPrimaryColor: #1c3faa;
 $bgSecondaryColor: #e0e1e7;
 $bgComponentColor: #ffffff;
 
@@ -20,15 +20,17 @@ $textLightColor: #eeedf8;
 
 $warningColor: #b3465c;
 
+
 // Text Extends
-%titles-text {
+%title-text {
     font-size: 15px;
-    font-weight: 50px;
+    font-weight: 400;
     color: $textPrimaryColor;
 }
 
 %descr-text {
     font-size: 14px;
-    font-weight: 25px;
+    font-weight: 300;
+    line-height: 25px;
     color: $textSecondaryColor;
 }

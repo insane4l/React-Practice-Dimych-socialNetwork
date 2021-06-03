@@ -1,0 +1,10 @@
+@import '../../sassStyles/_variables.scss';
+
+.app {
+    &__wrapper {
+        width: 100%;
+        min-height: 100vh;
+        padding-top: 50px;
+        background-color: $bgPrimaryColor;
+      }
+}

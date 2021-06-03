@@ -1,3 +1,3 @@
-import MusicPage from './app';
+import MusicPage from './musicPage';
 
 export default MusicPage;

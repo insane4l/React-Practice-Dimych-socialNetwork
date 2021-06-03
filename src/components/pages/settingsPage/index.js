@@ -1,3 +1,3 @@
-import SettingsPage from './app';
+import SettingsPage from './settingsPage';
 
 export default SettingsPage;
