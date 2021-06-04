@@ -4,7 +4,6 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import App from './components/app';
 
 import './sassStyles/_global.scss';
-import './sassStyles/_interface.scss';
 
 ReactDOM.render(
   <React.StrictMode>

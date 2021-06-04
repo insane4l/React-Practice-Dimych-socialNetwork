@@ -6,12 +6,14 @@ import './mainSection.scss';
 
 const MainSection = () => {
     return (
-        <main className="main-section__wrapper">
-            <Route path="/profile" component={ProfilePage} />
-            <Route path="/messages" component={MessagesPage} />
-            <Route path="/news" component={NewsPage} />
-            <Route path="/music" component={MusicPage} />
-            <Route path="/settings" component={SettingsPage} />
+        <main className="main-section">
+            <div className="section">
+                <Route path="/profile" component={ProfilePage} />
+                <Route path="/messages" component={MessagesPage} />
+                <Route path="/news" component={NewsPage} />
+                <Route path="/music" component={MusicPage} />
+                <Route path="/settings" component={SettingsPage} />
+            </div>
         </main>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../header';
-import NavBar from '../navBar';
+import SideBar from '../sideBar';
 import MainSection from '../mainSection';
 
 
@@ -11,8 +11,8 @@ function App() {
     <div className="app__wrapper">
       <Header />
       <div className="container block__wrapper">
-        <NavBar/>
-        <MainSection/>
+        <SideBar />
+        <MainSection />
       </div>
     </div>
   );
