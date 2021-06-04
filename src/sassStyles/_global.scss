@@ -25,6 +25,12 @@ h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
 }
 
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -39,5 +45,5 @@ body {
 }
 
 .container {
-  margin: 0 100px;
+  margin: 0 50px;
 }
