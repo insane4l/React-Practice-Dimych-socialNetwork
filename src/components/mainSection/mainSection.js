@@ -1,12 +1,18 @@
 import React from 'react';
+import {Route} from 'react-router-dom';
+import {ProfilePage, MessagesPage, NewsPage, MusicPage, SettingsPage} from '../pages';
 
 import './mainSection.scss';
 
 const MainSection = () => {
     return (
-        <div className="main-section__wrapper">
-            
-        </div>
+        <main className="main-section__wrapper">
+            <Route path="/profile" component={ProfilePage} />
+            <Route path="/messages" component={MessagesPage} />
+            <Route path="/news" component={NewsPage} />
+            <Route path="/music" component={MusicPage} />
+            <Route path="/settings" component={SettingsPage} />
+        </main>
     );
 }
 

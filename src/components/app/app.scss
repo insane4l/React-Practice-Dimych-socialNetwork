@@ -4,7 +4,11 @@
     &__wrapper {
         width: 100%;
         min-height: 100vh;
-        padding-top: 50px;
+        padding-top: 70px;
         background-color: $bgPrimaryColor;
+        .block__wrapper {
+          display: grid;
+          grid-template-columns: 2fr 10fr;
+        }
       }
 }

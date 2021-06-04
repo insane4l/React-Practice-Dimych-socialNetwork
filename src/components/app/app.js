@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="app__wrapper">
       <Header />
-      <div className="container">
+      <div className="container block__wrapper">
         <NavBar/>
         <MainSection/>
       </div>

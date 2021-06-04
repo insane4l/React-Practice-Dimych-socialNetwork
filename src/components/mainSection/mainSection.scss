@@ -1,3 +1,6 @@
+@import '../../sassStyles/variables.scss';
+
 .main-section__wrapper {
-    
+    border-radius: 22px;
+    background-color: $bgSecondaryColor;
 }
