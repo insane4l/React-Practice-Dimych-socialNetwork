@@ -1,6 +1,6 @@
 import React from 'react';
 
-import coverImg from './coverImg.jpg';
+import coverImg from './coverImg.jpeg';
 import profilePhoto from './profilePhoto.jpg';
 import './profilePage.scss';
 
