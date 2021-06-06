@@ -1,0 +1,33 @@
+.dialogs {
+    &__wrapper {
+        background-color: red;
+    }
+    &__list {
+        background-color: orange;
+        &-item {
+            background-color: green;
+        }
+    }
+}
+.dialog {
+    &__image {
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            max-width: 100%;
+            min-height: 100%;
+            
+            
+        }
+    }
+    &__content {
+        &-title {
+
+        }
+        &-message {
+
+        }
+    }
+}
