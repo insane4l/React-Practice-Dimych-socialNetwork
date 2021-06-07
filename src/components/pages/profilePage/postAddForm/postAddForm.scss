@@ -1,0 +1,44 @@
+@import '../../../../sassStyles/variables.scss';
+
+.post-add {
+    &__block {
+        width: 55%;
+        padding: 10px 20px 30px 20px;
+        margin-top: 50px;
+        border-top: 2px solid $bgPrimaryLightColor;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background-color: $bgComponentColor;
+        box-shadow: 0px 2px 4px 0px rgba(50, 50, 50, 0.2);
+    }
+    &__title {
+        @extend %title-text;
+    }
+    &__form {
+    }
+    &__textarea {
+        @extend %descr-text;
+        width: 100%;
+        min-height: 66px;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 4px;
+        resize: none;
+        overflow: auto;
+        background-color: $bgMessageColor;
+        &::placeholder {
+            @extend %descr-text;
+        }
+    }
+    &__btn {
+        display: block;
+        padding: 10px 30px;
+        margin-left: auto;
+        border-radius: 4px;
+        color: $textLightColor;
+        background-color: $bgPrimaryLightColor;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}

@@ -1,4 +1,6 @@
 import React from 'react';
+import PostAddForm from './postAddForm';
+import PostsTimline from './postsTimeline';
 
 import coverImg from './coverImg.jpeg';
 import profilePhoto from './profilePhoto.jpg';
@@ -38,23 +40,13 @@ const ProfilePage = () => {
                 </div> */}
             </div>
 
-            <div className="profile__posts">
-                <div className="profile__posts-title">Posts</div>
+            
 
-                <form action="" className="post-add__form">
-                    <input type="text" className="post-add__input" />
-                    <button className="button post-add__btn">Send</button>
-                </form>
+            <PostAddForm />
 
-                <div className="profile__posts-timeline">
-                    <div className="profile__posts-item">
-                        My second post
-                    </div>
-                    <div className="profile__posts-item">
-                        My first post
-                    </div>
-                </div>
-            </div>
+            <PostsTimline />
+            
+
         </>
     )
 }

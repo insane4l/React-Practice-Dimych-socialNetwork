@@ -8,12 +8,16 @@ $screen-full: 1400px;
 
 // Colors
 $bgPrimaryColor: #193fb4;
+$bgPrimaryLightColor: lighten($bgPrimaryColor, 25%);
+
 $bgSecondaryColor: #ecf1f5;
+$bgMessageColor: darken($bgSecondaryColor, 5%);
+
 $bgComponentColor: #ffffff;
-$bgMessageColor: #d6d6d6;
+
 
 $textPrimaryColor: #545454;
-$textSecondaryColor: #a7a8a7;
+$textSecondaryColor: #888888;
 
 $textDarkColor: #353535;
 $textLightColor: #eeedf8;
