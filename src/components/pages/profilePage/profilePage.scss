@@ -3,6 +3,9 @@
 .profile {
     &__info {
         padding-bottom: 10px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        overflow: hidden;
         background-color: $bgComponentColor;
         &-images {
             position: relative;
@@ -62,6 +65,11 @@
 
 
     &__posts {
+        margin-top: 40px;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        overflow: hidden;
+        background-color: $bgComponentColor;
         &-title {
 
         }

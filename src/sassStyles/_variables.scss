@@ -8,8 +8,9 @@ $screen-full: 1400px;
 
 // Colors
 $bgPrimaryColor: #193fb4;
-$bgSecondaryColor: #e0e1e7;
+$bgSecondaryColor: #ecf1f5;
 $bgComponentColor: #ffffff;
+$bgMessageColor: #d6d6d6;
 
 $textPrimaryColor: #545454;
 $textSecondaryColor: #a7a8a7;
@@ -24,7 +25,7 @@ $warningColor: #b3465c;
 // Text Extends
 %title-text {
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 600;
     color: $textPrimaryColor;
 }
 
