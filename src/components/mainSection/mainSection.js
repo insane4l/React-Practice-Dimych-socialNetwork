@@ -4,11 +4,11 @@ import {ProfilePage, MessagesPage, NewsPage, MusicPage, SettingsPage} from '../p
 
 import './mainSection.scss';
 
-const MainSection = () => {
+const MainSection = (props) => {
     return (
         <main className="main-section">
             <div className="section">
-                <Route path="/profile" component={ProfilePage} />
+                <Route path="/profile" render={() => <ProfilePage store={props.store} />} />
                 <Route path="/messages" component={MessagesPage} />
                 <Route path="/news" component={NewsPage} />
                 <Route path="/music" component={MusicPage} />

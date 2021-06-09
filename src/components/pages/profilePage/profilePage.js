@@ -6,7 +6,7 @@ import coverImg from './coverImg.jpeg';
 import profilePhoto from './profilePhoto.jpg';
 import './profilePage.scss';
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
     return (
         <>  
             
@@ -42,9 +42,9 @@ const ProfilePage = () => {
 
             
 
-            <PostAddForm />
+            <PostAddForm store={props.store} />
 
-            <PostsTimline />
+            <PostsTimline store={props.store} />
             
 
         </>
