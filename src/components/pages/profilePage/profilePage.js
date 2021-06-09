@@ -42,9 +42,9 @@ const ProfilePage = (props) => {
 
             
 
-            <PostAddForm store={props.store} />
+            <PostAddForm store={props.store} state={props.store.getState()} />
 
-            <PostsTimline store={props.store} />
+            <PostsTimline store={props.store} state={props.store.getState()} />
             
 
         </>
