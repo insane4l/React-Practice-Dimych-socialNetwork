@@ -4,7 +4,7 @@ import {ProfilePage, FriendsPage, MessagesPage, NewsPage, MusicPage, SettingsPag
 
 import './mainSection.scss';
 
-const MainSection = () => {
+const MainSection = (props) => {
     return (
         <main className="main-section">
             <div className="section">
