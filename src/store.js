@@ -1,43 +1,48 @@
-export const store = {
-    state: {
+const store = {
+    _state: {
         profilePage: {
             messages: [
                 {id: 1, label: 'Hi, this is my 1 post'},
                 {id: 2, label: '2 post'},
                 {id: 3, label: 'ok this is 3 post'}
             ],
-            
-            inputValue: "",
+            inputValue: ""
         },
-
         messagesPage: {}
+    },
+    getState() {
+        return this._state;
     },
 
     updateInputValue(value) {
-        this.state.profilePage.inputValue = value;
-        rerenderEntireTree();
+        this._state.profilePage.inputValue = value;
+        this.callSubscriber();
     },
     
     addPost() {
-        let length = this.state.profilePage.messages.length;
+        let length = this._state.profilePage.messages.length;
         const id = ++length;
-        this.state.profilePage.messages.push({
+        this._state.profilePage.messages.push({
           id,
-          label: this.state.profilePage.inputValue
+          label: this._state.profilePage.inputValue
         });
-        this.state.profilePage.inputValue = "";
-        rerenderEntireTree();
-    }
+        this._state.profilePage.inputValue = "";
+        this.callSubscriber();
+    },
 
-    
+
+
+
+
+    callSubscriber() {
+        console.log("state changed");
+    },
+
+    subscribe(observer) {
+        this.callSubscriber = observer;
+    }
 }
 
 window.store = store;
 
-let rerenderEntireTree = () => {
-    console.log("state changed, rerender entire tree");
-}
-
-export const subscribe = (observer) => {
-    rerenderEntireTree = observer;
-}
+export default store;

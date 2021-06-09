@@ -34,7 +34,7 @@ const PostAddForm = (props) => {
                     maxLength="1500"
                     required
                     ref={newPostElement}
-                    value={props.store.state.profilePage.inputValue}
+                    value={props.state.profilePage.inputValue}
                     onChange={changeValue}>
 
                 </textarea>
