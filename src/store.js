@@ -10,13 +10,20 @@ const store = {
         },
         messagesPage: {}
     },
+    _callSubscriber() {
+        console.log("state changed");
+    },
+
+
+
+
     getState() {
         return this._state;
     },
 
     updateInputValue(value) {
         this._state.profilePage.inputValue = value;
-        this.callSubscriber();
+        this._callSubscriber();
     },
     
     addPost() {
@@ -27,19 +34,34 @@ const store = {
           label: this._state.profilePage.inputValue
         });
         this._state.profilePage.inputValue = "";
-        this.callSubscriber();
+        this._callSubscriber();
     },
 
 
-
-
-
-    callSubscriber() {
-        console.log("state changed");
+    dispatch(action) {
+        debugger;
+        switch(action.type) {
+            case 'ADD_POST':
+                let length = this._state.profilePage.messages.length;
+                const id = ++length;
+                this._state.profilePage.messages.push({
+                id,
+                label: this._state.profilePage.inputValue
+                });
+                this._state.profilePage.inputValue = "";
+                this._callSubscriber();
+                break;
+            case 'UPDATE_INPUT_VALUE':
+                this._state.profilePage.inputValue = action.value;
+                this._callSubscriber();
+                break;
+            default: 
+                console.log(action.type);
+        }
     },
 
     subscribe(observer) {
-        this.callSubscriber = observer;
+        this._callSubscriber = observer;
     }
 }
 

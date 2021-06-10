@@ -12,7 +12,7 @@ function App(props) {
       <Header />
       <div className="container block__wrapper">
         <SideBar />
-        <MainSection store={props.store} />
+        <MainSection state={props.state} dispatch={props.dispatch} />
       </div>
     </div>
   );
