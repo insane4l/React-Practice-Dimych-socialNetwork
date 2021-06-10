@@ -1,3 +1,8 @@
+const UPDATE_INPUT_VALUE = 'UPDATE_INPUT_VALUE';
+const ADD_POST = 'ADD_POST';
+
+
+
 const store = {
     _state: {
         profilePage: {
@@ -39,9 +44,8 @@ const store = {
 
 
     dispatch(action) {
-        debugger;
         switch(action.type) {
-            case 'ADD_POST':
+            case ADD_POST:
                 let length = this._state.profilePage.messages.length;
                 const id = ++length;
                 this._state.profilePage.messages.push({
@@ -51,7 +55,7 @@ const store = {
                 this._state.profilePage.inputValue = "";
                 this._callSubscriber();
                 break;
-            case 'UPDATE_INPUT_VALUE':
+            case UPDATE_INPUT_VALUE:
                 this._state.profilePage.inputValue = action.value;
                 this._callSubscriber();
                 break;
@@ -64,6 +68,14 @@ const store = {
         this._callSubscriber = observer;
     }
 }
+
+
+export const changeValueActionCreator = (value) => ({
+    type: UPDATE_INPUT_VALUE, value
+});
+export const addPostActionCreator = () => ({type: ADD_POST});
+
+
 
 window.store = store;
 

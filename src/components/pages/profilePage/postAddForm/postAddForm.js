@@ -1,4 +1,5 @@
 import React from 'react';
+import {changeValueActionCreator, addPostActionCreator} from '../../../../store';
 
 import './postAddForm.scss';
 
@@ -9,13 +10,12 @@ const PostAddForm = (props) => {
 
     const changeValue = () => {
         const value = newPostElement.current.value;
-        debugger;
-        props.dispatch({type: 'UPDATE_INPUT_VALUE', value})
+        props.dispatch(changeValueActionCreator(value))
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        props.dispatch({type: 'ADD_POST'});
+        props.dispatch(addPostActionCreator());
     }
 
     return (
