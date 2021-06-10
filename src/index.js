@@ -10,7 +10,7 @@ const renderApp = () => {
   ReactDOM.render(
     <React.StrictMode>
       <Router>
-        <App store={store}/>
+        <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>
       </Router>
     </React.StrictMode>,
     document.getElementById('root')

@@ -8,7 +8,7 @@ const MainSection = (props) => {
     return (
         <main className="main-section">
             <div className="section">
-                <Route path="/profile" render={() => <ProfilePage store={props.store} />} />
+                <Route path="/profile" render={() => <ProfilePage state={props.state} dispatch={props.dispatch} />} />
                 <Route path="/messages" component={MessagesPage} />
                 <Route path="/news" component={NewsPage} />
                 <Route path="/music" component={MusicPage} />

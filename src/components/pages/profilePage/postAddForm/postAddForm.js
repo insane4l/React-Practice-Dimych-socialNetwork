@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React from 'react';
 
 import './postAddForm.scss';
 
@@ -8,13 +8,14 @@ const PostAddForm = (props) => {
     
 
     const changeValue = () => {
-        const inputValue = newPostElement.current.value;
-        props.store.updateInputValue(inputValue);
+        const value = newPostElement.current.value;
+        debugger;
+        props.dispatch({type: 'UPDATE_INPUT_VALUE', value})
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        props.store.addPost();
+        props.dispatch({type: 'ADD_POST'});
     }
 
     return (
