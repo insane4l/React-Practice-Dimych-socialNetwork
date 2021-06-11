@@ -4,18 +4,18 @@ import './postAddForm.scss';
 
 const PostAddForm = () => {
     return (
-        <div className="post-add__block">
-            <div className="post-add__title">Add new post</div>
-            <form action="" className="post-add__form">
+        <div className="add-post__block">
+            <div className="add-post__title">Add new post</div>
+            <form action="#" className="add-post__form">
                 <textarea 
-                    className="post-add__textarea"
+                    className="add-post__textarea"
                     name="new_post" 
                     placeholder="Type new post message here.."
                     maxlength="1500"
                     required>
 
                 </textarea>
-                <button className="button post-add__btn">Post</button>
+                <button className="add-post__btn">Post</button>
             </form>
         </div>
     )
