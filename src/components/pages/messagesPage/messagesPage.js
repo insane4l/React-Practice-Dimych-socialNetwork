@@ -2,11 +2,11 @@ import React from 'react';
 import DialogsList from './dialogsList';
 import DialogsItem from './dialogsItem';
 
-const MessagesPage = () => {
+const MessagesPage = (props) => {
     return (
         <>
-            <DialogsList />
-            <DialogsItem />
+            <DialogsList dialogs={props.state.messagesPage} />
+            <DialogsItem dialogs={props.state.messagesPage} dispatch={props.dispatch} />
         </>
     )
 }

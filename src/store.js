@@ -1,5 +1,7 @@
-const UPDATE_INPUT_VALUE = 'UPDATE_INPUT_VALUE';
+const UPDATE_NEW_POST_VALUE = 'UPDATE_NEW_POST_VALUE';
 const ADD_POST = 'ADD_POST';
+const UPDATE_NEW_MESSAGE_VALUE = 'UPDATE_NEW_MESSAGE_VALUE';
+const SEND_MESSAGE = 'SEND_MESSAGE';
 
 
 
@@ -13,7 +15,27 @@ const store = {
             ],
             inputValue: ""
         },
-        messagesPage: {}
+        messagesPage: {
+            dialogsList: [
+                {
+                    id:0,
+                    interlocuter: {id: "", image: "", name: ""},
+                    messages: [
+                        {id: 0, label: "Hi where are u?", date: "12.6 21:38", myMessage: false},
+                        {id: 1, label: "Hi! Im in Tallinn right now", date: "12.6 21:38", myMessage: true}
+                    ]
+                },
+                {
+                    id:1,
+                    interlocuter: {id: "", image: "", name: ""},
+                    messages: [
+                        {id: 0, label: "YOYOYO", date: "11.6 18:30", myMessage: false},
+                        {id: 1, label: "Hi man", date: "13.6 15:20", myMessage: true}
+                    ]
+                }
+            ],
+            newMessageBody: "",
+        }
     },
     _callSubscriber() {
         console.log("state changed");
@@ -43,6 +65,9 @@ const store = {
     },
 
 
+
+
+
     dispatch(action) {
         switch(action.type) {
             case ADD_POST:
@@ -55,8 +80,24 @@ const store = {
                 this._state.profilePage.inputValue = "";
                 this._callSubscriber();
                 break;
-            case UPDATE_INPUT_VALUE:
+            case UPDATE_NEW_POST_VALUE:
                 this._state.profilePage.inputValue = action.value;
+                this._callSubscriber();
+                break;
+            case UPDATE_NEW_MESSAGE_VALUE:
+                this._state.messagesPage.newMessageBody = action.value;
+                this._callSubscriber();
+                break;
+            case SEND_MESSAGE:
+                let indx = this._state.messagesPage.dialogsList[0].messages.length;
+                const key = ++indx;
+                this._state.messagesPage.dialogsList[0].messages.push({
+                    id: key,
+                    label: this._state.messagesPage.newMessageBody,
+                    date: action.date,
+                    myMessage: true
+                });
+                this._state.messagesPage.newMessageBody = "";
                 this._callSubscriber();
                 break;
             default: 
@@ -70,10 +111,17 @@ const store = {
 }
 
 
-export const changeValueActionCreator = (value) => ({
-    type: UPDATE_INPUT_VALUE, value
+export const changePostValueAction = (value) => ({
+    type: UPDATE_NEW_POST_VALUE, value
 });
-export const addPostActionCreator = () => ({type: ADD_POST});
+export const addPostAction = () => ({type: ADD_POST});
+
+export const changeMessageValueAction = (value) => ({
+    type: UPDATE_NEW_MESSAGE_VALUE, value
+});
+export const sendMessageAction = (date) => ({type: SEND_MESSAGE, date});
+
+
 
 
 

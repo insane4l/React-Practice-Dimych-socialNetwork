@@ -1,5 +1,5 @@
 import React from 'react';
-import {changeValueActionCreator, addPostActionCreator} from '../../../../store';
+import {changePostValueAction, addPostAction} from '../../../../store';
 
 import './postAddForm.scss';
 
@@ -10,24 +10,18 @@ const PostAddForm = (props) => {
 
     const changeValue = () => {
         const value = newPostElement.current.value;
-        props.dispatch(changeValueActionCreator(value))
+        props.dispatch(changePostValueAction(value))
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        props.dispatch(addPostActionCreator());
+        props.dispatch(addPostAction());
     }
 
     return (
-<<<<<<< HEAD
         <div className="add-post__block">
             <div className="add-post__title">Add new post</div>
-            <form action="#" className="add-post__form">
-=======
-        <div className="post-add__block">
-            <div className="post-add__title">Add new post</div>
-            <form onSubmit={onSubmit} action="#" className="post-add__form">
->>>>>>> homework from 36 lesson (create own store, subscriber etc)
+            <form onSubmit={onSubmit} action="#" className="add-post__form">
                 <textarea 
                     className="add-post__textarea"
                     name="new_post" 
