@@ -1,5 +1,5 @@
 import React from 'react';
-import {changePostValueAction, addPostAction} from '../../../../store';
+import {changePostValueAction, addPostAction} from '../../../../reducers/profilePageReducer';
 
 import './postAddForm.scss';
 

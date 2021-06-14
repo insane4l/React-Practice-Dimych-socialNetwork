@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {changeMessageValueAction, sendMessageAction} from '../../../../store';
+import {changeMessageValueAction, sendMessageAction} from '../../../../reducers/messagesPageReducer';
 
 import goBack from './goBack.svg';
 import './dialogsItem.scss';

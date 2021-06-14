@@ -1,8 +1,5 @@
-const UPDATE_NEW_POST_VALUE = 'UPDATE_NEW_POST_VALUE';
-const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_MESSAGE_VALUE = 'UPDATE_NEW_MESSAGE_VALUE';
-const SEND_MESSAGE = 'SEND_MESSAGE';
-
+import profilePageReducer from './reducers/profilePageReducer';
+import messagesPageReducer from './reducers/messagesPageReducer';
 
 
 const store = {
@@ -69,40 +66,9 @@ const store = {
 
 
     dispatch(action) {
-        switch(action.type) {
-            case ADD_POST:
-                let length = this._state.profilePage.messages.length;
-                const id = ++length;
-                this._state.profilePage.messages.push({
-                id,
-                label: this._state.profilePage.inputValue
-                });
-                this._state.profilePage.inputValue = "";
-                this._callSubscriber();
-                break;
-            case UPDATE_NEW_POST_VALUE:
-                this._state.profilePage.inputValue = action.value;
-                this._callSubscriber();
-                break;
-            case UPDATE_NEW_MESSAGE_VALUE:
-                this._state.messagesPage.newMessageBody = action.value;
-                this._callSubscriber();
-                break;
-            case SEND_MESSAGE:
-                let indx = this._state.messagesPage.dialogsList[0].messages.length;
-                const key = ++indx;
-                this._state.messagesPage.dialogsList[0].messages.push({
-                    id: key,
-                    label: this._state.messagesPage.newMessageBody,
-                    date: action.date,
-                    myMessage: true
-                });
-                this._state.messagesPage.newMessageBody = "";
-                this._callSubscriber();
-                break;
-            default: 
-                console.log(action.type);
-        }
+        this._state.profilePage = profilePageReducer(this._state.profilePage, action);
+        this._state.messagesPage = messagesPageReducer(this._state.messagesPage, action);
+        this._callSubscriber();
     },
 
     subscribe(observer) {
@@ -111,15 +77,6 @@ const store = {
 }
 
 
-export const changePostValueAction = (value) => ({
-    type: UPDATE_NEW_POST_VALUE, value
-});
-export const addPostAction = () => ({type: ADD_POST});
-
-export const changeMessageValueAction = (value) => ({
-    type: UPDATE_NEW_MESSAGE_VALUE, value
-});
-export const sendMessageAction = (date) => ({type: SEND_MESSAGE, date});
 
 
 
