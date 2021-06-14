@@ -1,7 +1,16 @@
 const UPDATE_NEW_POST_VALUE = 'UPDATE_NEW_POST_VALUE';
 const ADD_POST = 'ADD_POST';
 
-const profilePageReducer = (state, action) => {
+const initialState = {
+    messages: [
+        {id: 1, label: 'Hi, this is my 1 post'},
+        {id: 2, label: '2 post'},
+        {id: 3, label: 'ok this is 3 post'}
+    ],
+    inputValue: ""
+};
+
+const profilePageReducer = (state = initialState, action) => {
     switch(action.type) {
         case ADD_POST:
             let length = state.messages.length;
