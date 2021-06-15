@@ -5,10 +5,10 @@ import {ProfilePage, FriendsPage, MessagesPage, NewsPage, MusicPage, SettingsPag
 import './mainSection.scss';
 
 const MainSection = () => {
-    debugger;
     return (
         <main className="main-section">
             <div className="section">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -24,6 +24,9 @@ const MainSection = () => {
 >>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
 =======
                 <Route path="/profile" component={ProfilePage} />} />
+=======
+                <Route path="/profile" component={ProfilePage} />
+>>>>>>> React-redux Provider, connect, mapStateToProps, mapDispatchToProps. Practice from 45 lesson
                 <Route path="/messages"  component={MessagesPage} />
 >>>>>>> Context API: createContext, Provider, Consumer added (without react-redux), deleted props drilling. Practice from 44 lesson
                 <Route path="/news" component={NewsPage} />

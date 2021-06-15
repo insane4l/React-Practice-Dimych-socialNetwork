@@ -26,8 +26,10 @@ const initialState = {
 const messagesPageReducer = (state = initialState, action) => {
     switch(action.type) {
         case UPDATE_NEW_MESSAGE_VALUE:
-            state.newMessageBody = action.value;
-            return state;
+            return {
+                ...state,
+                newMessageBody: action.value
+            }
         case SEND_MESSAGE:
             let indx = state.dialogsList[0].messages.length;
             const key = ++indx;

@@ -1,18 +1,17 @@
 import React from 'react';
 import PostsTimeline from './';
-import StoreContext from '../../../storeContext/storeContext';
+import {connect} from 'react-redux';
 
 import './postsTimeline.scss';
 
-const PostsTimlineContainer = (props) => {
-    
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => <PostsTimeline messages={store.getState().profilePage.messages}  />
-            }
-        </StoreContext.Consumer>
-    )
-}
+
+const mapStateToProps = (state) => {
+    return {
+        messages: state.profilePage.messages
+    }
+};
+
+const PostsTimlineContainer = connect(mapStateToProps)(PostsTimeline);
+
 
 export default PostsTimlineContainer;
