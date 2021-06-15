@@ -1,12 +1,12 @@
 import React from 'react';
-import DialogsList from './dialogsList';
-import DialogsItem from './dialogsItem';
+import DialogsListContainer from './dialogsList/dialogsListContainer';
+import DialogsItemContainer from './dialogsItem/dialogsItemContainer';
 
 const MessagesPage = (props) => {
     return (
         <>
-            <DialogsList dialogs={props.state.messagesPage} />
-            <DialogsItem dialogs={props.state.messagesPage} dispatch={props.dispatch} />
+            <DialogsListContainer store={props.store} />
+            <DialogsItemContainer store={props.store} />
         </>
     )
 }

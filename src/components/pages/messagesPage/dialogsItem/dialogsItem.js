@@ -7,22 +7,14 @@ import './dialogsItem.scss';
 
 const DialogsItem = (props) => {
 
-    const changeMessage = (e) => {
+    const onChangeMessage = (e) => {
         let text = e.target.value;
-        props.dispatch(changeMessageValueAction(text));
+        props.changeMessage(text);
     }
 
-    const sendMessage = (e) => {
+    const onSendMessage = (e) => {
         e.preventDefault();
-        const newDate = new Date();
-        const day = newDate.getDate();
-        const month = newDate.getMonth() +1;
-        const hours = newDate.getHours() % 24;
-        const minutes = newDate.getMinutes() % 60;
-
-        const date = `${day}.${month} ${hours}:${minutes}`;
-
-        props.dispatch(sendMessageAction(date));
+        props.sendMessage();
     }
 
     return (
@@ -83,14 +75,14 @@ const DialogsItem = (props) => {
                 <form 
                     className="add-message__form"
                     action="#"
-                    onSubmit={sendMessage}>
+                    onSubmit={onSendMessage}>
                     <input 
                         className="add-message__input"
                         name="new_message" 
                         placeholder="Type new message here.."
                         autoComplete="off"
                         value={props.dialogs.newMessageBody}
-                        onChange={changeMessage}
+                        onChange={onChangeMessage}
                         required>
                     </input>
                     <button className="add-message__btn">Send Message</button>

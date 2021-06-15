@@ -1,6 +1,6 @@
 import React from 'react';
-import PostAddForm from './postAddForm';
-import PostsTimline from './postsTimeline';
+import PostAddFormContainer from './postAddForm/postAddFormContainer';
+import PostsTimlineContainer from './postsTimeline/postsTimelineContainer';
 
 import coverImg from './coverImg.jpeg';
 import profilePhoto from './profilePhoto.jpg';
@@ -42,9 +42,9 @@ const ProfilePage = (props) => {
 
             
 
-            <PostAddForm state={props.state} dispatch={props.dispatch} />
+            <PostAddFormContainer store={props.store} />
 
-            <PostsTimline state={props.state} />
+            <PostsTimlineContainer store={props.store} />
             
 
         </>

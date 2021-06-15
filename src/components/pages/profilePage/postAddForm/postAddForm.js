@@ -1,5 +1,5 @@
 import React from 'react';
-import {changePostValueAction, addPostAction} from '../../../../reducers/profilePageReducer';
+// import {changePostValueAction, addPostAction} from '../../../../reducers/profilePageReducer';
 
 import './postAddForm.scss';
 
@@ -8,14 +8,14 @@ const PostAddForm = (props) => {
     let newPostElement = React.createRef();
     
 
-    const changeValue = () => {
-        const value = newPostElement.current.value;
-        props.dispatch(changePostValueAction(value))
+    const onChangeValue = (e) => {
+        const value = e.target.value;
+        props.changeInputValue(value);
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
-        props.dispatch(addPostAction());
+        props.addNewPost();
     }
 
     return (
@@ -29,8 +29,8 @@ const PostAddForm = (props) => {
                     maxLength="1500"
                     required
                     ref={newPostElement}
-                    value={props.state.profilePage.inputValue}
-                    onChange={changeValue}>
+                    value={props.inputValue}
+                    onChange={onChangeValue}>
 
                 </textarea>
                 <button className="add-post__btn">Post</button>

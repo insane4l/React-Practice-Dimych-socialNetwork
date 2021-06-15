@@ -11,7 +11,7 @@ const PostsTimline = (props) => {
     return (
         <div className="posts__timeline">
             {
-                props.state.profilePage.messages.map(el => {
+                props.messages.map(el => {
                     return (
                         <div key={el.id} className="posts__item">
                             <div className="posts__item_header">

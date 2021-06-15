@@ -6,18 +6,19 @@ import store from './reduxStore';
 
 import './sassStyles/_global.scss';
 
-const renderApp = (state) => {
+const renderApp = (store) => {
+  debugger;
   ReactDOM.render(
     <React.StrictMode>
       <Router>
-        <App state={state} dispatch={store.dispatch.bind(store)}/>
+        <App store={store}/>
       </Router>
     </React.StrictMode>,
     document.getElementById('root')
   );
 }
-renderApp(store.getState());
+renderApp(store);
 
 store.subscribe(() => {
-  renderApp(store.getState());
+  renderApp(store);
 });
