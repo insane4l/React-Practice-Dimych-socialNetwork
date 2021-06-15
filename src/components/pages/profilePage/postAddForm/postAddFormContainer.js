@@ -1,35 +1,26 @@
 import React from 'react';
 import {changePostValueAction, addPostAction} from '../../../../reducers/profilePageReducer';
 import PostAddForm from './';
-import StoreContext from '../../../storeContext/storeContext';
+import {connect} from 'react-redux';
 
-const PostAddFormContainer = () => {
 
-    return (
-        <StoreContext.Consumer>
-            {
-                (store) => {                    
-                    const state = store.getState();
+const mapStateToProps = (state) => {
+    return {
+        inputValue: state.profilePage.inputValue
+    }
+};
 
-                    const changeInputValue = (value) => {
-                        const action = changePostValueAction(value);
-                        store.dispatch(action);
-                    }
-                    
-                    const addNewPost = () => {
-                        store.dispatch(addPostAction());
-                    }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeInputValue: (value) => {
+            const action = changePostValueAction(value);
+            dispatch(action);
+        },
+        addNewPost: () => {dispatch(addPostAction())}
+    }
+};
 
-                    return (
-                        <PostAddForm 
-                            inputValue={state.profilePage.inputValue}
-                            addNewPost={addNewPost}
-                            changeInputValue={changeInputValue} />
-                    )
-                }
-            }
-        </StoreContext.Consumer>
-    )
-}
+const PostAddFormContainer = connect(mapStateToProps, mapDispatchToProps)(PostAddForm);
+
 
 export default PostAddFormContainer;
