@@ -4,11 +4,12 @@ import {ProfilePage, FriendsPage, MessagesPage, NewsPage, MusicPage, SettingsPag
 
 import './mainSection.scss';
 
-const MainSection = (props) => {
+const MainSection = () => {
     debugger;
     return (
         <main className="main-section">
             <div className="section">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                 <Route path="/profile" component={ProfilePage} />
@@ -21,6 +22,10 @@ const MainSection = (props) => {
                 <Route path="/profile" render={() => <ProfilePage store={props.store} />} />
                 <Route path="/messages" render={() => <MessagesPage store={props.store} />} />
 >>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
+=======
+                <Route path="/profile" component={ProfilePage} />} />
+                <Route path="/messages"  component={MessagesPage} />
+>>>>>>> Context API: createContext, Provider, Consumer added (without react-redux), deleted props drilling. Practice from 44 lesson
                 <Route path="/news" component={NewsPage} />
                 <Route path="/music" component={MusicPage} />
                 <Route path="/settings" component={SettingsPage} />
