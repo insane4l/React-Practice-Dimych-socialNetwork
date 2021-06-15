@@ -2,11 +2,11 @@ import React from 'react';
 import DialogsListContainer from './dialogsList/dialogsListContainer';
 import DialogsItemContainer from './dialogsItem/dialogsItemContainer';
 
-const MessagesPage = (props) => {
+const MessagesPage = () => {
     return (
         <>
-            <DialogsListContainer store={props.store} />
-            <DialogsItemContainer store={props.store} />
+            <DialogsListContainer />
+            <DialogsItemContainer />
         </>
     )
 }

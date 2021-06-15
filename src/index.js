@@ -3,22 +3,25 @@ import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
 import App from './components/app';
 import store from './reduxStore';
+import Provider from './components/storeContext/provider';
+
 
 import './sassStyles/_global.scss';
 
-const renderApp = (store) => {
-  debugger;
+const renderApp = () => {
   ReactDOM.render(
     <React.StrictMode>
       <Router>
-        <App store={store}/>
+        <Provider store={store}>
+          <App />
+        </Provider>
       </Router>
     </React.StrictMode>,
     document.getElementById('root')
   );
 }
-renderApp(store);
+renderApp();
 
 store.subscribe(() => {
-  renderApp(store);
+  renderApp();
 });

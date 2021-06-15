@@ -1,10 +1,16 @@
 import React from 'react';
 import DialogsList from './';
+import StoreContext from '../../../storeContext/storeContext'
 
 
-const DialogsListContainer = (props) => {
-    const state = props.store.getState();
-    return <DialogsList dialogs={state.messagesPage}/>
+const DialogsListContainer = () => {
+    return (
+        <StoreContext.Consumer>
+            {
+                (store) => <DialogsList dialogs={store.getState().messagesPage}/>
+            }
+        </StoreContext.Consumer>
+    )
 }
 
 export default DialogsListContainer;

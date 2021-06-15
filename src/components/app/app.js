@@ -6,13 +6,13 @@ import MainSection from '../mainSection';
 
 import './app.scss';
 
-function App(props) {
+function App() {
   return (
     <div className="app__wrapper">
       <Header />
       <div className="container block__wrapper">
         <SideBar />
-        <MainSection store={props.store} />
+        <MainSection />
       </div>
     </div>
   );
