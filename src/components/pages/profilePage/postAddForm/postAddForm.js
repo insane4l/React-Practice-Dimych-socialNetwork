@@ -1,5 +1,9 @@
 import React from 'react';
+<<<<<<< HEAD
 import {changeValueActionCreator, addPostActionCreator} from '../../../../store';
+=======
+// import {changePostValueAction, addPostAction} from '../../../../reducers/profilePageReducer';
+>>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
 
 import './postAddForm.scss';
 
@@ -8,14 +12,24 @@ const PostAddForm = (props) => {
     let newPostElement = React.createRef();
     
 
+<<<<<<< HEAD
     const changeValue = () => {
         const value = newPostElement.current.value;
         props.dispatch(changeValueActionCreator(value))
+=======
+    const onChangeValue = (e) => {
+        const value = e.target.value;
+        props.changeInputValue(value);
+>>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
     }
 
     const onSubmit = (e) => {
         e.preventDefault();
+<<<<<<< HEAD
         props.dispatch(addPostActionCreator());
+=======
+        props.addNewPost();
+>>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
     }
 
     return (
@@ -35,8 +49,8 @@ const PostAddForm = (props) => {
                     maxLength="1500"
                     required
                     ref={newPostElement}
-                    value={props.state.profilePage.inputValue}
-                    onChange={changeValue}>
+                    value={props.inputValue}
+                    onChange={onChangeValue}>
 
                 </textarea>
                 <button className="add-post__btn">Post</button>

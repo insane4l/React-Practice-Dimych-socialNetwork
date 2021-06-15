@@ -4,7 +4,22 @@ import {Link} from 'react-router-dom';
 import goBack from './goBack.svg';
 import './dialogsItem.scss';
 
+<<<<<<< HEAD
 const DialogsItem = () => {
+=======
+const DialogsItem = (props) => {
+
+    const onChangeMessage = (e) => {
+        let text = e.target.value;
+        props.changeMessage(text);
+    }
+
+    const onSendMessage = (e) => {
+        e.preventDefault();
+        props.sendMessage();
+    }
+
+>>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
     return (
         <div className="dialogs__item">
             <div className="dialogs__item-header">
@@ -45,11 +60,24 @@ const DialogsItem = () => {
             </div>
 
             <div className="dialogs__item-footer">
+<<<<<<< HEAD
                 <form className="add-message__form" action="#">
+=======
+                <form 
+                    className="add-message__form"
+                    action="#"
+                    onSubmit={onSendMessage}>
+>>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
                     <input 
                         className="add-message__input"
                         name="new_message" 
                         placeholder="Type new message here.."
+<<<<<<< HEAD
+=======
+                        autoComplete="off"
+                        value={props.dialogs.newMessageBody}
+                        onChange={onChangeMessage}
+>>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
                         required>
                     </input>
                     <button className="add-message__btn">Send Message</button>
