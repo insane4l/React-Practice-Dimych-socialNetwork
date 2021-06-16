@@ -29,18 +29,24 @@ const messagesPageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 newMessageBody: action.value
-            }
+            };
         case SEND_MESSAGE:
             let indx = state.dialogsList[0].messages.length;
             const key = ++indx;
-            state.dialogsList[0].messages.push({
+            const newState = {
+                ...state,
+            };
+            newState.dialogsList = [...state.dialogsList];
+            newState.dialogsList[0] = {...state.dialogsList[0]};
+            newState.dialogsList[0].messages = [...state.dialogsList[0].messages,  {
                 id: key,
                 label: state.newMessageBody,
                 date: action.date,
                 myMessage: true
-            });
-            state.newMessageBody = "";
-            return state;
+            }];
+            // console.log(state.dialogsList[0].messages === newState.dialogsList[0].messages); //must be false cause of immutable
+            newState.newMessageBody = "";
+            return newState;
         default:
             return state;
     }
