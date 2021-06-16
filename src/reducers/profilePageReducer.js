@@ -15,15 +15,21 @@ const profilePageReducer = (state = initialState, action) => {
         case ADD_POST:
             let length = state.messages.length;
             const id = ++length;
-            state.messages.push({
-            id,
-            label: state.inputValue
-            });
-            state.inputValue = "";
-            return state;
+            const newState = {
+                ...state,
+                messages: [...state.messages, {
+                    id,
+                    label: state.inputValue
+                    }]
+            };
+            newState.inputValue = "";
+            // console.log(state.messages === newState.messages); //must be false (not old state object changed "by link" immutable principle)
+            return newState;
         case UPDATE_NEW_POST_VALUE:
-            state.inputValue = action.value;
-            return state;
+            return {
+                ...state,
+                inputValue: action.value
+            };
         default:
             return state;
     }
