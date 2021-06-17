@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {profileIcon, messagesIcon, newsIcon, musicIcon, settingsIcon} from './icons';
+import {profileIcon, friendsIcon, messagesIcon, newsIcon, musicIcon, settingsIcon} from './icons';
 import './navBar.scss';
 
 const NavBar = () => {
@@ -12,6 +12,12 @@ const NavBar = () => {
             <NavLink className="navbar__link" to="/profile" activeClassName="navbar__link_active">
               <img className="navbar__link-icon" src={profileIcon} alt="link icon" />
               <span className="navbar__link-label">Profile</span>
+            </NavLink>
+          </li>
+          <li className="navbar__list-item">
+            <NavLink className="navbar__link" to="/friends" activeClassName="navbar__link_active">
+              <img className="navbar__link-icon" src={friendsIcon} alt="link icon" />
+              <span className="navbar__link-label">Friends</span>
             </NavLink>
           </li>
           <li className="navbar__list-item">
