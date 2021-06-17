@@ -13,6 +13,7 @@ const MainSection = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
                 <Route path="/profile" component={ProfilePage} />
+<<<<<<< HEAD
                 <Route path="/friends" component={FriendsPage} />
 =======
                 <Route path="/profile" render={() => <ProfilePage state={props.state} dispatch={props.dispatch} />} />
@@ -29,6 +30,14 @@ const MainSection = () => {
 >>>>>>> React-redux Provider, connect, mapStateToProps, mapDispatchToProps. Practice from 45 lesson
                 <Route path="/messages"  component={MessagesPage} />
 >>>>>>> Context API: createContext, Provider, Consumer added (without react-redux), deleted props drilling. Practice from 44 lesson
+=======
+<<<<<<< HEAD
+                <Route path="/messages"  component={MessagesPage} />
+=======
+                <Route path="/friends" component={FriendsPage} />
+                <Route path="/messages" component={MessagesPage} />
+>>>>>>> Friends page created and stylized (without links)
+>>>>>>> Friends page created and stylized (without links)
                 <Route path="/news" component={NewsPage} />
                 <Route path="/music" component={MusicPage} />
                 <Route path="/settings" component={SettingsPage} />
