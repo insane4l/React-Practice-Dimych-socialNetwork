@@ -14,6 +14,7 @@ const MainSection = () => {
 <<<<<<< HEAD
                 <Route path="/profile" component={ProfilePage} />
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <Route path="/friends" component={FriendsPage} />
 =======
                 <Route path="/profile" render={() => <ProfilePage state={props.state} dispatch={props.dispatch} />} />
@@ -38,6 +39,10 @@ const MainSection = () => {
                 <Route path="/messages" component={MessagesPage} />
 >>>>>>> Friends page created and stylized (without links)
 >>>>>>> Friends page created and stylized (without links)
+=======
+                <Route path="/friends" component={FriendsPage} />
+                <Route path="/messages" component={MessagesPage} />
+>>>>>>> Practice from 50 - 54 lessons (REST API, users API, side effect, class component, lifecycle)
                 <Route path="/news" component={NewsPage} />
                 <Route path="/music" component={MusicPage} />
                 <Route path="/settings" component={SettingsPage} />
