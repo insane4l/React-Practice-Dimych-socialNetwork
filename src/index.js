@@ -8,20 +8,14 @@ import {Provider} from 'react-redux';
 
 import './sassStyles/_global.scss';
 
-const renderApp = () => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <Router>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </Router>
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
-}
-renderApp();
 
-store.subscribe(() => {
-  renderApp();
-});
+ReactDOM.render(
+  <React.StrictMode>
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
