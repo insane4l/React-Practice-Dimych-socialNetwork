@@ -12,6 +12,7 @@ import './sassStyles/_global.scss';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ReactDOM.render(
   <React.StrictMode>
     <Router>
@@ -64,3 +65,16 @@ store.subscribe(() => {
   renderApp();
 });
 >>>>>>> Context API: createContext, Provider, Consumer added (without react-redux), deleted props drilling. Practice from 44 lesson
+=======
+
+ReactDOM.render(
+  <React.StrictMode>
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+>>>>>>> Pagination. Practice from 55 lesson

@@ -44,3 +44,9 @@
         }
     }
 }
+
+.pagination__item {
+    &_active {
+        background-color: green;
+    }
+}
