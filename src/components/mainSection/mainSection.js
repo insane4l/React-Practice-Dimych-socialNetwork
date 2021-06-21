@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import {ProfilePage, FriendsPage, MessagesPage, NewsPage, MusicPage, SettingsPage} from '../pages';
+import {ProfilePage, FriendsPageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage} from '../pages';
 
 import './mainSection.scss';
 
@@ -15,10 +15,14 @@ const MainSection = () => {
                 <Route path="/profile" component={ProfilePage} />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <Route path="/friends" component={FriendsPage} />
 =======
                 <Route path="/profile" render={() => <ProfilePage state={props.state} dispatch={props.dispatch} />} />
 >>>>>>> Practice from 38 lesson dispatch(reducer), actions
+=======
+                <Route path="/friends" component={FriendsPageContainer} />
+>>>>>>> Presentation and Container components. Practice from 56 lesson
                 <Route path="/messages" component={MessagesPage} />
 =======
                 <Route path="/profile" render={() => <ProfilePage store={props.store} />} />

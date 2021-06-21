@@ -20,6 +20,7 @@ const friendsPageReducer = (state = initialState, action) => {
             };
         case TOGGLE_FOLLOWED:
             return {
+                ...state,
                 users: state.users.map( u => {
                     if(u.id === action.userId) {
                         u.followed = !u.followed

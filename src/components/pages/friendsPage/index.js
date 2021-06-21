@@ -1,3 +1,3 @@
-import FriendsPage from './friendsPage';
+import FriendsPageContainer from './friendsPageContainer';
 
-export default FriendsPage;
+export default FriendsPageContainer;
