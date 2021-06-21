@@ -12,12 +12,18 @@ class FriendsPage extends Component {
             axios.get(`${_apiBase}/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
             .then(response => {
                 this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
-                
-            }).then(console.log(window.store.getState()));
+                this.props.setTotalUsersCount(response.data.totalCount);   
+            });
     }
     
-    
+    onPageSelected = (num) => {
+        this.props.setPageNumber(num);
+        const _apiBase = 'https://social-network.samuraijs.com/api/1.0';
+            axios.get(`${_apiBase}/users?count=${this.props.pageSize}&page=${num}`)
+            .then(response => {
+                this.props.setUsers(response.data.items); 
+            });
+    }
 
     render () {
         
@@ -27,16 +33,24 @@ class FriendsPage extends Component {
             pages.push(i);
         };
 
+        const {currentPage} = this.props;
+        const nextPages = currentPage + 2;
+        const prevPages = currentPage - 2;
+
         return (  
             <div className="friends__wrapper">
                 <div className="pagination">
                         {
-                            pages.map(num => {
-                                    return <span 
-                                                key={num} 
-                                                className={`pagination__item ${num === this.props.currentPage ? 'pagination__item_active' : ''}`}>
-                                                {num}</span>
-                            })
+                            pages
+                                .filter(num => (num === 1 || num === currentPage || (num >= prevPages && num <= nextPages) || num === pagesCount) )
+                                .map(num =>
+                                    <span 
+                                        key={num} 
+                                        className={`pagination__item ${num === this.props.currentPage ? 'pagination__item_active' : ''}`}
+                                        onClick={() => this.onPageSelected(num)}>
+                                        {num}
+                                    </span>)
+                                
                         }
                 </div>
                 <ul className="friends__list">
