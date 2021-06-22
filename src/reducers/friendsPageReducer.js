@@ -2,12 +2,14 @@ const SET_USERS = 'SET_USERS';
 const TOGGLE_FOLLOWED = 'TOGGLE_FOLLOWED';
 const SET_PAGE_NUMBER = 'SET_PAGE_NUMBER';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+const SET_IS_LOADING = 'SET_IS_LOADING';
 
 const initialState = {
     users: [],
     totalUsersCount: 0,
     pageSize: 5,
-    currentPage: 1
+    currentPage: 1,
+    isLoading: false
     
 }
 
@@ -32,6 +34,8 @@ const friendsPageReducer = (state = initialState, action) => {
             return {...state, currentPage: action.num};
         case SET_TOTAL_USERS_COUNT:
             return {...state, totalUsersCount: action.count};
+        case SET_IS_LOADING:
+            return {...state, isLoading: action.isLoading}
         default:
             return state;
     }
@@ -41,5 +45,6 @@ export const setUsersAC = (users) => ({type: SET_USERS, users});
 export const toggleFollowedAC = (userId) => ({type: TOGGLE_FOLLOWED, userId});
 export const setPageNumber = (num) => ({type: SET_PAGE_NUMBER, num});
 export const setTotalUsersCount = (count) => ({type: SET_TOTAL_USERS_COUNT, count});
+export const setIsLoading = (isLoading) => ({type: SET_IS_LOADING, isLoading})
 
 export default friendsPageReducer;
