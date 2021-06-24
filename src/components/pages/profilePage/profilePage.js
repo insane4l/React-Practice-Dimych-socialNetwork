@@ -1,26 +1,31 @@
 import React from 'react';
 import PostAddFormContainer from './postAddForm/postAddFormContainer';
 import PostsTimlineContainer from './postsTimeline/postsTimelineContainer';
+import Spinner from '../../spinner';
 
 import coverImg from './coverImg.jpeg';
 import profilePhoto from './profilePhoto.jpg';
 import './profilePage.scss';
 
-const ProfilePage = () => {
+const ProfilePage = (props) => {
+    
+    if (!props.user) {
+        return <Spinner />
+    }
+
     return (
         <>  
-            
             <div className="profile__info">
                 <div className="profile__info-images">
                     <img className="profile__info-cover" src={coverImg} alt="" />
-                    <img className="profile__info-photo" src={profilePhoto} alt="" />
+                    <img className="profile__info-photo" src={props.user.photos.small} alt="" />
                 </div>
 
-                <h1 className="page__name">Roman Karpeyev</h1>
+                <h1 className="page__name">{props.user.fullName}</h1>
 
                 <button className="view-data__btn">View Profile Info</button>
 
-                {/* <div className="profile__data-block">
+                <div className="profile__data-block">
                     <div className="profile__data-row">
                         <div className="profile__data-item birth__label">Birthday:</div>
                         <div className="profile__data-item birth__value">24 january</div>
@@ -37,7 +42,7 @@ const ProfilePage = () => {
                         <div className="profile__data-item website__label">Website:</div>
                         <div className="profile__data-item website__value">https://karpeyev.ru</div>
                     </div>
-                </div> */}
+                </div>
             </div>
 
             
@@ -51,4 +56,4 @@ const ProfilePage = () => {
     )
 }
 
-export default ProfilePage
+export default ProfilePage;

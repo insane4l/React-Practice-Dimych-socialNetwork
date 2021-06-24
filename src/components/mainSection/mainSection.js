@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import {ProfilePage, FriendsPageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage} from '../pages';
+import {ProfilePageContainer, FriendsPageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage} from '../pages';
 
 import './mainSection.scss';
 
@@ -8,6 +8,7 @@ const MainSection = () => {
     return (
         <main className="main-section">
             <div className="section">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -21,6 +22,9 @@ const MainSection = () => {
                 <Route path="/profile" render={() => <ProfilePage state={props.state} dispatch={props.dispatch} />} />
 >>>>>>> Practice from 38 lesson dispatch(reducer), actions
 =======
+=======
+                <Route path="/profile/:userId" component={ProfilePageContainer} />
+>>>>>>> Profile page(ajax, withRouter, props.match.params). Practice from 58-60 lessons
                 <Route path="/friends" component={FriendsPageContainer} />
 >>>>>>> Presentation and Container components. Practice from 56 lesson
                 <Route path="/messages" component={MessagesPage} />
