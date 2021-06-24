@@ -1,3 +1,3 @@
-import ProfilePage from './profilePage';
+import ProfilePageContainer from './profilePageContainer';
 
-export default ProfilePage;
+export default ProfilePageContainer;

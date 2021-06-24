@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import {ProfilePage, FriendsPageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage} from '../pages';
+import {ProfilePageContainer, FriendsPageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage} from '../pages';
 
 import './mainSection.scss';
 
@@ -8,7 +8,7 @@ const MainSection = () => {
     return (
         <main className="main-section">
             <div className="section">
-                <Route path="/profile" component={ProfilePage} />
+                <Route path="/profile/:userId" component={ProfilePageContainer} />
                 <Route path="/friends" component={FriendsPageContainer} />
                 <Route path="/messages" component={MessagesPage} />
                 <Route path="/news" component={NewsPage} />

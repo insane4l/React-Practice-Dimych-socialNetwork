@@ -1,5 +1,6 @@
 const UPDATE_NEW_POST_VALUE = 'UPDATE_NEW_POST_VALUE';
 const ADD_POST = 'ADD_POST';
+const SET_USER = 'SET_USER';
 
 const initialState = {
     messages: [
@@ -7,7 +8,8 @@ const initialState = {
         {id: 2, label: '2 post'},
         {id: 3, label: 'ok this is 3 post'}
     ],
-    inputValue: ""
+    inputValue: "",
+    selectedUser: null
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -30,6 +32,8 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 inputValue: action.value
             };
+        case SET_USER:
+            return {...state, selectedUser: action.user};
         default:
             return state;
     }
@@ -41,5 +45,6 @@ export const changePostValueAction = (value) => ({
     type: UPDATE_NEW_POST_VALUE, value
 });
 export const addPostAction = () => ({type: ADD_POST});
+export const setUserAction = (user) => ({type: SET_USER, user});
 
 export default profilePageReducer;

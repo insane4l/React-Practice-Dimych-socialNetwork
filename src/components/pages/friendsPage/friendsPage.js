@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 
 import './frinedsPage.scss';
 
@@ -35,11 +36,13 @@ const FriendsPage = (props) => {
                         const btnLabel = u.followed ? 'Followed' : 'Follow';
                         return (
                             <li key={u.id} className="friends__list-item">
-                                <div className="friend__image">
-                                    <img src={u.photos.small} alt="friend_image" />
-                                </div>
+                                <NavLink to={"/profile/" + u.id}>
+                                    <div className="friend__image">
+                                        <img src={u.photos.small} alt="friend_image" />
+                                    </div>
+                                </NavLink>
                                 <div className="friend__info">
-                                    <div className="friend__name">{u.name}</div>
+                                    <NavLink to={"/profile/" + u.id} ><div className="friend__name">{u.name}</div></NavLink>
                                     <div className="friend__status">{u.status}</div>
                                     <a className="friend__messages-link" href="/messages">Write message</a>
                                     <button onClick={() => props.toggleFollowed(u.id)}>{btnLabel}</button>
