@@ -16,7 +16,8 @@ class FriendsPageContainer extends Component {
         .then(response => {
             this.props.setIsLoading(false); 
             this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);  
+            this.props.setTotalUsersCount(response.data.totalCount); 
+            console.log(this.props); 
         });
     }
 
