@@ -12,12 +12,11 @@ class FriendsPageContainer extends Component {
     componentDidMount() {
         this.props.setIsLoading(true);
         const _apiBase = 'https://social-network.samuraijs.com/api/1.0';
-        axios.get(`${_apiBase}/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+        axios.get(`${_apiBase}/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {withCredentials: true})
         .then(response => {
             this.props.setIsLoading(false); 
             this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount); 
-            console.log(this.props); 
+            this.props.setTotalUsersCount(response.data.totalCount);
         });
     }
 
@@ -25,7 +24,7 @@ class FriendsPageContainer extends Component {
         this.props.setIsLoading(true);
         this.props.setPageNumber(num);
         const _apiBase = 'https://social-network.samuraijs.com/api/1.0';
-            axios.get(`${_apiBase}/users?count=${this.props.pageSize}&page=${num}`)
+            axios.get(`${_apiBase}/users?count=${this.props.pageSize}&page=${num}`, {withCredentials: true})
             .then(response => {
                 this.props.setIsLoading(false);
                 this.props.setUsers(response.data.items);
