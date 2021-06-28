@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import * as axios from 'axios';
+import usersAPI from '../../../services/usersAPI';
 import FriendsPage from './friendsPage';
 import Spinner from '../../spinner';
 import {toggleFollowedAC, setUsersAC, setPageNumber, setTotalUsersCount, setIsLoading} from '../../../reducers/friendsPageReducer';
@@ -11,24 +11,22 @@ class FriendsPageContainer extends Component {
 
     componentDidMount() {
         this.props.setIsLoading(true);
-        const _apiBase = 'https://social-network.samuraijs.com/api/1.0';
-        axios.get(`${_apiBase}/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {withCredentials: true})
-        .then(response => {
-            this.props.setIsLoading(false); 
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);
-        });
+        usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
+            .then(response => {
+                this.props.setIsLoading(false); 
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount);
+            });
     }
 
     onPageSelected = (num) => {
         this.props.setIsLoading(true);
         this.props.setPageNumber(num);
-        const _apiBase = 'https://social-network.samuraijs.com/api/1.0';
-            axios.get(`${_apiBase}/users?count=${this.props.pageSize}&page=${num}`, {withCredentials: true})
-            .then(response => {
-                this.props.setIsLoading(false);
-                this.props.setUsers(response.data.items);
-            });
+        usersAPI.getUsers(this.props.pageSize, num)
+                .then(response => {
+                    this.props.setIsLoading(false);
+                    this.props.setUsers(response.data.items);
+                });
     }
 
     render () {

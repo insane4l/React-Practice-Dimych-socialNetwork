@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import * as axios from 'axios';
+import usersAPI from '../../../services/usersAPI';
 
 import './frinedsPage.scss';
 
@@ -47,37 +47,22 @@ const FriendsPage = (props) => {
                                     <div className="friend__status">{u.status}</div>
                                     <a className="friend__messages-link" href="/messages">Write message</a>
                                     <button onClick={() => {
-                                        const _base = `https://social-network.samuraijs.com/api/1.0/follow/${u.id}`;
-                                        axios.get(_base, {withCredentials: true})
-                                             .then(followed => {
-                                                 if(!followed.data) {
-                                                    axios.post(_base, {}, 
-                                                            {
-                                                                withCredentials: true,
-                                                                headers: {
-                                                                    "API-KEY": "e88bb7e6-af23-49e2-8781-5099f9ee4dd5"
-                                                                }
-                                                            })
-                                                         .then(response => {
-                                                             if(response.status === 200) {
+                                        usersAPI.checkFollowStatus(u.id)
+                                                .then(followed => {
+                                                    if(!followed.data) {
+                                                        usersAPI.followToUser(u.id).then(response => {
+                                                            if(response.status === 200) {
                                                                 props.toggleFollowed(u.id)
-                                                             }
-                                                         })
-                                                 } else {
-                                                    axios.delete(_base, 
-                                                            {
-                                                                withCredentials: true,
-                                                                headers: {
-                                                                    "API-KEY": "e88bb7e6-af23-49e2-8781-5099f9ee4dd5"
-                                                                }
-                                                            })
-                                                         .then(response => {
-                                                             if(response.status === 200) {
+                                                            }
+                                                        })
+                                                    } else {
+                                                        usersAPI.unfollowFromUser(u.id).then(response => {
+                                                            if(response.status === 200) {
                                                                 props.toggleFollowed(u.id)
-                                                             }
-                                                         })
-                                                 }
-                                             })
+                                                            }
+                                                        })
+                                                    }
+                                                })
                                         
                                         }
                                     }>{btnLabel}</button>
