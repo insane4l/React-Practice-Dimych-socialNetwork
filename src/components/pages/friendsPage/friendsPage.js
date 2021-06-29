@@ -46,25 +46,29 @@ const FriendsPage = (props) => {
                                     <NavLink to={"/profile/" + u.id} ><div className="friend__name">{u.name}</div></NavLink>
                                     <div className="friend__status">{u.status}</div>
                                     <a className="friend__messages-link" href="/messages">Write message</a>
-                                    <button onClick={() => {
-                                        usersAPI.checkFollowStatus(u.id)
-                                                .then(followed => {
-                                                    if(!followed.data) {
-                                                        usersAPI.followToUser(u.id).then(response => {
-                                                            if(response.status === 200) {
-                                                                props.toggleFollowed(u.id)
-                                                            }
-                                                        })
-                                                    } else {
-                                                        usersAPI.unfollowFromUser(u.id).then(response => {
-                                                            if(response.status === 200) {
-                                                                props.toggleFollowed(u.id)
-                                                            }
-                                                        })
-                                                    }
-                                                })
-                                        
+                                    <button className="follow-btn"
+                                        disabled={props.followingInProgress.some(id => id === u.id)}
+                                        onClick={() => {
+                                            props.setFollowingInProgress(u.id, true);
+                                            usersAPI.checkFollowStatus(u.id).then(followed => {
+                                                if(!followed.data) {
+                                                    usersAPI.followToUser(u.id).then(response => {
+                                                        if(response.status === 200) {
+                                                            props.toggleFollowed(u.id)
+                                                            props.setFollowingInProgress(u.id, false);
+                                                        }
+                                                    })
+                                                } else {
+                                                    usersAPI.unfollowFromUser(u.id).then(response => {
+                                                        if(response.status === 200) {
+                                                            props.toggleFollowed(u.id);
+                                                            props.setFollowingInProgress(u.id, false);
+                                                        }
+                                                    })
+                                                }
+                                            })
                                         }
+                                        
                                     }>{btnLabel}</button>
                                 </div>
                             </li>

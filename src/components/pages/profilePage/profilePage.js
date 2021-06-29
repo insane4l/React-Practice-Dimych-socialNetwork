@@ -3,8 +3,6 @@ import PostAddFormContainer from './postAddForm/postAddFormContainer';
 import PostsTimlineContainer from './postsTimeline/postsTimelineContainer';
 import Spinner from '../../spinner';
 
-import coverImg from './coverImg.jpeg';
-import profilePhoto from './profilePhoto.jpg';
 import './profilePage.scss';
 
 const ProfilePage = (props) => {
@@ -17,7 +15,7 @@ const ProfilePage = (props) => {
         <>  
             <div className="profile__info">
                 <div className="profile__info-images">
-                    <img className="profile__info-cover" src={coverImg} alt="" />
+                    <img className="profile__info-cover" src={props.user.photos.large} alt="" />
                     <img className="profile__info-photo" src={props.user.photos.small} alt="" />
                 </div>
 
