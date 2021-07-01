@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import usersAPI from '../../../services/usersAPI';
 import FriendsPage from './friendsPage';
 import Spinner from '../../spinner';
-import {toggleFollowedAC, setUsersAC, setPageNumber, setTotalUsersCount, setIsLoading, setFollowingInProgress} from '../../../reducers/friendsPageReducer';
+import {toggleFollowed, setUsers, setPageNumber, setTotalUsersCount, setIsLoading, setFollowingInProgress} from '../../../reducers/friendsPageReducer';
 
 
 
@@ -58,27 +58,8 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        setUsers: (users) => {
-            dispatch(setUsersAC(users));
-        },
-        
-        toggleFollowed: (userId) => {
-            dispatch(toggleFollowedAC(userId));
-        },
-        setTotalUsersCount: (count) => {
-            dispatch(setTotalUsersCount(count));
-        },
-        setPageNumber: (num) => {
-            dispatch(setPageNumber(num));
-        },
-        setIsLoading: (loading) => {
-            dispatch(setIsLoading(loading));
-        },
-        setFollowingInProgress: (userId, isInProgress) => {
-            dispatch(setFollowingInProgress(userId, isInProgress));
-        }
-    }
+const mapDispatchToProps = {
+    setUsers, toggleFollowed, setTotalUsersCount, setPageNumber, setIsLoading, setFollowingInProgress
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsPageContainer);

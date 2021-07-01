@@ -50,11 +50,12 @@ const friendsPageReducer = (state = initialState, action) => {
     }
 }
 
-export const setUsersAC = (users) => ({type: SET_USERS, users});
-export const toggleFollowedAC = (userId) => ({type: TOGGLE_FOLLOWED, userId});
+export const setUsers = (users) => ({type: SET_USERS, users});
+export const toggleFollowed = (userId) => ({type: TOGGLE_FOLLOWED, userId});
 export const setPageNumber = (num) => ({type: SET_PAGE_NUMBER, num});
 export const setTotalUsersCount = (count) => ({type: SET_TOTAL_USERS_COUNT, count});
 export const setIsLoading = (isLoading) => ({type: SET_IS_LOADING, isLoading});
 export const setFollowingInProgress = (userId, isInProgress) => ({ type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress});
+
 
 export default friendsPageReducer;

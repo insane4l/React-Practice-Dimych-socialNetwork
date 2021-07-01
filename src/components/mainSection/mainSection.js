@@ -13,6 +13,7 @@ const MainSection = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <Route path="/profile" component={ProfilePage} />
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -25,6 +26,9 @@ const MainSection = () => {
 =======
                 <Route path="/profile/:userId" component={ProfilePageContainer} />
 >>>>>>> Profile page(ajax, withRouter, props.match.params). Practice from 58-60 lessons
+=======
+                <Route path="/profile" component={ProfilePageContainer} />
+>>>>>>> mapDispatchToProps refactoring. Show author profile (when authorized + click profile page)
                 <Route path="/friends" component={FriendsPageContainer} />
 >>>>>>> Presentation and Container components. Practice from 56 lesson
                 <Route path="/messages" component={MessagesPage} />

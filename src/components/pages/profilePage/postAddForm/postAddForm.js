@@ -1,16 +1,16 @@
 import React from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {changeValueActionCreator, addPostActionCreator} from '../../../../store';
 =======
 // import {changePostValueAction, addPostAction} from '../../../../reducers/profilePageReducer';
 >>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
+=======
+>>>>>>> mapDispatchToProps refactoring. Show author profile (when authorized + click profile page)
 
 import './postAddForm.scss';
 
 const PostAddForm = (props) => {
-    
-    let newPostElement = React.createRef();
-    
 
 <<<<<<< HEAD
     const changeValue = () => {
@@ -19,8 +19,12 @@ const PostAddForm = (props) => {
 =======
     const onChangeValue = (e) => {
         const value = e.target.value;
+<<<<<<< HEAD
         props.changeInputValue(value);
 >>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
+=======
+        props.changePostValue(value);
+>>>>>>> mapDispatchToProps refactoring. Show author profile (when authorized + click profile page)
     }
 
     const onSubmit = (e) => {
@@ -48,7 +52,6 @@ const PostAddForm = (props) => {
                     placeholder="Type new post message here.."
                     maxLength="1500"
                     required
-                    ref={newPostElement}
                     value={props.inputValue}
                     onChange={onChangeValue}>
 
