@@ -20,4 +20,6 @@ const authReducer = (state = initialState, action) => {
 
 export const setAuthData = (email, id, login, isAuthorized) => ({ type: SET_AUTH_DATA, data: {email, id, login}, isAuthorized });
 
+
+
 export default authReducer;
