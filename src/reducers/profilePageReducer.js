@@ -1,5 +1,5 @@
 const UPDATE_NEW_POST_VALUE = 'UPDATE_NEW_POST_VALUE';
-const ADD_POST = 'ADD_POST';
+const ADD_NEW_POST = 'ADD_NEW_POST';
 const SET_USER = 'SET_USER';
 
 const initialState = {
@@ -14,7 +14,7 @@ const initialState = {
 
 const profilePageReducer = (state = initialState, action) => {
     switch(action.type) {
-        case ADD_POST:
+        case ADD_NEW_POST:
             let length = state.messages.length;
             const id = ++length;
             const newState = {
@@ -41,10 +41,8 @@ const profilePageReducer = (state = initialState, action) => {
 
 
 
-export const changePostValueAction = (value) => ({
-    type: UPDATE_NEW_POST_VALUE, value
-});
-export const addPostAction = () => ({type: ADD_POST});
+export const changePostValue = (value) => ({type: UPDATE_NEW_POST_VALUE, value});
+export const addNewPost = () => ({type: ADD_NEW_POST});
 export const setUserAction = (user) => ({type: SET_USER, user});
 
 export default profilePageReducer;

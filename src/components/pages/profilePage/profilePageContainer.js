@@ -6,11 +6,19 @@ import {setUserAction} from '../../../reducers/profilePageReducer';
 import ProfilePage from './profilePage';
 
 class ProfilePageContainer extends Component {
-    componentDidMount() {
-        const userId = this.props.match.params.userId;
-        usersAPI.getUserProfile(userId).then(response => {
-            this.props.setUserAction(response.data);
-        });
+    componentDidMount() { 
+        
+        usersAPI.getUserAuthData().then(response => {
+                    const authId = response.data.data.id;
+                    const anotherUserId = this.props.match.params.userId;
+                    const userId = anotherUserId ? anotherUserId : authId;
+
+                    usersAPI.getUserProfile(userId).then(response => {
+                        this.props.setUserAction(response.data);
+                    });
+        })
+        
+        
     }
 
     render() {

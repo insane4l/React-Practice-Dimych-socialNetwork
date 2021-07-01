@@ -1,16 +1,12 @@
 import React from 'react';
-// import {changePostValueAction, addPostAction} from '../../../../reducers/profilePageReducer';
 
 import './postAddForm.scss';
 
 const PostAddForm = (props) => {
-    
-    let newPostElement = React.createRef();
-    
 
     const onChangeValue = (e) => {
         const value = e.target.value;
-        props.changeInputValue(value);
+        props.changePostValue(value);
     }
 
     const onSubmit = (e) => {
@@ -28,7 +24,6 @@ const PostAddForm = (props) => {
                     placeholder="Type new post message here.."
                     maxLength="1500"
                     required
-                    ref={newPostElement}
                     value={props.inputValue}
                     onChange={onChangeValue}>
 

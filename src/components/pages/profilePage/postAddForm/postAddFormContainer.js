@@ -1,5 +1,5 @@
 import React from 'react';
-import {changePostValueAction, addPostAction} from '../../../../reducers/profilePageReducer';
+import {changePostValue, addNewPost} from '../../../../reducers/profilePageReducer';
 import PostAddForm from './';
 import {connect} from 'react-redux';
 
@@ -10,14 +10,9 @@ const mapStateToProps = (state) => {
     }
 };
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        changeInputValue: (value) => {
-            const action = changePostValueAction(value);
-            dispatch(action);
-        },
-        addNewPost: () => {dispatch(addPostAction())}
-    }
+const mapDispatchToProps = {
+    changePostValue,
+    addNewPost
 };
 
 const PostAddFormContainer = connect(mapStateToProps, mapDispatchToProps)(PostAddForm);
