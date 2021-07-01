@@ -1,32 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import usersAPI from '../../../services/usersAPI';
 import FriendsPage from './friendsPage';
 import Spinner from '../../spinner';
-import {toggleFollowed, setUsers, setPageNumber, setTotalUsersCount, setIsLoading, setFollowingInProgress} from '../../../reducers/friendsPageReducer';
+import {toggleFollowed, setUsers, setPageNumber, setTotalUsersCount, setIsLoading,
+        setFollowingInProgress, followOrUnfollow, setUsersList} from '../../../reducers/friendsPageReducer';
 
 
 
 class FriendsPageContainer extends Component {
 
     componentDidMount() {
-        this.props.setIsLoading(true);
-        usersAPI.getUsers(this.props.pageSize, this.props.currentPage)
-            .then(response => {
-                this.props.setIsLoading(false); 
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
-            });
+        this.props.setUsersList(this.props.pageSize, this.props.currentPage);
     }
 
     onPageSelected = (num) => {
-        this.props.setIsLoading(true);
         this.props.setPageNumber(num);
-        usersAPI.getUsers(this.props.pageSize, num)
-                .then(response => {
-                    this.props.setIsLoading(false);
-                    this.props.setUsers(response.data.items);
-                });
+        this.props.setUsersList(this.props.pageSize, num);
     }
 
     render () {
@@ -39,9 +28,9 @@ class FriendsPageContainer extends Component {
                             currentPage={this.props.currentPage}
                             onPageSelected={this.onPageSelected}
                             users={this.props.users}
-                            toggleFollowed={this.props.toggleFollowed}
                             followingInProgress={this.props.followingInProgress}
-                            setFollowingInProgress={this.props.setFollowingInProgress} />  
+                            setFollowingInProgress={this.props.setFollowingInProgress}
+                            followOrUnfollow={this.props.followOrUnfollow} />  
             </>
         )
     }
@@ -59,7 +48,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    setUsers, toggleFollowed, setTotalUsersCount, setPageNumber, setIsLoading, setFollowingInProgress
+    setUsers, toggleFollowed, setTotalUsersCount, setPageNumber,
+    setIsLoading, setFollowingInProgress, followOrUnfollow,
+    setUsersList
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsPageContainer);

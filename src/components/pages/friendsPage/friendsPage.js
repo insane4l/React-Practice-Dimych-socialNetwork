@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import usersAPI from '../../../services/usersAPI';
+
 
 import './frinedsPage.scss';
 
@@ -48,28 +48,8 @@ const FriendsPage = (props) => {
                                     <a className="friend__messages-link" href="/messages">Write message</a>
                                     <button className="follow-btn"
                                         disabled={props.followingInProgress.some(id => id === u.id)}
-                                        onClick={() => {
-                                            props.setFollowingInProgress(u.id, true);
-                                            usersAPI.checkFollowStatus(u.id).then(followed => {
-                                                if(!followed.data) {
-                                                    usersAPI.followToUser(u.id).then(response => {
-                                                        if(response.status === 200) {
-                                                            props.toggleFollowed(u.id)
-                                                            props.setFollowingInProgress(u.id, false);
-                                                        }
-                                                    })
-                                                } else {
-                                                    usersAPI.unfollowFromUser(u.id).then(response => {
-                                                        if(response.status === 200) {
-                                                            props.toggleFollowed(u.id);
-                                                            props.setFollowingInProgress(u.id, false);
-                                                        }
-                                                    })
-                                                }
-                                            })
-                                        }
-                                        
-                                    }>{btnLabel}</button>
+                                        onClick={() => props.followOrUnfollow(u.id)} >
+                                        {btnLabel}</button>
                                 </div>
                             </li>
                         )

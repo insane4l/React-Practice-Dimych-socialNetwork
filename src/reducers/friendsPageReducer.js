@@ -1,3 +1,6 @@
+import usersAPI from '../services/usersAPI';
+
+
 const SET_USERS = 'SET_USERS';
 const TOGGLE_FOLLOWED = 'TOGGLE_FOLLOWED';
 const SET_PAGE_NUMBER = 'SET_PAGE_NUMBER';
@@ -56,6 +59,44 @@ export const setPageNumber = (num) => ({type: SET_PAGE_NUMBER, num});
 export const setTotalUsersCount = (count) => ({type: SET_TOTAL_USERS_COUNT, count});
 export const setIsLoading = (isLoading) => ({type: SET_IS_LOADING, isLoading});
 export const setFollowingInProgress = (userId, isInProgress) => ({ type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress});
+
+
+
+export const followOrUnfollow = (userId) => {
+    return (dispatch) => {
+        dispatch(setFollowingInProgress(userId, true));
+        usersAPI.checkFollowStatus(userId).then(followed => {
+            if(!followed.data) {
+                usersAPI.followToUser(userId).then(response => {
+                    if(response.status === 200) {
+                        dispatch(toggleFollowed(userId));
+                        dispatch(setFollowingInProgress(userId, false));
+                    }
+                })
+            } else {
+                usersAPI.unfollowFromUser(userId).then(response => {
+                    if(response.status === 200) {
+                        dispatch(toggleFollowed(userId));
+                        dispatch(setFollowingInProgress(userId, false));
+                    }
+                })
+            }
+        })
+    }
+}
+
+
+export const setUsersList = (pageSize, currentPage) => {
+    return (dispatch) => {
+        dispatch(setIsLoading(true));
+        usersAPI.getUsers(pageSize, currentPage)
+            .then(response => {
+                dispatch(setIsLoading(false)); 
+                dispatch(setUsers(response.data.items));
+                dispatch(setTotalUsersCount(response.data.totalCount));
+            });
+    }
+}
 
 
 export default friendsPageReducer;
