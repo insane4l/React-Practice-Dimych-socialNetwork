@@ -14,6 +14,7 @@ const MainSection = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <Route path="/profile" component={ProfilePage} />
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -29,6 +30,9 @@ const MainSection = () => {
 =======
                 <Route path="/profile" component={ProfilePageContainer} />
 >>>>>>> mapDispatchToProps refactoring. Show author profile (when authorized + click profile page)
+=======
+                <Route path="/profile/:userId" component={ProfilePageContainer} />
+>>>>>>> Some functions refactored into thunks
                 <Route path="/friends" component={FriendsPageContainer} />
 >>>>>>> Presentation and Container components. Practice from 56 lesson
                 <Route path="/messages" component={MessagesPage} />
