@@ -1,3 +1,5 @@
+import usersAPI from '../services/usersAPI';
+
 const UPDATE_NEW_POST_VALUE = 'UPDATE_NEW_POST_VALUE';
 const ADD_NEW_POST = 'ADD_NEW_POST';
 const SET_USER = 'SET_USER';
@@ -44,5 +46,21 @@ const profilePageReducer = (state = initialState, action) => {
 export const changePostValue = (value) => ({type: UPDATE_NEW_POST_VALUE, value});
 export const addNewPost = () => ({type: ADD_NEW_POST});
 export const setUserAction = (user) => ({type: SET_USER, user});
+
+
+
+export const setUserProfile = (urlParamId) => {
+    return (dispatch) => {
+        usersAPI.getUserAuthData().then(response => {
+                    
+            const authId = response.data.data.id;
+            const userId = urlParamId ? urlParamId : authId;
+
+            usersAPI.getUserProfile(userId).then(response => {
+                dispatch(setUserAction(response.data));
+            });
+})
+    }
+}
 
 export default profilePageReducer;
