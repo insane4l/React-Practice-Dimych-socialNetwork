@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router-dom';
+import withAuthRedirect from '../../redirectHOC';
 import FriendsPage from './friendsPage';
 import Spinner from '../../spinner';
 import {toggleFollowed, setUsers, setPageNumber, setTotalUsersCount, setIsLoading,
@@ -20,8 +20,6 @@ class FriendsPageContainer extends Component {
     }
 
     render () {
-
-        if(!this.props.isAuth) return <Redirect to='/profile' />
 
         return (
             <>
@@ -47,8 +45,7 @@ const mapStateToProps = (state) => {
         pageSize: state.friendsPage.pageSize,
         currentPage: state.friendsPage.currentPage,
         isLoading: state.friendsPage.isLoading,
-        followingInProgress: state.friendsPage.followingInProgress,
-        isAuth: state.auth.isAuth
+        followingInProgress: state.friendsPage.followingInProgress
     }
 };
 
@@ -58,4 +55,5 @@ const mapDispatchToProps = {
     setUsersList
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FriendsPageContainer);
+
+export default withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(FriendsPageContainer));
