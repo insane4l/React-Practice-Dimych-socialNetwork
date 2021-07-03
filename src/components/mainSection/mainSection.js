@@ -8,7 +8,7 @@ const MainSection = () => {
     return (
         <main className="main-section">
             <div className="section">
-                <Route path="/profile/:userId" component={ProfilePageContainer} />
+                <Route path="/profile/:userId?" component={ProfilePageContainer} />
                 <Route path="/friends" component={FriendsPageContainer} />
                 <Route path="/messages" component={MessagesPage} />
                 <Route path="/news" component={NewsPage} />

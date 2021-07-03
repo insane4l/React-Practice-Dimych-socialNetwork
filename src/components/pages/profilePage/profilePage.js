@@ -2,6 +2,7 @@ import React from 'react';
 import PostAddFormContainer from './postAddForm/postAddFormContainer';
 import PostsTimlineContainer from './postsTimeline/postsTimelineContainer';
 import Spinner from '../../spinner';
+import ProfileStatus from './profileStatus';
 
 import './profilePage.scss';
 
@@ -20,6 +21,7 @@ const ProfilePage = (props) => {
                 </div>
 
                 <h1 className="page__name">{props.user.fullName}</h1>
+                <ProfileStatus />
 
                 <button className="view-data__btn">View Profile Info</button>
 

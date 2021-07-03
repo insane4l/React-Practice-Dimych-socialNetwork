@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {setUserProfile} from '../../../reducers/profilePageReducer';
+import {getUserProfile} from '../../../reducers/profilePageReducer';
 import ProfilePage from './profilePage';
 
 class ProfilePageContainer extends Component {
     componentDidMount() { 
-        this.props.setUserProfile(this.props.match.params.userId);
+        this.props.getUserProfile(this.props.match.params.userId);
     }
 
     render() {
@@ -23,7 +23,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    setUserProfile
+    getUserProfile
 };
 
 

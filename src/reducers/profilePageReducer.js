@@ -49,13 +49,12 @@ export const setUserAction = (user) => ({type: SET_USER, user});
 
 
 
-export const setUserProfile = (urlParamId) => {
+export const getUserProfile = (urlParamId) => {
     return (dispatch) => {
         usersAPI.getUserAuthData().then(response => {
-            //NOT WORKING CORRECTLY
             const authId = response.data.data.id;
             const userId = urlParamId ? urlParamId : authId;
-
+            
             usersAPI.getUserProfile(userId).then(response => {
                 dispatch(setUserAction(response.data));
             });

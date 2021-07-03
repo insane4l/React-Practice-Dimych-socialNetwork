@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {compose} from 'redux';
 import {connect} from 'react-redux';
 import withAuthRedirect from '../../redirectHOC';
 import FriendsPage from './friendsPage';
@@ -55,5 +56,7 @@ const mapDispatchToProps = {
     setUsersList
 };
 
-
-export default withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(FriendsPageContainer));
+export default compose(
+                    connect(mapStateToProps, mapDispatchToProps),
+                    withAuthRedirect
+               )(FriendsPageContainer);
