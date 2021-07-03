@@ -60,5 +60,16 @@
         }
 
     }
+
+
+
+    &__status {
+        text-align: center;
+        &-text {
+        }
+        &-input {
+            border: 1px solid blue;
+        }
+    }
     
 }

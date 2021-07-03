@@ -15,6 +15,7 @@ const MainSection = () => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <Route path="/profile" component={ProfilePage} />
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -33,6 +34,9 @@ const MainSection = () => {
 =======
                 <Route path="/profile/:userId" component={ProfilePageContainer} />
 >>>>>>> Some functions refactored into thunks
+=======
+                <Route path="/profile/:userId?" component={ProfilePageContainer} />
+>>>>>>> compose()() from redux, local state, setState. Practice from 70-72 lessons.
                 <Route path="/friends" component={FriendsPageContainer} />
 >>>>>>> Presentation and Container components. Practice from 56 lesson
                 <Route path="/messages" component={MessagesPage} />
