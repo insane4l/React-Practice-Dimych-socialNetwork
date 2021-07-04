@@ -5,13 +5,23 @@ import './profilePage.scss';
 class ProfileStatus extends React.Component {
     state = {
         editMode: false,
-        message: 'status text here'
+        message: ""
     }
 
     toggleModes = () => {
+        
+    }
+    activateEditMode = () => {
         this.setState({
-            editMode: !this.state.editMode
+            editMode: true
         })
+    }
+
+    deactivateEditMode = () => {
+        this.setState({
+            editMode: false
+        });
+        this.props.updateProfileStatus(this.state.message);
     }
 
     updateMessage = (e) => {
@@ -24,15 +34,15 @@ class ProfileStatus extends React.Component {
     render() {
 
         const statusText = <div className="profile__status-text"
-                                onDoubleClick={this.toggleModes} >
-                            {this.state.message}</div>;
+                                onDoubleClick={this.activateEditMode} >
+                            {this.props.profileStatus || "......"}</div>;
 
         const statusInput = <input className="profile__status-input"
                                    value={this.state.message}
                                    type="text"
                                    autoFocus
                                    onChange={this.updateMessage}
-                                   onBlur={this.toggleModes} />;
+                                   onBlur={this.deactivateEditMode} />;
 
         return (
             <div className="profile__status">

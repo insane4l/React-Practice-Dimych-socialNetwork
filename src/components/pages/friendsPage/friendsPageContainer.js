@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import withAuthRedirect from '../../redirectHOC';
+import withAuthRedirect from '../../redirectHOC/withRedirect';
 import FriendsPage from './friendsPage';
 import Spinner from '../../spinner';
 import {toggleFollowed, setUsers, setPageNumber, setTotalUsersCount, setIsLoading,

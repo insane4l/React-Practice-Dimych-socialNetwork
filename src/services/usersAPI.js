@@ -21,6 +21,14 @@ const usersAPI = {
         return apiBase.get(`profile/${userId}`)
     },
 
+    getProfileStatus(userId) {
+        return apiBase.get(`profile/status/${userId}`)
+    },
+
+    setProfileStatus(message) {
+        return apiBase.put('profile/status', {status: message})
+    },
+
     checkFollowStatus(userId) {
         return apiBase.get(`follow/${userId}`)
     },
