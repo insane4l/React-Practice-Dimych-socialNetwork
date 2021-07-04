@@ -21,7 +21,7 @@ const ProfilePage = (props) => {
                 </div>
 
                 <h1 className="page__name">{props.user.fullName}</h1>
-                <ProfileStatus />
+                <ProfileStatus profileStatus={props.profileStatus} updateProfileStatus={props.updateProfileStatus} />
 
                 <button className="view-data__btn">View Profile Info</button>
 
