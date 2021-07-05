@@ -1,3 +1,4 @@
+import LoginPage from './loginPage';
 import ProfilePageContainer from './profilePage';
 import FriendsPageContainer from './friendsPage';
 import MessagesPage from './messagesPage';
@@ -6,6 +7,7 @@ import MusicPage from './musicPage';
 import SettingsPage from './settingsPage';
 
 export {
+    LoginPage,
     ProfilePageContainer,
     FriendsPageContainer,
     MessagesPage,
