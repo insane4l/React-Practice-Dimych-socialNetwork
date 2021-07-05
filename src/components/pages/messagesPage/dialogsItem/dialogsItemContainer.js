@@ -13,11 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeMessage: (text) => {
-            const action = changeMessageValueAction(text);
-            dispatch(action);
-        },
-        sendMessage: () => {
+        sendMessage: (messageBody) => {
             const newDate = new Date();
             const day = newDate.getDate();
             const month = newDate.getMonth() +1;
@@ -26,9 +22,7 @@ const mapDispatchToProps = (dispatch) => {
     
             const date = `${day}.${month} ${hours}:${minutes}`;
     
-            const action = sendMessageAction(date);
-    
-            dispatch(action);
+            dispatch(sendMessageAction(date, messageBody));
         }
     }
 };

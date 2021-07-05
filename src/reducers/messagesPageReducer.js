@@ -1,4 +1,3 @@
-const UPDATE_NEW_MESSAGE_VALUE = 'UPDATE_NEW_MESSAGE_VALUE';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
 const initialState = {
@@ -19,17 +18,11 @@ const initialState = {
                 {id: 1, label: "Hi man", date: "13.6 15:20", myMessage: true}
             ]
         }
-    ],
-    newMessageBody: "",
+    ]
 };
 
 const messagesPageReducer = (state = initialState, action) => {
     switch(action.type) {
-        case UPDATE_NEW_MESSAGE_VALUE:
-            return {
-                ...state,
-                newMessageBody: action.value
-            };
         case SEND_MESSAGE:
             let indx = state.dialogsList[0].messages.length;
             const key = ++indx;
@@ -40,12 +33,10 @@ const messagesPageReducer = (state = initialState, action) => {
             newState.dialogsList[0] = {...state.dialogsList[0]};
             newState.dialogsList[0].messages = [...state.dialogsList[0].messages,  {
                 id: key,
-                label: state.newMessageBody,
+                label: action.messageBody,
                 date: action.date,
                 myMessage: true
             }];
-            // console.log(state.dialogsList[0].messages === newState.dialogsList[0].messages); //must be false cause of immutable
-            newState.newMessageBody = "";
             return newState;
         default:
             return state;
@@ -53,10 +44,7 @@ const messagesPageReducer = (state = initialState, action) => {
 }
 
 
-export const changeMessageValueAction = (value) => ({
-    type: UPDATE_NEW_MESSAGE_VALUE, value
-});
-export const sendMessageAction = (date) => ({type: SEND_MESSAGE, date});
+export const sendMessageAction = (date, messageBody) => ({type: SEND_MESSAGE, date, messageBody});
 
 
 export default messagesPageReducer;

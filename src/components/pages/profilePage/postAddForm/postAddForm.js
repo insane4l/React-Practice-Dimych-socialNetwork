@@ -1,35 +1,40 @@
 import React from 'react';
+import {Field, reduxForm} from 'redux-form';
 
 import './postAddForm.scss';
 
+
+
+let ProfilePostsForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit} className="add-post__form">
+            <Field
+                component="textarea" 
+                className="add-post__textarea"
+                name="postBody" 
+                placeholder="Type new post message here.."
+                maxLength="1500"
+                required>
+
+            </Field>
+            <button className="add-post__btn">Post</button>
+        </form>
+    )
+}
+
+ProfilePostsForm = reduxForm({form: "postsForm"})(ProfilePostsForm);
+
 const PostAddForm = (props) => {
 
-    const onChangeValue = (e) => {
-        const value = e.target.value;
-        props.changePostValue(value);
-    }
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-        props.addNewPost();
+    const onFormSubmit = (formData) => {
+        props.addNewPost(formData.postBody);
     }
 
     return (
         <div className="add-post__block">
             <div className="add-post__title">Add new post</div>
-            <form onSubmit={onSubmit} action="#" className="add-post__form">
-                <textarea 
-                    className="add-post__textarea"
-                    name="new_post" 
-                    placeholder="Type new post message here.."
-                    maxLength="1500"
-                    required
-                    value={props.inputValue}
-                    onChange={onChangeValue}>
-
-                </textarea>
-                <button className="add-post__btn">Post</button>
-            </form>
+            <ProfilePostsForm onSubmit={onFormSubmit} />
         </div>
     )
 }

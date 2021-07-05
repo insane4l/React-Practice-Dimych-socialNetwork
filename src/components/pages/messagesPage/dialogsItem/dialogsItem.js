@@ -1,19 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import DialogsMessageForm from './dialogsMessageForm';
 
 import goBack from './goBack.svg';
 import './dialogsItem.scss';
 
 const DialogsItem = (props) => {
 
-    const onChangeMessage = (e) => {
-        let text = e.target.value;
-        props.changeMessage(text);
-    }
-
-    const onSendMessage = (e) => {
-        e.preventDefault();
-        props.sendMessage();
+    const onFormSubmit = (formData) => {
+        props.sendMessage(formData.messageBody);
     }
 
     return (
@@ -71,21 +66,7 @@ const DialogsItem = (props) => {
             </div>
 
             <div className="dialogs__item-footer">
-                <form 
-                    className="add-message__form"
-                    action="#"
-                    onSubmit={onSendMessage}>
-                    <input 
-                        className="add-message__input"
-                        name="new_message" 
-                        placeholder="Type new message here.."
-                        autoComplete="off"
-                        value={props.dialogs.newMessageBody}
-                        onChange={onChangeMessage}
-                        required>
-                    </input>
-                    <button className="add-message__btn">Send Message</button>
-                </form>
+                <DialogsMessageForm onSubmit={onFormSubmit} />
             </div>
         </div>
     )
