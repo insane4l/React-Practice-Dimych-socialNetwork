@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import DialogsMessageForm from './dialogsMessageForm';
 
 import goBack from './goBack.svg';
 import './dialogsItem.scss';
@@ -9,14 +10,8 @@ const DialogsItem = () => {
 =======
 const DialogsItem = (props) => {
 
-    const onChangeMessage = (e) => {
-        let text = e.target.value;
-        props.changeMessage(text);
-    }
-
-    const onSendMessage = (e) => {
-        e.preventDefault();
-        props.sendMessage();
+    const onFormSubmit = (formData) => {
+        props.sendMessage(formData.messageBody);
     }
 
 >>>>>>> Presentation component and Container component without redux. Practice from 43 lesson
@@ -61,6 +56,7 @@ const DialogsItem = (props) => {
 
             <div className="dialogs__item-footer">
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <form className="add-message__form" action="#">
 =======
                 <form 
@@ -82,6 +78,9 @@ const DialogsItem = (props) => {
                     </input>
                     <button className="add-message__btn">Send Message</button>
                 </form>
+=======
+                <DialogsMessageForm onSubmit={onFormSubmit} />
+>>>>>>> redux-form Practice from 76 lesson
             </div>
         </div>
     )

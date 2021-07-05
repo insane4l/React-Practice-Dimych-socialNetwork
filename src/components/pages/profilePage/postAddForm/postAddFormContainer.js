@@ -1,5 +1,5 @@
 import React from 'react';
-import {changePostValue, addNewPost} from '../../../../reducers/profilePageReducer';
+import {addNewPost} from '../../../../reducers/profilePageReducer';
 import PostAddForm from './';
 import {connect} from 'react-redux';
 
@@ -11,7 +11,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    changePostValue,
     addNewPost
 };
 

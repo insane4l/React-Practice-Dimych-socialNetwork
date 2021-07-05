@@ -11,7 +11,6 @@ const initialState = {
         {id: 2, label: '2 post'},
         {id: 3, label: 'ok this is 3 post'}
     ],
-    inputValue: "",
     selectedUser: null,
     profileStatus: ""
 };
@@ -25,17 +24,10 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 messages: [...state.messages, {
                     id,
-                    label: state.inputValue
+                    label: action.messageBody
                     }]
             };
-            newState.inputValue = "";
-            // console.log(state.messages === newState.messages); //must be false (not old state object changed "by link" immutable principle)
             return newState;
-        case UPDATE_NEW_POST_VALUE:
-            return {
-                ...state,
-                inputValue: action.value
-            };
         case SET_USER:
             return {...state, selectedUser: action.user};
         case SET_PROFILE_STATUS:
@@ -46,9 +38,7 @@ const profilePageReducer = (state = initialState, action) => {
 }
 
 
-
-export const changePostValue = (value) => ({type: UPDATE_NEW_POST_VALUE, value});
-export const addNewPost = () => ({type: ADD_NEW_POST});
+export const addNewPost = (messageBody) => ({type: ADD_NEW_POST, messageBody});
 export const setUserAction = (user) => ({type: SET_USER, user});
 export const setProfileStatus = (message) => ({type: SET_PROFILE_STATUS, message});
 
