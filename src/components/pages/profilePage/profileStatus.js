@@ -5,12 +5,9 @@ import './profilePage.scss';
 class ProfileStatus extends React.Component {
     state = {
         editMode: false,
-        message: ""
+        message: this.props.profileStatus
     }
 
-    toggleModes = () => {
-        
-    }
     activateEditMode = () => {
         this.setState({
             editMode: true
@@ -26,10 +23,19 @@ class ProfileStatus extends React.Component {
 
     updateMessage = (e) => {
         this.setState({
-            message: e.target.value
+            message: e.currentTarget.value
         })
     }
 
+
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.profileStatus !== this.props.profileStatus) {
+            this.setState({
+                message: this.props.profileStatus
+            });
+        }
+    }
 
     render() {
 
