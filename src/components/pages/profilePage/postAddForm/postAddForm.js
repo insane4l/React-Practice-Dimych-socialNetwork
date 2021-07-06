@@ -10,22 +10,27 @@ import {changeValueActionCreator, addPostActionCreator} from '../../../../store'
 >>>>>>> mapDispatchToProps refactoring. Show author profile (when authorized + click profile page)
 =======
 import {Field, reduxForm} from 'redux-form';
+<<<<<<< HEAD
 >>>>>>> redux-form Practice from 76 lesson
+=======
+import {required, maxLengthCreator} from '../../../../utils/validation/validators';
+import {Textarea} from '../../../common/formsControls/formsControls';
+>>>>>>> Redux-form validate, custom form component. Practice from 77 lesson
 
 import './postAddForm.scss';
 
-
+const maxLength20 = maxLengthCreator(20);
 
 let ProfilePostsForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit} className="add-post__form">
             <Field
-                component="textarea" 
+                validate={[required, maxLength20]}
+                component={Textarea} 
                 className="add-post__textarea"
                 name="postBody" 
                 placeholder="Type new post message here.."
-                maxLength="1500"
-                required>
+                maxLength="1500">
 
             </Field>
             <button className="add-post__btn">Post</button>
