@@ -13,8 +13,8 @@ import './formsControls.scss';
 
 //     return(
 //         <>
-//         <textarea {...input} {...meta} {...props} className={`${fieldClassName} ${errorClassName}`} />
-
+//         <textarea {...input} {...props} className={`${fieldClassName} ${errorClassName}`} /> 
+//         {/* {...meta} dont need to spread!! because of errors */}
 //         { hasError && <span className="error-status">{errorStatus}</span> }
 //         </>
 //     )
@@ -30,7 +30,7 @@ const CustomField = (Component) => ({input, meta, ...props}) => {
 
     return(
         <>
-        <Component {...input} {...meta} {...props} className={`${fieldClassName} ${errorClassName}`} />
+        <Component {...input} {...props} className={`${fieldClassName} ${errorClassName}`} />
 
         { hasError && <span className="error-status">{errorStatus}</span> }
         </>
