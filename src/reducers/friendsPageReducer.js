@@ -1,4 +1,4 @@
-import usersAPI from '../services/usersAPI';
+import {usersAPI} from '../services/snAPI';
 
 
 const SET_USERS = 'SET_USERS';

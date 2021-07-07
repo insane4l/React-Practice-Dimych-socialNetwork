@@ -8,10 +8,7 @@ const apiBase = axios.create({
     }
 })
 
-const usersAPI = {
-    getUserAuthData() {
-        return apiBase.get(`auth/me`)
-    },
+export const usersAPI = {
 
     getUsers(pageSize, currentPage) {
         return apiBase.get(`users?count=${pageSize}&page=${currentPage}`)
@@ -40,4 +37,15 @@ const usersAPI = {
     },
 }
 
-export default usersAPI;
+export const authAPI = {
+    getUserAuthData() {
+        return apiBase.get(`auth/me`)
+    },
+    login(email, password, rememberMe) {
+        return apiBase.post('/auth/login', {email, password, rememberMe});
+    },
+    logout() {
+        return apiBase.delete('auth/login');
+    }
+}
+

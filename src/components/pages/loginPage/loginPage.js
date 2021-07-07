@@ -1,20 +1,23 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
+import {connect} from 'react-redux';
+import {login} from '../../../reducers/authReducer';
 import {required, maxLengthCreator} from '../../../utils/validation/validators';
 import {Input} from '../../common/formsControls/formsControls';
+import {withSuccesAuthRedirect} from '../../redirectHOC/withRedirect';
 
 import './loginPage.scss';
 
-const maxLength15 = maxLengthCreator(15);
+const maxLength25 = maxLengthCreator(25);
 
 let LoginForm = (props) => {
     return (
         <form className="login__form" onSubmit={props.handleSubmit}>
             <div>
-                <Field validate={[required, maxLength15]} name="userName" component={Input} placeholder="enter user name" />
+                <Field validate={[required, maxLength25]} name="userEmail" component={Input} placeholder="enter user name" />
             </div>
             <div>
-                <Field validate={[required, maxLength15]} name="userPass" component={Input} placeholder="enter user password" />
+                <Field validate={[required, maxLength25]} name="userPass" component={Input} placeholder="enter user password" />
             </div>
             <div>
                 <Field name="rememberMe" component="input" type="checkbox" /> remember me
@@ -31,10 +34,9 @@ LoginForm = reduxForm({form: 'login'})(LoginForm);
 
 
 
-const LoginPage = () => {
-
+const LoginPage = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData);
+        props.login(formData.userEmail, formData.userPass, formData.rememberMe);
     }
 
     return (
@@ -45,4 +47,5 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage;
+
+export default withSuccesAuthRedirect(connect(null, {login})(LoginPage));

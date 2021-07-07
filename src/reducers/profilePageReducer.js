@@ -1,6 +1,5 @@
-import usersAPI from '../services/usersAPI';
+import {usersAPI, authAPI} from '../services/snAPI';
 
-const UPDATE_NEW_POST_VALUE = 'UPDATE_NEW_POST_VALUE';
 const ADD_NEW_POST = 'ADD_NEW_POST';
 const SET_USER = 'SET_USER';
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
@@ -46,7 +45,7 @@ export const setProfileStatus = (message) => ({type: SET_PROFILE_STATUS, message
 
 export const getUserProfile = (urlParamId) => {
     return (dispatch) => {
-        usersAPI.getUserAuthData().then(response => {
+        authAPI.getUserAuthData().then(response => {
             const authId = response.data.data.id;
             const userId = urlParamId ? urlParamId : authId;
 
