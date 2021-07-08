@@ -1,4 +1,5 @@
 import {authAPI} from '../services/snAPI';
+import {stopSubmit} from 'redux-form';
 
 const SET_AUTH_DATA = 'SET_AUTH_DATA';
 
@@ -13,7 +14,6 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch(action.type) {
         case SET_AUTH_DATA:
-            debugger;
             return {...state, ...action.payload};
         default:
             return state;
@@ -43,6 +43,9 @@ export const login = (email, password, rememberMe) => (dispatch) => {
 
         if (response.data.resultCode === 0) {
             dispatch(setUserAuthData());
+        } else {
+            const errorMessage = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+            dispatch(stopSubmit("login", {_error: errorMessage} ))
         }
     })
 }
