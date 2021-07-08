@@ -23,6 +23,9 @@ let LoginForm = (props) => {
             <div>
                 <Field name="rememberMe" component="input" type="checkbox" /> remember me
             </div>
+            {
+                props.error && <div className="submit-error">{props.error}</div>
+            }
             <div>
                 <button>Login</button>
             </div>
