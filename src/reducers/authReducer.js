@@ -28,13 +28,10 @@ export const setAuthData = (email, id, login, isAuthorized) => ({ type: SET_AUTH
 
 export const setUserAuthData = () => {
     return (dispatch) => {
-        
         authAPI.getUserAuthData().then(response => {
-            
             const {email, id, login} = response.data.data;
-            debugger;
+
             if(response.data.resultCode === 0) {
-                debugger;
                 dispatch(setAuthData(email, id, login, true));
             }
         });
@@ -43,8 +40,7 @@ export const setUserAuthData = () => {
 
 export const login = (email, password, rememberMe) => (dispatch) => {
     authAPI.login(email, password, rememberMe).then(response => {
-        console.log(response);
-        debugger;
+
         if (response.data.resultCode === 0) {
             dispatch(setUserAuthData());
         }
@@ -53,6 +49,7 @@ export const login = (email, password, rememberMe) => (dispatch) => {
 
 export const logout = () => (dispatch) => {
     authAPI.logout().then(response => {
+        
         if (response.data.resultCode === 0) {
             dispatch(setAuthData(null, null, null, false));
         }

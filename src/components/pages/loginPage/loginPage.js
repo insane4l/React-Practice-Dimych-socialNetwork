@@ -5,6 +5,7 @@ import {login} from '../../../reducers/authReducer';
 import {required, maxLengthCreator} from '../../../utils/validation/validators';
 import {Input} from '../../common/formsControls/formsControls';
 import {withSuccesAuthRedirect} from '../../redirectHOC/withRedirect';
+import {compose} from 'redux';
 
 import './loginPage.scss';
 
@@ -17,7 +18,7 @@ let LoginForm = (props) => {
                 <Field validate={[required, maxLength25]} name="userEmail" component={Input} placeholder="enter user name" />
             </div>
             <div>
-                <Field validate={[required, maxLength25]} name="userPass" component={Input} placeholder="enter user password" />
+                <Field validate={[required, maxLength25]} name="userPass" component={Input} type="password" placeholder="enter user password" />
             </div>
             <div>
                 <Field name="rememberMe" component="input" type="checkbox" /> remember me
@@ -48,4 +49,7 @@ const LoginPage = (props) => {
 }
 
 
-export default withSuccesAuthRedirect(connect(null, {login})(LoginPage));
+export default compose(withSuccesAuthRedirect,
+                       connect(null, {login})
+                       )
+                       (LoginPage);
