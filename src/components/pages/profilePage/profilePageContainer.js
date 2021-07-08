@@ -1,22 +1,35 @@
 import React, {Component} from 'react';
 import {compose} from 'redux';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getUserProfile, getProfileStatus, updateProfileStatus} from '../../../reducers/profilePageReducer';
 import ProfilePage from './profilePage';
+import { withAnonUserRedirect } from '../../redirectHOC/withRedirect';
 
 class ProfilePageContainer extends Component {
     componentDidMount() { 
         let userId = this.props.match.params.userId;
         if(!userId) {
-            userId = 17964;
-            console.warn('need a fix (with out hard coding) need fetch auth/me and get authorized user id')
+            userId = this.props.profileId;
         }
-        this.props.getUserProfile(userId);
-        this.props.getProfileStatus(userId);
+        if (userId) {
+            this.props.getUserProfile(userId);
+            this.props.getProfileStatus(userId);
+        }
     }
 
+    // getActualId() {
+    //     let userId = this.props.match.params.userId;
+    //     if(!userId) {
+    //         userId = this.props.profileId;
+    //     }
+    //     return userId;
+    // }
+
     render() {
+        if (!this.props.match.params.userId && !this.props.isUserAuthorized) {
+            return <Redirect to="/login" />
+        }
         return (
             <ProfilePage {...this.props} />
         )
@@ -26,7 +39,9 @@ class ProfilePageContainer extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.profilePage.selectedUser,
-        profileStatus: state.profilePage.profileStatus
+        profileStatus: state.profilePage.profileStatus,
+        profileId: state.auth.id,
+        isUserAuthorized: state.auth.isAuthorized
     }
 };
 
@@ -35,7 +50,6 @@ const mapDispatchToProps = {
     getProfileStatus,
     updateProfileStatus
 };
-
 
 
 export default compose(

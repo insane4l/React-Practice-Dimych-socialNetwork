@@ -1,6 +1,7 @@
 import React from 'react';
 import DialogsListContainer from './dialogsList/dialogsListContainer';
 import DialogsItemContainer from './dialogsItem/dialogsItemContainer';
+import {withAnonUserRedirect} from '../../redirectHOC/withRedirect';
 
 const MessagesPage = () => {
     return (
@@ -21,4 +22,4 @@ const MessagesPage = () => {
     )
 }
 
-export default MessagesPage;
+export default withAnonUserRedirect(MessagesPage);
