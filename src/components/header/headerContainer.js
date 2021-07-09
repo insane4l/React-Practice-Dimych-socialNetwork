@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
 import Header from './header';
-import {setUserAuthData, logout} from '../../reducers/authReducer';
+import {logout} from '../../reducers/authReducer';
 import {connect} from 'react-redux';
 
 class HeaderContainer extends Component {
-
-    componentDidMount() {
-        this.props.setUserAuthData();
-    }
 
     render() {
         return (
@@ -24,7 +20,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    setUserAuthData,
     logout
 };
 
