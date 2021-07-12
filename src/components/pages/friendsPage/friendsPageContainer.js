@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {withAnonUserRedirect} from '../../redirectHOC/withRedirect';
 import FriendsPage from './friendsPage';
 import Spinner from '../../spinner';
+import * as selectors from '../../../selectors/';
 import {toggleFollowed, setUsers, setPageNumber, setTotalUsersCount, setIsLoading,
         setFollowingInProgress, followOrUnfollow, setUsersList} from '../../../reducers/friendsPageReducer';
 
@@ -41,12 +42,12 @@ class FriendsPageContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        users: state.friendsPage.users,
-        totalUsersCount: state.friendsPage.totalUsersCount,
-        pageSize: state.friendsPage.pageSize,
-        currentPage: state.friendsPage.currentPage,
-        isLoading: state.friendsPage.isLoading,
-        followingInProgress: state.friendsPage.followingInProgress
+        users: selectors.getUsers(state),
+        totalUsersCount: selectors.getTotalUsersCount(state),
+        pageSize: selectors.getPageSize(state),
+        currentPage: selectors.getCurrentPage(state),
+        isLoading: selectors.getLoadingStatus(state),
+        followingInProgress: selectors.getFollowingInProgress(state)
     }
 };
 
