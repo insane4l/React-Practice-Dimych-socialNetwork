@@ -8,6 +8,7 @@ import shareIcon from './share.svg';
 import './postsTimeline.scss';
 
 const PostsTimline = (props) => {
+    console.log("POSTS");
     return (
         <div className="posts__timeline">
             {
