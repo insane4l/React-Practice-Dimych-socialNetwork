@@ -6,6 +6,7 @@ import {getUserProfile, getProfileStatus, updateProfileStatus} from '../../../re
 import ProfilePage from './profilePage';
 import { withAnonUserRedirect } from '../../redirectHOC/withRedirect';
 
+window.props = [];
 class ProfilePageContainer extends Component {
     componentDidMount() { 
         let userId = this.props.match.params.userId;
@@ -16,6 +17,11 @@ class ProfilePageContainer extends Component {
             this.props.getUserProfile(userId);
             this.props.getProfileStatus(userId);
         }
+        setTimeout(() => {
+            this.setState({
+                a: 22
+            })
+        }, 4000)
     }
 
     // getActualId() {
@@ -25,8 +31,10 @@ class ProfilePageContainer extends Component {
     //     }
     //     return userId;
     // }
-
     render() {
+        console.log(`PAGE CONTAINER`);
+        console.log(this.props);
+        window.props.push(this.props);
         if (!this.props.match.params.userId && !this.props.isUserAuthorized) {
             return <Redirect to="/login" />
         }
