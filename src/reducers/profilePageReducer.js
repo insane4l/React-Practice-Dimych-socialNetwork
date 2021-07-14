@@ -3,6 +3,7 @@ import {usersAPI, authAPI} from '../services/snAPI';
 const ADD_NEW_POST = 'ADD_NEW_POST';
 const SET_USER = 'SET_USER';
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
+const DELETE_POST = 'DELETE_POST';
 
 const initialState = {
     messages: [
@@ -28,6 +29,8 @@ const profilePageReducer = (state = initialState, action) => {
                     }]
             };
             return newState;
+        case DELETE_POST:
+            return {...state,  messages: state.messages.filter(item => item.id !== action.postId)}
         case SET_USER:
             return {...state, selectedUser: action.user};
         case SET_PROFILE_STATUS:
@@ -41,7 +44,7 @@ const profilePageReducer = (state = initialState, action) => {
 export const addNewPost = (messageBody) => ({type: ADD_NEW_POST, messageBody});
 export const setUserAction = (user) => ({type: SET_USER, user});
 export const setProfileStatus = (message) => ({type: SET_PROFILE_STATUS, message});
-
+export const deletePost = (postId) => ({type: DELETE_POST, postId})
 
 
 export const getUserProfile = (urlParamId) => {
