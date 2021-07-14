@@ -6,9 +6,9 @@ const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
 
 const initialState = {
     messages: [
-        {id: 1, label: 'Hi, this is my 1 post'},
-        {id: 2, label: '2 post'},
-        {id: 3, label: 'ok this is 3 post'}
+        {id: 1, label: 'Hi, this is my 1 post', likesCount: 22},
+        {id: 2, label: '2 post', likesCount: 12},
+        {id: 3, label: 'ok this is 3 post', likesCount: 8}
     ],
     selectedUser: null,
     profileStatus: ""
@@ -23,7 +23,8 @@ const profilePageReducer = (state = initialState, action) => {
                 ...state,
                 messages: [...state.messages, {
                     id,
-                    label: action.messageBody
+                    label: action.messageBody,
+                    likesCount: 0
                     }]
             };
             return newState;
