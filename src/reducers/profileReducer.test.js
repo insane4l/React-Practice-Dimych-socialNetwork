@@ -1,4 +1,4 @@
-import profilePageReducer, {addNewPost} from './profilePageReducer';
+import profilePageReducer, {addNewPost, deletePost} from './profilePageReducer';
 
 const state = {
     messages: [
