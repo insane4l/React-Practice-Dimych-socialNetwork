@@ -1,12 +1,12 @@
 import {usersAPI} from '../services/snAPI';
 
 
-const SET_USERS = 'SET_USERS';
-const TOGGLE_FOLLOWED = 'TOGGLE_FOLLOWED';
-const SET_PAGE_NUMBER = 'SET_PAGE_NUMBER';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-const SET_IS_LOADING = 'SET_IS_LOADING';
-const SET_FOLLOWING_IN_PROGRESS = 'SET_FOLLOWING_IN_PROGRESS';
+const SET_USERS = 'sn/friends/SET_USERS';
+const TOGGLE_FOLLOWED = 'sn/friends/TOGGLE_FOLLOWED';
+const SET_PAGE_NUMBER = 'sn/friends/SET_PAGE_NUMBER';
+const SET_TOTAL_USERS_COUNT = 'sn/friends/SET_TOTAL_USERS_COUNT';
+const SET_IS_LOADING = 'sn/friends/SET_IS_LOADING';
+const SET_FOLLOWING_IN_PROGRESS = 'sn/friends/SET_FOLLOWING_IN_PROGRESS';
 
 const initialState = {
     users: [],
@@ -62,41 +62,38 @@ export const setFollowingInProgress = (userId, isInProgress) => ({ type: SET_FOL
 
 
 
-export const followOrUnfollow = (userId) => {
-    return (dispatch) => {
-        dispatch(setFollowingInProgress(userId, true));
-        usersAPI.checkFollowStatus(userId).then(followed => {
-            if(!followed.data) {
-                usersAPI.followToUser(userId).then(response => {
-                    if(response.status === 200) {
-                        dispatch(toggleFollowed(userId));
-                        dispatch(setFollowingInProgress(userId, false));
-                    }
-                })
-            } else {
-                usersAPI.unfollowFromUser(userId).then(response => {
-                    if(response.status === 200) {
-                        dispatch(toggleFollowed(userId));
-                        dispatch(setFollowingInProgress(userId, false));
-                    }
-                })
-            }
-        })
+
+const followUnfollowFlow = async (dispatch, userId, apiMethod) => {
+    const response = await apiMethod(userId);
+    if(response.status === 200) {
+        dispatch(toggleFollowed(userId));
+        dispatch(setFollowingInProgress(userId, false));
+    }
+}
+
+export const followOrUnfollow = (userId) => async (dispatch) => {
+    dispatch(setFollowingInProgress(userId, true));
+
+    const followed = await usersAPI.checkFollowStatus(userId);
+    if (!followed.data) {
+        followUnfollowFlow(dispatch, userId, usersAPI.followToUser);
+    } else {
+        followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser);
     }
 }
 
 
-export const setUsersList = (pageSize, currentPage) => {
-    return (dispatch) => {
-        dispatch(setIsLoading(true));
-        usersAPI.getUsers(pageSize, currentPage)
-            .then(response => {
-                dispatch(setIsLoading(false)); 
-                dispatch(setUsers(response.data.items));
-                dispatch(setTotalUsersCount(response.data.totalCount));
-            });
-    }
+
+export const setUsersList = (pageSize, currentPage) => async (dispatch) => {
+    dispatch(setIsLoading(true));
+    const response = await usersAPI.getUsers(pageSize, currentPage);
+
+    dispatch(setIsLoading(false)); 
+    dispatch(setUsers(response.data.items));
+    dispatch(setTotalUsersCount(response.data.totalCount));
+
 }
+
 
 
 export default friendsPageReducer;

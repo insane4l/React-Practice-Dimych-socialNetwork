@@ -1,6 +1,6 @@
 import {setUserAuthData} from "./authReducer";
 
-const AUTHORIZED_SUCCESSFULLY = 'AUTHORIZED_SUCCESSFULLY';
+const AUTHORIZED_SUCCESSFULLY = 'sn/app/AUTHORIZED_SUCCESSFULLY';
 
 const initialState = {
     appInitialized: false
