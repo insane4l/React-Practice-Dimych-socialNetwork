@@ -1,9 +1,9 @@
 import {usersAPI, authAPI} from '../services/snAPI';
 
-const ADD_NEW_POST = 'ADD_NEW_POST';
-const SET_USER = 'SET_USER';
-const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
-const DELETE_POST = 'DELETE_POST';
+const ADD_NEW_POST = 'sn/profile/ADD_NEW_POST';
+const SET_USER = 'sn/profile/SET_USER';
+const SET_PROFILE_STATUS = 'sn/profile/SET_PROFILE_STATUS';
+const DELETE_POST = 'sn/profile/DELETE_POST';
 
 const initialState = {
     messages: [
@@ -47,36 +47,29 @@ export const setProfileStatus = (message) => ({type: SET_PROFILE_STATUS, message
 export const deletePost = (postId) => ({type: DELETE_POST, postId})
 
 
-export const getUserProfile = (urlParamId) => {
-    return (dispatch) => {
-        authAPI.getUserAuthData().then(response => {
-            const authId = response.data.data.id;
-            const userId = urlParamId ? urlParamId : authId;
+export const getUserProfile = (urlParamId) => async (dispatch) => {
+    const response = await authAPI.getUserAuthData();
+    const authId = response.data.data.id;
+    const userId = urlParamId ? urlParamId : authId;
 
-            usersAPI.getUserProfile(userId).then(response => {
-                dispatch(setUserAction(response.data));
-            });
-})
+    const profile = await usersAPI.getUserProfile(userId);
+    dispatch(setUserAction(profile.data));
+}
+
+
+export const getProfileStatus = (userId) => async (dispatch) => {
+    const response = await usersAPI.getProfileStatus(userId);
+    dispatch(setProfileStatus(response.data));
+}
+
+
+export const updateProfileStatus = (message) => async (dispatch) => {
+    const response = await usersAPI.setProfileStatus(message);
+    if (response.data.resultCode === 0) {
+        dispatch(setProfileStatus(message));
     }
 }
 
-export const getProfileStatus = (userId) => {
-    return (dispatch) => {
-        usersAPI.getProfileStatus(userId).then(response => {
-            dispatch(setProfileStatus(response.data));
-        })
-    }
-}
-
-export const updateProfileStatus = (message) => {
-    return (dispatch) => {
-        usersAPI.setProfileStatus(message).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setProfileStatus(message));
-            }
-        })
-    }
-}
 
 
 export default profilePageReducer;
