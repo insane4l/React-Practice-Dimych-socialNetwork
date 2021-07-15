@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {login} from '../../../reducers/authReducer';
 import {required, maxLengthCreator} from '../../../utils/validation/validators';
 import {Input} from '../../common/formsControls/formsControls';
-import {withSuccesAuthRedirect} from '../../redirectHOC/withRedirect';
+import {withSuccesAuthRedirect} from '../../HOCs/withRedirect';
 import {compose} from 'redux';
 
 import './loginPage.scss';

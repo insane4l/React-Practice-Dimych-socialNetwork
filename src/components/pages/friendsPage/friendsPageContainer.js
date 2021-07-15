@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {withAnonUserRedirect} from '../../redirectHOC/withRedirect';
+import {withAnonUserRedirect} from '../../HOCs/withRedirect';
 import FriendsPage from './friendsPage';
 import Spinner from '../../spinner';
 import * as selectors from '../../../selectors/';

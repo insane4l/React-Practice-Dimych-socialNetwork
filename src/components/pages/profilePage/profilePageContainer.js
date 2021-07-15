@@ -4,7 +4,7 @@ import {withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getUserProfile, getProfileStatus, updateProfileStatus} from '../../../reducers/profilePageReducer';
 import ProfilePage from './profilePage';
-import { withAnonUserRedirect } from '../../redirectHOC/withRedirect';
+import { withAnonUserRedirect } from '../../HOCs/withRedirect';
 
 class ProfilePageContainer extends Component {
     componentDidMount() { 
