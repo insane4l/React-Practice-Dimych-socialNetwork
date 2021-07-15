@@ -1,5 +1,5 @@
 import React from 'react';
-import Pagination from './pagination';
+import Pagination from '../../common/pagination/pagination';
 import User from './user';
 
 
@@ -11,7 +11,7 @@ const FriendsPage = (props) => {
         <div className="friends__wrapper">
             <Pagination 
                 currentPage={props.currentPage}
-                totalUsersCount={props.totalUsersCount}
+                totalItemsCount={props.totalUsersCount}
                 pageSize={props.pageSize}
                 onPageSelected={props.onPageSelected} />
 

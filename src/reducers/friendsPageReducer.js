@@ -11,7 +11,7 @@ const SET_FOLLOWING_IN_PROGRESS = 'sn/friends/SET_FOLLOWING_IN_PROGRESS';
 const initialState = {
     users: [],
     totalUsersCount: 0,
-    pageSize: 5,
+    pageSize: 10,
     currentPage: 1,
     isLoading: false,
     followingInProgress: []

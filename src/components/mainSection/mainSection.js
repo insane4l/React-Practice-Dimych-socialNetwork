@@ -1,13 +1,18 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import {ProfilePageContainer, FriendsPageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage, LoginPage} from '../pages';
+import Spinner from '../spinner';
+import {ProfilePageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage, LoginPage} from '../pages';
 
 import './mainSection.scss';
+
+const FriendsPageContainer = React.lazy(() => import('../pages/friendsPage/friendsPageContainer'));
+
 
 const MainSection = () => {
     return (
         <main className="main-section">
             <div className="section">
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -37,6 +42,9 @@ const MainSection = () => {
 >>>>>>> Some functions refactored into thunks
 =======
 =======
+=======
+            <React.Suspense fallback={Spinner}>
+>>>>>>> Pagination, React.lazy, React.Suspense. Practice from 93-94 lessons
                 <Route path="/login" component={LoginPage} />
 >>>>>>> Redux-form library. Practice from 75 lesson
                 <Route path="/profile/:userId?" component={ProfilePageContainer} />
@@ -70,6 +78,7 @@ const MainSection = () => {
                 <Route path="/news" component={NewsPage} />
                 <Route path="/music" component={MusicPage} />
                 <Route path="/settings" component={SettingsPage} />
+            </React.Suspense>
             </div>
         </main>
     );
