@@ -5,18 +5,27 @@ import Spinner from '../../spinner';
 import ProfileStatus from './profileStatus';
 
 import './profilePage.scss';
+import { Input } from '../../common/formsControls/formsControls';
 
 const ProfilePage = props => {
     
     if (!props.user) {
         return <Spinner />
     }
+
+    const onNewPhotoSelected = (e) => {
+        if(e.target.files.length) {
+            props.updateProfilePhoto(e.target.files[0]);
+        }
+    }
+
     return (
         <>  
             <div className="profile__info">
                 <div className="profile__info-images">
                     <img className="profile__info-cover" src={props.user.photos.large} alt="" />
                     <img className="profile__info-photo" src={props.user.photos.small} alt="" />
+                    {props.isOwner && <input onChange={onNewPhotoSelected} type="file" /> }
                 </div>
 
                 <h1 className="page__name">{props.user.fullName}</h1>

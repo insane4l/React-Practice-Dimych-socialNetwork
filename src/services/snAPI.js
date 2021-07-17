@@ -14,6 +14,13 @@ export const usersAPI = {
         return apiBase.get(`users?count=${pageSize}&page=${currentPage}`)
     },
 
+    setProfilePhoto(photoFile) {
+        const formData = new FormData();
+        formData.append("image", photoFile)
+
+        return apiBase.put('profile/photo', formData)
+    },
+
     getUserProfile(userId) {
         return apiBase.get(`profile/${userId}`)
     },
