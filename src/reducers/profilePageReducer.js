@@ -4,6 +4,7 @@ const ADD_NEW_POST = 'sn/profile/ADD_NEW_POST';
 const SET_USER = 'sn/profile/SET_USER';
 const SET_PROFILE_STATUS = 'sn/profile/SET_PROFILE_STATUS';
 const DELETE_POST = 'sn/profile/DELETE_POST';
+const SET_PROFILE_PHOTO_SUCCESS = 'sn/profile/SET_PROFILE_PHOTO_SUCCESS';
 
 const initialState = {
     messages: [
@@ -35,6 +36,8 @@ const profilePageReducer = (state = initialState, action) => {
             return {...state, selectedUser: action.user};
         case SET_PROFILE_STATUS:
             return {...state, profileStatus: action.message};
+        case SET_PROFILE_PHOTO_SUCCESS:
+            return {...state, selectedUser: {...state.selectedUser, photos: action.photos} };
         default:
             return state;
     }
@@ -44,8 +47,8 @@ const profilePageReducer = (state = initialState, action) => {
 export const addNewPost = (messageBody) => ({type: ADD_NEW_POST, messageBody});
 export const setUserAction = (user) => ({type: SET_USER, user});
 export const setProfileStatus = (message) => ({type: SET_PROFILE_STATUS, message});
-export const deletePost = (postId) => ({type: DELETE_POST, postId})
-
+export const deletePost = (postId) => ({type: DELETE_POST, postId});
+export const setProfilePhotoSuccess = (photos) => ({type: SET_PROFILE_PHOTO_SUCCESS, photos});
 
 export const getUserProfile = (urlParamId) => async (dispatch) => {
     const response = await authAPI.getUserAuthData();
@@ -57,9 +60,21 @@ export const getUserProfile = (urlParamId) => async (dispatch) => {
 }
 
 
+export const updateProfilePhoto = (photos) => async (dispatch) => {
+    const response = await usersAPI.setProfilePhoto(photos);
+    
+    if (response.data.resultCode === 0) {
+        dispatch(setProfilePhotoSuccess(response.data.data.photos));
+    }
+}
+
+
 export const getProfileStatus = (userId) => async (dispatch) => {
     const response = await usersAPI.getProfileStatus(userId);
-    dispatch(setProfileStatus(response.data));
+
+    if (response.status === 200) {
+        dispatch(setProfileStatus(response.data));
+    }
 }
 
 

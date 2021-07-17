@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {compose} from 'redux';
 import {withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getUserProfile, getProfileStatus, updateProfileStatus} from '../../../reducers/profilePageReducer';
+import {getUserProfile, getProfileStatus, updateProfileStatus, updateProfilePhoto} from '../../../reducers/profilePageReducer';
 import ProfilePage from './profilePage';
-import { withAnonUserRedirect } from '../../HOCs/withRedirect';
 
 class ProfilePageContainer extends Component {
-    componentDidMount() { 
+
+    refreshProfile() {
         let userId = this.props.match.params.userId;
         if(!userId) {
             userId = this.props.profileId;
@@ -18,20 +18,23 @@ class ProfilePageContainer extends Component {
         }
     }
 
-    // getActualId() {
-    //     let userId = this.props.match.params.userId;
-    //     if(!userId) {
-    //         userId = this.props.profileId;
-    //     }
-    //     return userId;
-    // }
+    componentDidMount() { 
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.userId !== this.props.match.params.userId) {
+            this.refreshProfile();
+        }
+    }
+
     render() {
 
         if (!this.props.match.params.userId && !this.props.isUserAuthorized) {
             return <Redirect to="/login" />
         }
         return (
-            <ProfilePage {...this.props} />
+            <ProfilePage {...this.props} isOwner={!this.props.match.params.userId}/>
         )
     }
 };
@@ -48,7 +51,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     getUserProfile,
     getProfileStatus,
-    updateProfileStatus
+    updateProfileStatus,
+    updateProfilePhoto
 };
 
 
