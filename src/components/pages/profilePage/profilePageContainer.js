@@ -2,7 +2,9 @@ import React, {Component} from 'react';
 import {compose} from 'redux';
 import {withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getUserProfile, getProfileStatus, updateProfileStatus, updateProfilePhoto} from '../../../reducers/profilePageReducer';
+import {getUserProfile, getProfileStatus,
+        updateProfileStatus, updateProfilePhoto,
+        updateProfileData} from '../../../reducers/profilePageReducer';
 import ProfilePage from './profilePage';
 
 class ProfilePageContainer extends Component {
@@ -52,7 +54,8 @@ const mapDispatchToProps = {
     getUserProfile,
     getProfileStatus,
     updateProfileStatus,
-    updateProfilePhoto
+    updateProfilePhoto,
+    updateProfileData
 };
 
 

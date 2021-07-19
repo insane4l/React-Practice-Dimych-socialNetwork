@@ -21,6 +21,10 @@ export const usersAPI = {
         return apiBase.put('profile/photo', formData)
     },
 
+    setProfileData(data) {
+        return apiBase.put('profile', data)
+    },
+
     getUserProfile(userId) {
         return apiBase.get(`profile/${userId}`)
     },
