@@ -1,3 +1,4 @@
+import { stopSubmit } from 'redux-form';
 import {usersAPI, authAPI} from '../services/snAPI';
 
 const ADD_NEW_POST = 'sn/profile/ADD_NEW_POST';
@@ -5,6 +6,7 @@ const SET_USER = 'sn/profile/SET_USER';
 const SET_PROFILE_STATUS = 'sn/profile/SET_PROFILE_STATUS';
 const DELETE_POST = 'sn/profile/DELETE_POST';
 const SET_PROFILE_PHOTO_SUCCESS = 'sn/profile/SET_PROFILE_PHOTO_SUCCESS';
+const SET_PROFILE_DATA_SUCCESS = 'sn/profile/SET_PROFILE_DATA_SUCCESS';
 
 const initialState = {
     messages: [
@@ -38,6 +40,8 @@ const profilePageReducer = (state = initialState, action) => {
             return {...state, profileStatus: action.message};
         case SET_PROFILE_PHOTO_SUCCESS:
             return {...state, selectedUser: {...state.selectedUser, photos: action.photos} };
+        case SET_PROFILE_DATA_SUCCESS:
+            return {...state, selectedUser: {...state.selectedUser, ...action.data}}
         default:
             return state;
     }
@@ -49,6 +53,7 @@ export const setUserAction = (user) => ({type: SET_USER, user});
 export const setProfileStatus = (message) => ({type: SET_PROFILE_STATUS, message});
 export const deletePost = (postId) => ({type: DELETE_POST, postId});
 export const setProfilePhotoSuccess = (photos) => ({type: SET_PROFILE_PHOTO_SUCCESS, photos});
+export const setProfileDataSuccess = (data) => ({type: SET_PROFILE_DATA_SUCCESS, data})
 
 export const getUserProfile = (urlParamId) => async (dispatch) => {
     const response = await authAPI.getUserAuthData();
@@ -82,6 +87,19 @@ export const updateProfileStatus = (message) => async (dispatch) => {
     const response = await usersAPI.setProfileStatus(message);
     if (response.data.resultCode === 0) {
         dispatch(setProfileStatus(message));
+    }
+}
+
+
+export const updateProfileData = (formData) => async (dispatch) => {
+    const response = await usersAPI.setProfileData(formData);
+    
+    if(response.data.resultCode === 0) {
+        dispatch(setProfileDataSuccess(formData));
+    } else {
+        const errorMessage = response.data.messages[0];
+        dispatch(stopSubmit('profileData', {_error: errorMessage}));
+        return Promise.reject(response.data.messages[0]);
     }
 }
 

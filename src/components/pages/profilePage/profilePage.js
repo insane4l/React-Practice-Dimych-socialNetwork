@@ -1,16 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PostAddFormContainer from './postAddForm/postAddFormContainer';
 import PostsTimlineContainer from './postsTimeline/postsTimelineContainer';
 import Spinner from '../../spinner';
 import ProfileStatus from './profileStatus';
+import ProfileDataForm from './profileDataForm';
 
 import './profilePage.scss';
-import { Input } from '../../common/formsControls/formsControls';
 
 const ProfilePage = props => {
     
+    const [editMode, setEditMode] = useState(false);
+    const [showProfile, viewProfileData] = useState(false);
+    
     if (!props.user) {
         return <Spinner />
+    }
+
+    const onSubmit = (formData) => {
+        props.updateProfileData(formData).then( () => {
+            setEditMode(false);
+        })
+        
     }
 
     const onNewPhotoSelected = (e) => {
@@ -18,6 +28,7 @@ const ProfilePage = props => {
             props.updateProfilePhoto(e.target.files[0]);
         }
     }
+
 
     return (
         <>  
@@ -31,26 +42,22 @@ const ProfilePage = props => {
                 <h1 className="page__name">{props.user.fullName}</h1>
                 <ProfileStatus profileStatus={props.profileStatus} updateProfileStatus={props.updateProfileStatus} />
 
-                <button className="view-data__btn">View Profile Info</button>
+                {!editMode && 
+                    <button onClick={() => viewProfileData(!showProfile)} className="view-data__btn">View Profile Info</button>}
 
-                <div className="profile__data-block">
-                    <div className="profile__data-row">
-                        <div className="profile__data-item birth__label">Birthday:</div>
-                        <div className="profile__data-item birth__value">24 january</div>
-                    </div>
-                    <div className="profile__data-row">
-                        <div className="profile__data-item location__label">Current city:</div>
-                        <div className="profile__data-item location__value">Narva</div>
-                    </div>
-                    <div className="profile__data-row">
-                        <div className="profile__data-item education__label">Education:</div>
-                        <div className="profile__data-item education__value">Narva Kutseoppekeskus</div>
-                    </div>
-                    <div className="profile__data-row">
-                        <div className="profile__data-item website__label">Website:</div>
-                        <div className="profile__data-item website__value">https://karpeyev.ru</div>
-                    </div>
-                </div>
+                {showProfile && <div className="profile__data-block">
+                    
+
+                    {editMode 
+                        ? <ProfileDataForm initialValues={props.user} onSubmit={onSubmit} user={props.user} />
+                        : <ProfileData user={props.user}
+                                       isOwner={props.isOwner}
+                                       setEditMode={() => setEditMode(true)} />
+                    }
+
+
+                    
+                </div>}
             </div>
 
             
@@ -61,6 +68,44 @@ const ProfilePage = props => {
             
 
         </>
+    )
+}
+
+const ProfileData = (props) => {
+
+    const contacts = Object.keys(props.user.contacts).map( key => {
+        if (props.user.contacts[key]) {
+            return <Contact key={key} service={key} link={props.user.contacts[key]} />
+        }
+        return null;
+    })
+
+    return (
+        <>
+            <div className="profile__data-row">
+                <div className="profile__data-item">About me:</div>
+                <div className="profile__data-item">{props.user.aboutMe}</div>
+            </div>
+            <div className="profile__data-row">
+                <div className="profile__data-item birth__label">Looking for a job</div>
+                <div className="profile__data-item birth__value">{props.user.lookingForAJobDescription}</div>
+            </div>
+
+            
+            {contacts}
+
+            {props.isOwner && <button onClick={props.setEditMode} >Change data</button>}
+
+        </>
+    )
+}
+
+const Contact = ({service, link}) => {
+    return (
+        <div className="profile__data-row">
+            <div className="profile__data-item birth__label">{service}:</div>
+            <div className="profile__data-item birth__value">{link}</div>
+        </div>
     )
 }
 
