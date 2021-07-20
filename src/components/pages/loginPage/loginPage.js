@@ -24,6 +24,13 @@ let LoginForm = (props) => {
                 <Field name="rememberMe" component="input" type="checkbox" /> remember me
             </div>
             {
+                props.captchaUrl && 
+                <div>
+                    <Field name="captcha" component={Input} validate={[required]} placeholder="enter symbols from image" />
+                    <img src={props.captchaUrl} alt="captcha" />
+                </div>
+            }
+            {
                 props.error && <div className="submit-error">{props.error}</div>
             }
             <div>
@@ -40,19 +47,24 @@ LoginForm = reduxForm({form: 'login'})(LoginForm);
 
 const LoginPage = (props) => {
     const onSubmit = (formData) => {
-        props.login(formData.userEmail, formData.userPass, formData.rememberMe);
+        props.login(formData.userEmail, formData.userPass, formData.rememberMe, formData.captcha);
     }
 
     return (
         <div className="login-page__wrapper">
             <h2 className="login-page__title">Login</h2>
-            <LoginForm onSubmit={onSubmit} />
+            <LoginForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
         </div>
     )
 }
 
+const mapStateToProps = (state) => {
+    return {
+        captchaUrl: state.auth.captchaUrl
+    }
+}
 
 export default compose(withSuccesAuthRedirect,
-                       connect(null, {login})
+                       connect(mapStateToProps, {login})
                        )
                        (LoginPage);
