@@ -52,11 +52,14 @@ export const authAPI = {
     getUserAuthData() {
         return apiBase.get(`auth/me`)
     },
-    login(email, password, rememberMe = false) {
-        return apiBase.post('/auth/login', {email, password, rememberMe});
+    login(email, password, rememberMe = false, captcha = null) {
+        return apiBase.post('/auth/login', {email, password, rememberMe, captcha})
     },
     logout() {
-        return apiBase.delete('auth/login');
+        return apiBase.delete('auth/login')
+    },
+    getCaptchaImg() {
+        return apiBase.get('security/get-captcha-url')
     }
 }
 
