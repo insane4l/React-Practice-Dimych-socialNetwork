@@ -77,4 +77,8 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+<<<<<<< HEAD
 >>>>>>> Pagination. Practice from 55 lesson
+=======
+// test 2 for github (check contributions after not default branch commit)
+>>>>>>> Contributions test, branch commit
