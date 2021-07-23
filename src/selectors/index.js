@@ -1,27 +1,27 @@
 import {createSelector} from 'reselect';
 
 export const getUsers = (state) => {
-    return state.friendsPage.users;
+    return state.usersPage.users;
 };
 
 export const getTotalUsersCount = (state) => {
-    return state.friendsPage.totalUsersCount;
+    return state.usersPage.totalUsersCount;
 };
 
 export const getPageSize = (state) => {
-    return state.friendsPage.pageSize;
+    return state.usersPage.pageSize;
 };
 
 export const getCurrentPage = (state) => {
-    return state.friendsPage.currentPage;
+    return state.usersPage.currentPage;
 };
 
 export const getLoadingStatus = (state) => {
-    return state.friendsPage.isLoading;
+    return state.usersPage.isLoading;
 };
 
 export const getFollowingInProgress = (state) => {
-    return state.friendsPage.followingInProgress;
+    return state.usersPage.followingInProgress;
 };
 
 

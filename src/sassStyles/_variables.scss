@@ -1,4 +1,4 @@
-// Screen sizes
+// SCREEN SIZES
 $screen-sm: 576px;
 $screen-md: 768px;
 $screen-lg: 992px;
@@ -6,27 +6,39 @@ $screen-xl: 1200px;
 $screen-xxl: 1300px;
 $screen-full: 1400px;
 
-// Colors
-$bgPrimaryColor: #193fb4;
-$bgPrimaryLightColor: lighten($bgPrimaryColor, 25%);
-
-$bgSecondaryColor: #ecf1f5;
-$bgMessageColor: darken($bgSecondaryColor, 5%);
-
-$bgComponentColor: #ffffff;
 
 
-$textPrimaryColor: #545454;
-$textSecondaryColor: #888888;
+
+// BACK GROUNDS COLORS
+// Signature Style Colors
+$bgPrimaryColor: #193fb4; // app body
+$bgPrimaryLightColor: lighten($bgPrimaryColor, 25%); // elements (some buttons, borders, lines etc)
+
+// Secondary Colors
+$bgSecondaryColor: #ecf1f5; // main section
+$bgBlockColor: #ffffff; // blocks 
+$bgMessageColor: darken($bgSecondaryColor, 5%); // messages bgc (inputs, textareas, dialogs messages)
+
+
+
+
+// TEXTS COLORS
+$textPrimaryColor: #545454; // main
+$textSecondaryColor: #888888; // description
 
 $textDarkColor: #353535;
 $textLightColor: #eeedf8;
 
 
+
+// ________Other Colors
 $warningColor: #b3465c;
 
 
-// Text Extends
+
+
+
+// ________Text Extends
 %title-text {
     font-size: 15px;
     font-weight: 600;

@@ -1,0 +1,12 @@
+@import '../../../sassStyles/variables.scss';
+
+.main-section {
+    padding: 15px 25px 40px 25px;
+    border-radius: 22px;
+    background-color: $bgSecondaryColor;
+}
+.section {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}

@@ -1,0 +1,32 @@
+@import '../../../sassStyles/variables.scss';
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    width: 100%;
+    height: 50px;
+    padding: 10px 0;
+    border-bottom: 2px solid $bgPrimaryLightColor;
+    background-color: $bgBlockColor;
+    &__content {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__logo {
+        display: flex;
+        align-items: center;
+        max-height: 30px;
+        &-img {
+            width: 26px;
+        }
+        &-text {
+            font-size: 14px;
+            font-weight: 400;
+            color: $bgPrimaryColor;
+            margin-left: 6px;
+        }
+    }
+}

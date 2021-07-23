@@ -1,0 +1,86 @@
+@import '../../../../../sassStyles/variables.scss';
+
+.posts {
+    &__timeline {
+        width: 55%;
+    }
+    &__item {
+        // border-top: 1px solid $bgPrimaryLightColor;
+        // border-left: 1px solid $bgPrimaryLightColor;
+        box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
+        width: 100%;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border-radius: 15px;
+        background-color: $bgBlockColor;
+        &_header {
+            display: flex;
+            cursor: pointer;
+        }
+        &_content {
+            margin-top: 20px;
+        }
+        &_footer {
+            display: flex;
+            margin-top: 20px;
+            padding: 6px;
+            border-top: 1px solid rgba(0, 0, 0, .1);
+        }
+    }
+}
+
+.post {
+    &__author-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            max-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__info-col {
+        margin-left: 10px;
+    }
+    &__author-name {
+        @extend %title-text;
+    }
+    &__date {
+        @extend %descr-text;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+
+    &__action {
+        display: flex;
+        align-items: flex-start;
+        margin-right: 33px;
+        cursor: pointer;
+        &_icon {
+            height: 22px;
+            margin-right: 2px;
+        }
+        &_counter {
+
+        }
+
+        .like__action {
+
+        }
+        .like__counter {
+
+        }
+        .comments__action {
+
+        }
+        .comments__counter {
+
+        }
+        .share__action {
+
+        }
+    }
+}

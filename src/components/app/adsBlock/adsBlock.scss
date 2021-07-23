@@ -1,0 +1,38 @@
+@import '../../../sassStyles/variables.scss';
+
+.ads__block {
+    width: 100%;
+    margin-top: 30px;
+    &-title {
+        @extend %title-text;
+        margin-left: 20px;
+        color: $textLightColor;
+    }
+    &-content {
+        margin: 0 20px 0 10px;
+        padding: 6px;
+        border-radius: 10px;
+        background-color: $bgBlockColor;
+    }
+}
+
+.ads__content {
+    display: block;
+    &-img {
+        border-radius: 10px;
+        img {
+            width: 100%;
+            border-radius: 10px;
+        }
+    }
+    &-link {
+        @extend %descr-text;
+        padding-left: 10px;
+    }
+    &-title {
+        @extend %title-text;
+        padding-left: 10px;
+        font-size: 12px;
+        line-height: 17px;
+    }
+}

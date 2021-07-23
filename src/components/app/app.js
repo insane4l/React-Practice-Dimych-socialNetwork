@@ -1,10 +1,10 @@
 import React from "react";
-import HeaderContainer from "../header";
-import SideBar from "../sideBar";
-import MainSection from "../mainSection";
+import HeaderContainer from "./header";
+import SideBar from "./sideBar";
+import MainSection from "./mainSection";
 import {connect} from 'react-redux';
 import {initializeApp} from '../../reducers/appReducer';
-import Spinner from '../spinner';
+import Spinner from '../common/spinner';
 
 import "./app.scss";
 

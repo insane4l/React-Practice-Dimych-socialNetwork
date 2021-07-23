@@ -1,0 +1,133 @@
+@import '../../../../../sassStyles/variables.scss';
+
+.dialogs {
+    &__item {
+        width: 66%;
+        border-radius: 15px;
+        overflow: hidden;
+        background-color: $bgBlockColor;
+        box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
+        &-header {
+            display: flex;
+            width: 100%;
+            padding: 10px;
+            border-bottom: 1px solid rgba(0, 0, 0, .1);
+            .go-back {
+                display: flex;
+                align-items: center;
+                align-self: start;
+                width: 100px;
+                &__icon {
+                    width: 16px;
+                }
+                &__text {
+                    @extend %descr-text;
+                    text-transform: uppercase;
+                }
+            }
+            .interlocuter {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                left: calc(50% - 100px);
+                transform: translateX(-50%);
+                &__image {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    img {
+                        max-width: 100%;
+                        min-height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                &__name {
+                    @extend %title-text;
+                }
+            }
+        }
+        &-content {
+            width: 100%;
+            padding: 20px;
+            border-bottom: 1px solid rgba(0, 0, 0, .1);
+            .message {
+                min-width: 200px;
+                max-width: 300px;
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 4px;
+                background-color: $bgMessageColor;
+                
+                &_left {
+                    margin-right: auto;
+                    background-color: lighten($bgMessageColor, 7%);
+                }
+                &_right {
+                    margin-left: auto;
+                }
+                &__info {
+                    display: flex;
+                    align-items: flex-start;
+                }
+                &__author-image {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    img {
+                        max-width: 100%;
+                        min-height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                &__author-name {
+                    @extend %title-text;
+                    font-size: 13px;
+                    margin-left: 5px;
+                }
+                &__date {
+                    @extend %descr-text;
+                    font-size: 12px;
+                    margin-left: auto;
+                }
+                &__text {
+                    @extend %descr-text;
+                    padding: 0 35px;
+                }
+            }
+        }
+        &-footer {
+            padding: 20px;
+            .add-message {
+                &__form {
+                    display: flex;
+                }
+                &__input {
+                    @extend %descr-text;
+                    width: 70%;
+                    padding: 5px 15px;
+                    border-radius: 4px;
+                    background-color: $bgMessageColor;
+                    resize: none;
+                    &::placeholder {
+                        @extend %descr-text;
+                    }
+                }
+                &__btn {
+                    margin-left: 5px;
+                    padding: 10px 30px;
+                    border-radius: 4px;
+                    color: $textLightColor;
+                    background-color: $bgPrimaryLightColor;
+                    &:hover {
+                        opacity: 0.8;
+                    }
+                }
+            }
+
+        }
+    }
+}
