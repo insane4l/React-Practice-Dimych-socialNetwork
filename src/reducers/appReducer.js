@@ -20,12 +20,12 @@ const appReducer = (state = initialState, action) => {
 
 
 
-export const authorizedSuccessfully = () => ({type: AUTHORIZED_SUCCESSFULLY});
+export const initializedSuccessfully = () => ({type: AUTHORIZED_SUCCESSFULLY});
 
 
 export const initializeApp = () => async (dispatch) => {
     await dispatch(setUserAuthData());
-    dispatch(authorizedSuccessfully());
+    dispatch(initializedSuccessfully());
 }
 
 

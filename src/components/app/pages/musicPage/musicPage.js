@@ -1,4 +1,6 @@
 import React from 'react';
+import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
+
 import './musicPage.scss';
 
 const MusicPage = () => {
@@ -10,4 +12,4 @@ const MusicPage = () => {
 }
 
 
-export default MusicPage;
+export default withAnonUserRedirect(MusicPage);

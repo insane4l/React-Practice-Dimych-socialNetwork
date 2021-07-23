@@ -2,6 +2,7 @@ import React from "react";
 import HeaderContainer from "./header";
 import SideBar from "./sideBar";
 import MainSection from "./mainSection";
+import Footer from './footer';
 import {connect} from 'react-redux';
 import {initializeApp} from '../../reducers/appReducer';
 import Spinner from '../common/spinner';
@@ -19,13 +20,14 @@ class App extends React.Component {
         if (!this.props.appInitialized) return <Spinner />
 
         return (
-        <div className="app__wrapper">
-            <HeaderContainer />
-            <div className="container block__wrapper">
-            <SideBar />
-            <MainSection />
+            <div className="app__wrapper">
+                <HeaderContainer />
+                <div className="container page__layout">
+                <SideBar />
+                <MainSection />
+                </div>
+                <Footer />
             </div>
-        </div>
         );
     }
 }

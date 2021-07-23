@@ -6,7 +6,7 @@
         min-height: 100vh;
         padding-top: 70px;
         background-color: $bgPrimaryColor;
-        .block__wrapper {
+        .page__layout {
           display: grid;
           grid-template-columns: 2.5fr 9.5fr;
         }

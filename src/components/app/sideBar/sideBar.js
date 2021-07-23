@@ -2,17 +2,23 @@ import React from 'react';
 import NavBar from '../navBar';
 import FriendsBlock from '../friendsBlock';
 import AdsBlock from '../adsBlock';
+import {connect} from 'react-redux';
 
 import './sideBar.scss';
 
-const SideBar = () => {
+
+const SideBar = (props) => {
     return (
         <aside className="sidebar">
             <NavBar />
-            <FriendsBlock />
+            {props.isUserAuthorized && <FriendsBlock />}
             <AdsBlock />
         </aside>
     );
 }
 
-export default SideBar;
+const mapStateToProps = (state) => ({
+    isUserAuthorized: state.auth.isAuthorized
+})
+
+export default connect(mapStateToProps)(SideBar);

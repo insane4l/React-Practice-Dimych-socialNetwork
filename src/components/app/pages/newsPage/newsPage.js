@@ -1,4 +1,6 @@
 import React from 'react';
+import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
+
 import './newsPage.scss';
 
 const NewsPage = () => {
@@ -9,4 +11,4 @@ const NewsPage = () => {
     )
 }
 
-export default NewsPage;
+export default withAnonUserRedirect(NewsPage);

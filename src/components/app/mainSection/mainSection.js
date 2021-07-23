@@ -5,7 +5,7 @@ import {ProfilePageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage, L
 
 import './mainSection.scss';
 
-const FriendsPageContainer = React.lazy(() => import('../pages/usersPage/usersPageContainer'));
+const UsersPageContainer = React.lazy(() => import('../pages/usersPage/usersPageContainer'));
 
 
 const MainSection = () => {
@@ -15,7 +15,7 @@ const MainSection = () => {
             <React.Suspense fallback={Spinner}>
                 <Route path="/login" component={LoginPage} />
                 <Route path="/profile/:userId?" component={ProfilePageContainer} />
-                <Route path="/friends" component={FriendsPageContainer} />
+                <Route path="/users" component={UsersPageContainer} />
                 <Route path="/messages" component={MessagesPage} />
                 <Route path="/news" component={NewsPage} />
                 <Route path="/music" component={MusicPage} />
