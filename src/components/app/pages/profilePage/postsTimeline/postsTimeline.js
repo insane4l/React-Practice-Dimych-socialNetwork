@@ -1,9 +1,7 @@
 import React from 'react';
 
-import defaultPhoto from '../../../../../assets/images/defaultPhoto.png';
-import likeIcon from './like.svg';
-import commentsIcon from './comments.svg';
-import shareIcon from './share.svg';
+import {defaultPhoto} from '../../../../../assets/images';
+import {likeIcon, commentsIcon, shareIcon} from '../../../../../assets/icons';
 
 import './postsTimeline.scss';
 

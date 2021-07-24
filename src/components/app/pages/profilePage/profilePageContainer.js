@@ -2,12 +2,21 @@ import React, {Component} from 'react';
 import {compose} from 'redux';
 import {withRouter, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getUserProfile, getProfileStatus,
-        updateProfileStatus, updateProfilePhoto,
-        updateProfileData} from '../../../../reducers/profilePageReducer';
+import {getUserProfile, getProfileStatus} from '../../../../reducers/profilePageReducer';
 import ProfilePage from './profilePage';
 
 class ProfilePageContainer extends Component {
+
+    componentDidMount() { 
+        this.refreshProfile();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.userId !== this.props.match.params.userId) {
+            this.refreshProfile();
+        }
+    }
+
 
     refreshProfile() {
         let userId = this.props.match.params.userId;
@@ -20,31 +29,21 @@ class ProfilePageContainer extends Component {
         }
     }
 
-    componentDidMount() { 
-        this.refreshProfile();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.match.params.userId !== this.props.match.params.userId) {
-            this.refreshProfile();
-        }
-    }
-
     render() {
-
         if (!this.props.match.params.userId && !this.props.isUserAuthorized) {
             return <Redirect to="/login" />
         }
+
         return (
-            <ProfilePage {...this.props} isOwner={!this.props.match.params.userId}/>
+            <ProfilePage user={this.props.user} isOwner={!this.props.match.params.userId}/>
         )
     }
 };
 
+
 const mapStateToProps = (state) => {
     return {
         user: state.profilePage.selectedUser,
-        profileStatus: state.profilePage.profileStatus,
         profileId: state.auth.id,
         isUserAuthorized: state.auth.isAuthorized
     }
@@ -52,12 +51,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     getUserProfile,
-    getProfileStatus,
-    updateProfileStatus,
-    updateProfilePhoto,
-    updateProfileData
+    getProfileStatus
 };
-
 
 export default compose(
                     withRouter,
