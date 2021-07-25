@@ -1,6 +1,6 @@
 import React from 'react';
 import {reduxForm, Field} from 'redux-form';
-import { Input, Textarea } from '../../../../common/formsControls/formsControls';
+import {Input} from '../../../../common/formsControls/formsControls';
 
 let ProfileDataForm = ({user, handleSubmit, error}) => {
     return (

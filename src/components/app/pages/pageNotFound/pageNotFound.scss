@@ -1,0 +1,20 @@
+@import '../../../../sassStyles/variables.scss';
+
+.error__page {
+    &-wrapper {
+        padding-top: 50px;
+        text-align: center;
+    }
+    &-title {
+        color: red;
+    }
+    &-descr {
+        font-size: 25px;
+        font-weight: bold;
+        margin-bottom: 100px;
+    }
+    &-link {
+        
+        color: $bgPrimaryLightColor;
+    }
+}

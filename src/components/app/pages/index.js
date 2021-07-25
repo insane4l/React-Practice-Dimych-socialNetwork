@@ -5,6 +5,7 @@ import MessagesPage from './messagesPage';
 import NewsPage from './newsPage';
 import MusicPage from './musicPage';
 import SettingsPage from './settingsPage';
+import PageNotFound from './pageNotFound';
 
 export {
     LoginPage,
@@ -13,5 +14,6 @@ export {
     MessagesPage,
     NewsPage,
     MusicPage,
-    SettingsPage
+    SettingsPage,
+    PageNotFound
 }   
