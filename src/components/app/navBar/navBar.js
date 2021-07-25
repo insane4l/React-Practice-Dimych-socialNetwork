@@ -8,45 +8,27 @@ const NavBar = () => {
     return (
       <nav className="navbar">
         <ul className="navbar__list">
-          <li className="navbar__list-item">
-            <NavLink className="navbar__link" to="/profile" activeClassName="navbar__link_active">
-              <img className="navbar__link-icon" src={profileIcon} alt="link icon" />
-              <span className="navbar__link-label">Profile</span>
-            </NavLink>
-          </li>
-          <li className="navbar__list-item">
-            <NavLink className="navbar__link" to="/users" activeClassName="navbar__link_active">
-              <img className="navbar__link-icon" src={usersIcon} alt="link icon" />
-              <span className="navbar__link-label">Users</span>
-            </NavLink>
-          </li>
-          <li className="navbar__list-item">
-            <NavLink className="navbar__link" to="/messages" activeClassName="navbar__link_active">
-                <img className="navbar__link-icon" src={messagesIcon} alt="link icon" />
-                <span className="navbar__link-label">Messages</span>
-            </NavLink>
-          </li>
-          <li className="navbar__list-item">
-            <NavLink className="navbar__link" to="/news" activeClassName="navbar__link_active">
-                <img className="navbar__link-icon" src={newsIcon} alt="link icon" />
-                <span className="navbar__link-label">News</span>
-            </NavLink>
-          </li>
-          <li className="navbar__list-item">
-            <NavLink className="navbar__link" to="/music" activeClassName="navbar__link_active">
-                <img className="navbar__link-icon" src={musicIcon} alt="link icon" />
-                <span className="navbar__link-label">Music</span>
-            </NavLink>
-          </li>
-          <li className="navbar__list-item">
-            <NavLink className="navbar__link" to="/settings" activeClassName="navbar__link_active">
-                <img className="navbar__link-icon" src={settingsIcon} alt="link icon" />
-                <span className="navbar__link-label">Settings</span>
-            </NavLink>
-          </li>
+			<NavbarLink url="/profile" iconLink={profileIcon} label="Profile" />
+			<NavbarLink url="/users" iconLink={usersIcon} label="Users" />
+			<NavbarLink url="/messages" iconLink={messagesIcon} label="Messages" />
+			<NavbarLink url="/news" iconLink={newsIcon} label="News" />
+			<NavbarLink url="/music" iconLink={musicIcon} label="Music" />
+
+			<NavbarLink url="/settings" iconLink={settingsIcon} label="Settings" />
         </ul>
       </nav>
     );
+}
+
+const NavbarLink = ({url, iconLink, label}) => {
+  return (
+    <li className="navbar__list-item">
+		<NavLink className="navbar__link" to={url} activeClassName="navbar__link_active">
+			<img className="navbar__link-icon" src={iconLink} alt={`${label} icon`} />
+			<span className="navbar__link-label">{label}</span>
+		</NavLink>
+    </li>
+  )
 }
 
 export default NavBar;
