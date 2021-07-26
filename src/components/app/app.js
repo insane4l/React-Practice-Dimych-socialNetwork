@@ -13,6 +13,17 @@ class App extends React.Component {
 
     componentDidMount() {
         this.props.initializeApp();
+        //handle all unhandled with "catch" errors
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+    }
+
+    componentWillUnmount() {
+        //remove because of side effect in global
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors);
+    }
+
+    catchAllUnhandledErrors = () => {
+        alert("Something goes wrong, server error");
     }
 
     render() {

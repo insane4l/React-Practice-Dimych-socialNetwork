@@ -1,4 +1,3 @@
-import React from 'react';
 import DialogsList from './';
 import {connect} from 'react-redux';
 
