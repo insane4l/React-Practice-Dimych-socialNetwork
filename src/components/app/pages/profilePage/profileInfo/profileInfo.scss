@@ -106,8 +106,11 @@
 
 
     &__status {
+        margin: 0 auto;
+        max-width: 300px;
         text-align: center;
         &-text {
+            @extend%descr-text;
         }
         &-input {
             border: 1px solid blue;

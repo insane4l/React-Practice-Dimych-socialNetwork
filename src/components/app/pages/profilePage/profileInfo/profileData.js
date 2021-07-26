@@ -17,7 +17,10 @@ const ProfileData = ({isOwner, user, profileStatus, updateProfileStatus, updateP
     return (
         <div className="profile__data">
             <h1 className="page__name">{user.fullName}</h1>
-            <ProfileStatus profileStatus={profileStatus} updateProfileStatus={updateProfileStatus} />
+            <ProfileStatus 
+                isOwner={isOwner} 
+                profileStatus={profileStatus} 
+                updateProfileStatus={updateProfileStatus} />
             <button onClick={() => toggleDataVisibility(!dataVisibility)} className="view-data__btn">
                 { dataVisibility ? "Hide Profile Info" : "Show Profile Info" }
             </button>

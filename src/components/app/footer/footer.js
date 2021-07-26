@@ -5,7 +5,7 @@ import './footer.scss';
 const Footer = () => {
     return (
         <footer className="footer">
-            Сreated for educational purposes © <a href="http://karpeyev.ru" class="author-link">insane4L</a>
+            Сreated for educational purposes © <a href="http://karpeyev.ru" className="author-link">insane4L</a>
         </footer>
     )
 }

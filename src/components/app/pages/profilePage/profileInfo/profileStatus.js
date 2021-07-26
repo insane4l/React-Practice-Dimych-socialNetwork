@@ -21,9 +21,10 @@ const ProfileStatus = (props) => {
         setEditMode(false);
         props.updateProfileStatus(statusMessage)
     };
-
+    
     const statusText = <div className="profile__status-text"
-                            onDoubleClick={activateEditMode} >
+                            onDoubleClick={props.isOwner ? activateEditMode : null}
+                            title={props.isOwner ? "Double click to edit" : null} >
                             {props.profileStatus || "......"}
                         </div>;
 

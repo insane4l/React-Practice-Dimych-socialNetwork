@@ -14,7 +14,7 @@ const MainSection = () => {
             <div className="section">
             <React.Suspense fallback={Spinner}>
                 <Switch>
-                    <Route exact path='/' render={() => <Redirect to="/profile"/>} />
+                    <Redirect exact from="/" to="/profile" />
                     <Route path="/login" component={LoginPage} />
                     <Route path="/profile/:userId?" component={ProfilePageContainer} />
                     <Route path="/users" component={UsersPageContainer} />
