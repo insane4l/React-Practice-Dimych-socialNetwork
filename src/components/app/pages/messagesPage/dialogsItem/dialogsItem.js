@@ -28,7 +28,7 @@ const DialogsItem = (props) => {
             </div>
 
             <div className="dialogs__item-content">
-                {props.dialogs.dialogsList[0].messages.map(message => {
+                {props.messages.map(message => {
                     const style = message.myMessage ? "message_right" : "message_left";
                     return (
                         <div key={message.id} className={`message ${style}`}>
@@ -43,26 +43,6 @@ const DialogsItem = (props) => {
                         </div>
                     )
                 })}
-                {/* <div className="message message_left">
-                    <div className="message__info">
-                        <div className="message__author-image">
-                            <img src="https://tehnot.com/wp-content/uploads/2017/09/pavel.jpg" alt="author_image" />
-                        </div>
-                        <div className="message__author-name">Pavel Durov</div>
-                        <div className="message__date">11 June 22:55</div>
-                    </div>
-                    <div className="message__text">{props.dialogs.dialogsList[0].messages[0].label}</div>
-                </div>
-                <div className="message message_right">
-                    <div className="message__info">
-                        <div className="message__author-image">
-                            <img src="https://img3.goodfon.ru/wallpaper/nbig/3/be/cat-kitten-feline-animal-eyes.jpg" alt="author_image" />
-                        </div>
-                        <div className="message__author-name">Roman Karpeyev</div>
-                        <div className="message__date">11 June 22:57</div>
-                    </div>
-                    <div className="message__text">{props.dialogs.dialogsList[0].messages[1].label}</div>
-                </div> */}
             </div>
 
             <div className="dialogs__item-footer">

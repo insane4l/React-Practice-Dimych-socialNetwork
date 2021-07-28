@@ -1,5 +1,5 @@
 import {usersAPI} from '../services/snAPI';
-
+import { UserType } from '../types/types';
 
 const SET_USERS = 'sn/users/SET_USERS';
 const TOGGLE_FOLLOWED = 'sn/users/TOGGLE_FOLLOWED';
@@ -8,17 +8,20 @@ const SET_TOTAL_USERS_COUNT = 'sn/users/SET_TOTAL_USERS_COUNT';
 const SET_IS_LOADING = 'sn/users/SET_IS_LOADING';
 const SET_FOLLOWING_IN_PROGRESS = 'sn/users/SET_FOLLOWING_IN_PROGRESS';
 
+
 const initialState = {
-    users: [],
+    users: [] as Array<UserType>,
     totalUsersCount: 0,
     pageSize: 10,
     currentPage: 1,
     isLoading: false,
-    followingInProgress: []
+    followingInProgress: [] as Array<number>
     
 }
 
-const usersPageReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState;
+
+const usersPageReducer = (state = initialState, action: any): InitialStateType => {
     switch(action.type) {
         case SET_USERS:
             return {
@@ -53,17 +56,48 @@ const usersPageReducer = (state = initialState, action) => {
     }
 }
 
-export const setUsers = (users) => ({type: SET_USERS, users});
-export const toggleFollowed = (userId) => ({type: TOGGLE_FOLLOWED, userId});
-export const setPageNumber = (num) => ({type: SET_PAGE_NUMBER, num});
-export const setTotalUsersCount = (count) => ({type: SET_TOTAL_USERS_COUNT, count});
-export const setIsLoading = (isLoading) => ({type: SET_IS_LOADING, isLoading});
-export const setFollowingInProgress = (userId, isInProgress) => ({ type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress});
+
+type SetUsersActionType = {
+    type: typeof SET_USERS,
+    users: Array<UserType>
+}
+export const setUsers = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users});
+
+type ToggleFollowedActionType = {
+    type: typeof TOGGLE_FOLLOWED,
+    userId: number
+}
+export const toggleFollowed = (userId: number): ToggleFollowedActionType => ({type: TOGGLE_FOLLOWED, userId});
+
+type SetPageNumberActionType = {
+    type: typeof SET_PAGE_NUMBER,
+    num: number
+}
+export const setPageNumber = (num: number): SetPageNumberActionType => ({type: SET_PAGE_NUMBER, num});
+
+type SetTotalUsersCountActionType = {
+    type: typeof SET_TOTAL_USERS_COUNT,
+    count: number
+}
+export const setTotalUsersCount = (count: number): SetTotalUsersCountActionType => ({type: SET_TOTAL_USERS_COUNT, count});
+
+type SetIsLoadingActionType = {
+    type: typeof SET_IS_LOADING,
+    isLoading: boolean
+}
+export const setIsLoading = (isLoading: boolean): SetIsLoadingActionType => ({type: SET_IS_LOADING, isLoading});
+
+type SetFollowingInProgressActionType = {
+    type: typeof SET_FOLLOWING_IN_PROGRESS,
+    userId: number,
+    isInProgress: boolean
+}
+export const setFollowingInProgress = (userId: number, isInProgress: boolean): SetFollowingInProgressActionType => ({ type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress});
 
 
 
 
-const followUnfollowFlow = async (dispatch, userId, apiMethod) => {
+const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any) => {
     const response = await apiMethod(userId);
     if(response.status === 200) {
         dispatch(toggleFollowed(userId));
@@ -71,7 +105,7 @@ const followUnfollowFlow = async (dispatch, userId, apiMethod) => {
     }
 }
 
-export const followOrUnfollow = (userId) => async (dispatch) => {
+export const followOrUnfollow = (userId: number) => async (dispatch: any) => {
     dispatch(setFollowingInProgress(userId, true));
 
     const followed = await usersAPI.checkFollowStatus(userId);
@@ -84,7 +118,7 @@ export const followOrUnfollow = (userId) => async (dispatch) => {
 
 
 
-export const setUsersList = (pageSize, currentPage) => async (dispatch) => {
+export const setUsersList = (pageSize: number, currentPage: number) => async (dispatch: any) => {
     dispatch(setIsLoading(true));
     const response = await usersAPI.getUsers(pageSize, currentPage);
 
