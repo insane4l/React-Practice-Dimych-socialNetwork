@@ -1,22 +1,39 @@
-import React, {Component} from 'react';
-import {compose} from 'redux';
-import {connect} from 'react-redux';
-import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
-import UsersPage from './usersPage';
-import Spinner from '../../../common/spinner';
-import * as selectors from '../../../../selectors/';
-import {toggleFollowed, setUsers, setPageNumber, setTotalUsersCount, setIsLoading,
-        setFollowingInProgress, followOrUnfollow, setUsersList} from '../../../../reducers/usersPageReducer';
+import React, {Component} from 'react'
+import {compose} from 'redux'
+import {connect} from 'react-redux'
+import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
+import UsersPage from './usersPage'
+import Spinner from '../../../common/spinner'
+import * as selectors from '../../../../selectors/'
+import {setPageNumber, followOrUnfollow, setUsersList} from '../../../../reducers/usersPageReducer'
+import {AppStateType} from '../../../../reduxStore'
+import {UserType} from '../../../../types/types'
 
 
+type MapStatePropsType = {
+    isLoading: boolean
+    currentPage: number
+    totalUsersCount: number
+    pageSize: number
+    users: Array<UserType>
+    followingInProgress: Array<number>
+}
 
-class UsersPageContainer extends Component {
+type MapDispatchPropsType = {
+    setUsersList: (pageSize: number, pageNumber: number) => void
+    setPageNumber: (pageNumber: number) => void
+    followOrUnfollow: (userId: number) => void
+}
+
+type PropsType = MapStatePropsType & MapDispatchPropsType
+
+class UsersPageContainer extends Component<PropsType> {
 
     componentDidMount() {
         this.props.setUsersList(this.props.pageSize, this.props.currentPage);
     }
 
-    onPageSelected = (num) => {
+    onPageSelected = (num: number) => {
         this.props.setPageNumber(num);
         this.props.setUsersList(this.props.pageSize, num);
     }
@@ -32,14 +49,13 @@ class UsersPageContainer extends Component {
                             onPageSelected={this.onPageSelected}
                             users={this.props.users}
                             followingInProgress={this.props.followingInProgress}
-                            setFollowingInProgress={this.props.setFollowingInProgress}
                             followOrUnfollow={this.props.followOrUnfollow} />  
             </>
         )
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         users: selectors.getUsers(state),
         totalUsersCount: selectors.getTotalUsersCount(state),
@@ -51,12 +67,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    setUsers, toggleFollowed, setTotalUsersCount, setPageNumber,
-    setIsLoading, setFollowingInProgress, followOrUnfollow,
-    setUsersList
+    setPageNumber, followOrUnfollow, setUsersList
 };
 
+
+
 export default compose(
-                    connect(mapStateToProps, mapDispatchToProps),
+                    connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps),
                     withAnonUserRedirect
                )(UsersPageContainer);

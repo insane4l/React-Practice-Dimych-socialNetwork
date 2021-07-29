@@ -1,6 +1,6 @@
 import { stopSubmit } from 'redux-form';
 import {usersAPI, authAPI} from '../services/snAPI';
-import {UserPhotosType, ProfileType} from '../types/types';
+import {UserPhotosType, ProfileType, MessageType} from '../types/types';
 
 const ADD_NEW_POST = 'sn/profile/ADD_NEW_POST';
 const SET_USER = 'sn/profile/SET_USER';
@@ -10,11 +10,7 @@ const SET_PROFILE_PHOTO_SUCCESS = 'sn/profile/SET_PROFILE_PHOTO_SUCCESS';
 const SET_PROFILE_DATA_SUCCESS = 'sn/profile/SET_PROFILE_DATA_SUCCESS';
 
 
-type MessageType = {
-    id: number,
-    label: string,
-    likesCount: number
-}
+
 
 const initialState = {
     messages: [

@@ -1,6 +1,15 @@
 import React, {useState} from 'react';
 
-const Pagination = ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
+type PropsType = {
+    currentPage: number
+    totalItemsCount: number
+    pageSize: number
+    onPageSelected: (pageNumber: number) => void
+    portionSize?: number
+}
+
+
+const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
 
     const pagesCount = Math.ceil(totalItemsCount / pageSize);
     const pages = [];

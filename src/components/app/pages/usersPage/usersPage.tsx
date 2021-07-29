@@ -1,11 +1,21 @@
 import React from 'react';
+import {UserType} from '../../../../types/types';
 import Pagination from '../../../common/pagination/pagination';
 import User from './user';
 
-
 import './usersPage.scss';
 
-const UsersPage = (props) => {
+type PropsType = {
+    currentPage: number
+    totalUsersCount: number
+    pageSize: number
+    onPageSelected: (pageNumber: number) => void
+    followingInProgress: Array<number>
+    followOrUnfollow: (userId: number) => void
+    users: Array<UserType>
+}
+
+const UsersPage: React.FC<PropsType> = (props) => {
     
     return (  
         <div className="users__wrapper">
