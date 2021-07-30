@@ -1,13 +1,15 @@
-import { stopSubmit } from 'redux-form';
-import {usersAPI, authAPI} from '../services/snAPI';
-import {UserPhotosType, ProfileType, MessageType} from '../types/types';
+import { stopSubmit } from 'redux-form'
+import { ThunkAction } from 'redux-thunk'
+import { AppStateType } from '../reduxStore'
+import {usersAPI, authAPI} from '../services/snAPI'
+import {UserPhotosType, ProfileType, MessageType} from '../types/types'
 
-const ADD_NEW_POST = 'sn/profile/ADD_NEW_POST';
-const SET_USER = 'sn/profile/SET_USER';
-const SET_PROFILE_STATUS = 'sn/profile/SET_PROFILE_STATUS';
-const DELETE_POST = 'sn/profile/DELETE_POST';
-const SET_PROFILE_PHOTO_SUCCESS = 'sn/profile/SET_PROFILE_PHOTO_SUCCESS';
-const SET_PROFILE_DATA_SUCCESS = 'sn/profile/SET_PROFILE_DATA_SUCCESS';
+const ADD_NEW_POST = 'sn/profile/ADD_NEW_POST'
+const SET_USER = 'sn/profile/SET_USER'
+const SET_PROFILE_STATUS = 'sn/profile/SET_PROFILE_STATUS'
+const DELETE_POST = 'sn/profile/DELETE_POST'
+const SET_PROFILE_PHOTO_SUCCESS = 'sn/profile/SET_PROFILE_PHOTO_SUCCESS'
+const SET_PROFILE_DATA_SUCCESS = 'sn/profile/SET_PROFILE_DATA_SUCCESS'
 
 
 
@@ -20,11 +22,11 @@ const initialState = {
     ] as Array<MessageType>,
     selectedUser: null as null | ProfileType,
     profileStatus: ""
-};
+}
 
-type InitialStateType = typeof initialState;
+type InitialStateType = typeof initialState
 
-const profilePageReducer = (state = initialState, action: any): InitialStateType => {
+const profilePageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
         case ADD_NEW_POST:
             let length = state.messages.length;
@@ -53,35 +55,39 @@ const profilePageReducer = (state = initialState, action: any): InitialStateType
     }
 }
 
+type ActionsTypes = AddNewPostActionType | SetUserActionType | SetProfileStatusActionType | DeletePostActionType |
+                    SetProfilePhotoSuccessActionType | SetProfileDataSuccessActionType
+
+
 type AddNewPostActionType = {
     type: typeof ADD_NEW_POST,
     messageBody: string
 };
-export const addNewPost = (messageBody: string): AddNewPostActionType => ({type: ADD_NEW_POST, messageBody});
+export const addNewPost = (messageBody: string): AddNewPostActionType => ({type: ADD_NEW_POST, messageBody})
 
 type SetUserActionType = {
     type: typeof SET_USER,
     user: ProfileType
 }
-export const setUserAction = (user: ProfileType): SetUserActionType => ({type: SET_USER, user});
+export const setUserAction = (user: ProfileType): SetUserActionType => ({type: SET_USER, user})
 
 type SetProfileStatusActionType = {
     type: typeof SET_PROFILE_STATUS,
     message: string
 }
-export const setProfileStatus = (message: string): SetProfileStatusActionType => ({type: SET_PROFILE_STATUS, message});
+export const setProfileStatus = (message: string): SetProfileStatusActionType => ({type: SET_PROFILE_STATUS, message})
 
 type DeletePostActionType = {
     type: typeof DELETE_POST,
     postId: number
 }
-export const deletePost = (postId: number): DeletePostActionType => ({type: DELETE_POST, postId});
+export const deletePost = (postId: number): DeletePostActionType => ({type: DELETE_POST, postId})
 
 type SetProfilePhotoSuccessActionType = {
     type: typeof SET_PROFILE_PHOTO_SUCCESS,
     photos: UserPhotosType
 }
-export const setProfilePhotoSuccess = (photos: UserPhotosType): SetProfilePhotoSuccessActionType => ({type: SET_PROFILE_PHOTO_SUCCESS, photos});
+export const setProfilePhotoSuccess = (photos: UserPhotosType): SetProfilePhotoSuccessActionType => ({type: SET_PROFILE_PHOTO_SUCCESS, photos})
 
 type SetProfileDataSuccessActionType = {
     type: typeof SET_PROFILE_DATA_SUCCESS,
@@ -93,10 +99,10 @@ export const setProfileDataSuccess = (data: ProfileType): SetProfileDataSuccessA
 
 
 
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 
-
-export const getUserProfile = (urlParamId: number) => async (dispatch: any) => {
+export const getUserProfile = (urlParamId: number): ThunkType => async (dispatch) => {
     const response = await authAPI.getUserAuthData();
     const authId = response.data.data.id;
     const userId = urlParamId ? urlParamId : authId;
@@ -106,7 +112,7 @@ export const getUserProfile = (urlParamId: number) => async (dispatch: any) => {
 }
 
 
-export const updateProfilePhoto = (photoFile: any) => async (dispatch: any) => {
+export const updateProfilePhoto = (photoFile: any): ThunkType => async (dispatch) => {
     const response = await usersAPI.setProfilePhoto(photoFile);
     debugger;
     if (response.data.resultCode === 0) {
@@ -115,7 +121,7 @@ export const updateProfilePhoto = (photoFile: any) => async (dispatch: any) => {
 }
 
 
-export const getProfileStatus = (userId: number) => async (dispatch: any) => {
+export const getProfileStatus = (userId: number): ThunkType => async (dispatch) => {
     const response = await usersAPI.getProfileStatus(userId);
 
     if (response.status === 200) {
@@ -124,7 +130,7 @@ export const getProfileStatus = (userId: number) => async (dispatch: any) => {
 }
 
 
-export const updateProfileStatus = (message: string) => async (dispatch: any) => {
+export const updateProfileStatus = (message: string): ThunkType => async (dispatch) => {
     const response = await usersAPI.setProfileStatus(message);
     if (response.data.resultCode === 0) {
         dispatch(setProfileStatus(message));
@@ -132,7 +138,7 @@ export const updateProfileStatus = (message: string) => async (dispatch: any) =>
 }
 
 
-export const updateProfileData = (formData: ProfileType) => async (dispatch: any) => {
+export const updateProfileData = (formData: ProfileType): ThunkType => async (dispatch) => {
     const response = await usersAPI.setProfileData(formData);
     
     if(response.data.resultCode === 0) {
@@ -140,6 +146,7 @@ export const updateProfileData = (formData: ProfileType) => async (dispatch: any
         dispatch(setProfileDataSuccess(formData));
     } else {
         const errorMessage = response.data.messages[0];
+        // @ts-ignore
         dispatch(stopSubmit('profileData', {_error: errorMessage}));
         return Promise.reject(response.data.messages[0]);
     }
@@ -147,4 +154,4 @@ export const updateProfileData = (formData: ProfileType) => async (dispatch: any
 
 
 
-export default profilePageReducer;
+export default profilePageReducer

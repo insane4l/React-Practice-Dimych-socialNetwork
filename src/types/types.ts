@@ -1,4 +1,3 @@
-
 export type ProfileContactsType = {
     github: string | null,
     vk: string | null,

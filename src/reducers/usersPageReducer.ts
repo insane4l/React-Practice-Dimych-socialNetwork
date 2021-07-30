@@ -1,12 +1,15 @@
-import {usersAPI} from '../services/snAPI';
-import { UserType } from '../types/types';
+import { Dispatch } from 'redux'
+import { ThunkAction } from 'redux-thunk'
+import { AppStateType } from '../reduxStore'
+import {usersAPI} from '../services/snAPI'
+import { UserType } from '../types/types'
 
-const SET_USERS = 'sn/users/SET_USERS';
-const TOGGLE_FOLLOWED = 'sn/users/TOGGLE_FOLLOWED';
-const SET_PAGE_NUMBER = 'sn/users/SET_PAGE_NUMBER';
-const SET_TOTAL_USERS_COUNT = 'sn/users/SET_TOTAL_USERS_COUNT';
-const SET_IS_LOADING = 'sn/users/SET_IS_LOADING';
-const SET_FOLLOWING_IN_PROGRESS = 'sn/users/SET_FOLLOWING_IN_PROGRESS';
+const SET_USERS = 'sn/users/SET_USERS'
+const TOGGLE_FOLLOWED = 'sn/users/TOGGLE_FOLLOWED'
+const SET_PAGE_NUMBER = 'sn/users/SET_PAGE_NUMBER'
+const SET_TOTAL_USERS_COUNT = 'sn/users/SET_TOTAL_USERS_COUNT'
+const SET_IS_LOADING = 'sn/users/SET_IS_LOADING'
+const SET_FOLLOWING_IN_PROGRESS = 'sn/users/SET_FOLLOWING_IN_PROGRESS'
 
 
 const initialState = {
@@ -19,9 +22,9 @@ const initialState = {
     
 }
 
-type InitialStateType = typeof initialState;
+type InitialStateType = typeof initialState
 
-const usersPageReducer = (state = initialState, action: any): InitialStateType => {
+const usersPageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
         case SET_USERS:
             return {
@@ -56,48 +59,54 @@ const usersPageReducer = (state = initialState, action: any): InitialStateType =
     }
 }
 
+type ActionsTypes = SetUsersActionType | ToggleFollowedActionType | SetPageNumberActionType |
+                    SetTotalUsersCountActionType | SetIsLoadingActionType | SetFollowingInProgressActionType
+
 
 type SetUsersActionType = {
     type: typeof SET_USERS,
     users: Array<UserType>
 }
-export const setUsers = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users});
+export const setUsers = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users})
 
 type ToggleFollowedActionType = {
     type: typeof TOGGLE_FOLLOWED,
     userId: number
 }
-export const toggleFollowed = (userId: number): ToggleFollowedActionType => ({type: TOGGLE_FOLLOWED, userId});
+export const toggleFollowed = (userId: number): ToggleFollowedActionType => ({type: TOGGLE_FOLLOWED, userId})
 
 type SetPageNumberActionType = {
     type: typeof SET_PAGE_NUMBER,
     num: number
 }
-export const setPageNumber = (num: number): SetPageNumberActionType => ({type: SET_PAGE_NUMBER, num});
+export const setPageNumber = (num: number): SetPageNumberActionType => ({type: SET_PAGE_NUMBER, num})
 
 type SetTotalUsersCountActionType = {
     type: typeof SET_TOTAL_USERS_COUNT,
     count: number
 }
-export const setTotalUsersCount = (count: number): SetTotalUsersCountActionType => ({type: SET_TOTAL_USERS_COUNT, count});
+export const setTotalUsersCount = (count: number): SetTotalUsersCountActionType => ({type: SET_TOTAL_USERS_COUNT, count})
 
 type SetIsLoadingActionType = {
     type: typeof SET_IS_LOADING,
     isLoading: boolean
 }
-export const setIsLoading = (isLoading: boolean): SetIsLoadingActionType => ({type: SET_IS_LOADING, isLoading});
+export const setIsLoading = (isLoading: boolean): SetIsLoadingActionType => ({type: SET_IS_LOADING, isLoading})
 
 type SetFollowingInProgressActionType = {
     type: typeof SET_FOLLOWING_IN_PROGRESS,
     userId: number,
     isInProgress: boolean
 }
-export const setFollowingInProgress = (userId: number, isInProgress: boolean): SetFollowingInProgressActionType => ({ type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress});
+export const setFollowingInProgress = (userId: number, isInProgress: boolean): SetFollowingInProgressActionType => ({ type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress})
 
 
 
 
-const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any) => {
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
+const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, userId: number, apiMethod: any) => {
     const response = await apiMethod(userId);
     if(response.status === 200) {
         dispatch(toggleFollowed(userId));
@@ -105,29 +114,29 @@ const followUnfollowFlow = async (dispatch: any, userId: number, apiMethod: any)
     }
 }
 
-export const followOrUnfollow = (userId: number) => async (dispatch: any) => {
-    dispatch(setFollowingInProgress(userId, true));
+export const followOrUnfollow = (userId: number): ThunkType => async (dispatch) => {
+    dispatch(setFollowingInProgress(userId, true)); // disable button while fetching
 
     const followed = await usersAPI.checkFollowStatus(userId);
-    if (!followed.data) {
-        followUnfollowFlow(dispatch, userId, usersAPI.followToUser);
+    if (!followed.data) { // unfollowed ?
+        followUnfollowFlow(dispatch, userId, usersAPI.followToUser); // follow
     } else {
-        followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser);
+        followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser); //unfollow
     }
 }
 
 
 
-export const setUsersList = (pageSize: number, currentPage: number) => async (dispatch: any) => {
-    dispatch(setIsLoading(true));
+export const setUsersList = (pageSize: number, currentPage: number): ThunkType => async (dispatch) => {
+    dispatch(setIsLoading(true)); // activate spinner
     const response = await usersAPI.getUsers(pageSize, currentPage);
 
-    dispatch(setIsLoading(false)); 
-    dispatch(setUsers(response.data.items));
-    dispatch(setTotalUsersCount(response.data.totalCount));
+    dispatch(setIsLoading(false));  // deactivate spinner after response
+    dispatch(setUsers(response.data.items)); // set users from response to state 
+    dispatch(setTotalUsersCount(response.data.totalCount)); // set total users count from response to state
 
 }
 
 
 
-export default usersPageReducer;
+export default usersPageReducer

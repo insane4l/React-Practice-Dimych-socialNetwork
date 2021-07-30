@@ -1,4 +1,4 @@
-const SEND_MESSAGE = 'sn/messages/SEND_MESSAGE';
+const SEND_MESSAGE = 'sn/messages/SEND_MESSAGE'
 
 type MessageType = {
     id: number,
@@ -13,11 +13,11 @@ const initialState = {
         {id: 1, label: "Hi! Im in Tallinn right now", date: "12.6 21:38", myMessage: true}
     ] as Array<MessageType>
         
-};
+}
 
 type InitialStateType = typeof initialState;
 
-const messagesPageReducer = (state = initialState, action: any): InitialStateType => {
+const messagesPageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
         case SEND_MESSAGE:
             let indx = state.messages.length;
@@ -36,12 +36,14 @@ const messagesPageReducer = (state = initialState, action: any): InitialStateTyp
     }
 }
 
+type ActionsTypes = SendMessageActionType
+
 type SendMessageActionType = {
     type: typeof SEND_MESSAGE,
     date: string,
     messageBody: string
 }
-export const sendMessageAction = (date: string, messageBody: string): SendMessageActionType => ({type: SEND_MESSAGE, date, messageBody});
+export const sendMessageAction = (date: string, messageBody: string): SendMessageActionType => ({type: SEND_MESSAGE, date, messageBody})
 
 
-export default messagesPageReducer;
+export default messagesPageReducer
