@@ -1,7 +1,7 @@
 import { stopSubmit } from 'redux-form'
 import { ThunkAction } from 'redux-thunk'
 import { AppStateType } from '../reduxStore'
-import {usersAPI, authAPI} from '../services/snAPI'
+import {usersAPI, authAPI, ResultCodesEnum} from '../services/snAPI'
 import {UserPhotosType, ProfileType, MessageType} from '../types/types'
 
 const ADD_NEW_POST = 'sn/profile/ADD_NEW_POST'
@@ -103,52 +103,52 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 
 export const getUserProfile = (urlParamId: number): ThunkType => async (dispatch) => {
-    const response = await authAPI.getUserAuthData();
-    const authId = response.data.data.id;
+    const meData = await authAPI.getUserAuthData();
+    const authId = meData.data.id;
     const userId = urlParamId ? urlParamId : authId;
 
     const profile = await usersAPI.getUserProfile(userId);
-    dispatch(setUserAction(profile.data));
+    dispatch(setUserAction(profile));
 }
 
 
 export const updateProfilePhoto = (photoFile: any): ThunkType => async (dispatch) => {
-    const response = await usersAPI.setProfilePhoto(photoFile);
-    debugger;
-    if (response.data.resultCode === 0) {
-        dispatch(setProfilePhotoSuccess(response.data.data.photos));
+    const updatedPhotosData = await usersAPI.setProfilePhoto(photoFile);
+
+    if (updatedPhotosData.resultCode === ResultCodesEnum.Success) {
+        dispatch(setProfilePhotoSuccess(updatedPhotosData.data));
     }
 }
 
 
 export const getProfileStatus = (userId: number): ThunkType => async (dispatch) => {
-    const response = await usersAPI.getProfileStatus(userId);
+    const profileStatus = await usersAPI.getProfileStatus(userId);
 
-    if (response.status === 200) {
-        dispatch(setProfileStatus(response.data));
+    if (profileStatus) {
+        dispatch(setProfileStatus(profileStatus));
     }
 }
 
 
 export const updateProfileStatus = (message: string): ThunkType => async (dispatch) => {
-    const response = await usersAPI.setProfileStatus(message);
-    if (response.data.resultCode === 0) {
+    const data = await usersAPI.setProfileStatus(message);
+    if (data.resultCode === ResultCodesEnum.Success) {
         dispatch(setProfileStatus(message));
     }
 }
 
 
 export const updateProfileData = (formData: ProfileType): ThunkType => async (dispatch) => {
-    const response = await usersAPI.setProfileData(formData);
+    const data = await usersAPI.setProfileData(formData);
     
-    if(response.data.resultCode === 0) {
+    if(data.resultCode === ResultCodesEnum.Success) {
 
         dispatch(setProfileDataSuccess(formData));
     } else {
-        const errorMessage = response.data.messages[0];
+        const errorMessage = data.messages[0];
         // @ts-ignore
         dispatch(stopSubmit('profileData', {_error: errorMessage}));
-        return Promise.reject(response.data.messages[0]);
+        return Promise.reject(data.messages[0]);
     }
 }
 

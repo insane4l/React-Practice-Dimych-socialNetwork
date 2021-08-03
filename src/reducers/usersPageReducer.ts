@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
 import { AppStateType } from '../reduxStore'
-import {usersAPI} from '../services/snAPI'
+import {ResultCodesEnum, usersAPI} from '../services/snAPI'
 import { UserType } from '../types/types'
 
 const SET_USERS = 'sn/users/SET_USERS'
@@ -107,8 +107,9 @@ export const setFollowingInProgress = (userId: number, isInProgress: boolean): S
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, userId: number, apiMethod: any) => {
-    const response = await apiMethod(userId);
-    if(response.status === 200) {
+    const data = await apiMethod(userId);
+
+    if(data.resultCode === ResultCodesEnum.Success) {
         dispatch(toggleFollowed(userId));
         dispatch(setFollowingInProgress(userId, false));
     }
@@ -118,7 +119,8 @@ export const followOrUnfollow = (userId: number): ThunkType => async (dispatch) 
     dispatch(setFollowingInProgress(userId, true)); // disable button while fetching
 
     const followed = await usersAPI.checkFollowStatus(userId);
-    if (!followed.data) { // unfollowed ?
+    
+    if (!followed) { // unfollowed ?
         followUnfollowFlow(dispatch, userId, usersAPI.followToUser); // follow
     } else {
         followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser); //unfollow
@@ -129,11 +131,12 @@ export const followOrUnfollow = (userId: number): ThunkType => async (dispatch) 
 
 export const setUsersList = (pageSize: number, currentPage: number): ThunkType => async (dispatch) => {
     dispatch(setIsLoading(true)); // activate spinner
-    const response = await usersAPI.getUsers(pageSize, currentPage);
+    
+    const data = await usersAPI.getUsers(pageSize, currentPage);
 
     dispatch(setIsLoading(false));  // deactivate spinner after response
-    dispatch(setUsers(response.data.items)); // set users from response to state 
-    dispatch(setTotalUsersCount(response.data.totalCount)); // set total users count from response to state
+    dispatch(setUsers(data.items)); // set users from response to state 
+    dispatch(setTotalUsersCount(data.totalCount)); // set total users count from response to state
 
 }
 
