@@ -15,7 +15,6 @@ const maxLength25 = maxLengthCreator(25);
 
 type FormOwnPropsType = {
     captchaUrl: string | null
-    onSubmit: (email: string, password: string, rememberMe: boolean, captcha: string) => void
 }
 
 type LoginFormValuesType = {
@@ -25,25 +24,27 @@ type LoginFormValuesType = {
     captcha: string
 }
 
+type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>
+
 let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, FormOwnPropsType> & FormOwnPropsType> = (props) => {
     return (
         <form className="login__form" onSubmit={props.handleSubmit}>
             <div>
-                {createField("userEmail", Input, [required, maxLength25], "enter user name")}
+                {createField<LoginFormValuesTypeKeys>("email", Input, [required, maxLength25], "enter user name")}
                 {/* <Field validate={[required, maxLength25]} name="userEmail" component={Input} placeholder="enter user name" /> */}
             </div>
             <div>
-                {createField("userPass", Input, [required, maxLength25], "enter user password", {type: "password"})}
+                {createField<LoginFormValuesTypeKeys>("password", Input, [required, maxLength25], "enter user password", {type: "password"})}
                 {/* <Field validate={[required, maxLength25]} name="userPass" component={Input} type="password" placeholder="enter user password" /> */}
             </div>
             <div>
-                {createField("rememberMe", "input", [], undefined, {type: "checkbox"})}
+                {createField<LoginFormValuesTypeKeys>("rememberMe", "input", [], undefined, {type: "checkbox"})}
                 {/* <Field name="rememberMe" component="input" type="checkbox" /> remember me */}
             </div>
             {
                 props.captchaUrl && 
                 <div>
-                    {createField("captcha", Input, [required], "enter symbols from image")}
+                    {createField<LoginFormValuesTypeKeys>("captcha", Input, [required], "enter symbols from image")}
                     {/* <Field name="captcha" component={Input} validate={[required]} placeholder="enter symbols from image" /> */}
                     <img src={props.captchaUrl} alt="captcha" />
                 </div>
@@ -73,8 +74,8 @@ type MapDispatchPropsType = {
 
 
 const LoginPage: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
-    const onSubmit = (formData: any) => {
-        props.login(formData.userEmail, formData.userPass, formData.rememberMe, formData.captcha);
+    const onSubmit = (formData: LoginFormValuesType) => {
+        props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
     }
 
     return (

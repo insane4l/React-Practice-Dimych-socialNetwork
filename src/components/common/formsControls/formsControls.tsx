@@ -32,7 +32,7 @@ type CustomFieldProps = {
     className?: string
 }
 
-const CustomField = (Component: any): React.FC<CustomFieldProps> => ({input, meta, ...props}) => {
+const CustomField = (Component: any): React.FC<CustomFieldProps> => ({input, meta, ...props}) => { // Component: HTMLElement
     const errorStatus = meta.error;
     const hasError = errorStatus && meta.touched;
 
@@ -41,9 +41,9 @@ const CustomField = (Component: any): React.FC<CustomFieldProps> => ({input, met
 
     return(
         <>
-        <Component {...input} {...props} className={`${fieldClassName} ${errorClassName}`} />
+            <Component {...input} {...props} className={`${fieldClassName} ${errorClassName}`} />
 
-        { hasError && <span className="error-status">{errorStatus}</span> }
+            { hasError && <span className="error-status">{errorStatus}</span> }
         </>
     )
 }
@@ -52,13 +52,13 @@ export const Textarea = CustomField('textarea');
 export const Input = CustomField('input');
 
  
-export const createField = (name: string, component: React.FC<WrappedFieldProps> | string,
+export function createField<FormKeysType extends string>(name: FormKeysType, component: React.FC<WrappedFieldProps> | string,
                             validators: Array<FieldValidatorType>, placeholder: string | undefined,
-                            props = {}) => (
-    <Field name={name}
+                            props = {}) {
+    return <Field name={name}
            component={component}
            validate={validators}
            placeholder={placeholder}
            {...props}
-    />
-)
+        />
+}
