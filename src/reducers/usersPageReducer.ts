@@ -1,15 +1,8 @@
 import { Dispatch } from 'redux'
 import { ThunkAction } from 'redux-thunk'
-import { AppStateType } from '../reduxStore'
+import { AppStateType, InferActionsTypes } from '../reduxStore'
 import {ResultCodesEnum, usersAPI} from '../services/snAPI'
 import { UserType } from '../types/types'
-
-const SET_USERS = 'sn/users/SET_USERS'
-const TOGGLE_FOLLOWED = 'sn/users/TOGGLE_FOLLOWED'
-const SET_PAGE_NUMBER = 'sn/users/SET_PAGE_NUMBER'
-const SET_TOTAL_USERS_COUNT = 'sn/users/SET_TOTAL_USERS_COUNT'
-const SET_IS_LOADING = 'sn/users/SET_IS_LOADING'
-const SET_FOLLOWING_IN_PROGRESS = 'sn/users/SET_FOLLOWING_IN_PROGRESS'
 
 
 const initialState = {
@@ -26,12 +19,12 @@ type InitialStateType = typeof initialState
 
 const usersPageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
-        case SET_USERS:
+        case 'sn/users/SET_USERS':
             return {
                 ...state,
                 users: action.users
             };
-        case TOGGLE_FOLLOWED:
+        case 'sn/users/TOGGLE_FOLLOWED':
             return {
                 ...state,
                 users: state.users.map( u => {
@@ -41,13 +34,13 @@ const usersPageReducer = (state = initialState, action: ActionsTypes): InitialSt
                     return u;
                 })
             };
-        case SET_PAGE_NUMBER:
+        case 'sn/users/SET_PAGE_NUMBER':
             return {...state, currentPage: action.num};
-        case SET_TOTAL_USERS_COUNT:
+        case 'sn/users/SET_TOTAL_USERS_COUNT':
             return {...state, totalUsersCount: action.count};
-        case SET_IS_LOADING:
+        case 'sn/users/SET_IS_LOADING':
             return {...state, isLoading: action.isLoading}
-        case SET_FOLLOWING_IN_PROGRESS:
+        case 'sn/users/SET_FOLLOWING_IN_PROGRESS':
             return {
                 ...state,
                 followingInProgress: action.isInProgress 
@@ -59,46 +52,30 @@ const usersPageReducer = (state = initialState, action: ActionsTypes): InitialSt
     }
 }
 
-type ActionsTypes = SetUsersActionType | ToggleFollowedActionType | SetPageNumberActionType |
-                    SetTotalUsersCountActionType | SetIsLoadingActionType | SetFollowingInProgressActionType
+type ActionsTypes = InferActionsTypes<typeof actions>
 
-
-type SetUsersActionType = {
-    type: typeof SET_USERS,
-    users: Array<UserType>
+export const actions = {
+    setUsers: (users: Array<UserType>) => (
+        {type: 'sn/users/SET_USERS', users} as const
+    ),
+    toggleFollowed: (userId: number) => (
+        {type: 'sn/users/TOGGLE_FOLLOWED', userId} as const
+    ),
+    setPageNumber: (num: number) => (
+        {type: 'sn/users/SET_PAGE_NUMBER', num} as const
+    ),
+    setTotalUsersCount: (count: number) => (
+        {type: 'sn/users/SET_TOTAL_USERS_COUNT', count} as const
+    ),
+    setIsLoading: (isLoading: boolean) => (
+        {type: 'sn/users/SET_IS_LOADING', isLoading} as const
+    ),
+    setFollowingInProgress: (userId: number, 
+        isInProgress: boolean) => (
+            {type: 'sn/users/SET_FOLLOWING_IN_PROGRESS', userId, isInProgress} as const
+    )
 }
-export const setUsers = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users})
 
-type ToggleFollowedActionType = {
-    type: typeof TOGGLE_FOLLOWED,
-    userId: number
-}
-export const toggleFollowed = (userId: number): ToggleFollowedActionType => ({type: TOGGLE_FOLLOWED, userId})
-
-type SetPageNumberActionType = {
-    type: typeof SET_PAGE_NUMBER,
-    num: number
-}
-export const setPageNumber = (num: number): SetPageNumberActionType => ({type: SET_PAGE_NUMBER, num})
-
-type SetTotalUsersCountActionType = {
-    type: typeof SET_TOTAL_USERS_COUNT,
-    count: number
-}
-export const setTotalUsersCount = (count: number): SetTotalUsersCountActionType => ({type: SET_TOTAL_USERS_COUNT, count})
-
-type SetIsLoadingActionType = {
-    type: typeof SET_IS_LOADING,
-    isLoading: boolean
-}
-export const setIsLoading = (isLoading: boolean): SetIsLoadingActionType => ({type: SET_IS_LOADING, isLoading})
-
-type SetFollowingInProgressActionType = {
-    type: typeof SET_FOLLOWING_IN_PROGRESS,
-    userId: number,
-    isInProgress: boolean
-}
-export const setFollowingInProgress = (userId: number, isInProgress: boolean): SetFollowingInProgressActionType => ({ type: SET_FOLLOWING_IN_PROGRESS, userId, isInProgress})
 
 
 
@@ -110,13 +87,13 @@ const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, userId: numb
     const data = await apiMethod(userId);
 
     if(data.resultCode === ResultCodesEnum.Success) {
-        dispatch(toggleFollowed(userId));
-        dispatch(setFollowingInProgress(userId, false));
+        dispatch(actions.toggleFollowed(userId));
+        dispatch(actions.setFollowingInProgress(userId, false));
     }
 }
 
 export const followOrUnfollow = (userId: number): ThunkType => async (dispatch) => {
-    dispatch(setFollowingInProgress(userId, true)); // disable button while fetching
+    dispatch(actions.setFollowingInProgress(userId, true)); // disable button while fetching
 
     const followed = await usersAPI.checkFollowStatus(userId);
     
@@ -130,13 +107,13 @@ export const followOrUnfollow = (userId: number): ThunkType => async (dispatch) 
 
 
 export const setUsersList = (pageSize: number, currentPage: number): ThunkType => async (dispatch) => {
-    dispatch(setIsLoading(true)); // activate spinner
+    dispatch(actions.setIsLoading(true)); // activate spinner
     
     const data = await usersAPI.getUsers(pageSize, currentPage);
 
-    dispatch(setIsLoading(false));  // deactivate spinner after response
-    dispatch(setUsers(data.items)); // set users from response to state 
-    dispatch(setTotalUsersCount(data.totalCount)); // set total users count from response to state
+    dispatch(actions.setIsLoading(false));  // deactivate spinner after response
+    dispatch(actions.setUsers(data.items)); // set users from response to state 
+    dispatch(actions.setTotalUsersCount(data.totalCount)); // set total users count from response to state
 
 }
 
