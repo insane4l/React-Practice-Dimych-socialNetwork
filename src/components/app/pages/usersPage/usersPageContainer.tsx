@@ -5,7 +5,7 @@ import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 import UsersPage from './usersPage'
 import Spinner from '../../../common/spinner'
 import * as selectors from '../../../../selectors/'
-import {setPageNumber, followOrUnfollow, setUsersList} from '../../../../reducers/usersPageReducer'
+import {actions, followOrUnfollow, setUsersList} from '../../../../reducers/usersPageReducer'
 import {AppStateType} from '../../../../reduxStore'
 import {UserType} from '../../../../types/types'
 
@@ -64,15 +64,17 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         isLoading: selectors.getLoadingStatus(state),
         followingInProgress: selectors.getFollowingInProgress(state)
     }
-};
+}
 
 const mapDispatchToProps = {
-    setPageNumber, followOrUnfollow, setUsersList
-};
+    setPageNumber: actions.setPageNumber,
+    followOrUnfollow,
+    setUsersList
+}
 
 
 
 export default compose(
                     connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps),
                     withAnonUserRedirect
-               )(UsersPageContainer);
+               )(UsersPageContainer)

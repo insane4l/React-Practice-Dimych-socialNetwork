@@ -1,11 +1,4 @@
-const SEND_MESSAGE = 'sn/messages/SEND_MESSAGE'
-
-type MessageType = {
-    id: number,
-    label: string,
-    date: string,
-    myMessage: boolean
-}
+import { InferActionsTypes } from "../reduxStore";
 
 const initialState = {
     messages: [
@@ -14,12 +7,13 @@ const initialState = {
     ] as Array<MessageType>
         
 }
-
+type MessageType = { id: number, label: string, date: string, myMessage: boolean }
 type InitialStateType = typeof initialState;
+
 
 const messagesPageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
-        case SEND_MESSAGE:
+        case 'sn/messages/SEND_MESSAGE':
             let indx = state.messages.length;
             const key = ++indx;
             return {
@@ -36,14 +30,14 @@ const messagesPageReducer = (state = initialState, action: ActionsTypes): Initia
     }
 }
 
-type ActionsTypes = SendMessageActionType
 
-type SendMessageActionType = {
-    type: typeof SEND_MESSAGE,
-    date: string,
-    messageBody: string
+type ActionsTypes = InferActionsTypes<typeof actions>
+export const actions = {
+    sendMessageAction: (date: string, messageBody: string) => (
+        {type: 'sn/messages/SEND_MESSAGE', date, messageBody} as const
+    )
 }
-export const sendMessageAction = (date: string, messageBody: string): SendMessageActionType => ({type: SEND_MESSAGE, date, messageBody})
+
 
 
 export default messagesPageReducer

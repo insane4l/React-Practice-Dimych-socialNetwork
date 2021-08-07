@@ -1,5 +1,5 @@
 import DialogsItem from './';
-import {sendMessageAction} from '../../../../../reducers/messagesPageReducer';
+import {actions} from '../../../../../reducers/messagesPageReducer';
 import {connect} from 'react-redux';
 
 
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => {
     
             const date = `${day}.${month} ${hours}:${minutes}`;
     
-            dispatch(sendMessageAction(date, messageBody));
+            dispatch(actions.sendMessageAction(date, messageBody));
         }
     }
 };

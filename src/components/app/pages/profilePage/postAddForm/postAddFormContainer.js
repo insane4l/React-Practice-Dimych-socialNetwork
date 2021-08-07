@@ -1,5 +1,5 @@
 import React from 'react';
-import {addNewPost} from '../../../../../reducers/profilePageReducer';
+import {actions} from '../../../../../reducers/profilePageReducer';
 import PostAddForm from './';
 import {connect} from 'react-redux';
 
@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    addNewPost
+    addNewPost: actions.addNewPost
 };
 
 const PostAddFormContainer = connect(mapStateToProps, mapDispatchToProps)(PostAddForm);

@@ -1,5 +1,5 @@
-import {createStore, combineReducers, applyMiddleware, compose} from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import {createStore, combineReducers, applyMiddleware, compose, Action} from 'redux'
+import thunkMiddleware, { ThunkAction } from 'redux-thunk'
 
 import profilePageReducer from './reducers/profilePageReducer'
 import messagesPageReducer from './reducers/messagesPageReducer'
@@ -25,6 +25,10 @@ export type AppStateType = ReturnType<RootReducerType>
 
 type PropertiesTypes<T> = T extends {[key: string]: infer U} ? U : never
 export type InferActionsTypes<T extends {[key: string]: (...args: any[]) => any}> =ReturnType<PropertiesTypes<T>>
+
+
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, AppStateType, unknown, A>
+
 
 
 // options for Redux DevTools (chrome extention)

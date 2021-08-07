@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
-import { ThunkAction } from 'redux-thunk'
-import { AppStateType, InferActionsTypes } from '../reduxStore'
-import {ResultCodesEnum, usersAPI} from '../services/snAPI'
+import { BaseThunkType, InferActionsTypes } from '../reduxStore'
+import {ResultCodesEnum} from '../services/API'
+import { usersAPI } from '../services/usersAPI'
 import { UserType } from '../types/types'
 
 
@@ -14,8 +14,8 @@ const initialState = {
     followingInProgress: [] as Array<number>
     
 }
-
 type InitialStateType = typeof initialState
+
 
 const usersPageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
@@ -52,8 +52,8 @@ const usersPageReducer = (state = initialState, action: ActionsTypes): InitialSt
     }
 }
 
-type ActionsTypes = InferActionsTypes<typeof actions>
 
+type ActionsTypes = InferActionsTypes<typeof actions>
 export const actions = {
     setUsers: (users: Array<UserType>) => (
         {type: 'sn/users/SET_USERS', users} as const
@@ -81,7 +81,6 @@ export const actions = {
 
 
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, userId: number, apiMethod: any) => {
     const data = await apiMethod(userId);
@@ -92,7 +91,7 @@ const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, userId: numb
     }
 }
 
-export const followOrUnfollow = (userId: number): ThunkType => async (dispatch) => {
+export const followOrUnfollow = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     dispatch(actions.setFollowingInProgress(userId, true)); // disable button while fetching
 
     const followed = await usersAPI.checkFollowStatus(userId);
@@ -105,8 +104,7 @@ export const followOrUnfollow = (userId: number): ThunkType => async (dispatch) 
 }
 
 
-
-export const setUsersList = (pageSize: number, currentPage: number): ThunkType => async (dispatch) => {
+export const setUsersList = (pageSize: number, currentPage: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     dispatch(actions.setIsLoading(true)); // activate spinner
     
     const data = await usersAPI.getUsers(pageSize, currentPage);
