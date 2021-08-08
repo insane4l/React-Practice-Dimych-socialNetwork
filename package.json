@@ -48,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-router-dom": "^5.1.8",
     "@types/redux-form": "^8.3.2",
     "node-sass": "^6.0.0"
   }

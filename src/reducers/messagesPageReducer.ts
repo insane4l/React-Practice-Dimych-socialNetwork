@@ -4,10 +4,10 @@ const initialState = {
     messages: [
         {id: 0, label: "Hi where are u?", date: "12.6 21:38", myMessage: false},
         {id: 1, label: "Hi! Im in Tallinn right now", date: "12.6 21:38", myMessage: true}
-    ] as Array<MessageType>
+    ] as Array<DialogsMessageType>
         
 }
-type MessageType = { id: number, label: string, date: string, myMessage: boolean }
+export type DialogsMessageType = { id: number, label: string, date: string, myMessage: boolean }
 type InitialStateType = typeof initialState;
 
 

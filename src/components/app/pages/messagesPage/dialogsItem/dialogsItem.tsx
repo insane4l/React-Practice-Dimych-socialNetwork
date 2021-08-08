@@ -1,14 +1,34 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import DialogsMessageForm from './dialogsMessageForm';
+import { DialogsMessageType } from '../../../../../reducers/messagesPageReducer';
 
 import goBack from './goBack.svg';
 import './dialogsItem.scss';
 
-const DialogsItem = (props) => {
+type PropsType = {
+    //MapStatePropsType
+    messages: Array<DialogsMessageType>
+    //MapDispatchPropsType
+    sendMessage: (date: string, messageBody: string) => void
+}
 
-    const onFormSubmit = (formData) => {
-        props.sendMessage(formData.messageBody);
+export type DialogsFormValuesType = { messageBody: string }
+
+const DialogsItem: React.FC<PropsType> = (props) => {
+
+    const onFormSubmit = (formData: DialogsFormValuesType) => {
+        // const newDate = new Date();
+        // const day = newDate.getDate();
+        // const month = newDate.getMonth() +1;
+        // const hours = newDate.getHours() % 24;
+        // const minutes = newDate.getMinutes() % 60;
+
+        // const date = `${day}.${month} ${hours}:${minutes}`;
+        // utils function
+        // const date = getCurrentDate();
+        const date = '22-02-2020';
+        props.sendMessage(date, formData.messageBody);
     }
 
     return (
