@@ -1,5 +1,5 @@
 import React from 'react';
-import {reduxForm, Field, InjectedFormProps} from 'redux-form';
+import {reduxForm, InjectedFormProps} from 'redux-form';
 import {connect} from 'react-redux';
 import {login} from '../../../../reducers/authReducer';
 import {required, maxLengthCreator} from '../../../../utils/validation/validators';
@@ -92,7 +92,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType  => {
     }
 }
 
-export default compose(withSuccesAuthRedirect,
+export default compose<React.ComponentType>(withSuccesAuthRedirect,
                        connect(mapStateToProps, {login})
                        )
                        (LoginPage);

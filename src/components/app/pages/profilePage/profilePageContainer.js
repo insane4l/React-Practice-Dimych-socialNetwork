@@ -53,7 +53,7 @@ const mapDispatchToProps = {
     getUserProfile,
     getProfileStatus
 };
-
+//compose<React.ComponentType>
 export default compose(
                     withRouter,
                     connect(mapStateToProps, mapDispatchToProps)

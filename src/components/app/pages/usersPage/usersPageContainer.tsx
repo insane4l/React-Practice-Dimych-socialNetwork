@@ -74,7 +74,7 @@ const mapDispatchToProps = {
 
 
 
-export default compose(
+export default compose<React.ComponentType>(
                     connect<MapStatePropsType, MapDispatchPropsType, {}, AppStateType>(mapStateToProps, mapDispatchToProps),
                     withAnonUserRedirect
                )(UsersPageContainer)

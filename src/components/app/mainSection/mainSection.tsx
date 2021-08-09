@@ -8,7 +8,7 @@ import './mainSection.scss';
 const UsersPageContainer = React.lazy(() => import('../pages/usersPage/usersPageContainer'));
 
 
-const MainSection = () => {
+const MainSection: React.FC = () => {
     return (
         <main className="main-section">
             <div className="section">

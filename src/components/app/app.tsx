@@ -8,8 +8,15 @@ import {initializeApp} from '../../reducers/appReducer';
 import Spinner from '../common/spinner';
 
 import "./app.scss";
+import { AppStateType } from "../../reduxStore";
 
-class App extends React.Component {
+
+type PropsType = {
+    appInitialized: boolean
+    initializeApp: () => Promise<void>
+}
+
+class App extends React.Component<PropsType> {
 
     componentDidMount() {
         this.props.initializeApp();
@@ -43,6 +50,6 @@ class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({appInitialized: state.app.appInitialized})
+const mapStateToProps = (state: AppStateType) => ({appInitialized: state.app.appInitialized})
 
 export default connect(mapStateToProps, {initializeApp})(App);
