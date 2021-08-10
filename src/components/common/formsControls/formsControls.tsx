@@ -26,7 +26,7 @@ import './formsControls.scss';
 // React.FC<WrappedFieldProps> can't add className correctly
 // !!!!({input: WrappedFieldInputProps, meta: WrappedFieldMetaProps, ...props}) cant type because of destructuring
 // ({input, meta}: WrappedFieldProps, { ...props}) can't add className for return element
-type CustomFieldProps = {
+export type CustomFieldProps = {
     input: WrappedFieldInputProps
     meta: WrappedFieldMetaProps
     className?: string

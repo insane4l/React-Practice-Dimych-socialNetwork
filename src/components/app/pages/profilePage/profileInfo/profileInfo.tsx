@@ -1,10 +1,20 @@
 import React from 'react';
 import ProfileImages from './profileImages';
 import ProfileData from './profileData';
+import { ProfileType} from '../../../../../types/types';
 
 import './profileInfo.scss';
 
-const ProfileInfo = (props) => {
+type PropsType = {
+    user: ProfileType
+    isOwner: boolean
+    profileStatus: string
+    updateProfilePhoto: (photo: File) => void
+    updateProfileStatus: (status: string) => void
+    updateProfileData: (formData: ProfileType) => Promise<any>
+}
+
+const ProfileInfo: React.FC<PropsType> = (props) => {
 
     return (
         <div className="profile__info">

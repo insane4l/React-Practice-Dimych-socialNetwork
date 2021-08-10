@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 import {defaultCover, defaultPhoto} from '../../../../../assets/images';
 import {addNewImage} from '../../../../../assets/icons';
 
-const ProfileImages = ({isOwner, userCover, userPhoto, updateProfilePhoto}) => {
 
-    const onNewPhotoSelected = (e) => {
-        if(e.target.files.length) {
+type PropsType = {
+    isOwner: boolean
+    userCover: string | null
+    userPhoto: string | null
+    updateProfilePhoto: (photo: File) => void
+}
+
+const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto, updateProfilePhoto}) => {
+
+    const onNewPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files?.length) {
             updateProfilePhoto(e.target.files[0]);
         }
     };

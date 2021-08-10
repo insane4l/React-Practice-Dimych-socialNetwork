@@ -1,6 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, ChangeEvent} from 'react';
 
-const ProfileStatus = (props) => {
+
+type PropsType = {
+    isOwner: boolean
+    profileStatus: string
+    updateProfileStatus: (message: string) => void
+}
+const ProfileStatus: React.FC<PropsType> = (props) => {
 
     const [editMode, setEditMode] = useState(false);
     const [statusMessage, setStatus] = useState(props.profileStatus);
@@ -9,7 +15,7 @@ const ProfileStatus = (props) => {
         setStatus(props.profileStatus)
     }, [props.profileStatus]);
 
-    const onStatusUpdate = (e) => {
+    const onStatusUpdate = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
     };
 
@@ -23,8 +29,8 @@ const ProfileStatus = (props) => {
     };
     
     const statusText = <div className="profile__status-text"
-                            onDoubleClick={props.isOwner ? activateEditMode : null}
-                            title={props.isOwner ? "Double click to edit" : null} >
+                            onDoubleClick={props.isOwner ? activateEditMode : undefined}
+                            title={props.isOwner ? "Double click to edit" : undefined} >
                             {props.profileStatus || "......"}
                         </div>;
 

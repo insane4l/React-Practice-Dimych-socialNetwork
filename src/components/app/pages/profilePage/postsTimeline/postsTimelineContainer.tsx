@@ -1,11 +1,12 @@
 import React from 'react';
-import PostsTimeline from './';
+import PostsTimeline from '.';
 import {connect} from 'react-redux';
+import { AppStateType } from '../../../../../reduxStore';
 
 import './postsTimeline.scss';
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         messages: state.profilePage.messages
     }
