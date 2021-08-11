@@ -95,9 +95,11 @@ export const updateProfilePhoto = (photoFile: File): BaseThunkType<ActionsTypes>
 
 export const getProfileStatus = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     const profileStatus = await usersAPI.getProfileStatus(userId);
-
+    debugger;
     if (profileStatus) {
         dispatch(actions.setProfileStatus(profileStatus));
+    } else {
+        dispatch(actions.setProfileStatus("..."));
     }
 }
 

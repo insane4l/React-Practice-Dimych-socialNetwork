@@ -49,6 +49,7 @@ class ProfilePageContainer extends Component<PropsType> {
         if (!userId) {
             console.error("Id should exists in URI params or in state(profileId)")
         } else {
+            debugger;
             this.props.getUserProfile(userId);
             this.props.getProfileStatus(userId);
         }

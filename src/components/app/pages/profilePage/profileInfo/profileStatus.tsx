@@ -31,7 +31,7 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
     const statusText = <div className="profile__status-text"
                             onDoubleClick={props.isOwner ? activateEditMode : undefined}
                             title={props.isOwner ? "Double click to edit" : undefined} >
-                            {props.profileStatus || "......"}
+                            {props.profileStatus}
                         </div>;
 
     const statusInput = <input className="profile__status-input"
