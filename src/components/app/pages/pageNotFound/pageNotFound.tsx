@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 import './pageNotFound.scss';
 
-const PageNotFound = () => {
+const PageNotFound: React.FC = () => {
     return (
         <div className="error__page-wrapper">
             <h2 className="error__page-title">404 ERROR</h2>

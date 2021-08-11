@@ -3,7 +3,7 @@ import DialogsListContainer from './dialogsList/dialogsListContainer';
 import DialogsItemContainer from './dialogsItem/dialogsItemContainer';
 import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
 
-const MessagesPage = () => {
+const MessagesPage: React.FC = () => {
     return (
         <>
             <DialogsListContainer />

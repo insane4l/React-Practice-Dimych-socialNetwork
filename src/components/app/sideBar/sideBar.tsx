@@ -5,9 +5,12 @@ import AdsBlock from '../adsBlock';
 import {connect} from 'react-redux';
 
 import './sideBar.scss';
+import { AppStateType } from '../../../reduxStore';
 
-
-const SideBar = (props) => {
+type PropsType = {
+    isUserAuthorized: boolean
+}
+const SideBar: React.FC<PropsType> = (props) => {
     return (
         <aside className="sidebar">
             <NavBar />
@@ -17,7 +20,7 @@ const SideBar = (props) => {
     );
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
     isUserAuthorized: state.auth.isAuthorized
 })
 

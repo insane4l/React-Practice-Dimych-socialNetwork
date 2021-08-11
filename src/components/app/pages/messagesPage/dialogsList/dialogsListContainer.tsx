@@ -1,9 +1,10 @@
-import DialogsList from './';
+import DialogsList from '.';
 import {connect} from 'react-redux';
+import { AppStateType } from '../../../../../reduxStore';
 
 
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
     return {
         dialogs: state.messagesPage
     }

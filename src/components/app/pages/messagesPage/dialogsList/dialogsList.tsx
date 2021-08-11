@@ -2,7 +2,7 @@ import React from 'react';
 
 import './dialogsList.scss';
 
-const DialogsList = () => {
+const DialogsList: React.FC = () => {
     return (
         <>
             <div className="dialogs__wrapper">

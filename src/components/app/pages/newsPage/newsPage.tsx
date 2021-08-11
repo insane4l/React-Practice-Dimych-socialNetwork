@@ -1,9 +1,9 @@
 import React from 'react';
 import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
 
-import './musicPage.scss';
+import './newsPage.scss';
 
-const MusicPage = () => {
+const NewsPage: React.FC = () => {
     return (
         <div className="section">
             
@@ -11,5 +11,4 @@ const MusicPage = () => {
     )
 }
 
-
-export default withAnonUserRedirect(MusicPage);
+export default withAnonUserRedirect(NewsPage);
