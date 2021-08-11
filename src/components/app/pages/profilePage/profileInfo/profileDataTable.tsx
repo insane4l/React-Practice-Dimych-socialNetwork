@@ -9,19 +9,21 @@ type PropsType = {
 
 const ProfileDataTable: React.FC<PropsType> = (props) => {
 
-    const contacts = Object.keys(props.user.contacts).map( key => {
-        if (props.user.contacts[key as keyof ProfileContactsType]) {
-            return <Row key={key} title={key} data={props.user.contacts[key as keyof ProfileContactsType]} />
+    const {isOwner, setEditMode, user: {contacts, aboutMe, lookingForAJobDescription}} = props
+
+    const contactsList = Object.keys(contacts).map( key => {
+        if (contacts[key as keyof ProfileContactsType]) {
+            return <Row key={key} title={key} data={contacts[key as keyof ProfileContactsType]} />
         }
         return null;
     })
 
     return (
         <>
-            <Row title="About me" data={props.user.aboutMe} />
-            <Row title="My skills" data={props.user.lookingForAJobDescription} />
-            {contacts}
-            {props.isOwner && <button onClick={props.setEditMode} >Change data</button>}
+            {aboutMe && <Row title="About me" data={aboutMe} />}
+            {lookingForAJobDescription && <Row title="My skills" data={lookingForAJobDescription} />}
+            {contactsList}
+            {isOwner && <button onClick={setEditMode} >Change data</button>}
         </>
     )
 };
