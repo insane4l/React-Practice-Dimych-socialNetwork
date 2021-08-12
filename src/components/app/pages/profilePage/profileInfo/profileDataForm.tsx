@@ -12,6 +12,7 @@ type ProfileDataFormValuesType = ProfileType
 
 
 let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormOwnPropsType> & FormOwnPropsType> = ({user, handleSubmit, error}) => {
+    debugger;
     return (
         <form onSubmit={handleSubmit}>
             {error && <div><b>{error}</b></div>}
@@ -22,7 +23,7 @@ let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormO
             
             {
                 Object.keys(user.contacts).map( key => {
-                    return <Row key={key} title={key} inputName={"contacts." + key} />
+                    return <Row key={key} title={key} inputName={"contacts." + key} element={Input} />
                 })
             }
             <button>Save data</button>
@@ -39,6 +40,7 @@ type PropsType = {
     element?: React.FC<CustomFieldProps> | string
 }
 const Row: React.FC<PropsType> = ({title, inputName, element, ...props}) => {
+    debugger;
     return <div className="profile__data-row data-form__row">
                 <div className="profile__data-item">{title}:</div>
                 <Field 
