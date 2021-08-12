@@ -5,7 +5,7 @@ import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 import UsersPage from './usersPage'
 import Spinner from '../../../common/spinner'
 import * as selectors from '../../../../selectors/'
-import {actions, followOrUnfollow, setUsersList} from '../../../../reducers/usersPageReducer'
+import {actions, followOrUnfollow, setUsersList} from '../../../../reducers/usersReducer'
 import {AppStateType} from '../../../../reduxStore'
 import {UserType} from '../../../../types/types'
 

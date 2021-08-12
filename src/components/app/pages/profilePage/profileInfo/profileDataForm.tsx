@@ -40,7 +40,6 @@ type PropsType = {
     element?: React.FC<CustomFieldProps> | string
 }
 const Row: React.FC<PropsType> = ({title, inputName, element, ...props}) => {
-    debugger;
     return <div className="profile__data-row data-form__row">
                 <div className="profile__data-item">{title}:</div>
                 <Field 

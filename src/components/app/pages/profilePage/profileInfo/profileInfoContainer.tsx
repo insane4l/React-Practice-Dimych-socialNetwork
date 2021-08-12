@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ProfileInfo from './profileInfo';
 import {updateProfileStatus, updateProfilePhoto,
-    updateProfileData} from '../../../../../reducers/profilePageReducer';
+    updateProfileData} from '../../../../../reducers/profileReducer';
 import { AppStateType } from '../../../../../reduxStore';
 import { ProfileType } from '../../../../../types/types';
 

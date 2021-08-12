@@ -1,5 +1,5 @@
 import DialogsItem from '.'
-import {actions} from '../../../../../reducers/messagesPageReducer'
+import {actions} from '../../../../../reducers/messagesReducer'
 import {connect} from 'react-redux'
 import { AppStateType } from '../../../../../reduxStore'
 import { Dispatch } from 'react'

@@ -18,7 +18,7 @@ const initialState = {
 type InitialStateType = typeof initialState
 
 
-const profilePageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+const profileReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
         case 'sn/profile/ADD_NEW_POST':
             let length = state.messages.length;
@@ -87,7 +87,6 @@ export const updateProfilePhoto = (photoFile: File): BaseThunkType<ActionsTypes>
     const updatedPhotosData = await usersAPI.setProfilePhoto(photoFile);
 
     if (updatedPhotosData.resultCode === ResultCodesEnum.Success) {
-        debugger;
         dispatch(actions.setProfilePhotoSuccess(updatedPhotosData.data.photos));
     }
 }
@@ -129,4 +128,4 @@ export const updateProfileData = (formData: ProfileType): WithAnotherActionsThun
 
 
 
-export default profilePageReducer
+export default profileReducer

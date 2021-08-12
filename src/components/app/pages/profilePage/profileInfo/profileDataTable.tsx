@@ -9,7 +9,7 @@ type PropsType = {
 
 const ProfileDataTable: React.FC<PropsType> = (props) => {
 
-    const {isOwner, setEditMode, user: {contacts, aboutMe, lookingForAJobDescription}} = props
+    const {isOwner, setEditMode, user: {contacts, aboutMe, lookingForAJob, lookingForAJobDescription}} = props
 
     const contactsList = Object.keys(contacts).map( key => {
         if (contacts[key as keyof ProfileContactsType]) {
@@ -19,9 +19,10 @@ const ProfileDataTable: React.FC<PropsType> = (props) => {
     })
 
     return (
-        <>
+        <>  
             {aboutMe && <Row title="About me" data={aboutMe} />}
             {lookingForAJobDescription && <Row title="My skills" data={lookingForAJobDescription} />}
+            {lookingForAJob && <div className="profile__data-item">Looking for a job!</div>}
             {contactsList}
             {isOwner && <button onClick={setEditMode} >Change data</button>}
         </>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {compose} from 'redux';
 import {withRouter, Redirect, RouteComponentProps} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getUserProfile, getProfileStatus} from '../../../../reducers/profilePageReducer';
+import {getUserProfile, getProfileStatus} from '../../../../reducers/profileReducer';
 import ProfilePage from './profilePage';
 import { AppStateType } from '../../../../reduxStore';
 import { ProfileType } from '../../../../types/types';

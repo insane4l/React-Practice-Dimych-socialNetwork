@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import DialogsMessageForm from './dialogsMessageForm';
-import { DialogsMessageType } from '../../../../../reducers/messagesPageReducer';
+import { DialogsMessageType } from '../../../../../reducers/messagesReducer';
 
 import goBack from './goBack.svg';
 import './dialogsItem.scss';

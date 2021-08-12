@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { BaseThunkType, InferActionsTypes } from '../reduxStore'
-import {ResultCodesEnum} from '../services/API'
+import {ResponseType, ResultCodesEnum} from '../services/API'
 import { usersAPI } from '../services/usersAPI'
 import { UserType } from '../types/types'
 
@@ -14,10 +14,10 @@ const initialState = {
     followingInProgress: [] as Array<number>
     
 }
-type InitialStateType = typeof initialState
+export type InitialStateType = typeof initialState
 
 
-const usersPageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
         case 'sn/users/SET_USERS':
             return {
@@ -82,7 +82,8 @@ export const actions = {
 
 
 
-const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, userId: number, apiMethod: any) => {
+const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, 
+                userId: number, apiMethod: (userId: number) => Promise<ResponseType<{}, ResultCodesEnum>>) => {
     const data = await apiMethod(userId);
 
     if(data.resultCode === ResultCodesEnum.Success) {
@@ -97,14 +98,15 @@ export const followOrUnfollow = (userId: number): BaseThunkType<ActionsTypes> =>
     const followed = await usersAPI.checkFollowStatus(userId);
     
     if (!followed) { // unfollowed ?
-        followUnfollowFlow(dispatch, userId, usersAPI.followToUser); // follow
+        await followUnfollowFlow(dispatch, userId, usersAPI.followToUser); // follow
     } else {
-        followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser); //unfollow
+        await followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser); //unfollow
     }
 }
 
 
 export const setUsersList = (pageSize: number, currentPage: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
+    
     dispatch(actions.setIsLoading(true)); // activate spinner
     
     const data = await usersAPI.getUsers(pageSize, currentPage);
@@ -117,4 +119,4 @@ export const setUsersList = (pageSize: number, currentPage: number): BaseThunkTy
 
 
 
-export default usersPageReducer
+export default usersReducer

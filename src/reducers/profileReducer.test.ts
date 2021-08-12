@@ -1,4 +1,4 @@
-import profilePageReducer, {actions} from './profilePageReducer';
+import profileReducer, {actions} from './profileReducer';
 
 const state = {
     messages: [
@@ -15,7 +15,7 @@ it('Posts count must be incremented by 1', () => {
     const action = actions.addNewPost('111')
 
     // 2. action
-    const newState = profilePageReducer(state, action);
+    const newState = profileReducer(state, action);
 
     // expectation
     expect(newState.messages.length).toBe(4);
@@ -28,7 +28,7 @@ it('New post likes count must be 0', () => {
     const action = actions.addNewPost('111')
 
     // 2. action
-    const newState = profilePageReducer(state, action);
+    const newState = profileReducer(state, action);
 
     // expectation
     expect(newState.messages[3].likesCount).toBe(0);
@@ -42,7 +42,7 @@ it('Posts must be decremented by 1', () => {
     const action = actions.deletePost(1);
 
     // 2. action
-    const newState = profilePageReducer(state, action);
+    const newState = profileReducer(state, action);
 
     // expectation
     expect(newState.messages.length).toBe(2);

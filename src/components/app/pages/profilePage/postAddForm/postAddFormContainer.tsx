@@ -1,5 +1,5 @@
 import React from 'react';
-import {actions} from '../../../../../reducers/profilePageReducer';
+import {actions} from '../../../../../reducers/profileReducer';
 import PostAddForm from '.';
 import {connect} from 'react-redux';
 import { AppStateType } from '../../../../../reduxStore';

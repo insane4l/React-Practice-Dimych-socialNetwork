@@ -57,7 +57,6 @@ type ProfileDataListPropsType = {
 }
 
 const ProfileDataList: React.FC<ProfileDataListPropsType> = ({isOwner, user, editMode, setEditMode, submitAction}) => {
-    debugger;
     return (
         <div className="profile__data-list">
             {editMode 

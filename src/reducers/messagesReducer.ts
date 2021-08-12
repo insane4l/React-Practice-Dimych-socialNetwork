@@ -11,7 +11,7 @@ export type DialogsMessageType = { id: number, label: string, date: string, myMe
 type InitialStateType = typeof initialState;
 
 
-const messagesPageReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
+const messagesReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
         case 'sn/messages/SEND_MESSAGE':
             let indx = state.messages.length;
@@ -40,4 +40,4 @@ export const actions = {
 
 
 
-export default messagesPageReducer
+export default messagesReducer

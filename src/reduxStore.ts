@@ -1,9 +1,9 @@
 import {createStore, combineReducers, applyMiddleware, compose, Action} from 'redux'
 import thunkMiddleware, { ThunkAction } from 'redux-thunk'
 
-import profilePageReducer from './reducers/profilePageReducer'
-import messagesPageReducer from './reducers/messagesPageReducer'
-import usersPageReducer from './reducers/usersPageReducer'
+import profileReducer from './reducers/profileReducer'
+import messagesReducer from './reducers/messagesReducer'
+import usersReducer from './reducers/usersReducer'
 import authReducer from './reducers/authReducer'
 import {reducer as formReducer} from 'redux-form'
 import appReducer from './reducers/appReducer'
@@ -11,9 +11,9 @@ import appReducer from './reducers/appReducer'
 
 
 const rootReducer = combineReducers({
-    messagesPage: messagesPageReducer,
-    profilePage: profilePageReducer,
-    usersPage: usersPageReducer,
+    messagesPage: messagesReducer,
+    profilePage: profileReducer,
+    usersPage: usersReducer,
     app: appReducer,
     auth: authReducer,
     form: formReducer
