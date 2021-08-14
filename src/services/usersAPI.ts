@@ -12,8 +12,11 @@ type SavePhotoResponseDataType = {
 }
 
 export const usersAPI = {
-    getUsers(pageSize: number, currentPage: number) {
-        return apiBase.get<GetUsersResponseType>(`users?count=${pageSize}&page=${currentPage}`).then(res => res.data)
+    getUsers(pageSize: number, currentPage: number, term: string, friend: null | boolean) {
+        const isFriendFilter = term ? `&term=${term}` : ''
+        const byTermFilter = friend === true ? `&friend=${friend}` : friend === false ? `&friend=${false}` : ''
+        const queryParams = byTermFilter + isFriendFilter
+        return apiBase.get<GetUsersResponseType>(`users?count=${pageSize}&page=${currentPage}${queryParams}`).then(res => res.data)
     },
 
     setProfilePhoto(photoFile: any) {

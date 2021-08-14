@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState} from 'react'
+
+import './pagination.scss'
 
 type PropsType = {
     currentPage: number
@@ -57,4 +59,4 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
     )
 }
 
-export default Pagination;
+export default Pagination

@@ -17,6 +17,14 @@ export const getCurrentPage = (state: AppStateType) => {
     return state.usersPage.currentPage;
 };
 
+export const getUsersListFilters = (state: AppStateType) => {
+    return state.usersPage.filters;
+};
+
+export const getUsersSearchTitle = (state: AppStateType) => {
+    return state.usersPage.searchTitle;
+};
+
 export const getLoadingStatus = (state: AppStateType) => {
     return state.usersPage.isLoading;
 };

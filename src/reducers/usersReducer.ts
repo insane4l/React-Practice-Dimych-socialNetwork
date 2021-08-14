@@ -10,12 +10,17 @@ const initialState = {
     totalUsersCount: 0,
     pageSize: 10,
     currentPage: 1,
+    filters: {
+        term: '', 
+        friend: null as null | boolean
+    },
+    searchTitle: '',
     isLoading: false,
     followingInProgress: [] as Array<number>
     
 }
 export type InitialStateType = typeof initialState
-
+export type UsersListFiltersType = typeof initialState.filters
 
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
@@ -38,6 +43,13 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
             return {...state, currentPage: action.num};
         case 'sn/users/SET_TOTAL_USERS_COUNT':
             return {...state, totalUsersCount: action.count};
+        case 'sn/users/SET_FILTERS':
+            return {
+                ...state,
+                filters: {...state.filters, ...action.payload}
+            };
+        case 'sn/users/SET_SEARCH_TITLE':
+            return {...state, searchTitle: action.title}
         case 'sn/users/SET_IS_LOADING':
             return {...state, isLoading: action.isLoading}
         case 'sn/users/SET_FOLLOWING_IN_PROGRESS':
@@ -66,6 +78,12 @@ export const actions = {
     ),
     setTotalUsersCount: (count: number) => (
         {type: 'sn/users/SET_TOTAL_USERS_COUNT', count} as const
+    ),
+    setFilters: (filters: UsersListFiltersType) => (
+        {type: 'sn/users/SET_FILTERS', payload: filters} as const
+    ),
+    setSearchTitle: (title: string) => (
+        {type: 'sn/users/SET_SEARCH_TITLE', title} as const
     ),
     setIsLoading: (isLoading: boolean) => (
         {type: 'sn/users/SET_IS_LOADING', isLoading} as const
@@ -105,13 +123,15 @@ export const followOrUnfollow = (userId: number): BaseThunkType<ActionsTypes> =>
 }
 
 
-export const setUsersList = (pageSize: number, currentPage: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
+export const requestUsers = (pageSize: number, currentPage: number, {term = '', friend = null}: UsersListFiltersType): BaseThunkType<ActionsTypes> => async (dispatch) => {
     
     dispatch(actions.setIsLoading(true)); // activate spinner
-    
-    const data = await usersAPI.getUsers(pageSize, currentPage);
+    dispatch(actions.setPageNumber(currentPage)); // activate spinner
+
+    const data = await usersAPI.getUsers(pageSize, currentPage, term, friend);
 
     dispatch(actions.setIsLoading(false));  // deactivate spinner after response
+ 
     dispatch(actions.setUsers(data.items)); // set users from response to state 
     dispatch(actions.setTotalUsersCount(data.totalCount)); // set total users count from response to state
 

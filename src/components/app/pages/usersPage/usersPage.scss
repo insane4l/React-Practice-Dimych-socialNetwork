@@ -50,28 +50,3 @@
         opacity: .5;
     }
 }
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    &__item {
-        margin-right: 5px;
-        cursor: pointer;
-        &:first-child {
-            margin-right: 11px;
-            &:after {
-                content: '...'
-            }
-        }
-        &:last-child {
-            margin-left: 11px;
-            &:before {
-                content: '...'
-            }
-        }
-        &_active {
-            font-weight: bold;
-            font-size: 16px;
-        }
-    }
-}

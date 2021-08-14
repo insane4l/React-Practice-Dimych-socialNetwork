@@ -11,7 +11,6 @@ const response: ResponseType = {
     messages: []
 }
 
-
 const dispatchMock = jest.fn()
 const getStateMock = jest.fn()
 beforeEach(() => {
@@ -20,8 +19,6 @@ beforeEach(() => {
     // usersAPIMock.followToUser.mockClear()
     // usersAPIMock.unfollowFromUser.mockClear()
 })
-
-
 
 it("success toggle follow status to true (Follow) thunk", async () => {
     usersAPIMock.checkFollowStatus.mockReturnValue(Promise.resolve(false)) // check current user status (response false = unfollowed)

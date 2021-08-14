@@ -12,7 +12,7 @@ type ProfileDataFormValuesType = ProfileType
 
 
 let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormOwnPropsType> & FormOwnPropsType> = ({user, handleSubmit, error}) => {
-    debugger;
+
     return (
         <form onSubmit={handleSubmit}>
             {error && <div><b>{error}</b></div>}

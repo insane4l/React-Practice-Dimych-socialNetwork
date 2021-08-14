@@ -5,7 +5,7 @@ import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 import UsersPage from './usersPage'
 import Spinner from '../../../common/spinner'
 import * as selectors from '../../../../selectors/'
-import {actions, followOrUnfollow, setUsersList} from '../../../../reducers/usersReducer'
+import {actions, followOrUnfollow, requestUsers, UsersListFiltersType} from '../../../../reducers/usersReducer'
 import {AppStateType} from '../../../../reduxStore'
 import {UserType} from '../../../../types/types'
 
@@ -15,14 +15,18 @@ type MapStatePropsType = {
     currentPage: number
     totalUsersCount: number
     pageSize: number
+    filters: UsersListFiltersType
     users: Array<UserType>
     followingInProgress: Array<number>
+    searchTitle: string
 }
 
 type MapDispatchPropsType = {
-    setUsersList: (pageSize: number, pageNumber: number) => void
+    requestUsers: (pageSize: number, pageNumber: number, filters: UsersListFiltersType) => void
     setPageNumber: (pageNumber: number) => void
     followOrUnfollow: (userId: number) => void
+    setFilters: (filters: UsersListFiltersType) => void
+    setSearchTitle: (title: string) => void
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType
@@ -30,13 +34,26 @@ type PropsType = MapStatePropsType & MapDispatchPropsType
 class UsersPageContainer extends Component<PropsType> {
 
     componentDidMount() {
-        this.props.setUsersList(this.props.pageSize, this.props.currentPage);
+        const {requestUsers, pageSize, currentPage, filters} = this.props
+        requestUsers(pageSize, currentPage, filters);
+    }
+    componentDidUpdate(prevProps: PropsType) {
+        const {requestUsers, filters, pageSize} = this.props
+
+        if (prevProps.filters !== filters) {
+            requestUsers(pageSize, 1, filters);
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.setFilters({term: '', friend: false})
     }
 
     onPageSelected = (num: number) => {
-        this.props.setPageNumber(num);
-        this.props.setUsersList(this.props.pageSize, num);
+        const {requestUsers, pageSize, filters} = this.props
+        requestUsers(pageSize, num, filters);
     }
+
 
     render () {
         return (
@@ -49,7 +66,10 @@ class UsersPageContainer extends Component<PropsType> {
                             onPageSelected={this.onPageSelected}
                             users={this.props.users}
                             followingInProgress={this.props.followingInProgress}
-                            followOrUnfollow={this.props.followOrUnfollow} />  
+                            followOrUnfollow={this.props.followOrUnfollow}
+                            setFilters={this.props.setFilters}
+                            setSearchTitle={this.props.setSearchTitle}
+                            searchTitle={this.props.searchTitle} />  
             </>
         )
     }
@@ -62,14 +82,18 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
         pageSize: selectors.getPageSize(state),
         currentPage: selectors.getCurrentPage(state),
         isLoading: selectors.getLoadingStatus(state),
-        followingInProgress: selectors.getFollowingInProgress(state)
+        followingInProgress: selectors.getFollowingInProgress(state),
+        filters: selectors.getUsersListFilters(state),
+        searchTitle: selectors.getUsersSearchTitle(state)
     }
 }
 
 const mapDispatchToProps = {
     setPageNumber: actions.setPageNumber,
+    setFilters: actions.setFilters,
+    setSearchTitle: actions.setSearchTitle,
     followOrUnfollow,
-    setUsersList
+    requestUsers
 }
 
 

@@ -1,0 +1,12 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    &__item {
+        margin-right: 5px;
+        cursor: pointer;
+        &_active {
+            font-weight: bold;
+            font-size: 16px;
+        }
+    }
+}
