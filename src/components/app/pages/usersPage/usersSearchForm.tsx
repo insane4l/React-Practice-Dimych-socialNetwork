@@ -1,7 +1,8 @@
 import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
-import { UsersListFiltersType } from '../../../../reducers/usersReducer';
-
+import { actions, UsersListFiltersType } from '../../../../reducers/usersReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import * as selectors from '../../../../selectors'
 
 
 const usersSearchFormValidators = (values: UsersListFiltersType) => {
@@ -12,15 +13,12 @@ const usersSearchFormValidators = (values: UsersListFiltersType) => {
     return errors;
 }
 
-type OwnPropsType = {
-    setFilters: (filters: UsersListFiltersType) => void
-    setSearchTitle: (title: string) => void
-    searchTitle: string
-}
-
 type ReceivedValuesType = {term: string, friend: string | null | boolean}
 
-const UsersSearchForm: React.FC<OwnPropsType> = (props) => {
+const UsersSearchForm: React.FC = (props) => {
+
+    const searchTitle = useSelector(selectors.getUsersSearchTitle)
+    const dispatch = useDispatch()
 
     const submit = (values: ReceivedValuesType, { setSubmitting }: {setSubmitting: (isSubmitting: boolean) => void} ) => {
         
@@ -28,12 +26,12 @@ const UsersSearchForm: React.FC<OwnPropsType> = (props) => {
             term: values.term,
             friend: values.friend === 'Friends Only' ? true : values.friend === 'Not Friends' ? false : null
         }
-        props.setFilters(filter)
+        dispatch( actions.setFilters(filter) )
 
         const friendsFilterTitle = values.friend ? values.friend : 'All Users'
         const termFilterTitle = values.term ? `"${values.term}"` : ''
         const title = `Search ${termFilterTitle} in ${friendsFilterTitle}`
-        props.setSearchTitle(title)
+        dispatch( actions.setSearchTitle(title) )
 
         setSubmitting(false) // (fake disable) todo: reed docs, how to sync with the response from the server
     }
@@ -62,7 +60,7 @@ const UsersSearchForm: React.FC<OwnPropsType> = (props) => {
                             Search
                         </button>
                         <h3>
-                            {props.searchTitle}
+                            {searchTitle}
                         </h3>
                     </Form>
                 )

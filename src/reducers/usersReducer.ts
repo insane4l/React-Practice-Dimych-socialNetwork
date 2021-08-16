@@ -14,7 +14,7 @@ const initialState = {
         term: '', 
         friend: null as null | boolean
     },
-    searchTitle: '',
+    searchTitle: 'Search in All Users',
     isLoading: false,
     followingInProgress: [] as Array<number>
     

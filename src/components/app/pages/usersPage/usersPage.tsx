@@ -1,47 +1,66 @@
-import React from 'react';
-import { UsersListFiltersType } from '../../../../reducers/usersReducer';
+import React, { useEffect } from 'react';
+import { actions, followOrUnfollow, requestUsers, UsersListFiltersType } from '../../../../reducers/usersReducer';
 import {UserType} from '../../../../types/types';
 import Pagination from '../../../common/pagination/pagination';
 import User from './user';
+import { useDispatch, useSelector } from 'react-redux';
+import * as selectors from '../../../../selectors'
 
 import './usersPage.scss';
 import UsersSearchForm from './usersSearchForm';
 
-type PropsType = {
-    users: Array<UserType>
-    currentPage: number
-    totalUsersCount: number
-    pageSize: number
-    onPageSelected: (pageNumber: number) => void
-    followingInProgress: Array<number>
-    followOrUnfollow: (userId: number) => void
-    setFilters: (filters: UsersListFiltersType) => void
-    setSearchTitle: (title: string) => void
-    searchTitle: string
-}
 
-const UsersPage: React.FC<PropsType> = (props) => {
+const UsersPage: React.FC = () => {
+
+    const users = useSelector(selectors.getUsers)
+    const totalUsersCount = useSelector(selectors.getTotalUsersCount)
+    const pageSize = useSelector(selectors.getPageSize)
+    const currentPage = useSelector(selectors.getCurrentPage)
+    const followingInProgress = useSelector(selectors.getFollowingInProgress)
+    const filters = useSelector(selectors.getUsersListFilters)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => { //componentDidMount
+        dispatch( requestUsers(pageSize, currentPage, filters) ) 
+        return () => { // componentWillUnmount
+            dispatch ( actions.setFilters({term: '', friend: false}) )
+            dispatch ( actions.setSearchTitle('Search in All Users') )
+        }
+        // eslint-disable-next-line
+    }, [])
+
+    useEffect(() => { // componentDidUpdate
+        dispatch( requestUsers(pageSize, 1, filters) )
+        // eslint-disable-next-line
+    }, [filters])
     
+
+    const onPageSelected = (num: number) => {
+        dispatch( requestUsers(pageSize, num, filters) )
+    }
+
+    const followUnfollow = (userId: number) => {
+        dispatch( followOrUnfollow(userId) )
+    }
+
     return (  
         <div className="users__wrapper">
-            <UsersSearchForm 
-                setFilters={props.setFilters}
-                setSearchTitle={props.setSearchTitle}
-                searchTitle={props.searchTitle} />
+            <UsersSearchForm />
             <Pagination 
-                currentPage={props.currentPage}
-                totalItemsCount={props.totalUsersCount}
-                pageSize={props.pageSize}
-                onPageSelected={props.onPageSelected} />
+                currentPage={currentPage}
+                totalItemsCount={totalUsersCount}
+                pageSize={pageSize}
+                onPageSelected={onPageSelected} />
 
             <ul className="users__list">
-                {   props.users.map( u => {
+                {   users.map( u => {
                         const btnLabel = u.followed ? 'Followed' : 'Follow';
                         return <User 
                                     key={u.id} 
                                     user={u}
-                                    followingInProgress={props.followingInProgress}
-                                    followOrUnfollow={props.followOrUnfollow}
+                                    followingInProgress={followingInProgress}
+                                    followOrUnfollow={followUnfollow}
                                     btnLabel={btnLabel} />
                     })
                 }             
