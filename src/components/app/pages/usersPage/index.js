@@ -1,3 +1,3 @@
-import UsersPageContainer from './usersPageContainer';
+import UsersPage from './usersPage';
 
-export default UsersPageContainer;
+export default UsersPage;

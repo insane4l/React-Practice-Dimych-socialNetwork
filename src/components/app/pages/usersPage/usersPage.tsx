@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react';
-import { actions, followOrUnfollow, requestUsers, UsersListFiltersType } from '../../../../reducers/usersReducer';
-import {UserType} from '../../../../types/types';
+import { actions, requestUsers} from '../../../../reducers/usersReducer';
 import Pagination from '../../../common/pagination/pagination';
-import User from './user';
+import UsersList from './usersList';
 import { useDispatch, useSelector } from 'react-redux';
 import * as selectors from '../../../../selectors'
 
 import './usersPage.scss';
 import UsersSearchForm from './usersSearchForm';
+import Spinner from '../../../common/spinner';
+import { withAnonUserRedirect } from '../../../HOCs/withRedirect';
+import { compose } from 'redux';
 
 
 const UsersPage: React.FC = () => {
 
-    const users = useSelector(selectors.getUsers)
     const totalUsersCount = useSelector(selectors.getTotalUsersCount)
     const pageSize = useSelector(selectors.getPageSize)
     const currentPage = useSelector(selectors.getCurrentPage)
-    const followingInProgress = useSelector(selectors.getFollowingInProgress)
+    const isLoading = useSelector(selectors.getLoadingStatus)
+    
     const filters = useSelector(selectors.getUsersListFilters)
 
     const dispatch = useDispatch()
@@ -35,13 +37,8 @@ const UsersPage: React.FC = () => {
         // eslint-disable-next-line
     }, [filters])
     
-
     const onPageSelected = (num: number) => {
         dispatch( requestUsers(pageSize, num, filters) )
-    }
-
-    const followUnfollow = (userId: number) => {
-        dispatch( followOrUnfollow(userId) )
     }
 
     return (  
@@ -52,21 +49,12 @@ const UsersPage: React.FC = () => {
                 totalItemsCount={totalUsersCount}
                 pageSize={pageSize}
                 onPageSelected={onPageSelected} />
-
-            <ul className="users__list">
-                {   users.map( u => {
-                        const btnLabel = u.followed ? 'Followed' : 'Follow';
-                        return <User 
-                                    key={u.id} 
-                                    user={u}
-                                    followingInProgress={followingInProgress}
-                                    followOrUnfollow={followUnfollow}
-                                    btnLabel={btnLabel} />
-                    })
-                }             
-            </ul>
+            {isLoading ? <Spinner/> : <UsersList />}   
+            
         </div>
     )
 }
 
-export default UsersPage;
+export default compose<React.ComponentType>(
+    withAnonUserRedirect
+)(UsersPage)
