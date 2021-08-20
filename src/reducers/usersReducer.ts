@@ -14,7 +14,6 @@ const initialState = {
         term: '', 
         friend: null as null | boolean
     },
-    searchTitle: 'Search in All Users',
     isLoading: false,
     followingInProgress: [] as Array<number>
     
@@ -48,8 +47,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
                 ...state,
                 filters: {...state.filters, ...action.payload}
             };
-        case 'sn/users/SET_SEARCH_TITLE':
-            return {...state, searchTitle: action.title}
         case 'sn/users/SET_IS_LOADING':
             return {...state, isLoading: action.isLoading}
         case 'sn/users/SET_FOLLOWING_IN_PROGRESS':
@@ -81,9 +78,6 @@ export const actions = {
     ),
     setFilters: (filters: UsersListFiltersType) => (
         {type: 'sn/users/SET_FILTERS', payload: filters} as const
-    ),
-    setSearchTitle: (title: string) => (
-        {type: 'sn/users/SET_SEARCH_TITLE', title} as const
     ),
     setIsLoading: (isLoading: boolean) => (
         {type: 'sn/users/SET_IS_LOADING', isLoading} as const
@@ -126,15 +120,18 @@ export const followOrUnfollow = (userId: number): BaseThunkType<ActionsTypes> =>
 export const requestUsers = (pageSize: number, currentPage: number, {term = '', friend = null}: UsersListFiltersType): BaseThunkType<ActionsTypes> => async (dispatch) => {
     
     dispatch(actions.setIsLoading(true)); // activate spinner
-    dispatch(actions.setPageNumber(currentPage)); // activate spinner
+    try {
+        const data = await usersAPI.getUsers(pageSize, currentPage, term, friend);
 
-    const data = await usersAPI.getUsers(pageSize, currentPage, term, friend);
-
-    dispatch(actions.setIsLoading(false));  // deactivate spinner after response
- 
-    dispatch(actions.setUsers(data.items)); // set users from response to state 
-    dispatch(actions.setTotalUsersCount(data.totalCount)); // set total users count from response to state
-
+        dispatch(actions.setFilters({term, friend}));
+        dispatch(actions.setPageNumber(currentPage));
+        dispatch(actions.setIsLoading(false));  // deactivate spinner after response
+    
+        dispatch(actions.setUsers(data.items)); // set users from response to state 
+        dispatch(actions.setTotalUsersCount(data.totalCount)); // set total users count from response to state
+    } catch {
+        alert('Something goes wrong') // todo: dispatch setUsersRequestError() state.UsersRequestError: false/true
+    }
 }
 
 

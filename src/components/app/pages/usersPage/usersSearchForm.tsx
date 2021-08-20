@@ -1,8 +1,9 @@
 import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
-import { actions, UsersListFiltersType } from '../../../../reducers/usersReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import { UsersListFiltersType } from '../../../../reducers/usersReducer';
+import { useSelector } from 'react-redux';
 import * as selectors from '../../../../selectors'
+import { getSearchTitleFromFilters } from '../../../../utils/utiliteFuncs';
 
 
 const usersSearchFormValidators = (values: UsersListFiltersType) => {
@@ -14,33 +15,32 @@ const usersSearchFormValidators = (values: UsersListFiltersType) => {
 }
 
 type ReceivedValuesType = {term: string, friend: string | null | boolean}
+type PropsType = {
+    onFiltersChanged: (filter: UsersListFiltersType) => void
+}
 
-const UsersSearchForm: React.FC = (props) => {
+const UsersSearchForm: React.FC<PropsType> = (props) => {
 
-    const searchTitle = useSelector(selectors.getUsersSearchTitle)
-    const dispatch = useDispatch()
+    const stateFilters = useSelector(selectors.getUsersListFilters)
 
-    const submit = (values: ReceivedValuesType, { setSubmitting }: {setSubmitting: (isSubmitting: boolean) => void} ) => {
-        
+    const onFormSubmit = (values: ReceivedValuesType, { setSubmitting }: {setSubmitting: (isSubmitting: boolean) => void} ) => {
+        // filters constructing
         const filter = {
             term: values.term,
             friend: values.friend === 'Friends Only' ? true : values.friend === 'Not Friends' ? false : null
         }
-        dispatch( actions.setFilters(filter) )
-
-        const friendsFilterTitle = values.friend ? values.friend : 'All Users'
-        const termFilterTitle = values.term ? `"${values.term}"` : ''
-        const title = `Search ${termFilterTitle} in ${friendsFilterTitle}`
-        dispatch( actions.setSearchTitle(title) )
-
-        setSubmitting(false) // (fake disable) todo: reed docs, how to sync with the response from the server
+        
+        props.onFiltersChanged(filter)
+        setSubmitting(false) // (fake disable) todo: reed docs, how to sync formik setSubmitting with the response from the server
     }
 
+    const friendInputValue = stateFilters.friend === false ? "Not Friends" : stateFilters.friend === true ? "Friends Only" : null
     return (
         <Formik
-            initialValues={{term: '', friend: null}}
+            initialValues={{term: stateFilters.term, friend: friendInputValue as boolean | null}}
+            enableReinitialize
             validate={usersSearchFormValidators}
-            onSubmit={submit}
+            onSubmit={onFormSubmit}
         >
             {({isSubmitting}) => {
 
@@ -60,7 +60,7 @@ const UsersSearchForm: React.FC = (props) => {
                             Search
                         </button>
                         <h3>
-                            {searchTitle}
+                            {getSearchTitleFromFilters(stateFilters.term, stateFilters.friend)}
                         </h3>
                     </Form>
                 )
