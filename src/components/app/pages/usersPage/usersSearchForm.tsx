@@ -3,7 +3,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik'
 import { UsersListFiltersType } from '../../../../reducers/usersReducer';
 import { useSelector } from 'react-redux';
 import * as selectors from '../../../../selectors'
-import { getSearchTitleFromFilters } from '../../../../utils/utiliteFuncs';
+import { getSearchTitleFromSetParameters } from '../../../../utils/utiliteFuncs';
 
 
 const usersSearchFormValidators = (values: UsersListFiltersType) => {
@@ -17,6 +17,8 @@ const usersSearchFormValidators = (values: UsersListFiltersType) => {
 type ReceivedValuesType = {term: string, friend: string | null | boolean}
 type PropsType = {
     onFiltersChanged: (filter: UsersListFiltersType) => void
+    currentPage: number
+    pagesCount: number
 }
 
 const UsersSearchForm: React.FC<PropsType> = (props) => {
@@ -60,7 +62,8 @@ const UsersSearchForm: React.FC<PropsType> = (props) => {
                             Search
                         </button>
                         <h3>
-                            {getSearchTitleFromFilters(stateFilters.term, stateFilters.friend)}
+                            {getSearchTitleFromSetParameters(stateFilters.term, stateFilters.friend,
+                                                                props.currentPage, props.pagesCount)}
                         </h3>
                     </Form>
                 )

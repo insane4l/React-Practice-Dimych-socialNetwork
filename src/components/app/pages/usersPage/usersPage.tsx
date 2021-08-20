@@ -22,6 +22,8 @@ const UsersPage: React.FC = () => {
     const isLoading = useSelector(selectors.getLoadingStatus)
     const filters = useSelector(selectors.getUsersListFilters)
 
+    const pagesCount = Math.ceil(totalUsersCount / pageSize)
+
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -85,7 +87,10 @@ const UsersPage: React.FC = () => {
 
     return (  
         <div className="users__wrapper">
-            <UsersSearchForm onFiltersChanged={onFiltersChanged} />
+            <UsersSearchForm 
+                onFiltersChanged={onFiltersChanged}
+                currentPage={currentPage}
+                pagesCount={pagesCount} />
             <Pagination 
                 currentPage={currentPage}
                 totalItemsCount={totalUsersCount}

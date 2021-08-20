@@ -11,7 +11,7 @@ type PropsType = {
     portionSize?: number
 }
 
-// todo: bug example: when currentPage 40 with users in search, then clicked option 'show friends only' and we see button "Prev" and no page numbers
+
 const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
     
     const [currentPortion, setCurrentPortion] = useState(1);
@@ -28,7 +28,7 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
         pages.push(i);
     };
     
-
+    console.log('rerendered')
     const selectedPagePortion = Math.ceil(currentPage / portionSize)
     const portionsCount = Math.ceil(pagesCount / portionSize);
     const firstPortionPageNum = (currentPortion -1) * portionSize + 1;
