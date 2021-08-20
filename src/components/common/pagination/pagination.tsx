@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { useEffect } from 'react';
 
 import './pagination.scss'
 
@@ -12,6 +13,14 @@ type PropsType = {
 
 // todo: bug example: when currentPage 40 with users in search, then clicked option 'show friends only' and we see button "Prev" and no page numbers
 const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
+    
+    const [currentPortion, setCurrentPortion] = useState(1);
+    useEffect(() => {
+        if (currentPortion !== selectedPagePortion) {
+            setCurrentPortion(selectedPagePortion)
+        }
+        // eslint-disable-next-line
+    }, [currentPage])
 
     const pagesCount = Math.ceil(totalItemsCount / pageSize);
     const pages = [];
@@ -19,12 +28,8 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
         pages.push(i);
     };
     
-    // const nextPages = currentPage + 2;
-    // const prevPages = currentPage - 2;
 
-
-    const [currentPortion, setCurrentPortion] = useState(1);
-
+    const selectedPagePortion = Math.ceil(currentPage / portionSize)
     const portionsCount = Math.ceil(pagesCount / portionSize);
     const firstPortionPageNum = (currentPortion -1) * portionSize + 1;
     const lastPortionPageNum = currentPortion * portionSize;

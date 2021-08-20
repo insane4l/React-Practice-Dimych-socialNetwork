@@ -27,13 +27,11 @@ const UsersPage: React.FC = () => {
 
     useEffect(() => { //componentDidMount
         const queryString = history.location.search
-        console.log(queryString);
         const parsedQueryString: {page?: string, term?: string, friend?: string} = qs.parse(queryString, { ignoreQueryPrefix: true })
-
-        console.log(parsedQueryString);
+ 
         const queryPage = Number(parsedQueryString.page) || 1
         const term = parsedQueryString.term ? parsedQueryString.term : ''
-        // const friend = parsedQueryString.friend ? parsedQueryString.friend : null
+        
         let friend
         switch(parsedQueryString.friend) {
             case 'true':
@@ -45,6 +43,7 @@ const UsersPage: React.FC = () => {
             default:
                 friend = null
         }
+
         dispatch( requestUsers(pageSize, queryPage, {term, friend}) ) 
         return () => { // componentWillUnmount
             dispatch ( actions.setFilters({term: '', friend: null}) )
