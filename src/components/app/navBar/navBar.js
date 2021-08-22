@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-import {profileIcon, usersIcon, messagesIcon, newsIcon, musicIcon, settingsIcon} from '../../../assets/icons';
+import {profileIcon, usersIcon, messagesIcon, newsIcon, musicIcon, chatIcon, settingsIcon} from '../../../assets/icons';
 import './navBar.scss';
 
 const NavBar = () => {
@@ -11,6 +11,7 @@ const NavBar = () => {
 			<NavbarLink url="/profile" iconLink={profileIcon} label="Profile" />
 			<NavbarLink url="/users" iconLink={usersIcon} label="Users" />
 			<NavbarLink url="/messages" iconLink={messagesIcon} label="Messages" />
+      <NavbarLink url="/chat" iconLink={chatIcon} label="Developers Chat" />
 			<NavbarLink url="/news" iconLink={newsIcon} label="News" />
 			<NavbarLink url="/music" iconLink={musicIcon} label="Music" />
 

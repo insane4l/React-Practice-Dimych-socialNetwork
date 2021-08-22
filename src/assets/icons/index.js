@@ -4,6 +4,7 @@ import usersIcon from './users-icon.svg';
 import messagesIcon from './messages-icon.svg';
 import newsIcon from './news-icon.svg';
 import musicIcon from './music-icon.svg';
+import chatIcon from './chat-icon.svg';
 import settingsIcon from './settings-icon.svg';
 
 // Post actions
@@ -21,6 +22,7 @@ export {
     messagesIcon,
     newsIcon,
     musicIcon,
+    chatIcon,
     settingsIcon,
     addNewImage,
     likeIcon,

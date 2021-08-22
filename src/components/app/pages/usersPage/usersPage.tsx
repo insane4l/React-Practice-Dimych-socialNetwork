@@ -29,13 +29,13 @@ const UsersPage: React.FC = () => {
 
     useEffect(() => { //componentDidMount
         const queryString = history.location.search
-        const parsedQueryString: {page?: string, term?: string, friend?: string} = qs.parse(queryString, { ignoreQueryPrefix: true })
+        const parsedQS: {page?: string, term?: string, friend?: string} = qs.parse(queryString, { ignoreQueryPrefix: true })
  
-        const queryPage = Number(parsedQueryString.page) || 1
-        const term = parsedQueryString.term ? parsedQueryString.term : ''
+        const queryPage = Number(parsedQS.page) || 1
+        const term = parsedQS.term ? parsedQS.term : ''
         
         let friend
-        switch(parsedQueryString.friend) {
+        switch(parsedQS.friend) {
             case 'true':
                 friend = true
                 break
