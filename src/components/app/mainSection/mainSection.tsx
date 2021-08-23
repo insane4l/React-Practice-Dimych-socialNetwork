@@ -7,6 +7,8 @@ import './mainSection.scss';
 
 const UsersPage = React.lazy(() => import('../pages/usersPage/usersPage'));
 const ChatPage = React.lazy(() => import('../pages/chatPage/chatPage'));
+// todo: React lazy does not cause splitting bundle in chunks
+// try this https://stackoverflow.com/questions/53186595/react-lazy-does-not-cause-splitting-bundle-in-chunks
 
 
 const MainSection: React.FC = () => {
@@ -18,9 +20,7 @@ const MainSection: React.FC = () => {
                     <Redirect exact from="/" to="/profile" />
                     <Route path="/login" component={LoginPage} />
                     <Route path="/profile/:userId?" component={ProfilePageContainer} />
-                    <Route path="/users" render={() => (
-                        <React.Suspense fallback={Spinner}><UsersPage /></React.Suspense>
-                    )} />
+                    <Route path="/users" component={UsersPage} />
                     <Route path="/messages" component={MessagesPage} />
                     <Route path="/news" component={NewsPage} />
                     <Route path="/music" component={MusicPage} />
