@@ -7,6 +7,7 @@ import usersReducer from './reducers/usersReducer'
 import authReducer from './reducers/authReducer'
 import {reducer as formReducer} from 'redux-form'
 import appReducer from './reducers/appReducer'
+import chatReducer from './reducers/chatReducer'
 
 
 
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     usersPage: usersReducer,
     app: appReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    chat: chatReducer
 })
 
 type RootReducerType = typeof rootReducer
