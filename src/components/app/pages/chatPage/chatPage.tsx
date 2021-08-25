@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useRef, useState } from 'react'
 import { useEffect } from 'react'
 // import {Link} from 'react-router-dom'
 // import goBack from './goBack.svg'
@@ -16,10 +16,9 @@ const ChatPage: React.FC = () => {
 }
 
 
-
-
 const Chat = () => {
 
+    const status = useSelector((state: AppStateType) => state.chat.status)
     const dispatch = useDispatch()
     
     useEffect(() => {
@@ -31,6 +30,7 @@ const Chat = () => {
 
     return (
         <div className="dialogs__item">
+            {status === 'error' && <div className="error-status">Connection error. Try refreshing the page</div>}
             <div className="dialogs__item-content" style={{height: "400px", overflow: "scroll"}}>
                 <ChatMessagesList />
             </div>
@@ -62,6 +62,7 @@ const ChatMessageForm: React.FC = () => {
 
     const [message, setMessage] = useState('')
     const dispatch = useDispatch()
+    const status = useSelector((state: AppStateType) => state.chat.status)
 
     const sendMessageHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -81,13 +82,14 @@ const ChatMessageForm: React.FC = () => {
                 value={message}
                 onChange={(e) => setMessage(e.currentTarget.value)}></textarea>
 
-            <button disabled={false} className="add-message__btn">Send Message</button>
+            <button disabled={status !== 'ready'} className="add-message__btn">Send Message</button>
         </form>
     )
 }
 
 
-const ChatMessage: React.FC<ChatMessagePropsType> = ({message, style}) => {
+const ChatMessage: React.FC<ChatMessagePropsType> = React.memo( ({message, style}) => {
+
     return (
         <div className={`message ${style}`}>
             <div className="message__info">
@@ -99,7 +101,7 @@ const ChatMessage: React.FC<ChatMessagePropsType> = ({message, style}) => {
             <div className="message__text">{message.message}</div>
         </div>
     )
-}
+})
 
 
 export default ChatPage
