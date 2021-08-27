@@ -15,7 +15,7 @@ const chatReducer = (state = initialState, action: ActionsTypes): InitialStateTy
         case 'sn/CHAT/MESSAGES_RECEIVED':
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload.messages]
+                messages: [...state.messages, ...action.payload.messages].filter((m, index, array) => index >= (array.length - 100))
             }
         case 'sn/CHAT/STATUS_CHANGED':
             return {

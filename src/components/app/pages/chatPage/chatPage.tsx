@@ -1,12 +1,9 @@
-import React, { FormEvent, useRef, useState } from 'react'
-import { useEffect } from 'react'
-// import {Link} from 'react-router-dom'
-// import goBack from './goBack.svg'
-import * as selectors from '../../../../selectors'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ChatMessageType } from '../../../../services/chatAPI'
 import { AppStateType } from '../../../../reduxStore'
-import { sendMessage, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
+import { actions, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
+import ChatMessagesList from './chatMessagesList'
+import ChatMessageForm from './chatMessageForm'
 
 
 const ChatPage: React.FC = () => {
@@ -14,7 +11,6 @@ const ChatPage: React.FC = () => {
         <Chat />
     )
 }
-
 
 const Chat = () => {
 
@@ -25,16 +21,16 @@ const Chat = () => {
         dispatch(startMessagesListening())
         return () => {
             dispatch(stopMessagesListening())
+            dispatch( actions.messagesReceived([]) )
         }
     }, [])
 
     return (
         <div className="dialogs__item">
             {status === 'error' && <div className="error-status">Connection error. Try refreshing the page</div>}
-            <div className="dialogs__item-content" style={{height: "400px", overflow: "scroll"}}>
-                <ChatMessagesList />
-            </div>
-
+            
+            <ChatMessagesList />
+           
             <div className="dialogs__item-footer">
                 <ChatMessageForm />
             </div>
@@ -42,72 +38,7 @@ const Chat = () => {
     )
 }
 
-const ChatMessagesList: React.FC = () => {
-
-    const authUserId = useSelector(selectors.getAuthUserId)
-    const messages = useSelector((state: AppStateType) => state.chat.messages)
-
-    return (
-        <>
-        {messages.map((message, index) => {
-            const style = message.userId === authUserId ? "message_right" : "message_left";
-            return <ChatMessage key={index} message={message} style={style} />
-        })}
-        </>
-    )
-}
-
-
-const ChatMessageForm: React.FC = () => {
-
-    const [message, setMessage] = useState('')
-    const dispatch = useDispatch()
-    const status = useSelector((state: AppStateType) => state.chat.status)
-
-    const sendMessageHandler = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if (!message) {
-            return
-        }
-        dispatch(sendMessage(message))
-        setMessage('')
-    }
-    return (
-        <form onSubmit={sendMessageHandler} className="add-message__form" >
-            <textarea 
-                name="chatMessage"
-                className="add-message__input"
-                placeholder="Type new message here.."
-                autoComplete="off"
-                value={message}
-                onChange={(e) => setMessage(e.currentTarget.value)}></textarea>
-
-            <button disabled={status !== 'ready'} className="add-message__btn">Send Message</button>
-        </form>
-    )
-}
-
-
-const ChatMessage: React.FC<ChatMessagePropsType> = React.memo( ({message, style}) => {
-
-    return (
-        <div className={`message ${style}`}>
-            <div className="message__info">
-                <div className="message__author-image">
-                    <img src={message.photo} alt="author_image" />
-                </div>
-                <div className="message__author-name">{message.userName}</div>
-            </div>
-            <div className="message__text">{message.message}</div>
-        </div>
-    )
-})
-
 
 export default ChatPage
 
 
-type ChatMessagePropsType = {
-    message: ChatMessageType
-    style: string
-}
