@@ -20,8 +20,9 @@ const Chat = () => {
     useEffect(() => {
         dispatch(startMessagesListening())
         return () => {
+            debugger
             dispatch(stopMessagesListening())
-            dispatch( actions.messagesReceived([]) )
+            dispatch( actions.messagesCleaned() )
         }
     }, [])
 

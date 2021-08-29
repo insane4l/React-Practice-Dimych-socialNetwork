@@ -22,6 +22,11 @@ const chatReducer = (state = initialState, action: ActionsTypes): InitialStateTy
                 ...state,
                 status: action.payload.status
             }
+        case 'sn/CHAT/MESSAGES_CLEANED':
+            return {
+                ...state,
+                messages: []
+            }
         default:
             return state
     }
@@ -33,7 +38,11 @@ export const actions = {
     ),
     statusChanged: (status: WSStatusType) => (
         {type: 'sn/CHAT/STATUS_CHANGED', payload: {status}} as const
+    ),
+    messagesCleaned: () => (
+        {type: 'sn/CHAT/MESSAGES_CLEANED'} as const
     )
+
 }
 
 
