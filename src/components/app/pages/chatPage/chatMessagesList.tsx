@@ -1,4 +1,4 @@
-import React, { EventHandler, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStateType } from '../../../../reduxStore'
 import * as selectors from '../../../../selectors'
@@ -27,6 +27,7 @@ const ChatMessagesList: React.FC = () => {
         if (isAutoScroll) {
             messagesAnchor.current?.scrollIntoView({block: 'end', behavior: 'smooth'})
         }
+        // eslint-disable-next-line
     }, [messages])
 
     return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import ProfileInfoContainer from './profileInfo/profileInfoContainer';
 import PostAddFormContainer from './postAddForm/postAddFormContainer';
-import PostsTimlineContainer from './postsTimeline/postsTimelineContainer';
+import PostsTimline from './postsTimeline';
 import Spinner from '../../../common/spinner';
 import { ProfileType } from '../../../../types/types';
 
@@ -21,7 +21,7 @@ const ProfilePage: React.FC<PropsType> = props => {
         <>  
             <ProfileInfoContainer isOwner={props.isOwner}/>
             <PostAddFormContainer />
-            <PostsTimlineContainer />
+            <PostsTimline />
         </>
     )
 };

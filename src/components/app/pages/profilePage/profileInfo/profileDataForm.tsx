@@ -1,6 +1,6 @@
 import React from 'react';
 import {reduxForm, Field, InjectedFormProps} from 'redux-form';
-import { ProfileType, UserType } from '../../../../../types/types';
+import { ProfileType } from '../../../../../types/types';
 import {CustomFieldProps, Input, Textarea} from '../../../../common/formsControls/formsControls';
 
 type FormOwnPropsType = {

@@ -20,10 +20,10 @@ const Chat = () => {
     useEffect(() => {
         dispatch(startMessagesListening())
         return () => {
-            debugger
             dispatch(stopMessagesListening())
             dispatch( actions.messagesCleaned() )
         }
+        // eslint-disable-next-line
     }, [])
 
     return (

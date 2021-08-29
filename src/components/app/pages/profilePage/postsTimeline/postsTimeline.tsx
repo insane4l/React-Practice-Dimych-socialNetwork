@@ -1,18 +1,18 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../../../../reduxStore'
 import { MessageType } from '../../../../../types/types'
 import Post from './post'
 
 import './postsTimeline.scss'
 
-type PropsType = {
-    messages: Array<MessageType>
-}
 
-const PostsTimline: React.FC<PropsType> = (props) => {
+const PostsTimline: React.FC = () => {
+    const messages = useSelector<AppStateType, MessageType[]>( (state) => state.profilePage.messages )
     return (
         <div className="posts__timeline">
             {
-                [...props.messages].reverse().map(el => {
+                [...messages].reverse().map(el => {
                     return <Post key={el.id} item={el} />
                 })
             }
