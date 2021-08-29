@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "../src/components/app/sideBar/sideBar.scss",
+        "../src/sassStyles/_variables.scss"
+    ],
+    "names": [],
+    "file": "sideBar.css"
+}

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,WAAW,CAAC;EACR,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,MAAM;CAS1B;;AARI,AAAD,iBAAO,CAAC;EACJ,YAAY,EAAE,GAAG;EACjB,MAAM,EAAE,OAAO;CAKlB;;AAJI,AAAD,wBAAQ,CAAC;EACL,WAAW,EAAE,IAAI;EACjB,SAAS,EAAE,IAAI;CAClB",
+    "sources": [
+        "../src/components/common/pagination/pagination.scss"
+    ],
+    "names": [],
+    "file": "pagination.css"
+}

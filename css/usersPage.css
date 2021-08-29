@@ -1,0 +1,64 @@
+.users__list .user__name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #545454;
+}
+
+.users__list .user__status {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 25px;
+  color: #888888;
+}
+
+.users__list {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.users__list-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 44px;
+  padding: 10px 0 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.users__list .user__image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.users__list .user__image img {
+  max-width: 100%;
+  min-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.users__list .user__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-left: 15px;
+}
+
+.users__list .user__status {
+  line-height: 20px;
+}
+
+.users__list .user__messages-link {
+  margin-top: 10px;
+  color: #193fb4;
+}
+
+.follow-btn:disabled {
+  opacity: .5;
+}
+/*# sourceMappingURL=usersPage.css.map */

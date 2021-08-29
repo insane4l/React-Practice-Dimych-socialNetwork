@@ -1,0 +1,12 @@
+form .error {
+  border: 4px solid red;
+}
+
+form .error-status {
+  color: red;
+}
+
+form textarea {
+  resize: none;
+}
+/*# sourceMappingURL=formsControls.css.map */

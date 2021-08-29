@@ -1,16 +1,17 @@
 import React from 'react';
-import AdsBlockContent from './adsBlockContent';
 
-import './adsBlock.scss';
+import {adsImg} from '../../../assets/images';
+import './adsBlock.scss'
 
 const AdsBlock = () => {
     return (
-        <div className="ads__block">
-            <div className="ads__block-title">Ads</div>
-            <div className="ads__block-content">
-                <AdsBlockContent />
+        <a href="https://ads.com" className="ads__content">
+            <div className="ads__content-img">
+                <img src={adsImg} alt="ads_image" />
             </div>
-        </div>
+            <a className="ads__content-link" href="http://karpeyev.ru">karpeyev.ru</a>
+            <div className="ads__content-title">Создадим сайт любой сложности под ваши задачи</div>
+        </a>
     );
 }
 

@@ -1,0 +1,197 @@
+.dialogs__item-header .interlocuter__name, .dialogs__item-content .message__author-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #545454;
+}
+
+.dialogs__item-header .go-back__text, .dialogs__item-content .message__date, .dialogs__item-content .message__text, .dialogs__item-footer .add-message__input, .dialogs__item-footer .add-message__input::-webkit-input-placeholder {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 25px;
+  color: #888888;
+}
+
+.dialogs__item-header .go-back__text, .dialogs__item-content .message__date, .dialogs__item-content .message__text, .dialogs__item-footer .add-message__input, .dialogs__item-footer .add-message__input:-ms-input-placeholder {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 25px;
+  color: #888888;
+}
+
+.dialogs__item-header .go-back__text, .dialogs__item-content .message__date, .dialogs__item-content .message__text, .dialogs__item-footer .add-message__input, .dialogs__item-footer .add-message__input::-ms-input-placeholder {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 25px;
+  color: #888888;
+}
+
+.dialogs__item-header .go-back__text, .dialogs__item-content .message__date, .dialogs__item-content .message__text, .dialogs__item-footer .add-message__input, .dialogs__item-footer .add-message__input::placeholder {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 25px;
+  color: #888888;
+}
+
+.dialogs__item {
+  width: 66%;
+  border-radius: 15px;
+  overflow: hidden;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
+          box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
+}
+
+.dialogs__item-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dialogs__item-header .go-back {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-item-align: start;
+      align-self: start;
+  width: 100px;
+}
+
+.dialogs__item-header .go-back__icon {
+  width: 16px;
+}
+
+.dialogs__item-header .go-back__text {
+  text-transform: uppercase;
+}
+
+.dialogs__item-header .interlocuter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  left: calc(50% - 100px);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.dialogs__item-header .interlocuter__image {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.dialogs__item-header .interlocuter__image img {
+  max-width: 100%;
+  min-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.dialogs__item-content {
+  width: 100%;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.dialogs__item-content .message {
+  min-width: 200px;
+  max-width: 300px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  background-color: #dbe5ec;
+}
+
+.dialogs__item-content .message_left {
+  margin-right: auto;
+  background-color: #f3f6f9;
+}
+
+.dialogs__item-content .message_right {
+  margin-left: auto;
+}
+
+.dialogs__item-content .message__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.dialogs__item-content .message__author-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.dialogs__item-content .message__author-image img {
+  max-width: 100%;
+  min-height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.dialogs__item-content .message__author-name {
+  font-size: 13px;
+  margin-left: 5px;
+}
+
+.dialogs__item-content .message__date {
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.dialogs__item-content .message__text {
+  padding: 0 35px;
+}
+
+.dialogs__item-footer {
+  padding: 20px;
+}
+
+.dialogs__item-footer .add-message__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.dialogs__item-footer .add-message__input {
+  width: 70%;
+  padding: 5px 15px;
+  border-radius: 4px;
+  background-color: #dbe5ec;
+  resize: none;
+}
+
+.dialogs__item-footer .add-message__btn {
+  margin-left: 5px;
+  padding: 10px 30px;
+  border-radius: 4px;
+  color: #eeedf8;
+  background-color: #6384e9;
+}
+
+.dialogs__item-footer .add-message__btn:hover {
+  opacity: 0.8;
+}
+/*# sourceMappingURL=dialogsItem.css.map */

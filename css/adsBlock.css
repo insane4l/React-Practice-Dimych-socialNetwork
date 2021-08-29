@@ -1,0 +1,54 @@
+.ads__block-title, .ads__content-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #545454;
+}
+
+.ads__content-link {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 25px;
+  color: #888888;
+}
+
+.ads__block {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.ads__block-title {
+  margin-left: 20px;
+  color: #eeedf8;
+}
+
+.ads__block-content {
+  margin: 0 20px 0 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.ads__content {
+  display: block;
+}
+
+.ads__content-img {
+  border-radius: 10px;
+}
+
+.ads__content-img img {
+  width: 100%;
+  max-height: 150px;
+  border-radius: 10px;
+}
+
+.ads__content-link {
+  padding-left: 10px;
+}
+
+.ads__content-title {
+  padding-left: 10px;
+  font-size: 12px;
+  line-height: 17px;
+}
+/*# sourceMappingURL=adsBlock.css.map */

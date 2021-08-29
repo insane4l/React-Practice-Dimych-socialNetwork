@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { EventHandler, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStateType } from '../../../../reduxStore'
 import * as selectors from '../../../../selectors'
@@ -11,7 +11,9 @@ const ChatMessagesList: React.FC = () => {
     const authUserId = useSelector(selectors.getAuthUserId)
     const messages = useSelector((state: AppStateType) => state.chat.messages)
 
-    const scrollHandler = (e: any) => {
+
+    
+    const scrollHandler = (e: React.UIEvent<HTMLElement>) => {
         const element = e.currentTarget
         if (Math.abs( (element.scrollHeight - element.scrollTop) - element.clientHeight ) < 300)  {
             !isAutoScroll && setIsAutoScroll(true)

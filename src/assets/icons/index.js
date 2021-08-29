@@ -1,4 +1,4 @@
-// Navigation icons
+// Navigation menu icons
 import profileIcon from './profile-icon.svg';
 import usersIcon from './users-icon.svg';
 import messagesIcon from './messages-icon.svg';
@@ -14,6 +14,7 @@ import shareIcon from './share.svg';
 
 // Other icons
 import addNewImage from './add-photo-icon.svg';
+import goBack from './go-back-arrow.svg'
 
 
 export {
@@ -27,5 +28,6 @@ export {
     addNewImage,
     likeIcon,
     commentsIcon,
-    shareIcon
+    shareIcon,
+    goBack
 }

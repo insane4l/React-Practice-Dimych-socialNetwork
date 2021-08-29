@@ -1,0 +1,14 @@
+.app__wrapper {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 70px;
+  background-color: #193fb4;
+}
+
+.app__wrapper .page__layout {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2.5fr 9.5fr;
+      grid-template-columns: 2.5fr 9.5fr;
+}
+/*# sourceMappingURL=app.css.map */

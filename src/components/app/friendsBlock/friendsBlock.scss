@@ -1,21 +1,10 @@
 @import '../../../sassStyles/variables.scss';
 
 .friends__block {
-    margin-top: 60px;
-    &-title {
-        @extend %title-text;
-        margin-left: 20px;
-        color: $textLightColor;
-    }
-    &-content {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        padding: 5px 10px 15px 10px;
-        margin: 0 20px 0 10px;
-        border-radius: 10px;
-        background-color: $bgBlockColor;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
     &-item {
         display: flex;
         flex-basis: 30%;

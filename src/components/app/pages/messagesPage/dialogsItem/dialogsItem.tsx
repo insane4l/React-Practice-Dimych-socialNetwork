@@ -1,19 +1,10 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import DialogsMessageForm from './dialogsMessageForm';
-import { DialogsMessageType } from '../../../../../reducers/messagesReducer';
+import React from 'react'
+import {Link} from 'react-router-dom'
+import DialogsMessageForm from './dialogsMessageForm'
+import { DialogsMessageType } from '../../../../../reducers/messagesReducer'
 
-import goBack from './goBack.svg';
-import './dialogsItem.scss';
-
-type PropsType = {
-    //MapStatePropsType
-    messages: Array<DialogsMessageType>
-    //MapDispatchPropsType
-    sendMessage: (date: string, messageBody: string) => void
-}
-
-export type DialogsFormValuesType = { messageBody: string }
+import * as icons from '../../../../../assets/icons'
+import './dialogsItem.scss'
 
 const DialogsItem: React.FC<PropsType> = (props) => {
 
@@ -27,15 +18,15 @@ const DialogsItem: React.FC<PropsType> = (props) => {
         // const date = `${day}.${month} ${hours}:${minutes}`;
         // utils function
         // const date = getCurrentDate();
-        const date = '22-02-2020';
-        props.sendMessage(date, formData.messageBody);
+        const date = '22-02-2020'
+        props.sendMessage(date, formData.messageBody)
     }
 
     return (
         <div className="dialogs__item">
             <div className="dialogs__item-header">
                 <Link className="go-back" to="/messages"> 
-                    <img className="go-back__icon" src={goBack} alt="go_back_icon" />
+                    <img className="go-back__icon" src={icons.goBack} alt="go_back_icon" />
                     <div className="go-back__text">Go back</div>
                 </Link>
                 {/* Must be link too */}
@@ -49,7 +40,7 @@ const DialogsItem: React.FC<PropsType> = (props) => {
 
             <div className="dialogs__item-content">
                 {props.messages.map(message => {
-                    const style = message.myMessage ? "message_right" : "message_left";
+                    const style = message.myMessage ? "message_right" : "message_left"
                     return (
                         <div key={message.id} className={`message ${style}`}>
                             <div className="message__info">
@@ -72,4 +63,15 @@ const DialogsItem: React.FC<PropsType> = (props) => {
     )
 }
 
-export default DialogsItem;
+export default DialogsItem
+
+
+
+type PropsType = {
+    //MapStatePropsType
+    messages: Array<DialogsMessageType>
+    //MapDispatchPropsType
+    sendMessage: (date: string, messageBody: string) => void
+}
+
+export type DialogsFormValuesType = { messageBody: string }

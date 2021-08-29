@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 
 import {defaultCover, defaultPhoto} from '../../../../../assets/images';
-import {addNewImage} from '../../../../../assets/icons';
+import * as icons from '../../../../../assets/icons';
 
 
 type PropsType = {
@@ -30,7 +30,7 @@ const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto, upda
                     && <div className="change-photo">
                             <input id="change-photo_input" onChange={onNewPhotoSelected} type="file" />
                             <label className="change-photo_label" htmlFor="change-photo_input">
-                                <img className="change-photo_icon" src={addNewImage} alt="new_photo" />
+                                <img className="change-photo_icon" src={icons.addNewImage} alt="new_photo" />
                             </label>
                         </div>
                 }

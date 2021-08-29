@@ -1,0 +1,19 @@
+.error__page-wrapper {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.error__page-title {
+  color: red;
+}
+
+.error__page-descr {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 100px;
+}
+
+.error__page-link {
+  color: #6384e9;
+}
+/*# sourceMappingURL=pageNotFound.css.map */

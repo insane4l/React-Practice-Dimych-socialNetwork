@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAGK,AAAD,oBAAS,CAAC;EACN,WAAW,EAAE,IAAI;EACjB,UAAU,EAAE,MAAM;CACrB;;AACA,AAAD,kBAAO,CAAC;EACJ,KAAK,EAAE,GAAG;CACb;;AACA,AAAD,kBAAO,CAAC;EACJ,SAAS,EAAE,IAAI;EACf,WAAW,EAAE,IAAI;EACjB,aAAa,EAAE,KAAK;CACvB;;AACA,AAAD,iBAAM,CAAC;EAEH,KAAK,ECHS,OAA6B;CDI9C",
+    "sources": [
+        "../src/components/app/pages/pageNotFound/pageNotFound.scss",
+        "../src/sassStyles/_variables.scss"
+    ],
+    "names": [],
+    "file": "pageNotFound.css"
+}

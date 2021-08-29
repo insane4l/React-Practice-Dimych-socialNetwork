@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,aAAa,CAAC;EACV,OAAO,EAAE,mBAAmB;EAC5B,aAAa,EAAE,IAAI;EACnB,gBAAgB,ECYD,OAAO;CDXzB;;AACD,AAAA,QAAQ,CAAC;EACL,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;EACZ,gBAAgB,EAAE,WAAW;CAChC",
+    "sources": [
+        "../src/components/app/mainSection/mainSection.scss",
+        "../src/sassStyles/_variables.scss"
+    ],
+    "names": [],
+    "file": "mainSection.css"
+}
