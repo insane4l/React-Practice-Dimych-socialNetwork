@@ -7,7 +7,9 @@ import { UserType } from '../types/types'
 
 const initialState = {
     users: [] as Array<UserType>,
+    randomFriends: null as null | Array<UserType>,
     totalUsersCount: 0,
+    totalFriendsCount: 0,
     pageSize: 10,
     currentPage: 1,
     filters: {
@@ -28,6 +30,11 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
                 ...state,
                 users: action.users
             };
+        case 'sn/users/RANDOM_FRIENDS_RECEIVED':
+            return {
+                ...state,
+                randomFriends: action.payload.randomFriends
+            };
         case 'sn/users/TOGGLE_FOLLOWED':
             return {
                 ...state,
@@ -42,6 +49,8 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
             return {...state, currentPage: action.num};
         case 'sn/users/SET_TOTAL_USERS_COUNT':
             return {...state, totalUsersCount: action.count};
+        case 'sn/users/SET_TOTAL_FRIENDS_COUNT':
+            return {...state, totalFriendsCount: action.count};
         case 'sn/users/SET_FILTERS':
             return {
                 ...state,
@@ -67,6 +76,9 @@ export const actions = {
     setUsers: (users: Array<UserType>) => (
         {type: 'sn/users/SET_USERS', users} as const
     ),
+    randomFriendsReceived: (randomFriends: Array<UserType>) => (
+        {type: 'sn/users/RANDOM_FRIENDS_RECEIVED', payload: {randomFriends}} as const
+    ),
     toggleFollowed: (userId: number) => (
         {type: 'sn/users/TOGGLE_FOLLOWED', userId} as const
     ),
@@ -75,6 +87,9 @@ export const actions = {
     ),
     setTotalUsersCount: (count: number) => (
         {type: 'sn/users/SET_TOTAL_USERS_COUNT', count} as const
+    ),
+    setTotalFriendsCount: (count: number) => (
+        {type: 'sn/users/SET_TOTAL_FRIENDS_COUNT', count} as const
     ),
     setFilters: (filters: UsersListFiltersType) => (
         {type: 'sn/users/SET_FILTERS', payload: filters} as const
@@ -132,6 +147,23 @@ export const requestUsers = (pageSize: number, currentPage: number, {term = '', 
     } catch {
         alert('Something goes wrong') // todo: dispatch setUsersRequestError() state.UsersRequestError: false/true
     }
+}
+
+export const requestRandomFriends = (pageSize: number, pageNumber: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
+    try {
+        const data = await usersAPI.getUsers(pageSize, pageNumber, '', true);
+        if (data.totalCount > 0) {
+            dispatch( actions.randomFriendsReceived(data.items) )
+            dispatch( actions.setTotalFriendsCount(data.totalCount) )
+        } else {
+            dispatch( actions.randomFriendsReceived([]) )
+            dispatch( actions.setTotalFriendsCount(0) )
+        }
+    } 
+    catch {
+        alert('An error has occurred, possibly a bad connection to the server. Auto-updating of the friends list is paused. To fix it please try reloading the page.')
+    }
+   
 }
 
 

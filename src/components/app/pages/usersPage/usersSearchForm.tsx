@@ -3,7 +3,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik'
 import { UsersListFiltersType } from '../../../../reducers/usersReducer';
 import { useSelector } from 'react-redux';
 import * as selectors from '../../../../selectors'
-import { getSearchTitleFromSetParameters } from '../../../../utils/utiliteFuncs';
+import { getSearchTitleFromSetParameters } from '../../../../utils/transformFuncs';
 
 
 const usersSearchFormValidators = (values: UsersListFiltersType) => {
