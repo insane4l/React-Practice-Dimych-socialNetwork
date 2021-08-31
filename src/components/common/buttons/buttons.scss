@@ -1,0 +1,17 @@
+@import '../../../sassStyles/variables';
+
+.user__follow-btn, .user__messages-btn{
+    display: block;
+    width: 140px;
+    padding: 0 30px;
+    margin-top: 3px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+    color: $textLightColor;
+    background-color: $bgPrimaryLightColor;
+    &:disabled {
+        opacity: .5;
+    }
+}

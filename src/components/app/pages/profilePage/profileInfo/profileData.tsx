@@ -1,8 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ProfileStatus from './profileStatus';
 import ProfileDataForm from './profileDataForm';
 import ProfileDataTable from './profileDataTable';
 import {ProfileType} from '../../../../../types/types';
+import MessagesBtn from '../../../../common/buttons/messagesBtn/messagesBtn';
+import FollowBtn from '../../../../common/buttons/followBtn/followBtn';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStateType } from '../../../../../reduxStore';
+import { getFollowedStatus } from '../../../../../reducers/profileReducer';
+import { requestFollowedUserInfo } from '../../../../../reducers/usersReducer';
 
 type ProfileDataPropsType = {
     user: ProfileType
@@ -15,8 +21,15 @@ type ProfileDataPropsType = {
 
 const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStatus, updateProfileStatus, updateProfileData,}) => {
 
+    const followedUserInfo = useSelector( (state: AppStateType) => state.usersPage.followedUserInfo)
     const [editMode, setEditMode] = useState(false);
     const [dataVisibility, toggleDataVisibility] = useState(false);
+
+    const dispatch = useDispatch()
+
+    useEffect( () => {
+        dispatch( requestFollowedUserInfo(user.userId) )
+    }, [user])
 
     const onSubmit = (formData: ProfileType) => {
         // todo: remove then
@@ -27,6 +40,12 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStat
 
     return (
         <div className="profile__data">
+            {!isOwner && 
+                <div className="profile__buttons-wrapper">
+                    <FollowBtn isFollowed={followedUserInfo.followedStatus} userId={followedUserInfo.userId} />
+                    <MessagesBtn linkTo={`/messages`} />
+                </div>
+            }
             <h1 className="page__name">{user.fullName}</h1>
             <ProfileStatus 
                 isOwner={isOwner} 

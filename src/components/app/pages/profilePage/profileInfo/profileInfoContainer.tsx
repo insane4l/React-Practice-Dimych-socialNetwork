@@ -6,6 +6,7 @@ import {updateProfileStatus, updateProfilePhoto,
 import { AppStateType } from '../../../../../reduxStore';
 import { ProfileType } from '../../../../../types/types';
 
+
 type OwnPropsType = {
     isOwner: boolean
 }
@@ -22,7 +23,7 @@ type MapDispatchPropsType = {
 
 const ProfileInfoContainer: React.FC<MapStatePropsType & MapDispatchPropsType & OwnPropsType> = (props) => {
     return <ProfileInfo {...props} isOwner={props.isOwner} />
-};
+}
 
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
@@ -36,6 +37,6 @@ const mapDispatchToProps = {
     updateProfileStatus,
     updateProfilePhoto,
     updateProfileData
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileInfoContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileInfoContainer)

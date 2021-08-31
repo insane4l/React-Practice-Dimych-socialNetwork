@@ -1,35 +1,41 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
-import { UserType } from '../../../../types/types';
+import React from 'react'
+import {NavLink} from 'react-router-dom'
+import { UserType } from '../../../../types/types'
+import FollowBtn from '../../../common/buttons/followBtn/followBtn'
 
-import defaultPhoto from '../../../../assets/images/defaultPhoto.png';
+import { defaultPhoto } from '../../../../assets/images'
+import MessagesBtn from '../../../common/buttons/messagesBtn/messagesBtn'
 
-type PropsType = {
-    user: UserType
-    followingInProgress: Array<number>
-    followOrUnfollow: (userId: number) => void
-    btnLabel: string
-}
 
-const User: React.FC<PropsType> = ({user, followingInProgress, followOrUnfollow, btnLabel}) => {
+const User: React.FC<PropsType> = ({user}) => {
+
+    const {id, photos, name, followed, status} = user
+
     return (
         <li className="users__list-item">
-            <NavLink to={"/profile/" + user.id}>
+            <NavLink to={`/profile/${id}`}>
                 <div className="user__image">
-                    <img src={user.photos.small || defaultPhoto} alt="user_image" />
+                    <img src={photos.small || defaultPhoto} alt="user_image" />
                 </div>
             </NavLink>
-            <div className="user__info">
-                <NavLink to={"/profile/" + user.id} ><div className="user__name">{user.name}</div></NavLink>
-                <div className="user__status">{user.status}</div>
-                <a className="user__messages-link" href="/messages">Write message</a>
-                <button className="follow-btn"
-                    disabled={followingInProgress.some(id => id === user.id)}
-                    onClick={() => followOrUnfollow(user.id)} >
-                    {btnLabel}</button>
+            <div className="user__details-wrapper">
+                <div className="user__info">
+                    <NavLink to={`/profile/${id}`} ><div className="user__name">{name}</div></NavLink>
+                    <div className="user__status">{status}</div>
+                </div>
+                <div className="user__buttons-wrapper">
+                    <MessagesBtn linkTo={`/messages`} />
+                    <FollowBtn isFollowed={followed} userId={id} />
+                </div>
             </div>
         </li>
     )
 }
 
-export default User;
+export default User
+
+
+
+type PropsType = {
+    user: UserType
+}

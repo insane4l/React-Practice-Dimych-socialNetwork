@@ -13,7 +13,9 @@ const initialState = {
         {id: 3, label: 'ok this is 3 post', likesCount: 8}
     ] as Array<MessageType>,
     selectedUser: null as null | ProfileType,
-    profileStatus: ""
+    profileStatus: "",
+    isLoading: false,
+    isFollowed: null as null | boolean
 }
 type InitialStateType = typeof initialState
 
@@ -38,10 +40,14 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
             return {...state, selectedUser: action.user};
         case 'sn/profile/SET_PROFILE_STATUS':
             return {...state, profileStatus: action.message};
+        case 'sn/profile/FOLLOWED_STATUS_RECEIVED':
+            return {...state, isFollowed: action.status};
         case 'sn/profile/SET_PROFILE_PHOTO_SUCCESS':
             return {...state, selectedUser: {...state.selectedUser, photos: action.photos} as ProfileType }; // (temporarily "as UserType" because of TS error)
         case 'sn/profile/SET_PROFILE_DATA_SUCCESS':
             return {...state, selectedUser: {...state.selectedUser, ...action.data}}
+        case 'sn/profile/SET_IS_LOADING':
+            return {...state, isLoading: action.isLoading}
         default:
             return state;
     }
@@ -59,6 +65,9 @@ export const actions = {
     setProfileStatus: (message: string) => (
         {type: 'sn/profile/SET_PROFILE_STATUS', message} as const
     ),
+    followedStatusReceived: (status: boolean) => (
+        {type: 'sn/profile/FOLLOWED_STATUS_RECEIVED', status} as const
+    ),
     deletePost: (postId: number) => (
         {type: 'sn/profile/DELETE_POST', postId} as const
     ),
@@ -67,6 +76,9 @@ export const actions = {
     ),
     setProfileDataSuccess: (data: ProfileType) => (
         {type: 'sn/profile/SET_PROFILE_DATA_SUCCESS', data} as const
+    ),
+    setIsLoading: (isLoading: boolean) => (
+        {type: 'sn/profile/SET_IS_LOADING', isLoading} as const
     )
 }
 
@@ -74,12 +86,13 @@ export const actions = {
 
 
 export const getUserProfile = (urlParamId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
-    const meData = await authAPI.getUserAuthData();
-    const authId = meData.data.id;
-    const userId = urlParamId ? urlParamId : authId;
-
-    const profile = await usersAPI.getUserProfile(userId);
-    dispatch(actions.setUserAction(profile));
+    const meData = await authAPI.getUserAuthData()
+    const authId = meData.data.id
+    const userId = urlParamId ? urlParamId : authId
+    dispatch( actions.setIsLoading(true) )
+    const profile = await usersAPI.getUserProfile(userId)
+    dispatch( actions.setUserAction(profile) )
+    dispatch( actions.setIsLoading(false) )
 }
 
 
@@ -102,6 +115,11 @@ export const getProfileStatus = (userId: number): BaseThunkType<ActionsTypes> =>
     }
 }
 
+export const getFollowedStatus = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
+    const followedStatus = await usersAPI.checkFollowStatus(userId)
+
+    dispatch( actions.followedStatusReceived(followedStatus) )
+}
 
 export const updateProfileStatus = (message: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
     const data = await usersAPI.setProfileStatus(message);

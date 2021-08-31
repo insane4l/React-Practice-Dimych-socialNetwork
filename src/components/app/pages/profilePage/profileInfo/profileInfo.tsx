@@ -15,7 +15,7 @@ type PropsType = {
 }
 
 const ProfileInfo: React.FC<PropsType> = (props) => {
-
+    
     return (
         <div className="profile__info">
             <ProfileImages 

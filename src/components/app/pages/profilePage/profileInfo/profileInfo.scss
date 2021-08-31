@@ -62,7 +62,7 @@
             
         }
         .page__name {
-            margin-top: 35px;
+            margin-top: 15px;
             color: $textDarkColor;
             font-size: 26px;
             text-align: center;
@@ -117,4 +117,13 @@
         }
     }
     
+    &__buttons-wrapper {
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        width: 400px;
+        &:nth-last-child() {
+            margin-left: 10px;
+        }
+    }
 }

@@ -17,7 +17,11 @@ const initialState = {
         friend: null as null | boolean
     },
     isLoading: false,
-    followingInProgress: [] as Array<number>
+    followingInProgress: [] as Array<number>,
+    followedUserInfo: {
+        userId: null as null | number,
+        followedStatus: null as null | boolean
+    }
     
 }
 export type InitialStateType = typeof initialState
@@ -65,6 +69,10 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
+        case 'sn/users/SET_FOLLOWED_USER_INFO':
+            return {...state, followedUserInfo: action.payload}
+        case 'sn/users/TOGGLE_FOLLOWED_USER_INFO':
+            return {...state, followedUserInfo: {...state.followedUserInfo, followedStatus: !state.followedUserInfo.followedStatus}}
         default:
             return state;
     }
@@ -100,6 +108,13 @@ export const actions = {
     setFollowingInProgress: (userId: number, 
         isInProgress: boolean) => (
             {type: 'sn/users/SET_FOLLOWING_IN_PROGRESS', userId, isInProgress} as const
+    ),
+    setFollowedUserInfo: (userId: number, 
+        followedStatus: boolean) => (
+            {type: 'sn/users/SET_FOLLOWED_USER_INFO', payload: {userId, followedStatus} } as const
+    ),
+    toggleFollowedUserInfo: () => (
+            {type: 'sn/users/TOGGLE_FOLLOWED_USER_INFO'} as const
     )
 }
 
@@ -115,6 +130,7 @@ const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>,
 
     if(data.resultCode === ResultCodesEnum.Success) {
         dispatch(actions.toggleFollowed(userId));
+        dispatch(actions.toggleFollowedUserInfo())
         dispatch(actions.setFollowingInProgress(userId, false));
     }
 }
@@ -122,9 +138,9 @@ const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>,
 export const followOrUnfollow = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     dispatch(actions.setFollowingInProgress(userId, true)); // disable button while fetching
 
-    const followed = await usersAPI.checkFollowStatus(userId);
-    
-    if (!followed) { // unfollowed ?
+    const isFollowed = await usersAPI.checkFollowStatus(userId);
+
+    if (!isFollowed) { // unfollowed ?
         await followUnfollowFlow(dispatch, userId, usersAPI.followToUser); // follow
     } else {
         await followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser); //unfollow
@@ -164,6 +180,11 @@ export const requestRandomFriends = (pageSize: number, pageNumber: number): Base
         alert('An error has occurred, possibly a bad connection to the server. Auto-updating of the friends list is paused. To fix it please try reloading the page.')
     }
    
+}
+
+export const requestFollowedUserInfo = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
+    const isFollowed = await usersAPI.checkFollowStatus(userId)
+    dispatch( actions.setFollowedUserInfo(userId, isFollowed) )
 }
 
 

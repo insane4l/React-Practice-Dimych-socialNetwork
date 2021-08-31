@@ -6,11 +6,14 @@ import {getUserProfile, getProfileStatus} from '../../../../reducers/profileRedu
 import ProfilePage from './profilePage';
 import { AppStateType } from '../../../../reduxStore';
 import { ProfileType } from '../../../../types/types';
+import Spinner from '../../../common/spinner';
 
 type MapStatePropsType = {
     user: ProfileType
     profileId: number
     isUserAuthorized: boolean
+    isLoading: boolean
+    followedStatus: boolean | null
 }
 
 type MapDispatchPropsType = {
@@ -59,6 +62,8 @@ class ProfilePageContainer extends Component<PropsType> {
             return <Redirect to="/login" />
         }
 
+        if (this.props.isLoading) return <Spinner />
+
         return (
             <ProfilePage user={this.props.user} isOwner={!this.props.match.params.userId}/>
         )
@@ -70,7 +75,9 @@ const mapStateToProps = (state: AppStateType) => {
     return {
         user: state.profilePage.selectedUser,
         profileId: state.auth.id,
-        isUserAuthorized: state.auth.isAuthorized
+        isUserAuthorized: state.auth.isAuthorized,
+        isLoading: state.profilePage.isLoading,
+        followedStatus: state.usersPage.followedUserInfo.followedStatus
     }
 };
 

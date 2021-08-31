@@ -24,10 +24,15 @@
                     object-fit: cover;
                 }
             }
+            &__details-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                margin-left: 15px;
+            }
             &__info {
                 display: flex;
                 flex-direction: column;
-                margin-left: 15px;
             }
             &__name {
                 @extend %title-text;
@@ -37,16 +42,9 @@
                 line-height: 20px;
 
             }
-            &__messages-link {
-                margin-top: 10px;
-                color: $bgPrimaryColor;
+            &__buttons-wrapper {
+                width: 140px;
             }
         }
-    }
-}
-
-.follow-btn {
-    &:disabled {
-        opacity: .5;
     }
 }
