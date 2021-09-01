@@ -9,17 +9,18 @@ const FollowBtn: React.FC<FollowBtnPropsType> = ({isFollowed, userId}) => {
 
     const followingInProgress = useSelector(selectors.getFollowingInProgress)
     const btnLabel = isFollowed ? 'Unfollow' : 'Follow'
+    const btnStyle = isFollowed ? 'user__follow-btn unfollow-btn' : 'user__follow-btn'
     const dispatch = useDispatch()
 
     const followUnfollow = (userId: number) => {
         dispatch( followOrUnfollow(userId) )
     }
-
+    debugger
     if (isFollowed === null || !userId) return <div></div> // todo: fix on profile page when user refreshed + remove user from friends block (useEffect)
     
     return (
         <button 
-            className="user__follow-btn"
+            className={btnStyle}
             disabled={followingInProgress.some(id => id === userId)}
             onClick={() => followUnfollow(userId)} >
         {btnLabel}
