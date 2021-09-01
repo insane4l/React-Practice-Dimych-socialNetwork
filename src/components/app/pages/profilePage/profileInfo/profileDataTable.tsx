@@ -24,7 +24,7 @@ const ProfileDataTable: React.FC<PropsType> = (props) => {
             {lookingForAJobDescription && <Row title="My skills" data={lookingForAJobDescription} />}
             {lookingForAJob && <div className="profile__data-item">Looking for a job!</div>}
             {contactsList}
-            {isOwner && <button onClick={setEditMode} >Change data</button>}
+            {isOwner && <button className="profile__data-btn" onClick={setEditMode} >Change data</button>}
         </>
     )
 };

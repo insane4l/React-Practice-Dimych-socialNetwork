@@ -29,4 +29,20 @@
             margin-left: 6px;
         }
     }
+    &__login {
+        &-panel {
+            display: flex;
+            align-items: center;
+        }
+        &-nickname {
+            @extend %title-text;
+            margin-right: 5px;
+        }
+        &-btn {
+            padding: 2px 22px;
+            border-radius: 4px;
+            color: $bgBlockColor;
+            background-color: $bgPrimaryLightColor;
+        }
+    }
 }

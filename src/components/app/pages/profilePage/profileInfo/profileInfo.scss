@@ -69,7 +69,7 @@
         }
         .view-data__btn {
             display: block;
-            margin: 20px auto;
+            margin: 10px auto 20px auto;
             color: $bgPrimaryColor;
             background-color: transparent;
         }
@@ -99,6 +99,14 @@
             margin-bottom: 5px;
             border-radius: 3px;
             background-color: $bgMessageColor;
+        }
+        &-btn {
+            display: block;
+            margin: 10px auto;
+            padding: 3px 22px;
+            border-radius: 4px;
+            color: $bgBlockColor;
+            background-color: $bgPrimaryLightColor;
         }
 
     }

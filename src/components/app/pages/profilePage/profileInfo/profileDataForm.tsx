@@ -26,7 +26,7 @@ let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormO
                     return <Row key={key} title={key} inputName={"contacts." + key} element={Input} />
                 })
             }
-            <button>Save data</button>
+            <button className="profile__data-btn">Save data</button>
         </form>
     )
 }
