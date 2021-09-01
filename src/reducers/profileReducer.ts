@@ -15,7 +15,6 @@ const initialState = {
     selectedUser: null as null | ProfileType,
     profileStatus: "",
     isLoading: false,
-    isFollowed: null as null | boolean
 }
 type InitialStateType = typeof initialState
 
@@ -40,8 +39,6 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
             return {...state, selectedUser: action.user};
         case 'sn/profile/SET_PROFILE_STATUS':
             return {...state, profileStatus: action.message};
-        case 'sn/profile/FOLLOWED_STATUS_RECEIVED':
-            return {...state, isFollowed: action.status};
         case 'sn/profile/SET_PROFILE_PHOTO_SUCCESS':
             return {...state, selectedUser: {...state.selectedUser, photos: action.photos} as ProfileType }; // (temporarily "as UserType" because of TS error)
         case 'sn/profile/SET_PROFILE_DATA_SUCCESS':
@@ -64,9 +61,6 @@ export const actions = {
     ),
     setProfileStatus: (message: string) => (
         {type: 'sn/profile/SET_PROFILE_STATUS', message} as const
-    ),
-    followedStatusReceived: (status: boolean) => (
-        {type: 'sn/profile/FOLLOWED_STATUS_RECEIVED', status} as const
     ),
     deletePost: (postId: number) => (
         {type: 'sn/profile/DELETE_POST', postId} as const
@@ -115,11 +109,6 @@ export const getProfileStatus = (userId: number): BaseThunkType<ActionsTypes> =>
     }
 }
 
-export const getFollowedStatus = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
-    const followedStatus = await usersAPI.checkFollowStatus(userId)
-
-    dispatch( actions.followedStatusReceived(followedStatus) )
-}
 
 export const updateProfileStatus = (message: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
     const data = await usersAPI.setProfileStatus(message);

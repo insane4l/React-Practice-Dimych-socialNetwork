@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {compose} from 'redux';
 import {withRouter, Redirect, RouteComponentProps} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getUserProfile, getProfileStatus} from '../../../../reducers/profileReducer';
+import {getUserProfile, getProfileStatus, actions} from '../../../../reducers/profileReducer';
 import ProfilePage from './profilePage';
 import { AppStateType } from '../../../../reduxStore';
-import { ProfileType } from '../../../../types/types';
+import { ProfileType, UserType } from '../../../../types/types';
 import Spinner from '../../../common/spinner';
+
 
 type MapStatePropsType = {
     user: ProfileType
@@ -19,6 +20,7 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     getUserProfile: (userId: number) => void
     getProfileStatus: (userId: number) => void
+    setUserProfile: (user: UserType | null) => void
 }
 
 type PathParamsType = {
@@ -40,6 +42,9 @@ class ProfilePageContainer extends Component<PropsType> {
         }
     }
 
+    componentWillUnmount() {
+        this.props.setUserProfile(null)
+    }
 
     refreshProfile() {
         let userId
@@ -83,8 +88,10 @@ const mapStateToProps = (state: AppStateType) => {
 
 const mapDispatchToProps = {
     getUserProfile,
-    getProfileStatus
+    getProfileStatus,
+    setUserProfile: actions.setUserAction
 };
+
 
 export default compose<React.ComponentType>(
                     withRouter,

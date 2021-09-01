@@ -1,22 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import ProfileStatus from './profileStatus';
-import ProfileDataForm from './profileDataForm';
-import ProfileDataTable from './profileDataTable';
-import {ProfileType} from '../../../../../types/types';
-import MessagesBtn from '../../../../common/buttons/messagesBtn/messagesBtn';
-import FollowBtn from '../../../../common/buttons/followBtn/followBtn';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppStateType } from '../../../../../reduxStore';
-import { getFollowedStatus } from '../../../../../reducers/profileReducer';
-import { requestFollowedUserInfo } from '../../../../../reducers/usersReducer';
-
-type ProfileDataPropsType = {
-    user: ProfileType
-    profileStatus: string
-    isOwner: boolean
-    updateProfileStatus: (message: string) => void
-    updateProfileData: (formData: ProfileType) => Promise<any>
-}
+import React, {useEffect, useState} from 'react'
+import ProfileStatus from './profileStatus'
+import ProfileDataForm from './profileDataForm'
+import ProfileDataTable from './profileDataTable'
+import {ProfileType} from '../../../../../types/types'
+import MessagesBtn from '../../../../common/buttons/messagesBtn/messagesBtn'
+import FollowBtn from '../../../../common/buttons/followBtn/followBtn'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppStateType } from '../../../../../reduxStore'
+import { requestFollowedUserInfo } from '../../../../../reducers/usersReducer'
 
 
 const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStatus, updateProfileStatus, updateProfileData,}) => {
@@ -29,6 +20,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStat
 
     useEffect( () => {
         dispatch( requestFollowedUserInfo(user.userId) )
+        // eslint-disable-next-line
     }, [user])
 
     const onSubmit = (formData: ProfileType) => {
@@ -64,16 +56,8 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStat
                     submitAction={onSubmit} />}
         </div>
     )
-};
-
-
-type ProfileDataListPropsType = {
-    user: ProfileType
-    isOwner: boolean
-    editMode: boolean
-    setEditMode: (editMode: boolean) => void
-    submitAction: (formData: ProfileType) => void
 }
+
 
 const ProfileDataList: React.FC<ProfileDataListPropsType> = ({isOwner, user, editMode, setEditMode, submitAction}) => {
     return (
@@ -90,6 +74,24 @@ const ProfileDataList: React.FC<ProfileDataListPropsType> = ({isOwner, user, edi
             }
         </div>
     )
-};
+}
 
-export default ProfileData;
+export default ProfileData
+
+
+
+type ProfileDataPropsType = {
+    user: ProfileType
+    profileStatus: string
+    isOwner: boolean
+    updateProfileStatus: (message: string) => void
+    updateProfileData: (formData: ProfileType) => Promise<any>
+}
+
+type ProfileDataListPropsType = {
+    user: ProfileType
+    isOwner: boolean
+    editMode: boolean
+    setEditMode: (editMode: boolean) => void
+    submitAction: (formData: ProfileType) => void
+}
