@@ -5,12 +5,20 @@
 
     }
     &__list {
-        border-top: 1px solid rgba(0, 0, 0, .1);
+        padding: 22px 100px;
+        border-top: 2px solid $bgPrimaryLightColor;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        background-color: $bgBlockColor;
+        
         &-item {
             display: flex;
-            margin-left: 44px;
+            
             padding: 10px 0 10px 0;
             border-bottom: 1px solid rgba(0, 0, 0, .1);
+            &:nth-last-child(1) {
+                border-bottom: none
+            }
         }
         .user {
             &__image {
@@ -46,6 +54,48 @@
             &__buttons-wrapper {
                 width: 140px;
             }
+        }
+    }
+    &__search{
+        &-form {
+            padding: 20px 20px 10px 20px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            border-bottom: 2px solid $bgPrimaryLightColor;
+            background-color: $bgBlockColor;
+            .search__field-wrapper {
+                display: block;
+            }
+        }
+        &-field {
+            height: 22px;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            background-color: $bgMessageColor;
+        }
+        &-btn {
+            height: 22px;
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+            color: $bgBlockColor;
+            background-color: $bgPrimaryLightColor;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        &-error {
+            display: block;
+            color: $warningColor;
+        }
+        &-label {
+            @extend %descr-text;
+            font-size: 13px;
+            line-height: 10px;
+        }
+        &-title {
+            @extend %title-text;
+            font-size: 18px;
+            text-align: center;
+
         }
     }
 }

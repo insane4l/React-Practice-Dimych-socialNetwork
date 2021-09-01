@@ -48,20 +48,23 @@ const UsersSearchForm: React.FC<PropsType> = (props) => {
 
                 return (
                     <Form className="users__search-form">
-                        <Field type="search" name="term" />
-                        <ErrorMessage name="term" component="div" />
-                        <label>
+                        <div className="search__field-wrapper">
+                            <Field className="users__search-field" type="search" name="term" />
+                            <button className="users__search-btn" type="submit" disabled={isSubmitting}>
+                                Search
+                            </button>
+                        </div>
+                        
+                        <ErrorMessage className="users__search-error" name="term" component="div" />
+                        <label className="users__search-label">
                             <Field type="radio" name="friend" value="Not Friends" />
                             Not friends
                         </label>
-                        <label>
+                        <label className="users__search-label">
                             <Field type="radio" name="friend" value="Friends Only" />
                             Friends
                         </label>
-                        <button className="users__search-btn" type="submit" disabled={isSubmitting}>
-                            Search
-                        </button>
-                        <h3>
+                        <h3 className="users__search-title">
                             {getSearchTitleFromSetParameters(stateFilters.term, stateFilters.friend,
                                                                 props.currentPage, props.pagesCount)}
                         </h3>

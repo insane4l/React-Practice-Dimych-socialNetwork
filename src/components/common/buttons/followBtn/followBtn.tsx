@@ -15,7 +15,7 @@ const FollowBtn: React.FC<FollowBtnPropsType> = ({isFollowed, userId}) => {
     const followUnfollow = (userId: number) => {
         dispatch( followOrUnfollow(userId) )
     }
-    debugger
+
     if (isFollowed === null || !userId) return <div></div> // todo: fix on profile page when user refreshed + remove user from friends block (useEffect)
     
     return (

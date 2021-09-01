@@ -62,7 +62,7 @@
             
         }
         .page__name {
-            margin-top: 15px;
+            margin-top: 25px;
             color: $textDarkColor;
             font-size: 26px;
             text-align: center;
@@ -122,6 +122,7 @@
         display: flex;
         justify-content: space-between;
         margin: 0 auto;
+        margin-bottom: -10px;
         width: 400px;
         &:nth-last-child() {
             margin-left: 10px;
