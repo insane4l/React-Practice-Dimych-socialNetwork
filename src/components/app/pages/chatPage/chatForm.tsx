@@ -5,7 +5,7 @@ import { AppStateType } from '../../../../reduxStore'
 import SendMessageForm from '../../../common/sendMessageForm/sendMessageForm'
 
 
-const ChatForm = () => {
+const ChatForm: React.FC = () => {
     const status = useSelector((state: AppStateType) => state.chat.status)
 
     return (
