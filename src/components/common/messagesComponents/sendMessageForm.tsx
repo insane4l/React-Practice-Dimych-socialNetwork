@@ -1,6 +1,8 @@
 import React, { FormEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
+import './sendMessageForm.scss'
+
 
 const SendMessageForm: React.FC<SendMessagePropsType> = ({fieldName, btnDisabled, sendMessage}) => {
 
@@ -17,16 +19,16 @@ const SendMessageForm: React.FC<SendMessagePropsType> = ({fieldName, btnDisabled
     }
 
     return (
-        <form onSubmit={sendMessageHandler} className="add-message__form" >
+        <form onSubmit={sendMessageHandler} className="send-message__form" >
             <textarea 
                 name={fieldName}
-                className="add-message__input"
+                className="send-message__input"
                 placeholder="Type new message here.."
                 autoComplete="off"
                 value={message}
                 onChange={(e) => setMessage(e.currentTarget.value)} />
 
-            <button disabled={btnDisabled || !message} className="add-message__btn">Send Message</button>
+            <button disabled={btnDisabled || !message} className="send-message__btn">Send Message</button>
         </form>
     )
 }

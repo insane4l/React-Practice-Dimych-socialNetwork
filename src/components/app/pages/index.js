@@ -1,7 +1,7 @@
 import LoginPage from './loginPage';
 import ProfilePageContainer from './profilePage';
 import UsersPage from './usersPage';
-import MessagesPage from './messagesPage';
+import DialogsPage from './dialogsPage';
 import NewsPage from './newsPage';
 import MusicPage from './musicPage';
 import ChatPage from './chatPage'
@@ -12,7 +12,7 @@ export {
     LoginPage,
     ProfilePageContainer,
     UsersPage,
-    MessagesPage,
+    DialogsPage,
     NewsPage,
     MusicPage,
     ChatPage,

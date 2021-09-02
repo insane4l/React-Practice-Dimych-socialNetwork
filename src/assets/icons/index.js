@@ -1,7 +1,7 @@
 // Navigation menu icons
 import profileIcon from './profile-icon.svg';
 import usersIcon from './users-icon.svg';
-import messagesIcon from './messages-icon.svg';
+import dialogsIcon from './dialogs-icon.svg';
 import newsIcon from './news-icon.svg';
 import musicIcon from './music-icon.svg';
 import chatIcon from './chat-icon.svg';
@@ -20,7 +20,7 @@ import goBack from './go-back-arrow.svg'
 export {
     profileIcon,
     usersIcon,
-    messagesIcon,
+    dialogsIcon,
     newsIcon,
     musicIcon,
     chatIcon,

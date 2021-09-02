@@ -1,0 +1,46 @@
+@import '../../../sassStyles/variables.scss';
+
+.message {
+    min-width: 200px;
+    max-width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    background-color: $bgMessageColor;
+    &_left {
+        margin-right: auto;
+        background-color: lighten($bgMessageColor, 7%);
+    }
+    &_right {
+        margin-left: auto;
+    }
+    &__info {
+        display: flex;
+        align-items: flex-start;
+    }
+    &__author-image {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            max-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+        }
+    }
+    &__author-name {
+        @extend %title-text;
+        font-size: 13px;
+        margin-left: 5px;
+    }
+    // &__date { // todo: there are no dates in the https://social-network.samuraijs.com/api
+    //     @extend %descr-text;
+    //     font-size: 12px;
+    //     margin-left: auto;
+    // }
+    &__text {
+        @extend %descr-text;
+        padding: 0 35px;
+    }
+}

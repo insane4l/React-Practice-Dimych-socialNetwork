@@ -1,0 +1,9 @@
+@import '../../../../sassStyles/variables.scss';
+
+.chat__page {
+    width: 66%;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: $bgBlockColor;
+    box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
+}

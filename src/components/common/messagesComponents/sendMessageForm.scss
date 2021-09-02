@@ -1,0 +1,29 @@
+@import '../../../sassStyles/variables.scss';
+
+.send-message {
+    &__form {
+        display: flex;
+        padding: 20px;
+    }
+    &__input {
+        @extend %descr-text;
+        width: 70%;
+        padding: 5px 15px;
+        border-radius: 4px;
+        background-color: $bgMessageColor;
+        resize: none;
+        &::placeholder {
+            @extend %descr-text;
+        }
+    }
+    &__btn {
+        margin-left: 5px;
+        padding: 10px 30px;
+        border-radius: 4px;
+        color: $textLightColor;
+        background-color: $bgPrimaryLightColor;
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}

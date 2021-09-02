@@ -10,7 +10,7 @@ const NavBar: React.FC = () => {
         <ul className="navbar__list">
 			<NavbarLink url="/profile" iconLink={icons.profileIcon} label="Profile" />
 			<NavbarLink url="/users" iconLink={icons.usersIcon} label="Users" />
-			<NavbarLink url="/messages" iconLink={icons.messagesIcon} label="Messages" />
+			<NavbarLink url="/dialogs" iconLink={icons.dialogsIcon} label="Dialogs" />
       <NavbarLink url="/chat" iconLink={icons.chatIcon} label="Developers Chat" />
 			<NavbarLink url="/news" iconLink={icons.newsIcon} label="News" />
 			<NavbarLink url="/music" iconLink={icons.musicIcon} label="Music" />

@@ -3,7 +3,7 @@ import DialogsListContainer from './dialogsList/dialogsListContainer';
 import DialogsItem from './dialogsItem/dialogsItem';
 import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
 
-const MessagesPage: React.FC = () => {
+const DialogsPage: React.FC = () => {
     return (
         <>
             <DialogsListContainer />
@@ -12,4 +12,4 @@ const MessagesPage: React.FC = () => {
     )
 }
 
-export default withAnonUserRedirect(MessagesPage);
+export default withAnonUserRedirect(DialogsPage);

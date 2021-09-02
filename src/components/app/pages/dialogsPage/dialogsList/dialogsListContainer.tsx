@@ -6,7 +6,7 @@ import { AppStateType } from '../../../../../reduxStore';
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        dialogs: state.messagesPage
+        dialogs: state.dialogsPage
     }
 };
 

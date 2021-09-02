@@ -2,9 +2,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../../../reduxStore'
 import { actions, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
-import ChatMessagesList from './chatMessagesList'
 import ChatForm from './chatForm'
+import MessagesList from '../../../common/messagesComponents/messagesList'
 
+import './chatPage.scss'
 
 const ChatPage: React.FC = () => {
     return (
@@ -15,6 +16,7 @@ const ChatPage: React.FC = () => {
 const Chat = () => {
 
     const status = useSelector((state: AppStateType) => state.chat.status)
+    const messages = useSelector((state: AppStateType) => state.chat.messages)
     const dispatch = useDispatch()
     
     useEffect(() => {
@@ -27,14 +29,14 @@ const Chat = () => {
     }, [])
 
     return (
-        <div className="dialogs__item">
+        <div className="chat__page">
             {status === 'error' && <div className="error-status">Connection error. Try refreshing the page</div>}
             
-            <ChatMessagesList />
+            <MessagesList messages={messages}/>
            
-            <div className="dialogs__item-footer">
-                <ChatForm />
-            </div>
+            <ChatForm />
+            
+
         </div>
     )
 }

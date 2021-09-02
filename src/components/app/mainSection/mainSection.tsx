@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
 import Spinner from '../../common/spinner';
-import {ProfilePageContainer, MessagesPage, NewsPage, MusicPage, SettingsPage, LoginPage, PageNotFound} from '../pages';
+import {ProfilePageContainer, DialogsPage, NewsPage, MusicPage, SettingsPage, LoginPage, PageNotFound} from '../pages';
 
 import './mainSection.scss';
 
@@ -21,7 +21,7 @@ const MainSection: React.FC = () => {
                     <Route path="/login" component={LoginPage} />
                     <Route path="/profile/:userId?" component={ProfilePageContainer} />
                     <Route path="/users" component={UsersPage} />
-                    <Route path="/messages" component={MessagesPage} />
+                    <Route path="/dialogs" component={DialogsPage} />
                     <Route path="/news" component={NewsPage} />
                     <Route path="/music" component={MusicPage} />
                     <Route path="/chat" component={ChatPage} />
