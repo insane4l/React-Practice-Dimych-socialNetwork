@@ -8,6 +8,7 @@ const initialState = {
         
 }
 export type DialogsMessageType = { id: number, label: string, date: string, myMessage: boolean }
+
 type InitialStateType = typeof initialState;
 
 

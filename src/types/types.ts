@@ -33,8 +33,15 @@ export type UserType = {
     followed: boolean
 }
 
-export type MessageType = {
+export type PostType = {
     id: number,
     label: string,
     likesCount: number
+}
+
+export type MessageType = {
+    message: string
+    photo: string
+    userId: number
+    userName: string
 }

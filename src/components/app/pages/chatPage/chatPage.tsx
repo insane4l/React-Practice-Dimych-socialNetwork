@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../../../reduxStore'
 import { actions, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
 import ChatMessagesList from './chatMessagesList'
-import ChatMessageForm from './chatMessageForm'
+import ChatForm from './chatForm'
 
 
 const ChatPage: React.FC = () => {
@@ -33,7 +33,7 @@ const Chat = () => {
             <ChatMessagesList />
            
             <div className="dialogs__item-footer">
-                <ChatMessageForm />
+                <ChatForm />
             </div>
         </div>
     )

@@ -2,10 +2,10 @@ import React from 'react'
 
 import {defaultPhoto} from '../../../../../assets/images'
 import * as icons from '../../../../../assets/icons'
-import { MessageType } from '../../../../../types/types'
+import { PostType } from '../../../../../types/types'
 
 
-type PropsType = {item: MessageType}
+type PropsType = {item: PostType}
 
 const Post: React.FC<PropsType> = ({item}) => {
     return (

@@ -3,7 +3,7 @@ import { BaseThunkType, InferActionsTypes } from '../reduxStore'
 import {ResultCodesEnum} from '../services/API'
 import { authAPI } from '../services/authAPI'
 import { usersAPI } from '../services/usersAPI'
-import {UserPhotosType, ProfileType, MessageType} from '../types/types'
+import {UserPhotosType, ProfileType, PostType} from '../types/types'
 
 
 const initialState = {
@@ -11,7 +11,7 @@ const initialState = {
         {id: 1, label: 'Hi, this is my 1 post', likesCount: 22},
         {id: 2, label: '2 post', likesCount: 12},
         {id: 3, label: 'ok this is 3 post', likesCount: 8}
-    ] as Array<MessageType>,
+    ] as Array<PostType>,
     selectedUser: null as null | ProfileType,
     profileStatus: "",
     isLoading: false,

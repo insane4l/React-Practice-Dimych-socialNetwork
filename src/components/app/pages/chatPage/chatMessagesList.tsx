@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStateType } from '../../../../reduxStore'
 import * as selectors from '../../../../selectors'
-import { ChatMessageType } from '../../../../services/chatAPI'
+import { MessageType } from '../../../../types/types'
 
 const ChatMessagesList: React.FC = () => {
 
@@ -64,6 +64,6 @@ export default ChatMessagesList
 
 
 type ChatMessagePropsType = {
-    message: ChatMessageType
+    message: MessageType
     style: string
 }

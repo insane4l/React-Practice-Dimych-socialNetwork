@@ -1,3 +1,5 @@
+import { MessageType } from "../types/types"
+
 let subscribers = {
     'messages-received': [] as MessagesSubscribersType[],
     'status-changed': [] as StatusSubscribersType[]
@@ -64,16 +66,11 @@ export const chatAPI = {
     }
 }
 
-export type ChatMessageType = {
-    message: string
-    photo: string
-    userId: number
-    userName: string
-}
+
 
 export type WSStatusType = 'pending' | 'ready' | 'error'
 
-type MessagesSubscribersType = (messages: ChatMessageType[]) => void
+type MessagesSubscribersType = (messages: MessageType[]) => void
 type StatusSubscribersType = (status: WSStatusType) => void
 type SubscribersTypes = MessagesSubscribersType | StatusSubscribersType
 type EventsTypes = 'messages-received' | 'status-changed'
