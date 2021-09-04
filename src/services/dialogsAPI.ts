@@ -1,44 +1,94 @@
-import { apiBase } from "./API"
+import { UserPhotosType } from "../types/types"
+import { apiBase, ResultCodesEnum } from "./API"
 
 export const dialogsAPI = {
-    getDialogsList() {
-        return apiBase.get('dialogs')
+    getAllDialogsList() {
+        return apiBase.get<AllDialogsListItemType[]>('dialogs')
     },
     getUserMessagesList(userId: number, pageSize: number, currentPage: number) {
-        return apiBase.get(`dialogs/${userId}/messages?page=${currentPage}&count${pageSize}`)
+        return apiBase.get<DialogMessagesListResponseType>(`dialogs/${userId}/messages?page=${currentPage}&count${pageSize}`)
     },
-    sendMessageToUser(userId: number, message: string) { //to friend??
-        return apiBase.post(`dialogs/${userId}/messages`, {body: message})
+    sendMessageToUser(userId: number, message: string) {
+        return apiBase.post<DialogsDefaultResponseType<SendDialogMessageResponseDataType>>(`dialogs/${userId}/messages`, {body: message})
     },
-    getMessageViewedStatus(messageId: number) {
-        return apiBase.get(`dialogs/messages/${messageId}/viewed`)
+    setDialogAtTheDialogsListTop(userId: number) { // start chatting, refresh your companion so that he was on top (AllDialogsList[0])
+        return apiBase.put<DialogsDefaultResponseType>(`dialogs/${userId}`)
     },
-    markMessageAsSpam(messageId: number) {
-        return apiBase.post(`dialogs/messages/${messageId}/spam`)
+    getMessageViewedStatus(messageId: string) {
+        return apiBase.get<boolean>(`dialogs/messages/${messageId}/viewed`)
     },
-    deleteMessage(messageId: number) {
-        return apiBase.delete(`dialogs/messages/${messageId}`)
+    markMessageAsSpam(messageId: string) {
+        return apiBase.post<DialogsDefaultResponseType>(`dialogs/messages/${messageId}/spam`)
     },
-    restoreMessage(messageId: number) { //from deleted and spam
-        return apiBase.put(`dialogs/messages/${messageId}/restore`)
+    deleteMessage(messageId: string) {
+        return apiBase.delete<DialogsDefaultResponseType>(`dialogs/messages/${messageId}`)
+    },
+    restoreMessage(messageId: string) { //from deleted and spam
+        return apiBase.put<DialogsDefaultResponseType>(`dialogs/messages/${messageId}/restore`)
     },
     getMessagesNewerThenDate(userId: number, date: string) {
-        return apiBase.get(`dialogs/${userId}/messages/new?newerThen=${date}`)
+        return apiBase.get<DialogsMessageType[]>(`dialogs/${userId}/messages/new?newerThen=${date}`)
     },
-    getNewMessagesList() {
-        return apiBase.get(`dialogs/messages/new/count`)
+    getNewMessagesTotalCount() {
+        return apiBase.get<number>(`dialogs/messages/new/count`)
     }
 
 }
 
-// dialogs/{userId}
-// start chatting, refresh your companion so that he was on top
 
-// REQUEST
-// type: put
+type DialogsDefaultResponseType<D = {}, RC = ResultCodesEnum, FE = []> = {
+    data: D
+    resultCode: RC
+    fieldsErrors: FE
+    messages: Array<string>
+}
 
-// URI Parameters:
-// userId - (number) - user id of your friend
 
-// RESPONSE
-// object
+type SendDialogMessageResponseDataType = {
+     message: DialogsMessageType
+}
+
+type DialogsMessageType = {
+    addedAt: string // "2021-09-04T10:00:58.087"
+    body: string // "Hello my friend"
+    deletedByRecipient: boolean
+    deletedBySender: boolean
+    distributionId: number | null
+    id: number // "f1e38413-fa75-41e9-a7ed-4e2ce05d1718"
+    isSpam: boolean
+    recipientId: number // 16320
+    recipientName: string // "vanaf"
+    senderId: number // 17964
+    senderName: string // "insane4L"
+    translatedBody: null | string
+    viewed: boolean
+}
+
+
+
+
+type DialogMessagesListResponseType = {
+    error: null // | ??????
+    items: DialogsMessagesListItem[]
+    totalCount: number
+}
+type DialogsMessagesListItem = {
+    addedAt: string // "2021-09-04T10:00:58.087"
+    body: string // "Hello my friend"
+    id: number // "f1e38413-fa75-41e9-a7ed-4e2ce05d1718"
+    recipientId: number // 16320
+    senderId: number // 17964
+    senderName: string // "insane4L"
+    translatedBody: null | string
+    viewed: boolean
+}
+
+type AllDialogsListItemType = {
+    hasNewMessages: boolean
+    id: number
+    lastDialogActivityDate: string // "2021-09-04T11:10:28.433"
+    lastUserActivityDate: string // "2021-08-28T17:15:38.69"
+    newMessagesCount: number
+    photos: UserPhotosType
+    userName: string
+}
