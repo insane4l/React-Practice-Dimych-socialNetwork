@@ -3,7 +3,6 @@
 .dialogs {
     &__wrapper {
         padding: 33px;
-        padding-right: 0;
         border-radius: 15px;
         overflow: hidden;
         background-color: $bgBlockColor;
@@ -13,11 +12,19 @@
         width: 100%;
         height: 100%;
         border-top: 1px solid rgba(0, 0, 0, .1);
-        &-item {
+        &-item, .dialogs__list-item_new {
             display: flex;
             align-items: flex-end;
             padding-top: 10px;
+            border-radius: 6px;
             cursor: pointer;
+            &_new {
+                background-color: rgba($bgPrimaryLightColor, 0.3);
+                border: 2px solid $textLightColor;
+                .dialog__content {
+                    border: none;
+                }
+            }
         }
     }
 }
@@ -42,8 +49,13 @@
         &-title {
             @extend %title-text;
         }
+        &-subtitle{
+            @extend %descr-text;
+            font-size: 12px;
+        }
         &-message {
             @extend %descr-text;
+            padding: 5px 5px 5px 10px;
         }
     }
 }

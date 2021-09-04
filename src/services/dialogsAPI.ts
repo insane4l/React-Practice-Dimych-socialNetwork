@@ -3,28 +3,30 @@ import { apiBase, ResultCodesEnum } from "./API"
 
 export const dialogsAPI = {
     getAllDialogsList() {
-        return apiBase.get<AllDialogsListItemType[]>('dialogs')
+        return apiBase.get<AllDialogsListItemType[]>('dialogs').then((res) => res.data)
     },
     getUserMessagesList(userId: number, pageSize: number, currentPage: number) {
-        return apiBase.get<DialogMessagesListResponseType>(`dialogs/${userId}/messages?page=${currentPage}&count${pageSize}`)
+        return apiBase.get<DialogMessagesListResponseType>(
+            `dialogs/${userId}/messages?page=${currentPage}&count${pageSize}`)
     },
     sendMessageToUser(userId: number, message: string) {
-        return apiBase.post<DialogsDefaultResponseType<SendDialogMessageResponseDataType>>(`dialogs/${userId}/messages`, {body: message})
+        return apiBase.post<DialogsDefaultResponseType<SendDialogMessageResponseDataType, ResultCodesEnum>>(
+            `dialogs/${userId}/messages`, {body: message})
     },
     setDialogAtTheDialogsListTop(userId: number) { // start chatting, refresh your companion so that he was on top (AllDialogsList[0])
-        return apiBase.put<DialogsDefaultResponseType>(`dialogs/${userId}`)
+        return apiBase.put<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/${userId}`)
     },
     getMessageViewedStatus(messageId: string) {
         return apiBase.get<boolean>(`dialogs/messages/${messageId}/viewed`)
     },
     markMessageAsSpam(messageId: string) {
-        return apiBase.post<DialogsDefaultResponseType>(`dialogs/messages/${messageId}/spam`)
+        return apiBase.post<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/messages/${messageId}/spam`)
     },
     deleteMessage(messageId: string) {
-        return apiBase.delete<DialogsDefaultResponseType>(`dialogs/messages/${messageId}`)
+        return apiBase.delete<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/messages/${messageId}`)
     },
     restoreMessage(messageId: string) { //from deleted and spam
-        return apiBase.put<DialogsDefaultResponseType>(`dialogs/messages/${messageId}/restore`)
+        return apiBase.put<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/messages/${messageId}/restore`)
     },
     getMessagesNewerThenDate(userId: number, date: string) {
         return apiBase.get<DialogsMessageType[]>(`dialogs/${userId}/messages/new?newerThen=${date}`)
@@ -43,6 +45,15 @@ type DialogsDefaultResponseType<D = {}, RC = ResultCodesEnum, FE = []> = {
     messages: Array<string>
 }
 
+export type AllDialogsListItemType = {
+    hasNewMessages: boolean
+    id: number
+    lastDialogActivityDate: string // "2021-09-04T11:10:28.433"
+    lastUserActivityDate: string // "2021-08-28T17:15:38.69"
+    newMessagesCount: number
+    photos: UserPhotosType
+    userName: string
+}
 
 type SendDialogMessageResponseDataType = {
      message: DialogsMessageType
@@ -81,14 +92,4 @@ type DialogsMessagesListItem = {
     senderName: string // "insane4L"
     translatedBody: null | string
     viewed: boolean
-}
-
-type AllDialogsListItemType = {
-    hasNewMessages: boolean
-    id: number
-    lastDialogActivityDate: string // "2021-09-04T11:10:28.433"
-    lastUserActivityDate: string // "2021-08-28T17:15:38.69"
-    newMessagesCount: number
-    photos: UserPhotosType
-    userName: string
 }

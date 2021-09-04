@@ -1,5 +1,5 @@
 import React from 'react'
-import DialogsListContainer from './dialogsList/dialogsListContainer'
+import DialogsList from './dialogsList/dialogsList'
 import DialogsItem from './dialogsItem/dialogsItem'
 import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 
@@ -7,7 +7,7 @@ import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 const DialogsPage: React.FC = () => {
     return (
         <>
-            <DialogsListContainer />
+            <DialogsList />
             <DialogsItem />
         </>
     )

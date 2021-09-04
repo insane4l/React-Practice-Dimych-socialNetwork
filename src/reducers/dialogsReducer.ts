@@ -1,11 +1,10 @@
-import { InferActionsTypes } from "../reduxStore";
-import { MessageType } from "../types/types";
+import { BaseThunkType, InferActionsTypes } from "../reduxStore";
+import { AllDialogsListItemType, dialogsAPI } from "../services/dialogsAPI";
+
 
 const initialState = {
-    messages: [
-        {message: "Hi where are u?", photo: "https://tehnot.com/wp-content/uploads/2017/09/pavel.jpg", userId: 111, userName: "Pavel Durov"},
-        {message: "Hi! Im in Tallinn right now", photo: "", userId: 17964, userName: "fdsfffffaf"}
-    ] as Array<MessageType>
+    dialogsList: [] as AllDialogsListItemType[],
+    isLoading: false
 }
 
 
@@ -14,15 +13,15 @@ type InitialStateType = typeof initialState;
 
 const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch(action.type) {
-        case 'sn/dialogs/SEND_MESSAGE':
+        case 'sn/dialogs/DIALOGS_LIST_RECEIVED':
             return {
                 ...state,
-                messages: [...state.messages, {
-                    message: action.messageBody,
-                    photo: "",
-                    userId: 111,
-                    userName: "fdsaf"
-                }]
+                dialogsList: action.payload.dialogsList
+            };
+        case 'sn/dialogs/SET_IS_LOADING':
+            return {
+                ...state,
+                isLoading: action.payload.status
             };
         default:
             return state;
@@ -32,11 +31,24 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 type ActionsTypes = InferActionsTypes<typeof actions>
 export const actions = {
+    dialogsListReceived: (dialogsList: AllDialogsListItemType[]) => (
+        {type: 'sn/dialogs/DIALOGS_LIST_RECEIVED', payload: {dialogsList}} as const
+    ),
     sendMessageAction: (messageBody: string) => (
         {type: 'sn/dialogs/SEND_MESSAGE', messageBody} as const
+    ),
+    setIsLoading: (status: boolean) => (
+        {type: 'sn/dialogs/SET_IS_LOADING', payload: {status}} as const
     )
 }
 
+
+export const requestAllDialogsList = (): BaseThunkType<ActionsTypes> => async (dispatch) => {
+    dispatch( actions.setIsLoading(true) )
+    const dialogs = await dialogsAPI.getAllDialogsList()
+    dispatch( actions.setIsLoading(false) )
+    dispatch( actions.dialogsListReceived(dialogs) )
+}
 
 
 export default dialogsReducer
