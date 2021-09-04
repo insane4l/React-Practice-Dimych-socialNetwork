@@ -42,5 +42,6 @@
     &__text {
         @extend %descr-text;
         padding: 0 35px;
+        word-break: break-word;
     }
 }
