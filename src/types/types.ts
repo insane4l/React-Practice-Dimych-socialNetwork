@@ -39,7 +39,7 @@ export type PostType = {
     likesCount: number
 }
 
-export type MessageType = {
+export type ChatMessageType = {
     message: string
     photo: string
     userId: number

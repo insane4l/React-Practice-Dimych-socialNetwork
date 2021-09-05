@@ -7,7 +7,7 @@ export const dialogsAPI = {
     },
     getUserMessagesList(userId: number, pageSize: number, currentPage: number) {
         return apiBase.get<DialogMessagesListResponseType>(
-            `dialogs/${userId}/messages?page=${currentPage}&count${pageSize}`)
+            `dialogs/${userId}/messages?page=${currentPage}&count${pageSize}`).then((res) => res.data)
     },
     sendMessageToUser(userId: number, message: string) {
         return apiBase.post<DialogsDefaultResponseType<SendDialogMessageResponseDataType, ResultCodesEnum>>(
@@ -29,7 +29,7 @@ export const dialogsAPI = {
         return apiBase.put<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/messages/${messageId}/restore`)
     },
     getMessagesNewerThenDate(userId: number, date: string) {
-        return apiBase.get<DialogsMessageType[]>(`dialogs/${userId}/messages/new?newerThen=${date}`)
+        return apiBase.get<DialogsChatMessageType[]>(`dialogs/${userId}/messages/new?newerThen=${date}`)
     },
     getNewMessagesTotalCount() {
         return apiBase.get<number>(`dialogs/messages/new/count`)
@@ -56,10 +56,10 @@ export type AllDialogsListItemType = {
 }
 
 type SendDialogMessageResponseDataType = {
-     message: DialogsMessageType
+     message: DialogsChatMessageType
 }
 
-type DialogsMessageType = {
+type DialogsChatMessageType = {
     addedAt: string // "2021-09-04T10:00:58.087"
     body: string // "Hello my friend"
     deletedByRecipient: boolean
@@ -80,10 +80,10 @@ type DialogsMessageType = {
 
 type DialogMessagesListResponseType = {
     error: null // | ??????
-    items: DialogsMessagesListItem[]
+    items: DialogMessageType[]
     totalCount: number
 }
-type DialogsMessagesListItem = {
+export type DialogMessageType = {
     addedAt: string // "2021-09-04T10:00:58.087"
     body: string // "Hello my friend"
     id: number // "f1e38413-fa75-41e9-a7ed-4e2ce05d1718"

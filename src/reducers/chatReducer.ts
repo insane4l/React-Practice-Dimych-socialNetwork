@@ -1,12 +1,12 @@
 import { Dispatch } from "redux"
 import { BaseThunkType, InferActionsTypes } from "../reduxStore"
 import { chatAPI, WSStatusType } from "../services/chatAPI"
-import { MessageType } from "../types/types"
+import { ChatMessageType } from "../types/types"
 
 
 
 const initialState = {
-    messages: [] as MessageType[],
+    messages: [] as ChatMessageType[],
     status: 'pending' as WSStatusType
 }
 
@@ -34,7 +34,7 @@ const chatReducer = (state = initialState, action: ActionsTypes): InitialStateTy
 }
 
 export const actions = {
-    messagesReceived: (messages: MessageType[]) => (
+    messagesReceived: (messages: ChatMessageType[]) => (
         {type: 'sn/CHAT/MESSAGES_RECEIVED', payload: {messages}} as const
     ),
     statusChanged: (status: WSStatusType) => (
@@ -49,7 +49,7 @@ export const actions = {
 
 
 
-let _newMessageHandler: ((messages: MessageType[]) => void) | null = null // because need exactly that link when subscriber unsubscribes
+let _newMessageHandler: ((messages: ChatMessageType[]) => void) | null = null // because need exactly that link when subscriber unsubscribes
 const newMessageHandlerCreator = (dispatch: Dispatch) => {
     if (_newMessageHandler === null) {
         _newMessageHandler = (messages) => {

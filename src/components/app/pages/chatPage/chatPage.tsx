@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../../../reduxStore'
 import { actions, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
 import ChatForm from './chatForm'
-import MessagesList from '../../../common/messagesComponents/messagesList'
 
 import './chatPage.scss'
+import MessagesList from '../../../common/messagesComponents/messagesList'
 
 const ChatPage: React.FC = () => {
     return (
@@ -32,7 +32,7 @@ const Chat = () => {
         <div className="chat__page">
             {status === 'error' && <div className="error-status">Connection error. Try refreshing the page</div>}
             
-            <MessagesList messages={messages}/>
+            <MessagesList chatMessages={messages} isLoading={status === 'pending' ? true : false} />
            
             <ChatForm />
             

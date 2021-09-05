@@ -1,17 +1,21 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import * as selectors from '../../../selectors'
-import { MessageType } from '../../../types/types'
-import Message from './message'
+import { DialogMessageType } from '../../../services/dialogsAPI'
+import { ChatMessageType } from '../../../types/types'
+import ChatMessage from '../../app/pages/chatPage/chatMessage'
+import DialogMessage from '../../app/pages/dialogsPage/dialogsItem/dialogMessage'
+import Spinner from '../spinner'
 
 import './messagesList.scss'
 
-const MessagesList: React.FC<MessagesListPropsType> = ({messages}) => {
+const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMessages, isLoading}) => {
+
+    const propsMessages = chatMessages || dialogMessages
 
     const [isAutoScroll, setIsAutoScroll] = useState(true)
     const messagesAnchor = useRef<HTMLDivElement>(null)
     const authUserId = useSelector(selectors.getAuthUserId)
-    // const messages = useSelector((state: AppStateType) => state.chat.messages)
 
     const scrollHandler = (e: React.UIEvent<HTMLElement>) => {
         const element = e.currentTarget
@@ -27,14 +31,26 @@ const MessagesList: React.FC<MessagesListPropsType> = ({messages}) => {
             messagesAnchor.current?.scrollIntoView({block: 'end', behavior: 'smooth'})
         }
         // eslint-disable-next-line
-    }, [messages])
+    }, [propsMessages])
+
+
+    let MessagesList
+    if (chatMessages) {
+        MessagesList = chatMessages.map((message, index) => {
+            const style = message.userId === authUserId ? "message_right" : "message_left"
+            return <ChatMessage key={index} message={message} style={style} /> //todo: need generate id for key
+        })
+    } else {
+        MessagesList = dialogMessages?.map((message) => {
+            let style = message.senderId === authUserId ? "message_right" : "message_left"
+            if (message.viewed) {style = `${style} message_viewed`}
+            return <DialogMessage key={message.id} message={message} style={style} />
+        })
+    }
 
     return (
         <div className="messages__list" onScroll={scrollHandler}>
-            {messages.map((message, index) => {
-                const style = message.userId === authUserId ? "message_right" : "message_left";
-                return <Message key={index} message={message} style={style} />
-            })}
+            {isLoading ? <Spinner/> : MessagesList}
             <div ref={messagesAnchor}></div>
         </div>
     )
@@ -45,5 +61,7 @@ export default MessagesList
 
 
 type MessagesListPropsType = {
-    messages: MessageType[]
+    chatMessages?: ChatMessageType[]
+    dialogMessages?: DialogMessageType[]
+    isLoading: boolean
 }

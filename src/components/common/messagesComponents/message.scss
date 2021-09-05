@@ -34,11 +34,11 @@
         font-size: 13px;
         margin-left: 5px;
     }
-    // &__date { // todo: there are no dates in the https://social-network.samuraijs.com/api
-    //     @extend %descr-text;
-    //     font-size: 12px;
-    //     margin-left: auto;
-    // }
+    &__date {
+        @extend %descr-text;
+        font-size: 11px;
+        margin-left: auto;
+    }
     &__text {
         @extend %descr-text;
         padding: 0 35px;
