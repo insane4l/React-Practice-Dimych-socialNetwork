@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, KeyboardEvent, useState } from 'react'
 import { useDispatch } from 'react-redux'
 
 import './sendMessageForm.scss'
@@ -9,13 +9,20 @@ const SendMessageForm: React.FC<SendMessagePropsType> = ({fieldName, btnDisabled
     const [message, setMessage] = useState('')
     const dispatch = useDispatch()
 
-    const sendMessageHandler = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    const sendMessageHandler = (e?: FormEvent<HTMLFormElement>) => {
+        e?.preventDefault()
         if (!message) {
             return
         }
         dispatch(sendMessage(message))
         setMessage('')
+    }
+
+    const onEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+        if(e.key === 'Enter' && e.shiftKey === false) {
+            e.preventDefault();
+            sendMessageHandler()
+        }
     }
 
     return (
@@ -26,7 +33,8 @@ const SendMessageForm: React.FC<SendMessagePropsType> = ({fieldName, btnDisabled
                 placeholder="Type new message here.."
                 autoComplete="off"
                 value={message}
-                onChange={(e) => setMessage(e.currentTarget.value)} />
+                onChange={(e) => setMessage(e.currentTarget.value)}
+                onKeyDown={onEnterPress} />
 
             <button disabled={btnDisabled || !message} className="send-message__btn">Send Message</button>
         </form>
