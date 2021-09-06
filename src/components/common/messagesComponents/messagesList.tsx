@@ -37,14 +37,17 @@ const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMess
     let MessagesList
     if (chatMessages) {
         MessagesList = chatMessages.map((message, index) => {
-            const style = message.userId === authUserId ? "message_right" : "message_left"
-            return <ChatMessage key={index} message={message} style={style} /> //todo: need generate id for key
+            return <ChatMessage 
+                        key={index} //todo: need generate id for key
+                        message={message} 
+                        isOwnerMessage={message.userId === authUserId ? true : false} /> 
         })
     } else {
         MessagesList = dialogMessages?.map((message) => {
-            let style = message.senderId === authUserId ? "message_right" : "message_left"
-            if (message.viewed) {style = `${style} message_viewed`}
-            return <DialogMessage key={message.id} message={message} style={style} />
+            return <DialogMessage
+                        key={message.id} 
+                        message={message} 
+                        isOwnerMessage={message.senderId === authUserId ? true : false} />
         })
     }
 

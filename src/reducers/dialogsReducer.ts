@@ -1,11 +1,12 @@
 import { BaseThunkType, InferActionsTypes } from "../reduxStore";
 import { ResultCodesEnum } from "../services/API";
-import { AllDialogsListItemType, dialogsAPI, DialogMessageType, DialogsChatMessageType } from "../services/dialogsAPI";
+import { AllDialogsListItemType, dialogsAPI, DialogMessageType } from "../services/dialogsAPI";
 
 
 const initialState = {
     dialogsList: [] as AllDialogsListItemType[],
     selectedDialogMessages: [] as DialogMessageType[],
+    selectedMessageIsViewed: null as null | boolean,
     isLoading: false
 }
 
@@ -30,6 +31,11 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 selectedDialogMessages: [...state.selectedDialogMessages, action.payload.message] 
             };
+        case 'sn/dialogs/MESSAGE_STATUS_RECEIVED':
+            return {
+                ...state,
+                selectedMessageIsViewed: action.payload.status 
+            };
         case 'sn/dialogs/SET_IS_LOADING':
             return {
                 ...state,
@@ -49,8 +55,11 @@ export const actions = {
     dialogMessagesReceived: (dialogMessages: DialogMessageType[]) => (
         {type: 'sn/dialogs/DIALOG_MESSAGES_RECEIVED', payload: {dialogMessages}} as const
     ),
-    messageSent: (message: DialogsChatMessageType) => (
+    messageSent: (message: DialogMessageType) => (
         {type: 'sn/dialogs/MESSAGE_SENT', payload: {message}} as const
+    ),
+    messageStatusReceived: (status: boolean) => (
+        {type: 'sn/dialogs/MESSAGE_STATUS_RECEIVED', payload: {status}} as const
     ),
     setIsLoading: (status: boolean) => (
         {type: 'sn/dialogs/SET_IS_LOADING', payload: {status}} as const
@@ -80,17 +89,38 @@ export const requestDialogMessages = (userId: number): BaseThunkType<ActionsType
 
 
 
-
 export const sendMessage = (userId: number, message: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
     // dispatch( actions.setIsLoading(true) )
     const res = await dialogsAPI.sendMessageToUser(userId, message)
     // dispatch( actions.setIsLoading(false) )
     if (res.resultCode === ResultCodesEnum.Success) {
-        dispatch( actions.messageSent(res.data.message) )
+        const sentMessage = {
+            addedAt: res.data.message.addedAt,
+            body: res.data.message.body,
+            id: res.data.message.id,
+            recipientId: res.data.message.recipientId,
+            senderId: res.data.message.senderId,
+            senderName: res.data.message.senderName,
+            translatedBody: res.data.message.translatedBody,
+            viewed: res.data.message.viewed
+        }
+        dispatch( actions.messageSent(sentMessage) )
     } else {
         alert('An error has occurred. The message was not sent. Please try refresh the page')
     }
     
 }
+
+
+export const requestMessageStatus = (messageId: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
+    try {
+        const status = await dialogsAPI.getMessageViewedStatus(messageId)
+        dispatch( actions.messageStatusReceived(status) )
+    } catch {
+        alert('An error has occurred. The message status cannot be shown. Please try to click again')
+    }
+    
+}
+
 
 export default dialogsReducer

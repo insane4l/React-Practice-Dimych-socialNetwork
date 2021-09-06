@@ -10,9 +10,19 @@
     &_left {
         margin-right: auto;
         background-color: lighten($bgMessageColor, 7%);
+        .message__status {
+            display: none;
+        }
     }
     &_right {
         margin-left: auto;
+        .message_text {
+            padding: 0 20px 0 15px;
+            cursor: pointer;
+        }
+        .message__status {
+            width: 300px;
+        }
     }
     &__info {
         display: flex;
@@ -41,6 +51,7 @@
     }
     &__text {
         @extend %descr-text;
+        line-height: 22px;
         padding: 0 35px;
         word-break: break-word;
     }

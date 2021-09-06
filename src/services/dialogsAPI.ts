@@ -17,7 +17,7 @@ export const dialogsAPI = {
         return apiBase.put<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/${userId}`)
     },
     getMessageViewedStatus(messageId: string) {
-        return apiBase.get<boolean>(`dialogs/messages/${messageId}/viewed`)
+        return apiBase.get<boolean>(`dialogs/messages/${messageId}/viewed`).then((res) => res.data)
     },
     markMessageAsSpam(messageId: string) {
         return apiBase.post<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/messages/${messageId}/spam`)
@@ -29,7 +29,7 @@ export const dialogsAPI = {
         return apiBase.put<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/messages/${messageId}/restore`)
     },
     getMessagesNewerThenDate(userId: number, date: string) {
-        return apiBase.get<DialogsChatMessageType[]>(`dialogs/${userId}/messages/new?newerThen=${date}`)
+        return apiBase.get<AdvancedDialogMessageType[]>(`dialogs/${userId}/messages/new?newerThen=${date}`)
     },
     getNewMessagesTotalCount() {
         return apiBase.get<number>(`dialogs/messages/new/count`)
@@ -56,16 +56,16 @@ export type AllDialogsListItemType = {
 }
 
 type SendDialogMessageResponseDataType = {
-     message: DialogsChatMessageType
+     message: AdvancedDialogMessageType
 }
 
-export type DialogsChatMessageType = {
+export type AdvancedDialogMessageType = {
     addedAt: string // "2021-09-04T10:00:58.087"
     body: string // "Hello my friend"
     deletedByRecipient: boolean
     deletedBySender: boolean
     distributionId: number | null
-    id: number // "f1e38413-fa75-41e9-a7ed-4e2ce05d1718"
+    id: string // "f1e38413-fa75-41e9-a7ed-4e2ce05d1718"
     isSpam: boolean
     recipientId: number // 16320
     recipientName: string // "vanaf"
@@ -86,7 +86,7 @@ type DialogMessagesListResponseType = {
 export type DialogMessageType = {
     addedAt: string // "2021-09-04T10:00:58.087"
     body: string // "Hello my friend"
-    id: number // "f1e38413-fa75-41e9-a7ed-4e2ce05d1718"
+    id: string // "f1e38413-fa75-41e9-a7ed-4e2ce05d1718"
     recipientId: number // 16320
     senderId: number // 17964
     senderName: string // "insane4L"

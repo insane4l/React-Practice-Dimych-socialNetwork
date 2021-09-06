@@ -6,8 +6,10 @@ import { ChatMessageType } from '../../../../types/types';
 import '../../../common/messagesComponents/message.scss'
 
 
-const ChatMessage: React.FC<MessagePropsType> = React.memo( ({message, style}) => {
+const ChatMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage}) => {
     
+    const style = isOwnerMessage ? "message_right" : "message_left"
+
     return (
         <div className={`message ${style}`}>
             <div className="message__info">
@@ -30,5 +32,5 @@ export default ChatMessage
 
 type MessagePropsType = {
     message: ChatMessageType
-    style: string
+    isOwnerMessage: boolean
 }
