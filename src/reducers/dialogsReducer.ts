@@ -69,8 +69,13 @@ export const requestAllDialogsList = (): BaseThunkType<ActionsTypes> => async (d
 export const requestDialogMessages = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     dispatch( actions.setIsLoading(true) )
     const res = await dialogsAPI.getUserMessagesList(userId, 10, 1)
-    dispatch( actions.setIsLoading(false) )
-    dispatch( actions.dialogMessagesReceived(res.items) )
+    if (res.error === null) {
+        dispatch( actions.setIsLoading(false) )
+        dispatch( actions.dialogMessagesReceived(res.items) )
+        dialogsAPI.setDialogAtTheDialogsListTop(userId)
+    } else {
+        alert('Failed to load messages. Please try refresh the page')
+    }
 }
 
 
