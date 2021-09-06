@@ -24,7 +24,7 @@ const User: React.FC<PropsType> = ({user}) => {
                     <div className="user__status">{status}</div>
                 </div>
                 <div className="user__buttons-wrapper">
-                    <MessagesBtn linkTo={`/messages`} />
+                    <MessagesBtn linkTo={`/dialogs/${id}`} />
                     <FollowBtn isFollowed={followed} userId={id} />
                 </div>
             </div>

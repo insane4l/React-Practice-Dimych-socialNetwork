@@ -6,7 +6,7 @@ import './dialogsItem.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../../../../reduxStore'
 import { useEffect } from 'react'
-import { requestDialogMessages } from '../../../../../reducers/dialogsReducer'
+import { requestDialogMessages, sendMessage } from '../../../../../reducers/dialogsReducer'
 import MessagesList from '../../../../common/messagesComponents/messagesList'
 
 
@@ -18,6 +18,10 @@ const DialogsItem: React.FC = () => {
     const dispatch = useDispatch()
 
     const userId = Number(match.params.userId)
+
+    const sendDialogMessage = (message: string) => {
+        dispatch( sendMessage(userId, message) )
+    }
     
 
     useEffect( () => {
@@ -31,7 +35,7 @@ const DialogsItem: React.FC = () => {
                                  
             <MessagesList dialogMessages={messages} isLoading={isLoading} />
 
-            <DialogForm />
+            <DialogForm sendMessage={sendDialogMessage} />
         </div>
     )
 }
@@ -39,7 +43,7 @@ const DialogsItem: React.FC = () => {
 const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friendName, friendId}) => {
     return (
         <div className="dialogs__item-header">
-            <Link className="go-back__link" to="/messages"> 
+            <Link className="go-back__link" to="/dialogs"> 
                 <img className="go-back__icon" src={icons.goBack} alt="go_back_icon" />
                 <div className="go-back__text">Go back</div>
             </Link>

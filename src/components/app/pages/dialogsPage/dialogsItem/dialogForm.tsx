@@ -1,16 +1,21 @@
 import React from 'react'
-import { actions } from '../../../../../reducers/dialogsReducer'
 import SendMessageForm from '../../../../common/messagesComponents/sendMessageForm'
 
 
-const DialogForm: React.FC = () => {
+const DialogForm: React.FC<DialogFormPropsType> = ({sendMessage}) => {
 
     return (
         <SendMessageForm
             fieldName="dialogMessage"
             btnDisabled={false}
-            sendMessage={actions.sendMessageAction} />
+            sendMessage={sendMessage} />
     )
 }
 
 export default DialogForm
+
+
+
+type DialogFormPropsType = {
+    sendMessage: (message: string) => void
+}

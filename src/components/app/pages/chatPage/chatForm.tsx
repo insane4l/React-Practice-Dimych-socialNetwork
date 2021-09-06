@@ -1,11 +1,7 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { sendMessage } from '../../../../reducers/chatReducer'
-import { AppStateType } from '../../../../reduxStore'
 import SendMessageForm from '../../../common/messagesComponents/sendMessageForm'
 
-const ChatForm: React.FC = () => {
-    const status = useSelector((state: AppStateType) => state.chat.status)
+const ChatForm: React.FC<ChatFormPropsType> = ({sendMessage, status}) => {
 
     return (
         <SendMessageForm
@@ -16,3 +12,8 @@ const ChatForm: React.FC = () => {
 }
 
 export default ChatForm
+
+type ChatFormPropsType = {
+    sendMessage: (message: string) => void
+    status: string
+}

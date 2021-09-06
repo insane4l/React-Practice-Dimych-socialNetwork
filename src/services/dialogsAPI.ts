@@ -11,7 +11,7 @@ export const dialogsAPI = {
     },
     sendMessageToUser(userId: number, message: string) {
         return apiBase.post<DialogsDefaultResponseType<SendDialogMessageResponseDataType, ResultCodesEnum>>(
-            `dialogs/${userId}/messages`, {body: message})
+            `dialogs/${userId}/messages`, {body: message}).then((res) => res.data)
     },
     setDialogAtTheDialogsListTop(userId: number) { // start chatting, refresh your companion so that he was on top (AllDialogsList[0])
         return apiBase.put<DialogsDefaultResponseType<{}, ResultCodesEnum>>(`dialogs/${userId}`)
@@ -59,7 +59,7 @@ type SendDialogMessageResponseDataType = {
      message: DialogsChatMessageType
 }
 
-type DialogsChatMessageType = {
+export type DialogsChatMessageType = {
     addedAt: string // "2021-09-04T10:00:58.087"
     body: string // "Hello my friend"
     deletedByRecipient: boolean

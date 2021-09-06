@@ -1,5 +1,4 @@
 import React, { FormEvent, KeyboardEvent, useState } from 'react'
-import { useDispatch } from 'react-redux'
 
 import './sendMessageForm.scss'
 
@@ -7,14 +6,13 @@ import './sendMessageForm.scss'
 const SendMessageForm: React.FC<SendMessagePropsType> = ({fieldName, btnDisabled, sendMessage}) => {
 
     const [message, setMessage] = useState('')
-    const dispatch = useDispatch()
 
     const sendMessageHandler = (e?: FormEvent<HTMLFormElement>) => {
         e?.preventDefault()
         if (!message) {
             return
         }
-        dispatch(sendMessage(message))
+        sendMessage(message)
         setMessage('')
     }
 

@@ -35,7 +35,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStat
             {!isOwner && 
                 <div className="profile__buttons-wrapper">
                     <FollowBtn isFollowed={followedUserInfo.followedStatus} userId={followedUserInfo.userId} />
-                    <MessagesBtn linkTo={`/messages`} />
+                    <MessagesBtn linkTo={`/dialogs/${user.userId}`} />
                 </div>
             }
             <h1 className="page__name">{user.fullName}</h1>

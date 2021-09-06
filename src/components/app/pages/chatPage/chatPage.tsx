@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../../../reduxStore'
-import { actions, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
+import { actions, sendMessage, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
 import ChatForm from './chatForm'
 
 import './chatPage.scss'
@@ -18,6 +18,10 @@ const Chat = () => {
     const status = useSelector((state: AppStateType) => state.chat.status)
     const messages = useSelector((state: AppStateType) => state.chat.messages)
     const dispatch = useDispatch()
+
+    const sendChatMessage = (message: string) => {
+        dispatch( sendMessage(message) )
+    }
     
     useEffect(() => {
         dispatch(startMessagesListening())
@@ -34,7 +38,7 @@ const Chat = () => {
             
             <MessagesList chatMessages={messages} isLoading={status === 'pending' ? true : false} />
            
-            <ChatForm />
+            <ChatForm sendMessage={sendChatMessage} status={status} />
             
 
         </div>

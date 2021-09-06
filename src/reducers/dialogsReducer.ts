@@ -1,5 +1,6 @@
 import { BaseThunkType, InferActionsTypes } from "../reduxStore";
-import { AllDialogsListItemType, dialogsAPI, DialogMessageType } from "../services/dialogsAPI";
+import { ResultCodesEnum } from "../services/API";
+import { AllDialogsListItemType, dialogsAPI, DialogMessageType, DialogsChatMessageType } from "../services/dialogsAPI";
 
 
 const initialState = {
@@ -24,6 +25,11 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 selectedDialogMessages: action.payload.dialogMessages
             };
+        case 'sn/dialogs/MESSAGE_SENT':
+            return {
+                ...state,
+                selectedDialogMessages: [...state.selectedDialogMessages, action.payload.message] 
+            };
         case 'sn/dialogs/SET_IS_LOADING':
             return {
                 ...state,
@@ -43,8 +49,8 @@ export const actions = {
     dialogMessagesReceived: (dialogMessages: DialogMessageType[]) => (
         {type: 'sn/dialogs/DIALOG_MESSAGES_RECEIVED', payload: {dialogMessages}} as const
     ),
-    sendMessageAction: (messageBody: string) => (
-        {type: 'sn/dialogs/SEND_MESSAGE', messageBody} as const
+    messageSent: (message: DialogsChatMessageType) => (
+        {type: 'sn/dialogs/MESSAGE_SENT', payload: {message}} as const
     ),
     setIsLoading: (status: boolean) => (
         {type: 'sn/dialogs/SET_IS_LOADING', payload: {status}} as const
@@ -67,5 +73,19 @@ export const requestDialogMessages = (userId: number): BaseThunkType<ActionsType
     dispatch( actions.dialogMessagesReceived(res.items) )
 }
 
+
+
+
+export const sendMessage = (userId: number, message: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
+    // dispatch( actions.setIsLoading(true) )
+    const res = await dialogsAPI.sendMessageToUser(userId, message)
+    // dispatch( actions.setIsLoading(false) )
+    if (res.resultCode === ResultCodesEnum.Success) {
+        dispatch( actions.messageSent(res.data.message) )
+    } else {
+        alert('An error has occurred. The message was not sent. Please try refresh the page')
+    }
+    
+}
 
 export default dialogsReducer
