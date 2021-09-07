@@ -8,7 +8,7 @@ import '../../../common/messagesComponents/message.scss'
 
 const ChatMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage}) => {
     
-    const style = isOwnerMessage ? "message_right" : "message_left"
+    const style = isOwnerMessage ? "message_owner" : "message_friend"
 
     return (
         <div className={`message ${style}`}>

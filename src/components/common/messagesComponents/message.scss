@@ -7,22 +7,12 @@
     margin-bottom: 10px;
     border-radius: 4px;
     background-color: $bgMessageColor;
-    &_left {
+    &_friend {
         margin-right: auto;
         background-color: lighten($bgMessageColor, 7%);
-        .message__status {
-            display: none;
-        }
     }
-    &_right {
+    &_owner {
         margin-left: auto;
-        .message_text {
-            padding: 0 20px 0 15px;
-            cursor: pointer;
-        }
-        .message__status {
-            width: 300px;
-        }
     }
     &__info {
         display: flex;
@@ -41,18 +31,37 @@
     }
     &__author-name {
         @extend %title-text;
-        font-size: 13px;
         margin-left: 5px;
+        font-size: 13px;
     }
     &__date {
         @extend %descr-text;
-        font-size: 11px;
         margin-left: auto;
+        font-size: 11px;
     }
     &__text {
         @extend %descr-text;
-        line-height: 22px;
         padding: 0 35px;
+        line-height: 22px;
         word-break: break-word;
     }
+    &__status {
+        max-width: 150px;
+        padding: 2px;
+        margin: -20px 0 5px auto;
+        border: 1px solid $bgPrimaryLightColor;
+        border-radius: 4px;
+        font-size: 11px;
+        line-height: 16px;
+        text-align: center;
+        background-color: $bgSecondaryColor;
+        color: $textDarkColor;
+    }
+}
+
+#dialog__message-text {
+    padding: 0 20px 0 15px;
+}
+.message_owner .message__text {
+    cursor: pointer;
 }

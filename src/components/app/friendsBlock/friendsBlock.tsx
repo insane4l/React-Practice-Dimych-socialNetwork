@@ -53,7 +53,6 @@ const FriendsBlock: React.FC<FriendsBlockPropsType> = React.memo( ({friendsPerPa
         ? <Link to="/users">Find friends on the <b>Users Page</b></Link>
         : <div className="friends__block">{randomFriendsList}</div>
 
-    console.log('rerender');
     return (
         <>
             {!randomFriends ? <Spinner/> : friendsBlockContent}

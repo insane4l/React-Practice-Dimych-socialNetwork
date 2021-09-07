@@ -6,7 +6,7 @@ import { AllDialogsListItemType, dialogsAPI, DialogMessageType } from "../servic
 const initialState = {
     dialogsList: [] as AllDialogsListItemType[],
     selectedDialogMessages: [] as DialogMessageType[],
-    selectedMessageIsViewed: null as null | boolean,
+    viewedMessages: [] as string[],
     isLoading: false
 }
 
@@ -31,10 +31,15 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 selectedDialogMessages: [...state.selectedDialogMessages, action.payload.message] 
             };
-        case 'sn/dialogs/MESSAGE_STATUS_RECEIVED':
+        case 'sn/dialogs/ADD_MESSAGE_TO_VIEWED':
             return {
                 ...state,
-                selectedMessageIsViewed: action.payload.status 
+                viewedMessages: [...state.viewedMessages,  action.payload.messageId] 
+            };
+        case 'sn/dialogs/DEL_MESSAGE_FROM_VIEWED':
+            return {
+                ...state,
+                viewedMessages: state.viewedMessages.filter( id => id !== action.payload.messageId)
             };
         case 'sn/dialogs/SET_IS_LOADING':
             return {
@@ -58,8 +63,11 @@ export const actions = {
     messageSent: (message: DialogMessageType) => (
         {type: 'sn/dialogs/MESSAGE_SENT', payload: {message}} as const
     ),
-    messageStatusReceived: (status: boolean) => (
-        {type: 'sn/dialogs/MESSAGE_STATUS_RECEIVED', payload: {status}} as const
+    addMessageToViewed: (messageId: string) => (
+        {type: 'sn/dialogs/ADD_MESSAGE_TO_VIEWED', payload: {messageId} } as const
+    ),
+    delMessageFromViewed: (messageId: string) => (
+        {type: 'sn/dialogs/DEL_MESSAGE_FROM_VIEWED', payload: {messageId} } as const
     ),
     setIsLoading: (status: boolean) => (
         {type: 'sn/dialogs/SET_IS_LOADING', payload: {status}} as const
@@ -111,11 +119,19 @@ export const sendMessage = (userId: number, message: string): BaseThunkType<Acti
     
 }
 
-
+// type viewedStatusItemType = {
+//     [index: string]: boolean;
+// }
 export const requestMessageStatus = (messageId: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
     try {
         const status = await dialogsAPI.getMessageViewedStatus(messageId)
-        dispatch( actions.messageStatusReceived(status) )
+
+        // const viewedStatusItem: viewedStatusItemType = {}
+        // viewedStatusItem[messageId] = status
+        if (status === true) {
+            dispatch( actions.addMessageToViewed(messageId) )
+        }
+        
     } catch {
         alert('An error has occurred. The message status cannot be shown. Please try to click again')
     }
