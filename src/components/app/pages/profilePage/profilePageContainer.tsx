@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
-import {compose} from 'redux';
-import {withRouter, Redirect, RouteComponentProps} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {getUserProfile, getProfileStatus, actions} from '../../../../reducers/profileReducer';
-import ProfilePage from './profilePage';
-import { AppStateType } from '../../../../reduxStore';
-import { ProfileType, UserType } from '../../../../types/types';
-import Spinner from '../../../common/spinner';
+import React, {Component} from 'react'
+import {compose} from 'redux'
+import {withRouter, Redirect, RouteComponentProps} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {getUserProfile, getProfileStatus, actions, requestProfileFollowedInfo} from '../../../../reducers/profileReducer'
+import ProfilePage from './profilePage'
+import { AppStateType } from '../../../../reduxStore'
+import { ProfileType, UserType } from '../../../../types/types'
+import Spinner from '../../../common/spinner'
 
 
 type MapStatePropsType = {
@@ -14,12 +14,12 @@ type MapStatePropsType = {
     profileId: number
     isUserAuthorized: boolean
     isLoading: boolean
-    followedStatus: boolean | null
 }
 
 type MapDispatchPropsType = {
     getUserProfile: (userId: number) => void
     getProfileStatus: (userId: number) => void
+    requestProfileFollowedInfo: (userId: number) => void
     setUserProfile: (user: UserType | null) => void
 }
 
@@ -57,8 +57,9 @@ class ProfilePageContainer extends Component<PropsType> {
         if (!userId) {
             console.error("Id should exists in URI params or in state(profileId)")
         } else {
-            this.props.getUserProfile(userId);
-            this.props.getProfileStatus(userId);
+            this.props.getUserProfile(userId)
+            this.props.getProfileStatus(userId)
+            this.props.requestProfileFollowedInfo(userId)
         }
     }
 
@@ -78,18 +79,18 @@ class ProfilePageContainer extends Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        user: state.profilePage.selectedUser,
+        user: state.profilePage.selectedProfile,
         profileId: state.auth.id,
         isUserAuthorized: state.auth.isAuthorized,
-        isLoading: state.profilePage.isLoading,
-        followedStatus: state.usersPage.followedUserInfo.followedStatus
+        isLoading: state.profilePage.isLoading
     }
 };
 
 const mapDispatchToProps = {
     getUserProfile,
     getProfileStatus,
-    setUserProfile: actions.setUserAction
+    requestProfileFollowedInfo,
+    setUserProfile: actions.profileReceived
 };
 
 

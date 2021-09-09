@@ -3,6 +3,7 @@ import { BaseThunkType, InferActionsTypes } from '../reduxStore'
 import {ResponseType, ResultCodesEnum} from '../services/API'
 import { usersAPI } from '../services/usersAPI'
 import { UserType } from '../types/types'
+import {actions as profileActions} from './profileReducer'
 
 
 const initialState = {
@@ -17,12 +18,7 @@ const initialState = {
         friend: null as null | boolean
     },
     isLoading: false,
-    followingInProgress: [] as Array<number>,
-    followedUserInfo: {
-        userId: null as null | number,
-        followedStatus: null as null | boolean
-    }
-    
+    followingInProgress: [] as Array<number>
 }
 export type InitialStateType = typeof initialState
 export type UsersListFiltersType = typeof initialState.filters
@@ -69,10 +65,6 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
-        case 'sn/users/SET_FOLLOWED_USER_INFO':
-            return {...state, followedUserInfo: action.payload}
-        case 'sn/users/TOGGLE_FOLLOWED_USER_INFO':
-            return {...state, followedUserInfo: {...state.followedUserInfo, followedStatus: !state.followedUserInfo.followedStatus}}
         default:
             return state;
     }
@@ -108,13 +100,6 @@ export const actions = {
     setFollowingInProgress: (userId: number, 
         isInProgress: boolean) => (
             {type: 'sn/users/SET_FOLLOWING_IN_PROGRESS', userId, isInProgress} as const
-    ),
-    setFollowedUserInfo: (userId: number, 
-        followedStatus: boolean) => (
-            {type: 'sn/users/SET_FOLLOWED_USER_INFO', payload: {userId, followedStatus} } as const
-    ),
-    toggleFollowedUserInfo: () => (
-            {type: 'sn/users/TOGGLE_FOLLOWED_USER_INFO'} as const
     )
 }
 
@@ -122,15 +107,13 @@ export const actions = {
 
 
 
-
-
-const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes>, 
+const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes | ProfileReducerActionToggleType>, 
                 userId: number, apiMethod: (userId: number) => Promise<ResponseType<{}, ResultCodesEnum>>) => {
     const data = await apiMethod(userId);
 
     if(data.resultCode === ResultCodesEnum.Success) {
         dispatch(actions.toggleFollowed(userId));
-        dispatch(actions.toggleFollowedUserInfo())
+        dispatch(profileActions.toggleProfileFollowedInfo())
         dispatch(actions.setFollowingInProgress(userId, false));
     }
 }
@@ -144,6 +127,7 @@ export const followOrUnfollow = (userId: number): BaseThunkType<ActionsTypes> =>
         await followUnfollowFlow(dispatch, userId, usersAPI.followToUser); // follow
     } else {
         await followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser); //unfollow
+        dispatch( requestRandomFriends(undefined, 1) )
     }
 }
 
@@ -165,7 +149,7 @@ export const requestUsers = (pageSize: number, currentPage: number, {term = '', 
     }
 }
 
-export const requestRandomFriends = (pageSize: number, pageNumber: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
+export const requestRandomFriends = (pageSize = 9, pageNumber: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     try {
         const data = await usersAPI.getUsers(pageSize, pageNumber, '', true);
         if (data.totalCount > 0) {
@@ -178,15 +162,15 @@ export const requestRandomFriends = (pageSize: number, pageNumber: number): Base
     } 
     catch {
         alert('An error has occurred, possibly a bad connection to the server. Auto-updating of the friends list is paused. To fix it please try reloading the page.')
-    }
-   
-}
-
-export const requestFollowedUserInfo = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
-    const isFollowed = await usersAPI.checkFollowStatus(userId)
-    dispatch( actions.setFollowedUserInfo(userId, isFollowed) )
+    }  
 }
 
 
 
 export default usersReducer
+
+
+
+type ProfileReducerActionToggleType = {
+    type: 'sn/profile/TOGGLE_PROFILE_FOLLOWED_INFO'
+}

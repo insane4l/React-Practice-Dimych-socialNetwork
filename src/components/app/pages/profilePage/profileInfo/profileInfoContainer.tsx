@@ -28,7 +28,7 @@ const ProfileInfoContainer: React.FC<MapStatePropsType & MapDispatchPropsType & 
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
-        user: state.profilePage.selectedUser,
+        user: state.profilePage.selectedProfile,
         profileStatus: state.profilePage.profileStatus
     } as MapStatePropsType
 }

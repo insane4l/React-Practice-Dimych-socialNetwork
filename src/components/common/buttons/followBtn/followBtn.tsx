@@ -8,7 +8,7 @@ import '../buttons.scss'
 const FollowBtn: React.FC<FollowBtnPropsType> = ({isFollowed, userId}) => {
 
     const followingInProgress = useSelector(selectors.getFollowingInProgress)
-    const btnLabel = isFollowed ? 'Unfollow' : 'Follow'
+    const btnLabel = isFollowed ? 'Unfollow' : isFollowed === false ? 'Follow' : ''
     const btnStyle = isFollowed ? 'user__follow-btn unfollow-btn' : 'user__follow-btn'
     const dispatch = useDispatch()
 

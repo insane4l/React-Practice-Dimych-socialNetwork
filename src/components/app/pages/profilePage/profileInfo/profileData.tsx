@@ -1,27 +1,19 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import ProfileStatus from './profileStatus'
 import ProfileDataForm from './profileDataForm'
 import ProfileDataTable from './profileDataTable'
 import {ProfileType} from '../../../../../types/types'
 import MessagesBtn from '../../../../common/buttons/messagesBtn/messagesBtn'
 import FollowBtn from '../../../../common/buttons/followBtn/followBtn'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { AppStateType } from '../../../../../reduxStore'
-import { requestFollowedUserInfo } from '../../../../../reducers/usersReducer'
 
 
 const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStatus, updateProfileStatus, updateProfileData,}) => {
 
-    const followedUserInfo = useSelector( (state: AppStateType) => state.usersPage.followedUserInfo)
-    const [editMode, setEditMode] = useState(false);
-    const [dataVisibility, toggleDataVisibility] = useState(false);
-
-    const dispatch = useDispatch()
-
-    useEffect( () => {
-        dispatch( requestFollowedUserInfo(user.userId) )
-        // eslint-disable-next-line
-    }, [user])
+    const profileFollowedInfo = useSelector( (state: AppStateType) => state.profilePage.selectedProfileFollowedInfo)
+    const [editMode, setEditMode] = useState(false)
+    const [dataVisibility, toggleDataVisibility] = useState(false)
 
     const onSubmit = (formData: ProfileType) => {
         // todo: remove then
@@ -34,7 +26,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStat
         <div className="profile__data">
             {!isOwner && 
                 <div className="profile__buttons-wrapper">
-                    <FollowBtn isFollowed={followedUserInfo.followedStatus} userId={followedUserInfo.userId} />
+                    <FollowBtn isFollowed={profileFollowedInfo.followedStatus} userId={profileFollowedInfo.userId} />
                     <MessagesBtn linkTo={`/dialogs/${user.userId}`} />
                 </div>
             }

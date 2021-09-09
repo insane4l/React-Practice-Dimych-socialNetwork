@@ -28,7 +28,7 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
         pages.push(i);
     };
     
-    console.log('rerendered')
+
     const selectedPagePortion = Math.ceil(currentPage / portionSize)
     const portionsCount = Math.ceil(pagesCount / portionSize);
     const firstPortionPageNum = (currentPortion -1) * portionSize + 1;
