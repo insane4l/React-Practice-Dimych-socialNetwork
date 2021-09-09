@@ -46,22 +46,31 @@
         word-break: break-word;
     }
     &__status {
-        max-width: 150px;
-        padding: 2px;
-        margin: -20px 0 5px auto;
+        max-width: 80px;
+        height: 20px;
+        padding: 1px;
+        margin-left: auto;
         border: 1px solid $bgPrimaryLightColor;
         border-radius: 4px;
-        font-size: 11px;
+        font-size: 10px;
+        text-transform: uppercase;
         line-height: 16px;
         text-align: center;
         background-color: $bgSecondaryColor;
-        color: $textDarkColor;
+        color: $bgPrimaryLightColor;
     }
 }
 
 #dialog__message-text {
     padding: 0 20px 0 15px;
 }
-.message_owner .message__text {
+.check-status__btn {
+    width: 70px;
+    height: 20px;
+    margin-left: auto;
+    font-size: 11px;
+    text-align: right;
+    line-height: 11px;
+    color: $bgPrimaryLightColor;
     cursor: pointer;
 }

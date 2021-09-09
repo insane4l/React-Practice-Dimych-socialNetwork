@@ -9,40 +9,18 @@ import '../../../../common/messagesComponents/message.scss'
 
 
 const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage}) => {
-    console.log('MESSAGE rerendered');
-    const [statusDisplay, setStatusDisplay] = useState(false)
-    
-    const dispatch = useDispatch()
-    // let checkViewedStatus = () => {
-    //     debugger
-    //     for ( let key in selectedMessagesViewedStatus ) {
-    //         debugger
-    //         if (String(key) === message.id) {
-    //             return selectedMessagesViewedStatus[key]
-    //         }
-    //     }
-    // }
-    // const messageViewedStatus = checkViewedStatus()
-    // console.log(messageViewedStatus);
 
-    let style = isOwnerMessage ? "message_owner" : "message_friend"
+    const [statusDisplay, setStatusDisplay] = useState(false)
+    const dispatch = useDispatch()
+    const style = isOwnerMessage ? "message_owner" : "message_friend"
    
-    
-    const actionWithOwnerMessage = () => {
-        if (isOwnerMessage) {
-            viewMessageActualStatus()
-        }
-    }
+
     const viewMessageActualStatus = () => {
-        if (statusDisplay) {
-            setStatusDisplay(false)
-            return
-        } 
-        if (statusDisplay === false && message.viewed === true) {
+        if (message.viewed === true) {
             dispatch( actions.addMessageToViewed(message.id) ) // add to viewed arr, because of arr.some() --- "Has been VIEWED"
             showStatus(4)
         }
-        if (statusDisplay === false && message.viewed === false) { // if message initial viewed false, request API actual status
+        if (message.viewed === false) { // if message initial viewed false, request API actual status
             dispatch( requestMessageStatus(message.id) ) 
             showStatus(4)
         }
@@ -50,7 +28,7 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
     const showStatus = (seconds: number) => {
         const milliseconds = seconds * 1000
         setStatusDisplay(true)
-        const timerId = setTimeout(() => { setStatusDisplay(false) }, milliseconds) // todo: how to clear timeout when 2nd click (when setStatusDisplay(false))
+        const timerId = setTimeout(() => { setStatusDisplay(false) }, milliseconds)
     }
 
     return (
@@ -65,14 +43,14 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
                     </Link>
                     <div className="message__date">{message.addedAt}</div>
                 </div>
-                <div className="message__text" id="dialog__message-text" onClick={actionWithOwnerMessage}>{message.body}</div>
+                <div className="message__text" id="dialog__message-text">{message.body}</div>
+                {isOwnerMessage && !statusDisplay && <div className="check-status__btn" onClick={viewMessageActualStatus}>Check status</div>}
+                {statusDisplay && <MessageStatus messageId={message.id} />}
             </div>
-            {statusDisplay && <MessageStatus messageId={message.id} />}
         </>
     )
 })
 
-export default DialogMessage
 
 const MessageStatus: React.FC<{messageId: string}> = ({messageId}) => {
     const viewedMessages = useSelector( (state: AppStateType) => state.dialogsPage.viewedMessages)
@@ -80,12 +58,16 @@ const MessageStatus: React.FC<{messageId: string}> = ({messageId}) => {
     return (
         <div className="message__status">
             { viewedMessages.some(id => id === messageId) 
-                ? "Has been VIEWED" 
-                : "Has NOT been VIEWED" }
+                ? "Viewed" 
+                : "Not viewed" }
         </div>
         
     )
 }
+
+export default DialogMessage
+
+
 
 type MessagePropsType = {
     message: DialogMessageType

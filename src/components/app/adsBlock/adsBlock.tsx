@@ -5,7 +5,7 @@ import './adsBlock.scss'
 
 const AdsBlock = () => {
     return (
-        <a href="https://karpeyev.ru" className="ads__content">
+        <a href="https://karpeyev.ru" target="_blank" rel="noreferrer" className="ads__content">
             <div className="ads__content-img">
                 <img src={adsImg} alt="ads_image" />
             </div>

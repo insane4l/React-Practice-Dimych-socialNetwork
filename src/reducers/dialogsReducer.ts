@@ -9,8 +9,6 @@ const initialState = {
     viewedMessages: [] as string[],
     isLoading: false
 }
-
-
 type InitialStateType = typeof initialState;
 
 
@@ -119,19 +117,16 @@ export const sendMessage = (userId: number, message: string): BaseThunkType<Acti
     
 }
 
-// type viewedStatusItemType = {
-//     [index: string]: boolean;
-// }
+
+
+
 export const requestMessageStatus = (messageId: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
     try {
         const status = await dialogsAPI.getMessageViewedStatus(messageId)
 
-        // const viewedStatusItem: viewedStatusItemType = {}
-        // viewedStatusItem[messageId] = status
         if (status === true) {
             dispatch( actions.addMessageToViewed(messageId) )
-        }
-        
+        }  
     } catch {
         alert('An error has occurred. The message status cannot be shown. Please try to click again')
     }
