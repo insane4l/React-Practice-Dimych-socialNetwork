@@ -32,7 +32,7 @@ export const dialogsAPI = {
         return apiBase.get<AdvancedDialogMessageType[]>(`dialogs/${userId}/messages/new?newerThen=${date}`)
     },
     getNewMessagesTotalCount() {
-        return apiBase.get<number>(`dialogs/messages/new/count`)
+        return apiBase.get<number>(`dialogs/messages/new/count`).then((res) => res.data)
     }
 
 }

@@ -1,0 +1,15 @@
+@import '../../../sassStyles/variables.scss';
+
+.new-messages-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+.navbar__new-messages-counter {
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    border: 2px solid $textLightColor;
+    background-color: rgba($textLightColor, .3);
+}

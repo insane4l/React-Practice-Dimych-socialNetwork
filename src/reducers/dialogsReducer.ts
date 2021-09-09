@@ -7,6 +7,7 @@ const initialState = {
     dialogsList: [] as AllDialogsListItemType[],
     selectedDialogMessages: [] as DialogMessageType[],
     viewedMessages: [] as string[],
+    newDialogsMessagesCount: 0,
     isLoading: false
 }
 type InitialStateType = typeof initialState;
@@ -39,6 +40,11 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 viewedMessages: state.viewedMessages.filter( id => id !== action.payload.messageId)
             };
+        case 'sn/dialogs/NEW_MESSAGES_COUNT_RECEIVED':
+            return {
+                ...state,
+                newDialogsMessagesCount: action.payload.newMessagesCount
+            };
         case 'sn/dialogs/SET_IS_LOADING':
             return {
                 ...state,
@@ -67,6 +73,9 @@ export const actions = {
     delMessageFromViewed: (messageId: string) => (
         {type: 'sn/dialogs/DEL_MESSAGE_FROM_VIEWED', payload: {messageId} } as const
     ),
+    newMessagesCountReceived: (newMessagesCount: number) => (
+        {type: 'sn/dialogs/NEW_MESSAGES_COUNT_RECEIVED', payload: {newMessagesCount} } as const
+    ),
     setIsLoading: (status: boolean) => (
         {type: 'sn/dialogs/SET_IS_LOADING', payload: {status}} as const
     )
@@ -88,6 +97,7 @@ export const requestDialogMessages = (userId: number): BaseThunkType<ActionsType
         dispatch( actions.setIsLoading(false) )
         dispatch( actions.dialogMessagesReceived(res.items) )
         dialogsAPI.setDialogAtTheDialogsListTop(userId)
+        dispatch( requestNewMessagesCount() )
     } else {
         alert('Failed to load messages. Please try refresh the page')
     }
@@ -129,8 +139,17 @@ export const requestMessageStatus = (messageId: string): BaseThunkType<ActionsTy
         }  
     } catch {
         alert('An error has occurred. The message status cannot be shown. Please try to click again')
-    }
-    
+    }  
+}
+
+
+export const requestNewMessagesCount = (): BaseThunkType<ActionsTypes> => async (dispatch) => {
+    try {
+        const newMessagesCount = await dialogsAPI.getNewMessagesTotalCount()
+        dispatch( actions.newMessagesCountReceived(newMessagesCount) )
+    } catch {
+        alert('An error has occurred. The new messages count cannot be shown. Please try to refresh the page')
+    }  
 }
 
 
