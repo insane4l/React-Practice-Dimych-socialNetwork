@@ -1,0 +1,21 @@
+@import '../../../../sassStyles/_variables.scss';
+
+.profile__page {
+    position: relative;
+}
+.page-top-anchor {
+    position: absolute;
+    top: -100px;
+}
+
+.section-hardcoded {
+    @extend %descr-text;
+    position: absolute;
+    bottom: 0;
+    right: 40%;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: 600;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+}

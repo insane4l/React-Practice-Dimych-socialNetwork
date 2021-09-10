@@ -6,8 +6,9 @@ import './dialogsItem.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../../../../reduxStore'
 import { useEffect } from 'react'
-import { requestDialogMessages, sendMessage } from '../../../../../reducers/dialogsReducer'
+import { actions, requestDialogMessages, sendMessage } from '../../../../../reducers/dialogsReducer'
 import MessagesList from '../../../../common/messagesComponents/messagesList'
+import { defaultPhoto } from '../../../../../assets/images'
 
 
 const DialogsItem: React.FC = () => {
@@ -31,7 +32,7 @@ const DialogsItem: React.FC = () => {
 
     return (
         <div className="dialogs__item">
-            <DialogsItemHeader friendName={'friend name'} friendId={userId} />
+            <DialogsItemHeader friendId={userId} />
                                  
             <MessagesList dialogMessages={messages} isLoading={isLoading} />
 
@@ -40,7 +41,17 @@ const DialogsItem: React.FC = () => {
     )
 }
 
-const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friendName, friendId}) => {
+const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friendId}) => {
+    
+    const interlocuter = useSelector( (state: AppStateType) => state.dialogsPage.dialogInterlocuterProfile)
+    const dispatch = useDispatch()
+
+    useEffect( () => {
+        return () => {
+            dispatch( actions.interlocuterProfileReceived(null) )
+        }
+    }, [])
+
     return (
         <div className="dialogs__item-header">
             <Link className="go-back__link" to="/dialogs"> 
@@ -50,9 +61,9 @@ const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friendName, friendI
 
             <Link className="interlocuter" to={`/profile/${friendId}`}>
                 <div className="interlocuter__image">
-                    <img src="https://tehnot.com/wp-content/uploads/2017/09/pavel.jpg" alt="interlocuter_image" />
+                    <img src={interlocuter?.photos.small || defaultPhoto} alt="interlocuter_image" />
                 </div>
-                <div className="interlocuter__name">{friendName}</div>
+                <div className="interlocuter__name">{interlocuter?.fullName}</div>
             </Link>
         </div>
     )
@@ -66,6 +77,5 @@ export default DialogsItem
 type MatchParamsType = {userId: string}
 
 type DialogHeaderPropsType = {
-    friendName: string
     friendId: number
 }

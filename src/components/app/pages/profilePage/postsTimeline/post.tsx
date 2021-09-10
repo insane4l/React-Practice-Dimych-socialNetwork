@@ -1,23 +1,27 @@
 import React from 'react'
+import { PostType } from '../../../../../types/types'
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../../../../reduxStore'
 
 import {defaultPhoto} from '../../../../../assets/images'
 import * as icons from '../../../../../assets/icons'
-import { PostType } from '../../../../../types/types'
+import Moment from 'react-moment'
 
-
-type PropsType = {item: PostType}
 
 const Post: React.FC<PropsType> = ({item}) => {
+
+    const profile = useSelector( (state: AppStateType) => state.profilePage.selectedProfile)
+
     return (
         <div key={item.id} className="posts__item">
             <div className="posts__item_header">
                 {/* must be a link authorId*/}
-                <div className="post__author-image"> <img src={defaultPhoto} alt="author_image" /> </div>
+                <div className="post__author-image"> <img src={profile?.photos.small || defaultPhoto} alt="author_image" /> </div>
                 <div className="post__info-col">
                     {/* must be a link /authorId*/}
-                    <div className="post__author-name">Roman Karpeyev</div>
+                    <div className="post__author-name">{profile?.fullName}</div>
                     {/* must be a link /postLink*/}
-                    <div className="post__date">6 June 2021 at 18:00</div>
+                    <div className="post__date"><Moment format="DD MMM YYYY hh:mm" date={item.postDate} /> </div>
                 </div>
             </div>
 
@@ -32,7 +36,7 @@ const Post: React.FC<PropsType> = ({item}) => {
                 </div>
                 <div className="post__action">
                     <img className="post__action_icon comments__action" src={icons.commentsIcon} alt="comments_icon" />
-                    <div className="post__action_counter coments__counter">22</div>
+                    <div className="post__action_counter coments__counter">{item.comments}</div>
                 </div>
                 <div className="post__action">
                     <img className="post__action_icon share__action" src={icons.shareIcon} alt="share_icon" />
@@ -42,4 +46,8 @@ const Post: React.FC<PropsType> = ({item}) => {
     )
 }
 
-export default Post;
+export default Post
+
+
+
+type PropsType = {item: PostType}

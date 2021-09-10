@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Moment from 'react-moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { actions, requestMessageStatus } from '../../../../../reducers/dialogsReducer'
@@ -41,7 +42,7 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
                     <Link className="message__author-name" to={`/profile/${message.senderId}`}>
                         {message.senderName} {/* todo: senderName its nickname need userName */} 
                     </Link>
-                    <div className="message__date">{message.addedAt}</div>
+                    <div className="message__date"><Moment format="MMM DD YYYY hh:mm" date={message.addedAt} /></div>
                 </div>
                 <div className="message__text" id="dialog__message-text">{message.body}</div>
                 {isOwnerMessage && !statusDisplay && <div className="check-status__btn" onClick={viewMessageActualStatus}>Check status</div>}

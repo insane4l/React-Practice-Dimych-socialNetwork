@@ -7,9 +7,9 @@ import {UserPhotosType, ProfileType, PostType} from '../types/types'
 
 const initialState = {
     messages: [
-        {id: 1, label: 'Hi, this is my 1 post', likesCount: 22},
-        {id: 2, label: '2 post', likesCount: 12},
-        {id: 3, label: 'ok this is 3 post', likesCount: 8}
+        {id: 1, postDate: '09.10.2021 12:16', label: 'Hi, this is my 1 post', likesCount: 22, comments: 0},
+        {id: 2, postDate: '09.10.2021 12:20', label: '2 post', likesCount: 12, comments: 0},
+        {id: 3, postDate: '09.10.2021 12:22', label: 'ok this is 3 post', likesCount: 8, comments: 0}
     ] as Array<PostType>,
     selectedProfile: null as null | ProfileType,
     profileStatus: "",
@@ -31,8 +31,10 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 messages: [...state.messages, {
                     id,
-                    label: action.messageBody,
-                    likesCount: 0
+                    postDate: action.payload.date,
+                    label: action.payload.messageBody,
+                    likesCount: 0,
+                    comments: 0
                     }]
             };
             return newState;
@@ -60,8 +62,8 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 
 type ActionsTypes = InferActionsTypes<typeof actions>
 export const actions = {
-    addNewPost: (messageBody: string) => (
-        {type: 'sn/profile/ADD_NEW_POST', messageBody} as const
+    addNewPost: (date: string, messageBody: string) => (
+        {type: 'sn/profile/ADD_NEW_POST', payload: {date, messageBody} } as const
     ),
     profileReceived: (profile: ProfileType) => (
         {type: 'sn/profile/SET_PROFILE', profile} as const

@@ -1,11 +1,14 @@
 import { BaseThunkType, InferActionsTypes } from "../reduxStore";
 import { ResultCodesEnum } from "../services/API";
 import { AllDialogsListItemType, dialogsAPI, DialogMessageType } from "../services/dialogsAPI";
+import { usersAPI } from "../services/usersAPI";
+import { ProfileType } from "../types/types";
 
 
 const initialState = {
     dialogsList: [] as AllDialogsListItemType[],
     selectedDialogMessages: [] as DialogMessageType[],
+    dialogInterlocuterProfile: null as null | ProfileType,
     viewedMessages: [] as string[],
     newDialogsMessagesCount: 0,
     isLoading: false
@@ -24,6 +27,11 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
             return {
                 ...state,
                 selectedDialogMessages: action.payload.dialogMessages
+            };
+        case 'sn/dialogs/INTERLOCUTER_PROFILE_RECEIVED':
+            return {
+                ...state,
+                dialogInterlocuterProfile: action.payload.profile
             };
         case 'sn/dialogs/MESSAGE_SENT':
             return {
@@ -78,6 +86,9 @@ export const actions = {
     ),
     setIsLoading: (status: boolean) => (
         {type: 'sn/dialogs/SET_IS_LOADING', payload: {status}} as const
+    ),
+    interlocuterProfileReceived: (profile: ProfileType | null) => (
+        {type: 'sn/dialogs/INTERLOCUTER_PROFILE_RECEIVED', payload: {profile}} as const
     )
 }
 
@@ -93,11 +104,13 @@ export const requestAllDialogsList = (): BaseThunkType<ActionsTypes> => async (d
 export const requestDialogMessages = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     dispatch( actions.setIsLoading(true) )
     const res = await dialogsAPI.getUserMessagesList(userId, 10, 1)
+    const profile = await usersAPI.getUserProfile(userId)
     if (res.error === null) {
         dispatch( actions.setIsLoading(false) )
         dispatch( actions.dialogMessagesReceived(res.items) )
         dialogsAPI.setDialogAtTheDialogsListTop(userId)
         dispatch( requestNewMessagesCount() )
+        dispatch( actions.interlocuterProfileReceived(profile) )
     } else {
         alert('Failed to load messages. Please try refresh the page')
     }

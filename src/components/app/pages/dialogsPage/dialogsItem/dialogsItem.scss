@@ -32,15 +32,13 @@
 
 .interlocuter {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     position: relative;
-    left: calc(50% - 100px);
-    transform: translateX(-50%);
+
     &__image {
-        width: 44px;
-        height: 44px;
+        width: 66px;
+        height: 66px;
         border-radius: 50%;
         overflow: hidden;
         img {

@@ -1,9 +1,13 @@
-import React from 'react';
-import {InjectedFormProps, reduxForm} from 'redux-form';
-import {required} from '../../../../../utils/validation/validators';
-import {createField, Textarea} from '../../../../common/formsControls/formsControls';
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import {InjectedFormProps, reduxForm, reset} from 'redux-form'
+import { actions } from '../../../../../reducers/profileReducer'
+import { getCurrentDate } from '../../../../../utils/getValueFuncs'
 
-import './postAddForm.scss';
+import {required} from '../../../../../utils/validation/validators'
+import {createField, Textarea} from '../../../../common/formsControls/formsControls'
+
+import './postAddForm.scss'
 
 
 type PostFormValuesType = {
@@ -24,16 +28,23 @@ let ProfilePostsForm: React.FC< InjectedFormProps<PostFormValuesType, FormOwnPro
     )
 }
 
+
+
+
 const ProfilePostsReduxForm = reduxForm<PostFormValuesType, FormOwnPropsType>({form: "postsForm"})(ProfilePostsForm);
 
 
-type PropsType = {
-    addNewPost: (postBody: string) => void
-}
-const PostAddForm: React.FC<PropsType> = (props) => {
+
+
+const PostAddForm: React.FC = () => {
+
+    const dispatch = useDispatch()
 
     const onFormSubmit = (formData: PostFormValuesType) => {
-        props.addNewPost(formData.postBody);
+        const date = getCurrentDate()
+        const postMessage = `${formData.postBody} SECTION is HARDCODED due to API restrictions`
+        dispatch( actions.addNewPost(date, postMessage) )
+        dispatch( reset('postsForm') )
     }
 
     return (
@@ -44,4 +55,4 @@ const PostAddForm: React.FC<PropsType> = (props) => {
     )
 }
 
-export default PostAddForm;
+export default PostAddForm
