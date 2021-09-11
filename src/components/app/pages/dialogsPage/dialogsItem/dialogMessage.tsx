@@ -7,9 +7,11 @@ import { AppStateType } from '../../../../../reduxStore'
 import { DialogMessageType } from '../../../../../services/dialogsAPI'
 
 import '../../../../common/messagesComponents/message.scss'
+import UserAvatar from '../../../../common/userAvatar/userAvatar'
+import UserName from '../../../../common/userName/userName'
 
 
-const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage}) => {
+const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage, userImg}) => {
 
     const [statusDisplay, setStatusDisplay] = useState(false)
     const dispatch = useDispatch()
@@ -36,12 +38,8 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
         <>
             <div className={`message ${style}`}>
                 <div className="message__info">
-                    {/* <Link className="message__author-image" to={`/profile/${message.userId}`}>
-                        <img src={message.photo || defaultPhoto} alt="author_image" />
-                    </Link> todo: there are no photo in the dialog message https://social-network.samuraijs.com/api*/} 
-                    <Link className="message__author-name" to={`/profile/${message.senderId}`}>
-                        {message.senderName} {/* todo: senderName its nickname need userName */} 
-                    </Link>
+                    <UserAvatar className="message__author-image" userImage={userImg} linkTo={`/profile/${message.senderId}`} />
+                    <UserName className="message__author-name" userName={message.senderName} linkTo={`/profile/${message.senderId}`} />
                     <div className="message__date"><Moment format="MMM DD YYYY hh:mm" date={message.addedAt} /></div>
                 </div>
                 <div className="message__text" id="dialog__message-text">{message.body}</div>
@@ -72,5 +70,6 @@ export default DialogMessage
 
 type MessagePropsType = {
     message: DialogMessageType
+    userImg: string | null | undefined
     isOwnerMessage: boolean
 }

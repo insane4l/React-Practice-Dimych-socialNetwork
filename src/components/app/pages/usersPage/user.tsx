@@ -5,6 +5,8 @@ import FollowBtn from '../../../common/buttons/followBtn/followBtn'
 
 import { defaultPhoto } from '../../../../assets/images'
 import MessagesBtn from '../../../common/buttons/messagesBtn/messagesBtn'
+import UserAvatar from '../../../common/userAvatar/userAvatar'
+import UserName from '../../../common/userName/userName'
 
 
 const User: React.FC<PropsType> = ({user}) => {
@@ -13,14 +15,10 @@ const User: React.FC<PropsType> = ({user}) => {
 
     return (
         <li className="users__list-item">
-            <NavLink to={`/profile/${id}`}>
-                <div className="user__image">
-                    <img src={photos.small || defaultPhoto} alt="user_image" />
-                </div>
-            </NavLink>
+            <UserAvatar className="user__image" userImage={photos.small} linkTo={`/profile/${id}`} />
             <div className="user__details-wrapper">
                 <div className="user__info">
-                    <NavLink to={`/profile/${id}`} ><div className="user__name">{name}</div></NavLink>
+                    <UserName className="user__name" userName={name} linkTo={`/profile/${id}`} />
                     <div className="user__status">{status}</div>
                 </div>
                 <div className="user__buttons-wrapper">

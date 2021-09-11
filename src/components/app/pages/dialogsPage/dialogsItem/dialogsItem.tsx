@@ -9,11 +9,13 @@ import { useEffect } from 'react'
 import { actions, requestDialogMessages, sendMessage } from '../../../../../reducers/dialogsReducer'
 import MessagesList from '../../../../common/messagesComponents/messagesList'
 import { defaultPhoto } from '../../../../../assets/images'
+import { ProfileType } from '../../../../../types/types'
 
 
 const DialogsItem: React.FC = () => {
     
     const messages = useSelector( (state: AppStateType) => state.dialogsPage.selectedDialogMessages )
+    const interlocuter = useSelector( (state: AppStateType) => state.dialogsPage.dialogInterlocuterProfile)
     const isLoading = useSelector( (state: AppStateType) => state.dialogsPage.isLoading )
     const match = useRouteMatch<MatchParamsType>()
     const dispatch = useDispatch()
@@ -27,30 +29,24 @@ const DialogsItem: React.FC = () => {
 
     useEffect( () => {
         dispatch( requestDialogMessages(userId) )
-    }, [])
 
+        return () => {
+            dispatch( actions.interlocuterProfileReceived(null) )
+        }
+    }, [])
 
     return (
         <div className="dialogs__item">
-            <DialogsItemHeader friendId={userId} />
+            <DialogsItemHeader friend={interlocuter} />
                                  
-            <MessagesList dialogMessages={messages} isLoading={isLoading} />
+            <MessagesList dialogMessages={messages} isLoading={isLoading} userImg={interlocuter?.photos.small}/>
 
             <DialogForm sendMessage={sendDialogMessage} />
         </div>
     )
 }
 
-const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friendId}) => {
-    
-    const interlocuter = useSelector( (state: AppStateType) => state.dialogsPage.dialogInterlocuterProfile)
-    const dispatch = useDispatch()
-
-    useEffect( () => {
-        return () => {
-            dispatch( actions.interlocuterProfileReceived(null) )
-        }
-    }, [])
+const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friend}) => {
 
     return (
         <div className="dialogs__item-header">
@@ -59,11 +55,11 @@ const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friendId}) => {
                 <div className="go-back__text">Go back</div>
             </Link>
 
-            <Link className="interlocuter" to={`/profile/${friendId}`}>
+            <Link className="interlocuter" to={`/profile/${friend?.userId}`}>
                 <div className="interlocuter__image">
-                    <img src={interlocuter?.photos.small || defaultPhoto} alt="interlocuter_image" />
+                    <img src={friend?.photos.small || defaultPhoto} alt="interlocuter_image" />
                 </div>
-                <div className="interlocuter__name">{interlocuter?.fullName}</div>
+                <div className="interlocuter__name">{friend?.fullName}</div>
             </Link>
         </div>
     )
@@ -77,5 +73,5 @@ export default DialogsItem
 type MatchParamsType = {userId: string}
 
 type DialogHeaderPropsType = {
-    friendId: number
+    friend: ProfileType | null
 }

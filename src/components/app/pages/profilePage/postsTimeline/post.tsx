@@ -6,6 +6,8 @@ import { AppStateType } from '../../../../../reduxStore'
 import {defaultPhoto} from '../../../../../assets/images'
 import * as icons from '../../../../../assets/icons'
 import Moment from 'react-moment'
+import UserAvatar from '../../../../common/userAvatar/userAvatar'
+import UserName from '../../../../common/userName/userName'
 
 
 const Post: React.FC<PropsType> = ({item}) => {
@@ -15,12 +17,10 @@ const Post: React.FC<PropsType> = ({item}) => {
     return (
         <div key={item.id} className="posts__item">
             <div className="posts__item_header">
-                {/* must be a link authorId*/}
-                <div className="post__author-image"> <img src={profile?.photos.small || defaultPhoto} alt="author_image" /> </div>
+                <UserAvatar className="post__author-image" userImage={profile?.photos.small} linkTo={`/profile/${profile?.userId}`} />
                 <div className="post__info-col">
-                    {/* must be a link /authorId*/}
-                    <div className="post__author-name">{profile?.fullName}</div>
-                    {/* must be a link /postLink*/}
+                    <UserName className="post__author-name" userName={profile?.fullName} linkTo={`/profile/${profile?.userId}`} />
+                    {/* must be a link /postLink  (when server can save posts)*/}
                     <div className="post__date"><Moment format="DD MMM YYYY hh:mm" date={item.postDate} /> </div>
                 </div>
             </div>

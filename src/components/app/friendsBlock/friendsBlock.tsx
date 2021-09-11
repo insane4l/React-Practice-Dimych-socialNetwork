@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { defaultPhoto } from '../../../assets/images'
 import { requestRandomFriends } from '../../../reducers/usersReducer'
 import { AppStateType } from '../../../reduxStore'
 import { getRandomIntegerNum } from '../../../utils/getValueFuncs'
 import Spinner from '../../common/spinner'
+import UserAvatar from '../../common/userAvatar/userAvatar'
+import UserName from '../../common/userName/userName'
 
 import './friendsBlock.scss'
 
@@ -62,12 +63,10 @@ const FriendsBlock: React.FC<FriendsBlockPropsType> = React.memo( ({friendsPerPa
 
 const Friend: React.FC<FriendPropsType> = ({friendImage, friendName, friendId}) => {
     return (
-        <Link to={`/profile/${friendId}`} className="friends__block-item">
-            <div className="friend__image">
-                <img src={friendImage || defaultPhoto} alt="friend_image" />
-            </div>
-            <div className="friend__name">{friendName}</div>
-        </Link>
+        <div className="friends__block-item">
+            <UserAvatar className="friend__image" userImage={friendImage} linkTo={`/profile/${friendId}`} />
+            <UserName className="friend__name" userName={friendName} linkTo={`/profile/${friendId}`} />
+        </div>
     )
 }
 

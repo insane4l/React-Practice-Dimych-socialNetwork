@@ -16,13 +16,6 @@
             width: 60px;
             height: 60px;
             margin: 0 2px;
-            border-radius: 50%;
-            overflow: hidden;
-            img {
-                max-width: 100%;
-                min-height:100%;
-                object-fit: cover;
-            }
         }
         .friend__name {
             @extend %title-text;

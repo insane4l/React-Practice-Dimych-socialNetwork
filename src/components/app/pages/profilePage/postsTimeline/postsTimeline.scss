@@ -33,13 +33,6 @@
     &__author-image {
         width: 60px;
         height: 60px;
-        border-radius: 50%;
-        overflow: hidden;
-        img {
-            max-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
-        }
     }
     &__info-col {
         margin-left: 10px;

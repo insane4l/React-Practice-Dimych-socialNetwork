@@ -4,6 +4,8 @@ import { defaultPhoto } from '../../../../assets/images';
 import { ChatMessageType } from '../../../../types/types';
 
 import '../../../common/messagesComponents/message.scss'
+import UserAvatar from '../../../common/userAvatar/userAvatar';
+import UserName from '../../../common/userName/userName';
 
 
 const ChatMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage}) => {
@@ -13,12 +15,8 @@ const ChatMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMe
     return (
         <div className={`message ${style}`}>
             <div className="message__info">
-                <Link className="message__author-image" to={`/profile/${message.userId}`}>
-                    <img src={message.photo || defaultPhoto} alt="author_image" />
-                </Link>
-                <Link className="message__author-name" to={`/profile/${message.userId}`}>
-                    {message.userName}
-                </Link>
+                <UserAvatar className="message__author-image" userImage={message.photo} linkTo={`/profile/${message.userId}`} />
+                <UserName className="message__author-name" userName={message.userName} linkTo={`/profile/${message.userId}`} />
                 {/* <div className="message__date">22.05.2021</div> todo: there are no dates in the chat message https://social-network.samuraijs.com/api */}
             </div>
             <div className="message__text">{message.message}</div>
