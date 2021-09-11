@@ -21,7 +21,7 @@ const ProfileInfo: React.FC<PropsType> = (props) => {
             <ProfileImages 
                 isOwner={props.isOwner}
                 userCover={props.user.photos.large}
-                userPhoto={props.user.photos.small}
+                userPhoto={props.user.photos}
                 updateProfilePhoto={props.updateProfilePhoto} />
 
             <ProfileData

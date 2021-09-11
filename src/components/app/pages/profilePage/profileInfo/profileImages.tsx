@@ -1,17 +1,27 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import {defaultCover, defaultPhoto} from '../../../../../assets/images';
 import * as icons from '../../../../../assets/icons';
+import FullSizeImage from '../../../../common/imagesPresentation/fullSizeImage';
+import { UserPhotosType } from '../../../../../types/types';
 
 
 type PropsType = {
     isOwner: boolean
     userCover: string | null
-    userPhoto: string | null
+    userPhoto: UserPhotosType
     updateProfilePhoto: (photo: File) => void
 }
 
 const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto, updateProfilePhoto}) => {
+
+    const [displayFSImage, setFSImageDisplay] = useState(false)
+
+    const zoomInPhoto = () => {
+        if (userPhoto.large) {
+            setFSImageDisplay(true)
+        }
+    }
 
     const onNewPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files?.length) {
@@ -22,9 +32,15 @@ const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto, upda
     return (
         <div className="profile__info-images">
             <img className="profile__info-cover" src={userCover || defaultCover} alt="" />
-            <div className="user-photo__wrapper">
-                <div className="profile__info-photo" >
-                    <img src={userPhoto || defaultPhoto} alt="user_photo" />
+            <div className="avatar__wrapper">
+                <div className="profile__info-avatar" >
+                    <img 
+                        onClick={zoomInPhoto}
+                        className="profile__info-photo"
+                        src={userPhoto.small || defaultPhoto}
+                        alt="user_photo" />
+                    {displayFSImage && userPhoto.large 
+                        && <FullSizeImage source={userPhoto.large} closeHandler={() => setFSImageDisplay(false)}/>}
                 </div>
                 {isOwner 
                     && <div className="change-photo">
