@@ -1,5 +1,5 @@
 import { BaseThunkType, InferActionsTypes } from "../reduxStore"
-import {setUserAuthData} from "./authReducer"
+import {requestUserAuthData} from "./authReducer"
 
 
 const initialState = {
@@ -30,7 +30,7 @@ export const actions = {
 
 
 export const initializeApp = (): BaseThunkType<ActionsTypes> => async (dispatch) => {
-    await dispatch(setUserAuthData());
+    await dispatch(requestUserAuthData());
     dispatch(actions.initializedSuccessfully());
 }
 

@@ -11,7 +11,7 @@ import UserAvatar from '../../../../common/userAvatar/userAvatar'
 import UserName from '../../../../common/userName/userName'
 
 
-const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage, userImg}) => {
+const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage, friendImg, ownerImg}) => {
 
     const [statusDisplay, setStatusDisplay] = useState(false)
     const dispatch = useDispatch()
@@ -38,7 +38,7 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
         <>
             <div className={`message ${style}`}>
                 <div className="message__info">
-                    <UserAvatar className="message__author-image" userImage={userImg} linkTo={`/profile/${message.senderId}`} />
+                    <UserAvatar className="message__author-image" userImage={isOwnerMessage ? ownerImg : friendImg} linkTo={`/profile/${message.senderId}`} />
                     <UserName className="message__author-name" userName={message.senderName} linkTo={`/profile/${message.senderId}`} />
                     <div className="message__date"><Moment format="MMM DD YYYY hh:mm" date={message.addedAt} /></div>
                 </div>
@@ -70,6 +70,7 @@ export default DialogMessage
 
 type MessagePropsType = {
     message: DialogMessageType
-    userImg: string | null | undefined
+    friendImg: string | null | undefined
     isOwnerMessage: boolean
+    ownerImg: string | null | undefined
 }

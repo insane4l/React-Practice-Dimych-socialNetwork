@@ -9,7 +9,7 @@ import Spinner from '../spinner'
 
 import './messagesList.scss'
 
-const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMessages, isLoading, userImg}) => {
+const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMessages, isLoading, friendImg, ownerImg}) => {
 
     const propsMessages = chatMessages || dialogMessages
 
@@ -47,7 +47,8 @@ const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMess
             return <DialogMessage
                         key={message.id} 
                         message={message} 
-                        userImg={userImg}
+                        friendImg={friendImg}
+                        ownerImg={ownerImg}
                         isOwnerMessage={message.senderId === authUserId ? true : false} />
         })
     }
@@ -67,6 +68,7 @@ export default MessagesList
 type MessagesListPropsType = {
     chatMessages?: ChatMessageType[]
     dialogMessages?: DialogMessageType[]
-    userImg?: string | null | undefined
+    friendImg?: string | null | undefined
+    ownerImg?: string | null | undefined
     isLoading: boolean
 }

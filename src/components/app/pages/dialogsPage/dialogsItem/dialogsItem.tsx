@@ -16,6 +16,7 @@ const DialogsItem: React.FC = () => {
     
     const messages = useSelector( (state: AppStateType) => state.dialogsPage.selectedDialogMessages )
     const interlocuter = useSelector( (state: AppStateType) => state.dialogsPage.dialogInterlocuterProfile)
+    const authUserImg = useSelector( (state: AppStateType) => state.auth.authUserPhoto)
     const isLoading = useSelector( (state: AppStateType) => state.dialogsPage.isLoading )
     const match = useRouteMatch<MatchParamsType>()
     const dispatch = useDispatch()
@@ -39,7 +40,11 @@ const DialogsItem: React.FC = () => {
         <div className="dialogs__item">
             <DialogsItemHeader friend={interlocuter} />
                                  
-            <MessagesList dialogMessages={messages} isLoading={isLoading} userImg={interlocuter?.photos.small}/>
+            <MessagesList 
+                dialogMessages={messages}
+                isLoading={isLoading}
+                friendImg={interlocuter?.photos.small}
+                ownerImg={authUserImg} />
 
             <DialogForm sendMessage={sendDialogMessage} />
         </div>
