@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import './sideBar.scss'
 import { AppStateType } from '../../../reduxStore'
 import SideBarBlock from './sideBarBlock/'
+import { Link } from 'react-router-dom'
 
 type PropsType = {
     isUserAuthorized: boolean
@@ -17,7 +18,7 @@ const SideBar: React.FC<PropsType> = (props) => {
             <NavBar />
 
             {props.isUserAuthorized && 
-                <SideBarBlock blockTitle="Random Friends List">
+                <SideBarBlock blockTitle={<Link to="/users?friend=true">Random Friends List</Link>}>
                     <FriendsBlock friendsPerPage={9} intervalSeconds={300} />
                 </SideBarBlock>
             }
