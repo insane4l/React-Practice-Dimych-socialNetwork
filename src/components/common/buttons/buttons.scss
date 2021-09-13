@@ -1,6 +1,7 @@
 @import '../../../sassStyles/variables';
 
 .user__follow-btn, .user__messages-btn{
+    @extend %button;
     display: block;
     width: 140px;
     height: 22px;
@@ -10,15 +11,12 @@
     font-size: 12px;
     text-align: center;
     line-height: 20px;
-    color: $bgBlockColor;
-    background-color: $bgPrimaryLightColor;
     &:disabled {
-        opacity: .5;
+        opacity: .3;
+        background-color: #545454;
     }
 }
 
 .unfollow-btn {
-    border: 1px solid $bgPrimaryLightColor;
-    color: $bgPrimaryLightColor;
-    background-color: $bgBlockColor;
+    @extend %opp-button;
 }

@@ -1,11 +1,10 @@
 @import '../../../../sassStyles/variables.scss';
 
 .chat__page {
+    @extend %block;
     width: 66%;
     border-radius: 15px;
     overflow: hidden;
-    background-color: $bgBlockColor;
-    box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
     border-bottom: 2px solid $bgPrimaryLightColor;
     &-header {
         @extend %title-text;
@@ -13,6 +12,6 @@
         height: 30px;
         text-align: center;
         background-color: $bgBlockColor;
-        border-top: 2px solid $bgPrimaryLightColor;
+        box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
     }
 }

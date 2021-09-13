@@ -5,14 +5,13 @@
         width: 55%;
     }
     &__item {
+        @extend %block;
         // border-top: 1px solid $bgPrimaryLightColor;
         // border-left: 1px solid $bgPrimaryLightColor;
-        box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
         width: 100%;
         padding: 10px 20px;
         margin-top: 20px;
         border-radius: 15px;
-        background-color: $bgBlockColor;
         &_header {
             display: flex;
             cursor: pointer;

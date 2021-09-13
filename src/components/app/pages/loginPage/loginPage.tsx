@@ -30,31 +30,32 @@ let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, FormOwnPropsType>
     return (
         <form className="login__form" onSubmit={props.handleSubmit}>
             <div>
-                {createField<LoginFormValuesTypeKeys>("email", Input, [required, maxLength25], "enter user name")}
+                {createField<LoginFormValuesTypeKeys>("email", Input, [required, maxLength25], "enter user name", {className: "login__input-email"})}
                 {/* <Field validate={[required, maxLength25]} name="userEmail" component={Input} placeholder="enter user name" /> */}
             </div>
             <div>
-                {createField<LoginFormValuesTypeKeys>("password", Input, [required, maxLength25], "enter user password", {type: "password"})}
+                {createField<LoginFormValuesTypeKeys>("password", Input, [required, maxLength25], "enter user password", {type: "password", className: "login__input-password"})}
                 {/* <Field validate={[required, maxLength25]} name="userPass" component={Input} type="password" placeholder="enter user password" /> */}
             </div>
             <div>
-                {createField<LoginFormValuesTypeKeys>("rememberMe", "input", [], undefined, {type: "checkbox"})}
+                {createField<LoginFormValuesTypeKeys>("rememberMe", "input", [], undefined, {type: "checkbox", id: "login__checkbox"})}
                 {/* <Field name="rememberMe" component="input" type="checkbox" /> remember me */}
+                <label className="login__input-checkbox" htmlFor="login__checkbox">Remember me</label>
             </div>
             {
                 props.captchaUrl && 
                 <div>
-                    {createField<LoginFormValuesTypeKeys>("captcha", Input, [required], "enter symbols from image")}
+                    {createField<LoginFormValuesTypeKeys>("captcha", Input, [required], "enter symbols from image", {className: "login__input-captcha"})}
                     {/* <Field name="captcha" component={Input} validate={[required]} placeholder="enter symbols from image" /> */}
-                    <img src={props.captchaUrl} alt="captcha" />
+                    <img className="login__input-captcha-img" src={props.captchaUrl} alt="captcha" />
                 </div>
             }
             {
                 props.error && <div className="submit-error">{props.error}</div>
             }
-            <div>
-                <button>Login</button>
-            </div>
+            
+            <button className="login__form-btn">Log in</button>
+            
         </form>
     )
 }

@@ -48,6 +48,33 @@ $warningColor: #b3465c;
 %descr-text {
     font-size: 14px;
     font-weight: 300;
-    line-height: 25px;
+    line-height: 20px;
     color: $textSecondaryColor;
+}
+
+
+
+
+// ________Buttons Extends
+%button {
+    color: $bgBlockColor;
+    background-color: $bgPrimaryLightColor;
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+// opposite button
+%opp-button {
+    border: 1px solid $bgPrimaryLightColor;
+    color: $bgPrimaryLightColor;
+    background-color: $bgBlockColor;
+}
+
+
+
+// ________Blocks Extends
+%block {
+    box-shadow: 0px 0px 4px 0px rgba(50, 50, 50, 0.2);
+    background-color: $bgBlockColor;
 }

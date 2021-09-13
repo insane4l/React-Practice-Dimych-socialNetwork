@@ -17,13 +17,9 @@
         }
     }
     &__btn {
+        @extend %button;
         margin-left: 5px;
         padding: 10px 30px;
         border-radius: 4px;
-        color: $textLightColor;
-        background-color: $bgPrimaryLightColor;
-        &:hover {
-            opacity: 0.8;
-        }
     }
 }
