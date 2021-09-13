@@ -5,22 +5,29 @@ import { AppStateType } from '../../../reduxStore'
 
 import './newMessagesCounter.scss'
 
-const NewMessagesCounter = () => {
+const NewMessagesCounter: React.FC<NewMessagesCounterPropsType> = ({rerenderSecs}) => {
     const newDialogsMessagesCount = useSelector( (state: AppStateType) => state.dialogsPage.newDialogsMessagesCount)
+    const isUserAuthorized = useSelector( (state: AppStateType) => state.auth.isAuthorized )
+    const rerenderInterval = rerenderSecs * 1000
     const dispatch = useDispatch()
   
     useEffect( () => {
-        dispatch( requestNewMessagesCount() )
+        if(isUserAuthorized) {
+            dispatch( requestNewMessagesCount() )
+        }
     }, [])
     
     useEffect( () => {
-        let timerId = setInterval(() => {
-            dispatch( requestNewMessagesCount() )     
-        }, 90000)
+        let timerId: NodeJS.Timer
+        if(isUserAuthorized) {
+            timerId = setInterval(() => {
+                dispatch( requestNewMessagesCount() )     
+            }, rerenderInterval)
+        }
         return () => {
             clearInterval(timerId)
         }
-    }, [])
+    }, [isUserAuthorized])
 
 
     if (newDialogsMessagesCount <= 0 ) return <span></span>
@@ -34,3 +41,9 @@ const NewMessagesCounter = () => {
 }
 
 export default NewMessagesCounter
+
+
+
+type NewMessagesCounterPropsType = {
+    rerenderSecs: number
+}

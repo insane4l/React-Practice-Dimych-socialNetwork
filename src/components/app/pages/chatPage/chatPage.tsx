@@ -6,6 +6,7 @@ import ChatForm from './chatForm'
 
 import './chatPage.scss'
 import MessagesList from '../../../common/messagesComponents/messagesList'
+import { withAnonUserRedirect } from '../../../HOCs/withRedirect'
 
 const ChatPage: React.FC = () => {
     return (
@@ -46,6 +47,6 @@ const Chat = () => {
 }
 
 
-export default ChatPage
+export default withAnonUserRedirect(ChatPage)
 
 

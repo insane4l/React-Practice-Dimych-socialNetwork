@@ -29,7 +29,7 @@ const NavbarLink: React.FC<NavbarLinkPropsType> = ({url, iconLink, label, showNe
 		<NavLink className="navbar__link" to={url} activeClassName="navbar__link_active">
 			<img className="navbar__link-icon" src={iconLink} alt={`${label} icon`} />
 			<span className="navbar__link-label">{label}</span>
-      		{showNewMessagesCounter && <NewMessagesCounter />}
+      		{showNewMessagesCounter && <NewMessagesCounter rerenderSecs={90} />}
 		</NavLink>
     </li>
   )
