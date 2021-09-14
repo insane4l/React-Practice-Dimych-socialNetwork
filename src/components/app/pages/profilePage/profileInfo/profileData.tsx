@@ -58,7 +58,8 @@ const ProfileDataList: React.FC<ProfileDataListPropsType> = ({isOwner, user, edi
                 ? <ProfileDataForm
                     initialValues={user} 
                     onSubmit={submitAction} 
-                    user={user} />
+                    user={user}
+                    turnOffEditMode={() => setEditMode(false)} />
                 : <ProfileDataTable 
                     user={user}
                     isOwner={isOwner}

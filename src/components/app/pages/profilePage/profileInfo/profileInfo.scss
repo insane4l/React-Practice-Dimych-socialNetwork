@@ -90,7 +90,7 @@
             display: flex;
             justify-content: space-between;
         }
-        &-item {
+        &-title, &-descr, &-link {
             @extend %descr-text;
             width: 150px;
         }
@@ -100,11 +100,16 @@
             border-radius: 3px;
             background-color: $bgMessageColor;
         }
+        &-buttons{
+            display: flex;
+            justify-content: center;
+        }
         &-btn {
             @extend %button;
             display: block;
+            min-width: 75px;
             margin: 10px auto;
-            padding: 3px 22px;
+            padding: 5px 15px;
             border-radius: 4px;
         }
 

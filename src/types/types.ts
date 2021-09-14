@@ -1,12 +1,12 @@
 export type ProfileContactsType = {
-    github: string | null
-    vk: string | null
-    facebook: string | null
-    instagram: string | null
-    twitter: string | null
-    website: string | null
-    youtube: string | null
-    mainLink: string | null
+    github: string | undefined
+    vk: string | undefined
+    facebook: string | undefined
+    instagram: string | undefined
+    twitter: string | undefined
+    website: string | undefined
+    youtube: string | undefined
+    mainLink: string | undefined
 };
 
 export type UserPhotosType = {

@@ -3,15 +3,9 @@ import {reduxForm, Field, InjectedFormProps} from 'redux-form';
 import { ProfileType } from '../../../../../types/types';
 import {CustomFieldProps, Input, Textarea} from '../../../../common/formsControls/formsControls';
 
-type FormOwnPropsType = {
-    user: ProfileType
-    onSubmit: (formData: ProfileType) => void
-}
-
-type ProfileDataFormValuesType = ProfileType
 
 
-let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormOwnPropsType> & FormOwnPropsType> = ({user, handleSubmit, error}) => {
+let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormOwnPropsType> & FormOwnPropsType> = ({user, turnOffEditMode, handleSubmit, error}) => {
 
     return (
         <form onSubmit={handleSubmit}>
@@ -26,31 +20,45 @@ let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormO
                     return <Row key={key} title={key} inputName={"contacts." + key} element={Input} />
                 })
             }
-            <button className="profile__data-btn">Save data</button>
+            <div className="profile__data-buttons">
+                <button className="profile__data-btn" onClick={turnOffEditMode} type="button">Cancel</button>
+                <button className="profile__data-btn" type="submit">Save</button>
+            </div>
         </form>
     )
 }
 
 
 
-type PropsType = {
+const Row: React.FC<RowPropsType> = ({title, inputName, element, ...props}) => {
+    return <div className="profile__data-row data-form__row">
+                <div className="profile__data-title">{title}:</div>
+                <Field 
+                    name={inputName}
+                    component={element}
+                    className="profile__data-descr profile__data-field"
+                    {...props} />
+           </div>
+}
+
+
+
+const ProfileDataReduxForm = reduxForm<ProfileDataFormValuesType, FormOwnPropsType>({form: "profileData"})(ProfileDataForm)
+export default ProfileDataReduxForm
+
+
+
+type FormOwnPropsType = {
+    user: ProfileType
+    onSubmit: (formData: ProfileType) => void
+    turnOffEditMode: () => void
+}
+
+type ProfileDataFormValuesType = ProfileType
+
+type RowPropsType = {
     title: string
     inputName: string
     type?: string
     element?: React.FC<CustomFieldProps> | string
 }
-const Row: React.FC<PropsType> = ({title, inputName, element, ...props}) => {
-    return <div className="profile__data-row data-form__row">
-                <div className="profile__data-item">{title}:</div>
-                <Field 
-                    name={inputName}
-                    component={element}
-                    className="profile__data-item profile__data-field"
-                    {...props} />
-           </div>
-}
-
-const ProfileDataReduxForm = reduxForm<ProfileDataFormValuesType, FormOwnPropsType>({form: "profileData"})(ProfileDataForm);
-
-
-export default ProfileDataReduxForm;
