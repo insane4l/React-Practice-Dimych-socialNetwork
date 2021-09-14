@@ -7,8 +7,7 @@
     right: 0;
     z-index: 999;
     width: 100%;
-    height: 50px;
-    padding: 10px 0;
+    padding: 5px 0;
     border-bottom: 2px solid $bgPrimaryLightColor;
     background-color: $bgBlockColor;
     &__content {
@@ -34,13 +33,23 @@
             display: flex;
             align-items: center;
         }
+        &-data {
+            display: flex;
+            align-items: center;
+        }
+        &-avatar {
+            display: block;
+            width: 33px;
+            height: 33px;
+            margin-right: 5px;
+        }
         &-nickname {
             @extend %title-text;
             margin-right: 5px;
         }
         &-btn {
             @extend %button;
-            padding: 2px 22px;
+            padding: 5px 22px;
             border-radius: 4px;
         }
     }

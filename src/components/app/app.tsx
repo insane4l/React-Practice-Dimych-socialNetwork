@@ -1,5 +1,5 @@
 import React from "react"
-import HeaderContainer from "./header"
+import Header from "./header"
 import SideBar from "./sideBar"
 import MainSection from "./mainSection"
 import Footer from './footer'
@@ -39,7 +39,7 @@ class App extends React.Component<PropsType> {
 
         return (
             <div className="app__wrapper">
-                <HeaderContainer />
+                <Header />
                 <div className="container page__layout">
                     <SideBar />
                     <MainSection />
