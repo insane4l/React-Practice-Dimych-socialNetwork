@@ -30,7 +30,7 @@ class App extends React.Component<PropsType> {
     }
 
     catchAllUnhandledErrors = () => {
-        alert("Something goes wrong, server error")
+        alert("Something goes wrong, server error. Please try refresh the page")
     }
 
     render() {

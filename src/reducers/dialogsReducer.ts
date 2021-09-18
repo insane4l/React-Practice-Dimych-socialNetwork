@@ -11,7 +11,8 @@ const initialState = {
     dialogInterlocuterProfile: null as null | ProfileType,
     viewedMessages: [] as string[],
     newDialogsMessagesCount: 0,
-    isLoading: false
+    isLoading: false,
+    requestingMessagesError: null as null | string
 }
 type InitialStateType = typeof initialState;
 
@@ -58,6 +59,11 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 isLoading: action.payload.status
             };
+        case 'sn/dialogs/SET_REQUESTING MESSAGES_ERROR':
+            return {
+                ...state,
+                requestingMessagesError: action.payload.error
+            };
         default:
             return state;
     }
@@ -89,6 +95,9 @@ export const actions = {
     ),
     interlocuterProfileReceived: (profile: ProfileType | null) => (
         {type: 'sn/dialogs/INTERLOCUTER_PROFILE_RECEIVED', payload: {profile}} as const
+    ),
+    setRequestingMessagesError: (error: null | string) => (
+        {type: 'sn/dialogs/SET_REQUESTING MESSAGES_ERROR', payload: {error}} as const
     )
 }
 
@@ -105,14 +114,16 @@ export const requestDialogMessages = (userId: number): BaseThunkType<ActionsType
     dispatch( actions.setIsLoading(true) )
     const res = await dialogsAPI.getUserMessagesList(userId, 10, 1)
     const profile = await usersAPI.getUserProfile(userId)
+ 
     if (res.error === null) {
+        dispatch( actions.setRequestingMessagesError(null) )
         dispatch( actions.setIsLoading(false) )
         dispatch( actions.dialogMessagesReceived(res.items) )
         dialogsAPI.setDialogAtTheDialogsListTop(userId)
         dispatch( requestNewMessagesCount() )
         dispatch( actions.interlocuterProfileReceived(profile) )
     } else {
-        alert('Failed to load messages. Please try refresh the page')
+        dispatch( actions.setRequestingMessagesError('Failed to load messages. Please try refresh the page') )
     }
 }
 

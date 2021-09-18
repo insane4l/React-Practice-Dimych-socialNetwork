@@ -10,6 +10,7 @@ import { actions, requestDialogMessages, sendMessage } from '../../../../../redu
 import MessagesList from '../../../../common/messagesComponents/messagesList'
 import { defaultPhoto } from '../../../../../assets/images'
 import { ProfileType } from '../../../../../types/types'
+import RequestError from '../../../../common/errors/requestError'
 
 
 const DialogsItem: React.FC = () => {
@@ -18,6 +19,8 @@ const DialogsItem: React.FC = () => {
     const interlocuter = useSelector( (state: AppStateType) => state.dialogsPage.dialogInterlocuterProfile)
     const authUserImg = useSelector( (state: AppStateType) => state.auth.authUserPhoto)
     const isLoading = useSelector( (state: AppStateType) => state.dialogsPage.isLoading )
+    const requestingMessagesError = useSelector( (state: AppStateType) => state.dialogsPage.requestingMessagesError )
+   
     const match = useRouteMatch<MatchParamsType>()
     const dispatch = useDispatch()
 
@@ -36,6 +39,15 @@ const DialogsItem: React.FC = () => {
         }
     }, [])
 
+
+
+    if (requestingMessagesError) {
+        return (
+            <div className="dialogs__item">
+                <RequestError errorMessage={requestingMessagesError} />
+            </div>
+        )
+    }
     return (
         <div className="dialogs__item">
             <DialogsItemHeader friend={interlocuter} />
@@ -50,6 +62,8 @@ const DialogsItem: React.FC = () => {
         </div>
     )
 }
+
+
 
 const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friend}) => {
 
