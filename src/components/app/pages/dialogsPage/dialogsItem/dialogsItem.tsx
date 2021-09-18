@@ -19,7 +19,7 @@ const DialogsItem: React.FC = () => {
     const interlocuter = useSelector( (state: AppStateType) => state.dialogsPage.dialogInterlocuterProfile)
     const authUserImg = useSelector( (state: AppStateType) => state.auth.authUserPhoto)
     const isLoading = useSelector( (state: AppStateType) => state.dialogsPage.isLoading )
-    const requestingMessagesError = useSelector( (state: AppStateType) => state.dialogsPage.requestingMessagesError )
+    const requestingMessagesError = useSelector( (state: AppStateType) => state.dialogsPage.requestErrors.requestingMessagesError )
    
     const match = useRouteMatch<MatchParamsType>()
     const dispatch = useDispatch()

@@ -1,8 +1,8 @@
-import { BaseThunkType, InferActionsTypes } from "../reduxStore";
-import { ResultCodesEnum } from "../services/API";
-import { AllDialogsListItemType, dialogsAPI, DialogMessageType } from "../services/dialogsAPI";
-import { usersAPI } from "../services/usersAPI";
-import { ProfileType } from "../types/types";
+import { BaseThunkType, InferActionsTypes } from "../reduxStore"
+import { ResultCodesEnum } from "../services/API"
+import { AllDialogsListItemType, dialogsAPI, DialogMessageType } from "../services/dialogsAPI"
+import { usersAPI } from "../services/usersAPI"
+import { ProfileType } from "../types/types"
 
 
 const initialState = {
@@ -12,9 +12,14 @@ const initialState = {
     viewedMessages: [] as string[],
     newDialogsMessagesCount: 0,
     isLoading: false,
-    requestingMessagesError: null as null | string
+    requestErrors: {
+        requestingMessagesError: null as null | string,
+        sendingMessageError: null as null | string,
+        messageStatusRequestError: null as null | string,
+        newMessagesCountRequestError: null as null | string
+    }
 }
-type InitialStateType = typeof initialState;
+type InitialStateType = typeof initialState
 
 
 const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -59,10 +64,25 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 isLoading: action.payload.status
             };
-        case 'sn/dialogs/SET_REQUESTING MESSAGES_ERROR':
+        case 'sn/dialogs/SET_REQUESTING_MESSAGES_ERROR':
             return {
                 ...state,
-                requestingMessagesError: action.payload.error
+                requestErrors: {...state.requestErrors, requestingMessagesError: action.payload.error}
+            };
+        case 'sn/dialogs/SET_SENDING_MESSAGE_ERROR':
+            return {
+                ...state,
+                requestErrors: {...state.requestErrors, sendingMessageError: action.payload.error}
+            };
+        case 'sn/dialogs/SET_MESSAGE_STATUS_REQUEST_ERROR':
+            return {
+                ...state,
+                requestErrors: {...state.requestErrors, messageStatusRequestError: action.payload.error}
+            };
+        case 'sn/dialogs/SET_NEW_MESSAGES_COUNT_REQUEST_ERROR':
+            return {
+                ...state,
+                requestErrors: {...state.requestErrors, newMessagesCountRequestError: action.payload.error}
             };
         default:
             return state;
@@ -97,7 +117,16 @@ export const actions = {
         {type: 'sn/dialogs/INTERLOCUTER_PROFILE_RECEIVED', payload: {profile}} as const
     ),
     setRequestingMessagesError: (error: null | string) => (
-        {type: 'sn/dialogs/SET_REQUESTING MESSAGES_ERROR', payload: {error}} as const
+        {type: 'sn/dialogs/SET_REQUESTING_MESSAGES_ERROR', payload: {error}} as const
+    ),
+    setSendingMessageError: (error: null | string) => (
+        {type: 'sn/dialogs/SET_SENDING_MESSAGE_ERROR', payload: {error}} as const
+    ),
+    setMessageStatusRequestError: (error: null | string) => (
+        {type: 'sn/dialogs/SET_MESSAGE_STATUS_REQUEST_ERROR', payload: {error}} as const
+    ),
+    setNewMessagesCountRequestError: (error: null | string) => (
+        {type: 'sn/dialogs/SET_NEW_MESSAGES_COUNT_REQUEST_ERROR', payload: {error}} as const
     )
 }
 
@@ -134,6 +163,7 @@ export const sendMessage = (userId: number, message: string): BaseThunkType<Acti
     const res = await dialogsAPI.sendMessageToUser(userId, message)
     // dispatch( actions.setIsLoading(false) )
     if (res.resultCode === ResultCodesEnum.Success) {
+        dispatch( actions.setSendingMessageError(null) )
         const sentMessage = {
             addedAt: res.data.message.addedAt,
             body: res.data.message.body,
@@ -146,7 +176,7 @@ export const sendMessage = (userId: number, message: string): BaseThunkType<Acti
         }
         dispatch( actions.messageSent(sentMessage) )
     } else {
-        alert('An error has occurred. The message was not sent. Please try refresh the page')
+        dispatch( actions.setSendingMessageError('An error has occurred. The message was not sent. Please try refresh the page') )
     }
     
 }
@@ -157,12 +187,13 @@ export const sendMessage = (userId: number, message: string): BaseThunkType<Acti
 export const requestMessageStatus = (messageId: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
     try {
         const status = await dialogsAPI.getMessageViewedStatus(messageId)
+        dispatch( actions.setMessageStatusRequestError(null) )
 
         if (status === true) {
             dispatch( actions.addMessageToViewed(messageId) )
         }  
     } catch {
-        alert('An error has occurred. The message status cannot be shown. Please try to click again')
+        dispatch( actions.setMessageStatusRequestError('An error has occurred. The message status cannot be shown. Please try to click again') )
     }  
 }
 
@@ -170,9 +201,11 @@ export const requestMessageStatus = (messageId: string): BaseThunkType<ActionsTy
 export const requestNewMessagesCount = (): BaseThunkType<ActionsTypes> => async (dispatch) => {
     try {
         const newMessagesCount = await dialogsAPI.getNewMessagesTotalCount()
+        dispatch( actions.setNewMessagesCountRequestError(null) )
+
         dispatch( actions.newMessagesCountReceived(newMessagesCount) )
     } catch {
-        alert('An error has occurred. The new messages count cannot be shown. Please try to refresh the page')
+        dispatch( actions.setNewMessagesCountRequestError('?') )
     }  
 }
 

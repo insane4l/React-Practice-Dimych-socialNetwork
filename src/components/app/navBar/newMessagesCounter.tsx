@@ -6,6 +6,7 @@ import { AppStateType } from '../../../reduxStore'
 import './newMessagesCounter.scss'
 
 const NewMessagesCounter: React.FC<NewMessagesCounterPropsType> = ({rerenderSecs}) => {
+    const newMessagesCountRequestError = useSelector( (state: AppStateType) => state.dialogsPage.requestErrors.newMessagesCountRequestError)
     const newDialogsMessagesCount = useSelector( (state: AppStateType) => state.dialogsPage.newDialogsMessagesCount)
     const isUserAuthorized = useSelector( (state: AppStateType) => state.auth.isAuthorized )
     const rerenderInterval = rerenderSecs * 1000
@@ -30,12 +31,15 @@ const NewMessagesCounter: React.FC<NewMessagesCounterPropsType> = ({rerenderSecs
     }, [isUserAuthorized])
 
 
-    if (newDialogsMessagesCount <= 0 ) return <span></span>
+    //if new messages <= 0 and not request error: nothing is shown
+    if (newDialogsMessagesCount <= 0 && !newMessagesCountRequestError) return <span></span>
+    //if request error(no actual new messages count): display error 
+    //else display new messages count
     return (
         <span 
             className="new-messages-counter navbar__new-messages-counter"
-            title={`${newDialogsMessagesCount} new messages`}>
-                {newDialogsMessagesCount}
+            title={`${newMessagesCountRequestError || newDialogsMessagesCount} new messages`}>
+                {newMessagesCountRequestError || newDialogsMessagesCount}
         </span> 
     )
 }

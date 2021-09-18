@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { actions, requestMessageStatus } from '../../../../../reducers/dialogsReducer'
 import { AppStateType } from '../../../../../reduxStore'
 import { DialogMessageType } from '../../../../../services/dialogsAPI'
+import RequestError from '../../../../common/errors/requestError'
 
 import '../../../../common/messagesComponents/message.scss'
 import UserAvatar from '../../../../common/userAvatar/userAvatar'
@@ -20,6 +21,7 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
 
     const viewMessageActualStatus = () => {
         if (message.viewed === true) {
+            dispatch( actions.setMessageStatusRequestError(null) )
             dispatch( actions.addMessageToViewed(message.id) ) // add to viewed arr, because of arr.some() --- "Has been VIEWED"
             showStatus(4)
         }
@@ -53,7 +55,14 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
 
 const MessageStatus: React.FC<{messageId: string}> = ({messageId}) => {
     const viewedMessages = useSelector( (state: AppStateType) => state.dialogsPage.viewedMessages)
-    console.log('STATUS rerendered');
+    const MessageStatusRequestError = useSelector( (state: AppStateType) => state.dialogsPage.requestErrors.messageStatusRequestError)
+    
+    if (MessageStatusRequestError) {
+        return <div className="message__status">
+            <RequestError errorMessage={MessageStatusRequestError} />
+        </div>
+    }
+
     return (
         <div className="message__status">
             { viewedMessages.some(id => id === messageId) 
