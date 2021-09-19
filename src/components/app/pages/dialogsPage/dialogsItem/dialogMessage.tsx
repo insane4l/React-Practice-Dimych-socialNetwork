@@ -21,7 +21,7 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
 
     const viewMessageActualStatus = () => {
         if (message.viewed === true) {
-            dispatch( actions.setMessageStatusRequestError(null) )
+            dispatch( actions.setRequestError({messageStatusRequestError: null}) )
             dispatch( actions.addMessageToViewed(message.id) ) // add to viewed arr, because of arr.some() --- "Has been VIEWED"
             showStatus(4)
         }

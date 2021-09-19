@@ -64,25 +64,30 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
                 ...state,
                 isLoading: action.payload.status
             };
-        case 'sn/dialogs/SET_REQUESTING_MESSAGES_ERROR':
+        // case 'sn/dialogs/SET_REQUESTING_MESSAGES_ERROR':
+        //     return {
+        //         ...state,
+        //         requestErrors: {...state.requestErrors, requestingMessagesError: action.payload.error}
+        //     };
+        // case 'sn/dialogs/SET_SENDING_MESSAGE_ERROR':
+        //     return {
+        //         ...state,
+        //         requestErrors: {...state.requestErrors, sendingMessageError: action.payload.error}
+        //     };
+        // case 'sn/dialogs/SET_MESSAGE_STATUS_REQUEST_ERROR':
+        //     return {
+        //         ...state,
+        //         requestErrors: {...state.requestErrors, messageStatusRequestError: action.payload.error}
+        //     };
+        // case 'sn/dialogs/SET_NEW_MESSAGES_COUNT_REQUEST_ERROR':
+        //     return {
+        //         ...state,
+        //         requestErrors: {...state.requestErrors, newMessagesCountRequestError: action.payload.error}
+        //     };
+        case 'SET_REQUEST_ERROR':
             return {
                 ...state,
-                requestErrors: {...state.requestErrors, requestingMessagesError: action.payload.error}
-            };
-        case 'sn/dialogs/SET_SENDING_MESSAGE_ERROR':
-            return {
-                ...state,
-                requestErrors: {...state.requestErrors, sendingMessageError: action.payload.error}
-            };
-        case 'sn/dialogs/SET_MESSAGE_STATUS_REQUEST_ERROR':
-            return {
-                ...state,
-                requestErrors: {...state.requestErrors, messageStatusRequestError: action.payload.error}
-            };
-        case 'sn/dialogs/SET_NEW_MESSAGES_COUNT_REQUEST_ERROR':
-            return {
-                ...state,
-                requestErrors: {...state.requestErrors, newMessagesCountRequestError: action.payload.error}
+                requestErrors: {...state.requestErrors, ...action.payload.error}
             };
         default:
             return state;
@@ -116,17 +121,20 @@ export const actions = {
     interlocuterProfileReceived: (profile: ProfileType | null) => (
         {type: 'sn/dialogs/INTERLOCUTER_PROFILE_RECEIVED', payload: {profile}} as const
     ),
-    setRequestingMessagesError: (error: null | string) => (
-        {type: 'sn/dialogs/SET_REQUESTING_MESSAGES_ERROR', payload: {error}} as const
-    ),
-    setSendingMessageError: (error: null | string) => (
-        {type: 'sn/dialogs/SET_SENDING_MESSAGE_ERROR', payload: {error}} as const
-    ),
-    setMessageStatusRequestError: (error: null | string) => (
-        {type: 'sn/dialogs/SET_MESSAGE_STATUS_REQUEST_ERROR', payload: {error}} as const
-    ),
-    setNewMessagesCountRequestError: (error: null | string) => (
-        {type: 'sn/dialogs/SET_NEW_MESSAGES_COUNT_REQUEST_ERROR', payload: {error}} as const
+    // setRequestingMessagesError: (error: null | string) => (
+    //     {type: 'sn/dialogs/SET_REQUESTING_MESSAGES_ERROR', payload: {error}} as const
+    // ),
+    // setSendingMessageError: (error: null | string) => (
+    //     {type: 'sn/dialogs/SET_SENDING_MESSAGE_ERROR', payload: {error}} as const
+    // ),
+    // setMessageStatusRequestError: (error: null | string) => (
+    //     {type: 'sn/dialogs/SET_MESSAGE_STATUS_REQUEST_ERROR', payload: {error}} as const
+    // ),
+    // setNewMessagesCountRequestError: (error: null | string) => (
+    //     {type: 'sn/dialogs/SET_NEW_MESSAGES_COUNT_REQUEST_ERROR', payload: {error}} as const
+    // ),
+    setRequestError: (error: RequestErrorType) => (
+        {type: 'SET_REQUEST_ERROR', payload: {error}} as const
     )
 }
 
@@ -143,19 +151,18 @@ export const requestDialogMessages = (userId: number): BaseThunkType<ActionsType
     dispatch( actions.setIsLoading(true) )
     const res = await dialogsAPI.getUserMessagesList(userId, 10, 1)
     const profile = await usersAPI.getUserProfile(userId)
- 
+
     if (res.error === null) {
-        dispatch( actions.setRequestingMessagesError(null) )
+        dispatch( actions.setRequestError({requestingMessagesError: null}) )
         dispatch( actions.setIsLoading(false) )
         dispatch( actions.dialogMessagesReceived(res.items) )
         dialogsAPI.setDialogAtTheDialogsListTop(userId)
         dispatch( requestNewMessagesCount() )
         dispatch( actions.interlocuterProfileReceived(profile) )
     } else {
-        dispatch( actions.setRequestingMessagesError('Failed to load messages. Please try refresh the page') )
+        dispatch( actions.setRequestError({requestingMessagesError: 'Failed to load messages. Please try refresh the page'}) )
     }
 }
-
 
 
 export const sendMessage = (userId: number, message: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
@@ -163,7 +170,7 @@ export const sendMessage = (userId: number, message: string): BaseThunkType<Acti
     const res = await dialogsAPI.sendMessageToUser(userId, message)
     // dispatch( actions.setIsLoading(false) )
     if (res.resultCode === ResultCodesEnum.Success) {
-        dispatch( actions.setSendingMessageError(null) )
+        dispatch( actions.setRequestError({sendingMessageError: null}) )
         const sentMessage = {
             addedAt: res.data.message.addedAt,
             body: res.data.message.body,
@@ -176,7 +183,7 @@ export const sendMessage = (userId: number, message: string): BaseThunkType<Acti
         }
         dispatch( actions.messageSent(sentMessage) )
     } else {
-        dispatch( actions.setSendingMessageError('An error has occurred. The message was not sent. Please try refresh the page') )
+        dispatch( actions.setRequestError({sendingMessageError: 'An error has occurred. The message was not sent. Please try refresh the page'}) )
     }
     
 }
@@ -187,13 +194,13 @@ export const sendMessage = (userId: number, message: string): BaseThunkType<Acti
 export const requestMessageStatus = (messageId: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
     try {
         const status = await dialogsAPI.getMessageViewedStatus(messageId)
-        dispatch( actions.setMessageStatusRequestError(null) )
+        dispatch( actions.setRequestError({messageStatusRequestError: null}) )
 
         if (status === true) {
             dispatch( actions.addMessageToViewed(messageId) )
         }  
     } catch {
-        dispatch( actions.setMessageStatusRequestError('An error has occurred. The message status cannot be shown. Please try to click again') )
+        dispatch( actions.setRequestError({messageStatusRequestError: 'An error has occurred. The message status cannot be shown. Please try to click again'}) )
     }  
 }
 
@@ -201,13 +208,27 @@ export const requestMessageStatus = (messageId: string): BaseThunkType<ActionsTy
 export const requestNewMessagesCount = (): BaseThunkType<ActionsTypes> => async (dispatch) => {
     try {
         const newMessagesCount = await dialogsAPI.getNewMessagesTotalCount()
-        dispatch( actions.setNewMessagesCountRequestError(null) )
+        dispatch( actions.setRequestError({newMessagesCountRequestError: null}) )
 
         dispatch( actions.newMessagesCountReceived(newMessagesCount) )
     } catch {
-        dispatch( actions.setNewMessagesCountRequestError('?') )
+        dispatch( actions.setRequestError({newMessagesCountRequestError: '?'}) )
     }  
 }
 
 
 export default dialogsReducer
+
+
+
+type RequestErrorType = {
+    [errorName: string]: null | string
+}
+
+// todo: how to type by object keys
+// type ErrorKeyTypes = keyof typeof initialState.requestErrors
+// type ErrorValueType = null | string
+// type ErrorType = Record<ErrorKeyTypes, ErrorValueType>
+// actions.setError({newMessagesCountRequestError: null} as any) // without any:
+// An argument of type "{newMessagesCountRequestError: null;}" cannot be assigned a parameter of type "ErrorType".
+// The type "{newMessagesCountRequestError: null;}" is missing the following properties from the type "ErrorType": requestingMessagesError, sendMessageError, messageStatusRequestErrorts (2345)
