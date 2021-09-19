@@ -13,10 +13,13 @@ const initialState = {
     ] as Array<PostType>,
     selectedProfile: null as null | ProfileType,
     profileStatus: "",
-    isLoading: false,
     selectedProfileFollowedInfo: {
         userId: null as null | number,
         followedStatus: null as null | boolean
+    },
+    isLoading: false,
+    requestErrors: {
+        updateProfileStatusError: null as null | string
     }
 }
 type InitialStateType = typeof initialState
@@ -54,6 +57,8 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
             return {...state, selectedProfileFollowedInfo: {...state.selectedProfileFollowedInfo, followedStatus: !state.selectedProfileFollowedInfo.followedStatus}}
         case 'sn/profile/SET_IS_LOADING':
             return {...state, isLoading: action.isLoading}
+        case 'sn/profile/SET_UPDATE_PROFILE_STATUS_ERROR':
+            return {...state, requestErrors: {...state.requestErrors, updateProfileStatusError: action.payload.error}}
         default:
             return state;
     }
@@ -80,27 +85,26 @@ export const actions = {
     setProfileDataSuccess: (data: ProfileType) => (
         {type: 'sn/profile/SET_PROFILE_DATA_SUCCESS', data} as const
     ),
-    setIsLoading: (isLoading: boolean) => (
-        {type: 'sn/profile/SET_IS_LOADING', isLoading} as const
-    ),
-    profileFollowedInfoReceived: (userId: number, 
-        followedStatus: boolean) => (
+    profileFollowedInfoReceived: (userId: number, followedStatus: boolean) => (
             {type: 'sn/profile/PROFILE_FOLLOWED_INFO_RECEIVED', payload: {userId, followedStatus} } as const
     ),
     toggleProfileFollowedInfo: () => (
-            {type: 'sn/profile/TOGGLE_PROFILE_FOLLOWED_INFO'} as const
+        {type: 'sn/profile/TOGGLE_PROFILE_FOLLOWED_INFO'} as const
+    ),
+    setIsLoading: (isLoading: boolean) => (
+        {type: 'sn/profile/SET_IS_LOADING', isLoading} as const
+    ),
+    setUpdateProfileStatusError: (error: null | string) => (
+        {type: 'sn/profile/SET_UPDATE_PROFILE_STATUS_ERROR', payload: {error}} as const
     )
 }
 
 
 
 
-export const getUserProfile = (urlParamId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
-    // const meData = await authAPI.getUserAuthData()
-    // const authId = meData.data.id
-    // const userId = urlParamId ? urlParamId : authId
+export const getUserProfile = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     dispatch( actions.setIsLoading(true) )
-    const profile = await usersAPI.getUserProfile(urlParamId)
+    const profile = await usersAPI.getUserProfile(userId)
     dispatch( actions.profileReceived(profile) )
     dispatch( actions.setIsLoading(false) )
 }
@@ -135,7 +139,10 @@ export const requestProfileFollowedInfo = (userId: number): BaseThunkType<Action
 export const updateProfileStatus = (message: string): BaseThunkType<ActionsTypes> => async (dispatch) => {
     const data = await usersAPI.setProfileStatus(message);
     if (data.resultCode === ResultCodesEnum.Success) {
+        dispatch( actions.setUpdateProfileStatusError(null) )
         dispatch(actions.setProfileStatus(message));
+    } else {
+        dispatch( actions.setUpdateProfileStatusError('An error has occurred. Please try to enter the status again.') )
     }
 }
 
