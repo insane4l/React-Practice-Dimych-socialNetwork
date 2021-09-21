@@ -1,6 +1,6 @@
 import React, {useState, useEffect, ChangeEvent} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { updateProfileStatus } from '../../../../../reducers/profileReducer'
+import { actions, updateProfileStatus } from '../../../../../reducers/profileReducer'
 import { AppStateType } from '../../../../../reduxStore'
 import RequestError from '../../../../common/errors/requestError'
 
@@ -16,6 +16,12 @@ const ProfileStatus: React.FC<PropsType> = ({isOwner}) => {
     useEffect( () => {
         setStatus(profileStatusMessage)
     }, [profileStatusMessage])
+    
+    useEffect( () => {
+        return () => {
+            dispatch( actions.setUpdateProfileStatusError(null) )
+        }
+    }, [])
 
     const onStatusUpdate = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
