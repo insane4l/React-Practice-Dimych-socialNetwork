@@ -1,21 +1,17 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react'
+import { UserPhotosType } from '../../../../../types/types'
+import { useDispatch } from 'react-redux'
+import { updateProfilePhoto } from '../../../../../reducers/profileReducer'
+import FullSizeImage from '../../../../common/imagesPresentation/fullSizeImage'
 
-import {defaultCover, defaultPhoto} from '../../../../../assets/images';
-import * as icons from '../../../../../assets/icons';
-import FullSizeImage from '../../../../common/imagesPresentation/fullSizeImage';
-import { UserPhotosType } from '../../../../../types/types';
+import {defaultCover, defaultPhoto} from '../../../../../assets/images'
+import * as icons from '../../../../../assets/icons'
 
 
-type PropsType = {
-    isOwner: boolean
-    userCover: string | null
-    userPhoto: UserPhotosType
-    updateProfilePhoto: (photo: File) => void
-}
-
-const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto, updateProfilePhoto}) => {
+const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto}) => {
 
     const [displayFSImage, setFSImageDisplay] = useState(false)
+    const dispatch = useDispatch()
 
     const zoomInPhoto = () => {
         if (userPhoto.large) {
@@ -25,9 +21,9 @@ const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto, upda
 
     const onNewPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files?.length) {
-            updateProfilePhoto(e.target.files[0]);
+            dispatch( updateProfilePhoto(e.target.files[0]) )
         }
-    };
+    }
 
     return (
         <div className="profile__info-images">
@@ -55,4 +51,12 @@ const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto, upda
     )
 }
 
-export default ProfileImages;
+export default ProfileImages
+
+
+
+type PropsType = {
+    isOwner: boolean
+    userCover: string | null
+    userPhoto: UserPhotosType
+}

@@ -1,41 +1,36 @@
-import React from 'react';
-import ProfileImages from './profileImages';
-import ProfileData from './profileData';
-import { ProfileType} from '../../../../../types/types';
+import React from 'react'
+import ProfileImages from './profileImages'
+import ProfileData from './profileData'
+import { ProfileType} from '../../../../../types/types'
 
-import './profileInfo.scss';
+import './profileInfo.scss'
 
-type PropsType = {
-    user: ProfileType
-    isOwner: boolean
-    profileStatus: string
-    updateProfilePhoto: (photo: File) => void
-    updateProfileStatus: (status: string) => void
-    updateProfileData: (formData: ProfileType) => Promise<any>
-}
 
-const ProfileInfo: React.FC<PropsType> = (props) => {
+const ProfileInfo: React.FC<PropsType> = ({user, isOwner, updateProfileData}) => {
     
     return (
         <div className="profile__info">
             <ProfileImages 
-                isOwner={props.isOwner}
-                userCover={props.user.photos.large}
-                userPhoto={props.user.photos}
-                updateProfilePhoto={props.updateProfilePhoto} />
+                isOwner={isOwner}
+                userCover={user.photos.large}
+                userPhoto={user.photos} />
 
             <ProfileData
-                isOwner={props.isOwner}
-                user={props.user}
-                profileStatus={props.profileStatus}
-                updateProfileStatus={props.updateProfileStatus}
-                updateProfileData={props.updateProfileData}
+                isOwner={isOwner}
+                user={user}
+                updateProfileData={updateProfileData}
                  />
         </div>
     )
-};
+}
+
+
+export default ProfileInfo
 
 
 
-
-export default ProfileInfo;
+type PropsType = {
+    user: ProfileType
+    isOwner: boolean
+    updateProfileData: (formData: ProfileType) => Promise<any>
+}

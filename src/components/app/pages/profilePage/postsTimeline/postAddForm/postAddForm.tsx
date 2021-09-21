@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import {InjectedFormProps, reduxForm, reset} from 'redux-form'
-import { actions } from '../../../../../reducers/profileReducer'
-import { getCurrentDate } from '../../../../../utils/getValueFuncs'
+import { actions } from '../../../../../../reducers/profileReducer'
+import { getCurrentDate } from '../../../../../../utils/getValueFuncs'
 
-import {required} from '../../../../../utils/validation/validators'
-import {createField, Textarea} from '../../../../common/formsControls/formsControls'
+import {required} from '../../../../../../utils/validation/validators'
+import {createField, Textarea} from '../../../../../common/formsControls/formsControls'
 
 import './postAddForm.scss'
 

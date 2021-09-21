@@ -1,18 +1,21 @@
 import React, {useState, useEffect, ChangeEvent} from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateProfileStatus } from '../../../../../reducers/profileReducer'
 import { AppStateType } from '../../../../../reduxStore'
 import RequestError from '../../../../common/errors/requestError'
 
 
-const ProfileStatus: React.FC<PropsType> = (props) => {
+const ProfileStatus: React.FC<PropsType> = ({isOwner}) => {
 
     const updateProfileStatusError = useSelector( (state: AppStateType) => state.profilePage.requestErrors.updateProfileStatusError)
+    const profileStatusMessage = useSelector( (state: AppStateType) => state.profilePage.profileStatus)
     const [editMode, setEditMode] = useState(false)
-    const [statusMessage, setStatus] = useState(props.profileStatus)
+    const [statusMessage, setStatus] = useState(profileStatusMessage)
+    const dispatch = useDispatch()
     
     useEffect( () => {
-        setStatus(props.profileStatus)
-    }, [props.profileStatus])
+        setStatus(profileStatusMessage)
+    }, [profileStatusMessage])
 
     const onStatusUpdate = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
@@ -24,13 +27,13 @@ const ProfileStatus: React.FC<PropsType> = (props) => {
 
     const deactiveteEditMode = () => {
         setEditMode(false);
-        props.updateProfileStatus(statusMessage)
+        dispatch( updateProfileStatus(statusMessage) )
     }
     
     const statusText = <div className="profile__status-text"
-                            onDoubleClick={props.isOwner ? activateEditMode : undefined}
-                            title={props.isOwner ? "Double click to edit" : undefined} >
-                            {props.profileStatus}
+                            onDoubleClick={isOwner ? activateEditMode : undefined}
+                            title={isOwner ? "Double click to edit" : undefined} >
+                            {profileStatusMessage}
                         </div>
 
     const statusInput = <input className="profile__status-input"
@@ -55,6 +58,4 @@ export default ProfileStatus
 
 type PropsType = {
     isOwner: boolean
-    profileStatus: string
-    updateProfileStatus: (message: string) => void
 }

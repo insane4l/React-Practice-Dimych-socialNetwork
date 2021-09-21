@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import { AppStateType } from '../../../../../reduxStore'
 
 
-const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStatus, updateProfileStatus, updateProfileData,}) => {
+const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfileData,}) => {
 
     const profileFollowedInfo = useSelector( (state: AppStateType) => state.profilePage.selectedProfileFollowedInfo)
     const [editMode, setEditMode] = useState(false)
@@ -32,9 +32,7 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, profileStat
             }
             <h1 className="page__name">{user.fullName}</h1>
             <ProfileStatus 
-                isOwner={isOwner} 
-                profileStatus={profileStatus} 
-                updateProfileStatus={updateProfileStatus} />
+                isOwner={isOwner} />
             <button onClick={() => toggleDataVisibility(!dataVisibility)} className="view-data__btn">
                 { dataVisibility ? "Hide Profile Info" : "Show Profile Info" }
             </button>
@@ -75,9 +73,7 @@ export default ProfileData
 
 type ProfileDataPropsType = {
     user: ProfileType
-    profileStatus: string
     isOwner: boolean
-    updateProfileStatus: (message: string) => void
     updateProfileData: (formData: ProfileType) => Promise<any>
 }
 

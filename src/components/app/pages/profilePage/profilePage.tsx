@@ -1,27 +1,24 @@
 import React, { useEffect, useRef } from 'react'
-import ProfileInfoContainer from './profileInfo/profileInfoContainer'
 import PostsTimline from './postsTimeline'
 import Spinner from '../../../common/spinner'
 import { ProfileType } from '../../../../types/types'
+import ProfileInfo from './profileInfo/profileInfo'
 
 import './profilePage.scss'
-import PostAddForm from './postAddForm'
+import { AppStateType } from '../../../../reduxStore'
+import { useSelector } from 'react-redux'
 
 
-type PropsType = {
-    user: ProfileType
-    isOwner: boolean
-}
-
-const ProfilePage: React.FC<PropsType> = props => {
+const ProfilePage: React.FC<PropsType> = ({isOwner, updateProfileData }) => {
     
     const topAnchor = useRef<HTMLDivElement>(null)
+    const selectedProfile = useSelector( (state: AppStateType) => state.profilePage.selectedProfile)
 
     useEffect( () => {
         topAnchor.current?.scrollIntoView({block: 'start', behavior: 'smooth'}) // todo: need to fix (change top element)
-    }, [props.user])
+    }, [selectedProfile])
 
-    if (!props.user) {
+    if (!selectedProfile) {
         return <Spinner />
     }
 
@@ -29,9 +26,8 @@ const ProfilePage: React.FC<PropsType> = props => {
         <>
             <div className="page-top-anchor" ref={topAnchor}></div>
             <div className="profile__page">  
-                <ProfileInfoContainer  isOwner={props.isOwner}/>
-                {props.isOwner && <PostAddForm />}
-                <PostsTimline />
+                <ProfileInfo  user={selectedProfile} isOwner={isOwner} updateProfileData={updateProfileData} />
+                <PostsTimline isOwner={isOwner}/>
                 <span className="section-hardcoded">Section Hardcoded</span>
             </div>
         </>
@@ -39,3 +35,10 @@ const ProfilePage: React.FC<PropsType> = props => {
 }
 
 export default ProfilePage
+
+
+
+type PropsType = {
+    isOwner: boolean
+    updateProfileData: (formData: ProfileType) => Promise<any>
+}
