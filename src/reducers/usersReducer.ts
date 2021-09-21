@@ -2,7 +2,7 @@ import { Dispatch } from 'redux'
 import { BaseThunkType, InferActionsTypes } from '../reduxStore'
 import {ResponseType, ResultCodesEnum} from '../services/API'
 import { usersAPI } from '../services/usersAPI'
-import { UserType } from '../types/types'
+import { RequestErrorHandlingType, UserType } from '../types/types'
 import {actions as profileActions} from './profileReducer'
 
 
@@ -17,8 +17,13 @@ const initialState = {
         term: '', 
         friend: null as null | boolean
     },
+    followingInProgress: [] as Array<number>,
     isLoading: false,
-    followingInProgress: [] as Array<number>
+    requestErrors: {
+        changingSubscriptionStatusError: null as null | string,
+        usersRequestError: null as null | string,
+        randomFriendsRequestError: null as null | string
+    }
 }
 export type InitialStateType = typeof initialState
 export type UsersListFiltersType = typeof initialState.filters
@@ -65,6 +70,11 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateT
                     ? [...state.followingInProgress, action.userId]
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
+        case 'sn/users/SET_REQUEST_ERROR':
+            return {
+                ...state,
+                requestErrors: {...state.requestErrors, ...action.payload.error}
+            };
         default:
             return state;
     }
@@ -100,6 +110,9 @@ export const actions = {
     setFollowingInProgress: (userId: number, 
         isInProgress: boolean) => (
             {type: 'sn/users/SET_FOLLOWING_IN_PROGRESS', userId, isInProgress} as const
+    ),
+    setRequestError: (error: RequestErrorHandlingType) => (
+        {type: 'sn/users/SET_REQUEST_ERROR', payload: {error}} as const
     )
 }
 
@@ -109,24 +122,28 @@ export const actions = {
 
 const followUnfollowFlow = async (dispatch: Dispatch<ActionsTypes | ProfileReducerActionToggleType>, 
                 userId: number, apiMethod: (userId: number) => Promise<ResponseType<{}, ResultCodesEnum>>) => {
-    const data = await apiMethod(userId);
+
+    const data = await apiMethod(userId)
 
     if(data.resultCode === ResultCodesEnum.Success) {
-        dispatch(actions.toggleFollowed(userId));
+        dispatch(actions.setRequestError({changingSubscriptionStatusError: null}))
+        dispatch(actions.toggleFollowed(userId))
         dispatch(profileActions.toggleProfileFollowedInfo())
-        dispatch(actions.setFollowingInProgress(userId, false));
+        dispatch(actions.setFollowingInProgress(userId, false))
+    } else {
+        dispatch(actions.setRequestError({changingSubscriptionStatusError: 'Some error occured. Please try to follow again'}))
     }
 }
 
 export const followOrUnfollow = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     dispatch(actions.setFollowingInProgress(userId, true)); // disable button while fetching
 
-    const isFollowed = await usersAPI.checkFollowStatus(userId);
+    const isFollowed = await usersAPI.checkFollowStatus(userId)
 
     if (!isFollowed) { // unfollowed ?
-        await followUnfollowFlow(dispatch, userId, usersAPI.followToUser); // follow
+        await followUnfollowFlow(dispatch, userId, usersAPI.followToUser) // follow
     } else {
-        await followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser); //unfollow
+        await followUnfollowFlow(dispatch, userId, usersAPI.unfollowFromUser) //unfollow
         dispatch( requestRandomFriends(undefined, 1) )
     }
 }
@@ -134,24 +151,28 @@ export const followOrUnfollow = (userId: number): BaseThunkType<ActionsTypes> =>
 
 export const requestUsers = (pageSize: number, currentPage: number, {term = '', friend = null}: UsersListFiltersType): BaseThunkType<ActionsTypes> => async (dispatch) => {
     
-    dispatch(actions.setIsLoading(true)); // activate spinner
+    dispatch(actions.setIsLoading(true)) // activate spinner
     try {
-        const data = await usersAPI.getUsers(pageSize, currentPage, term, friend);
+        const data = await usersAPI.getUsers(pageSize, currentPage, term, friend)
 
-        dispatch(actions.setFilters({term, friend}));
-        dispatch(actions.setPageNumber(currentPage));
-        dispatch(actions.setIsLoading(false));  // deactivate spinner after response
+        dispatch(actions.setRequestError({usersRequestError: null}))
+        dispatch(actions.setFilters({term, friend}))
+        dispatch(actions.setPageNumber(currentPage))
+        dispatch(actions.setIsLoading(false))  // deactivate spinner after response
     
-        dispatch(actions.setUsers(data.items)); // set users from response to state 
-        dispatch(actions.setTotalUsersCount(data.totalCount)); // set total users count from response to state
+        dispatch(actions.setUsers(data.items)) // set users from response to state 
+        dispatch(actions.setTotalUsersCount(data.totalCount)) // set total users count from response to state
     } catch {
-        alert('Something goes wrong') // todo: dispatch setUsersRequestError() state.UsersRequestError: false/true
+        dispatch(actions.setIsLoading(false))
+        dispatch(actions.setRequestError({usersRequestError: 'Something goes wrong. Please try to refresh the page'}))
     }
 }
 
 export const requestRandomFriends = (pageSize = 9, pageNumber: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     try {
-        const data = await usersAPI.getUsers(pageSize, pageNumber, '', true);
+        const data = await usersAPI.getUsers(pageSize, pageNumber, '', true)
+        dispatch(actions.setRequestError({randomFriendsRequestError: null}))
+
         if (data.totalCount > 0) {
             dispatch( actions.randomFriendsReceived(data.items) )
             dispatch( actions.setTotalFriendsCount(data.totalCount) )
@@ -161,7 +182,7 @@ export const requestRandomFriends = (pageSize = 9, pageNumber: number): BaseThun
         }
     } 
     catch {
-        alert('An error has occurred, possibly a bad connection to the server. Auto-updating of the friends list is paused. To fix it please try reloading the page.')
+        dispatch(actions.setRequestError({randomFriendsRequestError: 'An error has occurred, possibly a bad connection to the server. Auto-updating of the friends list is paused. To fix it please try reloading the page.'}))
     }  
 }
 

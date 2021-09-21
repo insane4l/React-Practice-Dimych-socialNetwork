@@ -12,11 +12,18 @@
         border-bottom-right-radius: 15px;
         &-item {
             display: flex;
-            
             padding: 10px 0 10px 0;
             border-bottom: 1px solid rgba(0, 0, 0, .1);
             &:nth-last-child(1) {
                 border-bottom: none
+            }
+            &_error {
+                position: fixed;
+                display: flex;
+                justify-content: flex-start;
+                bottom: 0;
+                border-radius: 5px;
+                background-color: $bgMessageColor;
             }
         }
         .user {

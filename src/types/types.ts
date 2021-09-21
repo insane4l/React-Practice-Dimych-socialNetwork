@@ -47,3 +47,8 @@ export type ChatMessageType = {
     userId: number
     userName: string
 }
+
+
+export type RequestErrorHandlingType = {
+    [errorName: string]: null | string
+}

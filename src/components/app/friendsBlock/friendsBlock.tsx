@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { requestRandomFriends } from '../../../reducers/usersReducer'
 import { AppStateType } from '../../../reduxStore'
 import { getRandomIntegerNum } from '../../../utils/getValueFuncs'
+import RequestError from '../../common/errors/requestError'
 import Spinner from '../../common/spinner'
 import UserAvatar from '../../common/userAvatar/userAvatar'
 import UserName from '../../common/userName/userName'
@@ -13,6 +14,7 @@ import './friendsBlock.scss'
 const FriendsBlock: React.FC<FriendsBlockPropsType> = React.memo( ({friendsPerPage, intervalSeconds}) => {
 
     const randomFriends = useSelector( (state: AppStateType) => state.usersPage.randomFriends )
+    const randomFriendsRequestError = useSelector( (state: AppStateType) => state.usersPage.requestErrors.randomFriendsRequestError )
     const totalFriendsCount = useSelector( (state: AppStateType) => state.usersPage.totalFriendsCount )
     const dispatch = useDispatch()
 
@@ -56,7 +58,9 @@ const FriendsBlock: React.FC<FriendsBlockPropsType> = React.memo( ({friendsPerPa
 
     return (
         <>
-            {!randomFriends ? <Spinner/> : friendsBlockContent}
+            {randomFriends && !randomFriendsRequestError && friendsBlockContent}
+            {!randomFriends && !randomFriendsRequestError && <Spinner/> }
+            {randomFriendsRequestError && <RequestError errorMessage={randomFriendsRequestError} />}
         </>
     )
 })

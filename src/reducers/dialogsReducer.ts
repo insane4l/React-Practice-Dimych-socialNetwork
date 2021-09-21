@@ -2,7 +2,7 @@ import { BaseThunkType, InferActionsTypes } from "../reduxStore"
 import { ResultCodesEnum } from "../services/API"
 import { AllDialogsListItemType, dialogsAPI, DialogMessageType } from "../services/dialogsAPI"
 import { usersAPI } from "../services/usersAPI"
-import { ProfileType } from "../types/types"
+import { ProfileType, RequestErrorHandlingType } from "../types/types"
 
 
 const initialState = {
@@ -84,7 +84,7 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
         //         ...state,
         //         requestErrors: {...state.requestErrors, newMessagesCountRequestError: action.payload.error}
         //     };
-        case 'SET_REQUEST_ERROR':
+        case 'sn/dialogs/SET_REQUEST_ERROR':
             return {
                 ...state,
                 requestErrors: {...state.requestErrors, ...action.payload.error}
@@ -133,8 +133,8 @@ export const actions = {
     // setNewMessagesCountRequestError: (error: null | string) => (
     //     {type: 'sn/dialogs/SET_NEW_MESSAGES_COUNT_REQUEST_ERROR', payload: {error}} as const
     // ),
-    setRequestError: (error: RequestErrorType) => (
-        {type: 'SET_REQUEST_ERROR', payload: {error}} as const
+    setRequestError: (error: RequestErrorHandlingType) => (
+        {type: 'sn/dialogs/SET_REQUEST_ERROR', payload: {error}} as const
     )
 }
 
@@ -221,9 +221,6 @@ export default dialogsReducer
 
 
 
-type RequestErrorType = {
-    [errorName: string]: null | string
-}
 
 // todo: how to type by object keys
 // type ErrorKeyTypes = keyof typeof initialState.requestErrors

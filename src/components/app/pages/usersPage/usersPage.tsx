@@ -12,6 +12,8 @@ import { useHistory } from 'react-router-dom'
 import * as qs from 'qs'
 
 import './usersPage.scss';
+import RequestError from '../../../common/errors/requestError'
+import { AppStateType } from '../../../../reduxStore'
 
 
 const UsersPage: React.FC = () => {
@@ -20,6 +22,7 @@ const UsersPage: React.FC = () => {
     const pageSize = useSelector(selectors.getPageSize)
     const currentPage = useSelector(selectors.getCurrentPage)
     const isLoading = useSelector(selectors.getLoadingStatus)
+    const usersRequestError = useSelector( (state: AppStateType) => state.usersPage.requestErrors.usersRequestError)
     const filters = useSelector(selectors.getUsersListFilters)
 
     const pagesCount = Math.ceil(totalUsersCount / pageSize)
@@ -97,7 +100,7 @@ const UsersPage: React.FC = () => {
                 pageSize={pageSize}
                 onPageSelected={onPageSelected} />
             {isLoading ? <Spinner/> : <UsersList />}   
-            
+            {usersRequestError && <RequestError errorMessage={usersRequestError} /> }
         </div>
     )
 }

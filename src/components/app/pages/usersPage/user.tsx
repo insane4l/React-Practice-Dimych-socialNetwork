@@ -1,9 +1,7 @@
 import React from 'react'
-import {NavLink} from 'react-router-dom'
 import { UserType } from '../../../../types/types'
 import FollowBtn from '../../../common/buttons/followBtn/followBtn'
 
-import { defaultPhoto } from '../../../../assets/images'
 import MessagesBtn from '../../../common/buttons/messagesBtn/messagesBtn'
 import UserAvatar from '../../../common/userAvatar/userAvatar'
 import UserName from '../../../common/userName/userName'
