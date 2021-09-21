@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Moment from 'react-moment'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { actions, requestMessageStatus } from '../../../../../reducers/dialogsReducer'
 import { AppStateType } from '../../../../../reduxStore'
 import { DialogMessageType } from '../../../../../services/dialogsAPI'

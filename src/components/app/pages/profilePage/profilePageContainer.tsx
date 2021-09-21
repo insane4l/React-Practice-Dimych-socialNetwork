@@ -81,7 +81,6 @@ export default compose<React.ComponentType>(
 
 
 type MapStatePropsType = {
-    user: ProfileType
     profileId: number
     isUserAuthorized: boolean
     isLoading: boolean

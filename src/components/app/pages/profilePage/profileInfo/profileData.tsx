@@ -9,61 +9,69 @@ import { useSelector } from 'react-redux'
 import { AppStateType } from '../../../../../reduxStore'
 
 
-const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfileData,}) => {
-
-    const profileFollowedInfo = useSelector( (state: AppStateType) => state.profilePage.selectedProfileFollowedInfo)
-    const [editMode, setEditMode] = useState(false)
-    const [dataVisibility, toggleDataVisibility] = useState(false)
-
-    const onSubmit = (formData: ProfileType) => {
-        // todo: remove then
-        updateProfileData(formData).then( () => {
-            setEditMode(false);
-        })
-    };
-
+const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfileData}) => {
+    
     return (
         <div className="profile__data">
-            {!isOwner && 
-                <div className="profile__buttons-wrapper">
-                    <FollowBtn isFollowed={profileFollowedInfo.followedStatus} userId={profileFollowedInfo.userId} />
-                    <MessagesBtn linkTo={`/dialogs/${user.userId}`} />
-                </div>
-            }
-            <h1 className="page__name">{user.fullName}</h1>
-            <ProfileStatus 
-                isOwner={isOwner} />
-            <button onClick={() => toggleDataVisibility(!dataVisibility)} className="view-data__btn">
-                { dataVisibility ? "Hide Profile Info" : "Show Profile Info" }
-            </button>
+            { !isOwner && <ProfileButtons userId={user.userId}/> }
 
-            {dataVisibility && 
-                <ProfileDataList 
-                    isOwner={isOwner}
-                    user={user}
-                    editMode={editMode}
-                    setEditMode={setEditMode}
-                    submitAction={onSubmit} />}
+            <h1 className="page__name">{user.fullName}</h1>
+
+            <ProfileStatus isOwner={isOwner} />
+
+            <ProfileDataList 
+                isOwner={isOwner}
+                user={user}
+                updateProfileData={updateProfileData}/>
         </div>
     )
 }
 
 
-const ProfileDataList: React.FC<ProfileDataListPropsType> = ({isOwner, user, editMode, setEditMode, submitAction}) => {
+const ProfileButtons: React.FC<ProfileButtonsPropsType> = ({userId}) => {
+    const profileFollowedInfo = useSelector( (state: AppStateType) => state.profilePage.selectedProfileFollowedInfo)
     return (
-        <div className="profile__data-list">
-            {editMode 
-                ? <ProfileDataForm
-                    initialValues={user} 
-                    onSubmit={submitAction} 
-                    user={user}
-                    turnOffEditMode={() => setEditMode(false)} />
-                : <ProfileDataTable 
-                    user={user}
-                    isOwner={isOwner}
-                    setEditMode={() => setEditMode(true)} />
-            }
+        <div className="profile__buttons-wrapper">
+            <FollowBtn isFollowed={profileFollowedInfo.followedStatus} userId={profileFollowedInfo.userId} />
+            <MessagesBtn linkTo={`/dialogs/${userId}`} />
         </div>
+    )
+}
+
+const ProfileDataList: React.FC<ProfileDataListPropsType> = ({isOwner, user, updateProfileData}) => { 
+    
+    const [dataVisibility, toggleDataVisibility] = useState(false)
+    const [editMode, setEditMode] = useState(false)
+    
+    const onProfileDataSubmit = (formData: ProfileType) => {
+        // todo: remove then
+        updateProfileData(formData).then( () => {
+            setEditMode(false);
+        })
+    }
+
+    const displayedDataContent = editMode 
+        ? <ProfileDataForm
+            initialValues={user} 
+            onSubmit={onProfileDataSubmit} 
+            user={user}
+            turnOffEditMode={() => setEditMode(false)} />
+        : <ProfileDataTable 
+            user={user}
+            isOwner={isOwner}
+            setEditMode={() => setEditMode(true)} />
+    
+    return (
+        <>
+            <button onClick={() => toggleDataVisibility(!dataVisibility)} className="view-data__btn">
+                { dataVisibility ? "Hide Profile Info" : "Show Profile Info" }
+            </button>
+
+            {dataVisibility
+                &&  <div className="profile__data-list">
+                        {displayedDataContent}
+                    </div> }
+        </>
     )
 }
 
@@ -77,10 +85,12 @@ type ProfileDataPropsType = {
     updateProfileData: (formData: ProfileType) => Promise<any>
 }
 
+type ProfileButtonsPropsType = {
+    userId: number
+}
+
 type ProfileDataListPropsType = {
     user: ProfileType
     isOwner: boolean
-    editMode: boolean
-    setEditMode: (editMode: boolean) => void
-    submitAction: (formData: ProfileType) => void
+    updateProfileData: (formData: ProfileType) => Promise<any>
 }

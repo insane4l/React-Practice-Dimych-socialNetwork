@@ -2,12 +2,11 @@ import React from 'react'
 import { PostType } from '../../../../../types/types'
 import { useSelector } from 'react-redux'
 import { AppStateType } from '../../../../../reduxStore'
-
-import {defaultPhoto} from '../../../../../assets/images'
-import * as icons from '../../../../../assets/icons'
 import Moment from 'react-moment'
 import UserAvatar from '../../../../common/userAvatar/userAvatar'
 import UserName from '../../../../common/userName/userName'
+
+import * as icons from '../../../../../assets/icons'
 
 
 const Post: React.FC<PropsType> = ({item}) => {

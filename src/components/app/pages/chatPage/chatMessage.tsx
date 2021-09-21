@@ -1,11 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import { defaultPhoto } from '../../../../assets/images';
-import { ChatMessageType } from '../../../../types/types';
+import { ChatMessageType } from '../../../../types/types'
+import UserAvatar from '../../../common/userAvatar/userAvatar'
+import UserName from '../../../common/userName/userName'
 
 import '../../../common/messagesComponents/message.scss'
-import UserAvatar from '../../../common/userAvatar/userAvatar';
-import UserName from '../../../common/userName/userName';
 
 
 const ChatMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage}) => {
