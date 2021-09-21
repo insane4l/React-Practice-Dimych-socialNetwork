@@ -1,12 +1,25 @@
+@import '../../../sassStyles/variables.scss';
+
 .pagination {
     display: flex;
     justify-content: center;
+    margin: 8px 0;
     &__item {
         margin-right: 5px;
+        color: $textPrimaryColor;
         cursor: pointer;
+        &:nth-last-child(1) {
+            margin-right: 0;
+        }
         &_active {
             font-weight: bold;
             font-size: 16px;
+            line-height: 20px;
+            color: $textDarkColor;
+            border-bottom: 2px solid $bgPrimaryLightColor;
         }
+    }
+    &__prev-arrow, &__next-arrow{
+        height: 22px;
     }
 }

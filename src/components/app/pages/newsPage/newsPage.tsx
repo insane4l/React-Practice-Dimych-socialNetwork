@@ -6,7 +6,7 @@ import './newsPage.scss';
 const NewsPage: React.FC = () => {
     return (
         <div className="section">
-            
+            News Page
         </div>
     )
 }

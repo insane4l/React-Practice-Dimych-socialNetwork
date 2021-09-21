@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { useEffect } from 'react';
+import { nextArrow, prevArrow } from '../../../assets/icons';
 
 import './pagination.scss'
 
@@ -47,19 +48,24 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
 
     return (
         <div className="pagination">
-            {currentPortion > 1 && <button onClick={setPrevPortion}>Prev</button>}
-            {pages
-                // .filter(num => (num === 1 || num === currentPage || (num >= prevPages && num <= nextPages) || num === pagesCount) )
-                .filter(num => (num >= firstPortionPageNum && num <= lastPortionPageNum))
-                .map(num =>
-                    <span 
-                        key={num} 
-                        className={`pagination__item ${num === currentPage ? 'pagination__item_active' : ''}`}
-                        onClick={() => onPageSelected(num)}>
-                        {num}
-                    </span>)
-            }
-            {currentPortion < portionsCount && <button onClick={setNextPortion}>Next</button>}
+            {currentPortion > 1 
+                && <button onClick={setPrevPortion}><img src={prevArrow} alt="prev" className="pagination__prev-arrow" /></button>}
+
+            <div className="pagination__list">
+                {pages
+                    .filter(num => (num >= firstPortionPageNum && num <= lastPortionPageNum))
+                    .map(num =>
+                        <span 
+                            key={num} 
+                            className={`pagination__item ${num === currentPage ? 'pagination__item_active' : ''}`}
+                            onClick={() => onPageSelected(num)}>
+                            {num}
+                        </span>)
+                }
+            </div>
+
+            {currentPortion < portionsCount
+                && <button onClick={setNextPortion}><img src={nextArrow} alt="next" className="pagination__next-arrow" /></button>}
         </div>
     )
 }

@@ -14,7 +14,9 @@ import shareIcon from './share.svg';
 
 // Other icons
 import addNewImage from './add-photo-icon.svg';
-import goBack from './go-back-arrow.svg'
+import goBack from './go-back-arrow.svg';
+import prevArrow from './left-arrow.svg'
+import nextArrow from './right-arrow.svg'
 
 
 export {
@@ -29,5 +31,7 @@ export {
     likeIcon,
     commentsIcon,
     shareIcon,
-    goBack
+    goBack,
+    prevArrow,
+    nextArrow
 }

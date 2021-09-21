@@ -6,7 +6,7 @@ import './musicPage.scss';
 const MusicPage: React.FC = () => {
     return (
         <div className="section">
-            
+            Music Page
         </div>
     )
 }

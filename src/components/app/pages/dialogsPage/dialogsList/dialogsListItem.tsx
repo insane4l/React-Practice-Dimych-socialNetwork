@@ -29,7 +29,7 @@ const DialogsListItem: React.FC<PropsType> = ({dialogsItem}) => {
                     <div className="dialog__content-message">
                         {hasNewMessages 
                             ? `There are ${newMessagesCount} new messages` 
-                            : <span>Last message on&#160;<Moment format="MMM DD YYYY hh:mm" date={lastDialogActivityDate} /></span>}
+                            : <span>Last opened on<Moment format=" MMM DD YYYY hh:mm" date={lastDialogActivityDate} /></span>}
                     </div>
                 </div>
             </Link>
