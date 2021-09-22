@@ -8,6 +8,7 @@ import { ProfileType, RequestErrorHandlingType } from "../types/types"
 const initialState = {
     dialogsList: [] as AllDialogsListItemType[],
     selectedDialogMessages: [] as DialogMessageType[],
+    selectedDialogMessagesCount: 0,
     dialogInterlocuterProfile: null as null | ProfileType,
     viewedMessages: [] as string[],
     newDialogsMessagesCount: 0,
@@ -32,7 +33,18 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
         case 'sn/dialogs/DIALOG_MESSAGES_RECEIVED':
             return {
                 ...state,
-                selectedDialogMessages: action.payload.dialogMessages
+                selectedDialogMessages: [...action.payload.dialogMessages, ...state.selectedDialogMessages]
+            };
+        case 'sn/dialogs/DIALOG_MESSAGES_CLEANED':
+            return {
+                ...state,
+                selectedDialogMessages: [],
+                selectedDialogMessagesCount: 0
+            };
+        case 'sn/dialogs/SET_DIALOG_MESSAGES_COUNT':
+            return {
+                ...state,
+                selectedDialogMessagesCount: action.payload.dialogMessagesCount
             };
         case 'sn/dialogs/INTERLOCUTER_PROFILE_RECEIVED':
             return {
@@ -103,6 +115,12 @@ export const actions = {
     dialogMessagesReceived: (dialogMessages: DialogMessageType[]) => (
         {type: 'sn/dialogs/DIALOG_MESSAGES_RECEIVED', payload: {dialogMessages}} as const
     ),
+    dialogMessagesCleaned: () => (
+        {type: 'sn/dialogs/DIALOG_MESSAGES_CLEANED'} as const
+    ),
+    setDialogMessagesCount: (dialogMessagesCount: number) => (
+        {type: 'sn/dialogs/SET_DIALOG_MESSAGES_COUNT', payload: {dialogMessagesCount}} as const
+    ),
     messageSent: (message: DialogMessageType) => (
         {type: 'sn/dialogs/MESSAGE_SENT', payload: {message}} as const
     ),
@@ -147,15 +165,17 @@ export const requestAllDialogsList = (): BaseThunkType<ActionsTypes> => async (d
 }
 
 
-export const requestDialogMessages = (userId: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
+export const requestDialogMessages = (userId: number, pageNumber: number, pageSize: number): BaseThunkType<ActionsTypes> => async (dispatch) => {
     dispatch( actions.setIsLoading(true) )
-    const res = await dialogsAPI.getUserMessagesList(userId, 10, 1)
+    const res = await dialogsAPI.getUserMessagesList(userId, pageNumber, pageSize)
     const profile = await usersAPI.getUserProfile(userId)
 
     if (res.error === null) {
         dispatch( actions.setRequestError({requestingMessagesError: null}) )
         dispatch( actions.setIsLoading(false) )
+
         dispatch( actions.dialogMessagesReceived(res.items) )
+        dispatch( actions.setDialogMessagesCount(res.totalCount) )
         dialogsAPI.setDialogAtTheDialogsListTop(userId)
         dispatch( requestNewMessagesCount() )
         dispatch( actions.interlocuterProfileReceived(profile) )

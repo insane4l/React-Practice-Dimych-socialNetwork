@@ -5,11 +5,12 @@ import { DialogMessageType } from '../../../services/dialogsAPI'
 import { ChatMessageType } from '../../../types/types'
 import ChatMessage from '../../app/pages/chatPage/chatMessage'
 import DialogMessage from '../../app/pages/dialogsPage/dialogsItem/dialogMessage'
+import DialogPagination from '../../app/pages/dialogsPage/dialogsItem/dialogPagination'
 import Spinner from '../spinner'
 
 import './messagesList.scss'
 
-const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMessages, isLoading, friendImg, ownerImg}) => {
+const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMessages, dialogMessagesPortionSize, isLoading, friendId, friendImg, ownerImg}) => {
 
     const propsMessages = chatMessages || dialogMessages
 
@@ -55,6 +56,7 @@ const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMess
 
     return (
         <div className="messages__list" onScroll={scrollHandler}>
+            {!chatMessages && <DialogPagination messagesPortionSize={dialogMessagesPortionSize || 10} userId={friendId}/>}
             {isLoading ? <Spinner/> : MessagesList}
             <div ref={messagesAnchor}></div>
         </div>
@@ -68,6 +70,8 @@ export default MessagesList
 type MessagesListPropsType = {
     chatMessages?: ChatMessageType[]
     dialogMessages?: DialogMessageType[]
+    dialogMessagesPortionSize?: number
+    friendId?: number
     friendImg?: string | null | undefined
     ownerImg?: string | null | undefined
     isLoading: boolean

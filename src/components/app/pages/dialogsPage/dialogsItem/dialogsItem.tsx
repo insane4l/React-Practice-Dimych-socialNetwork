@@ -11,20 +11,29 @@ import MessagesList from '../../../../common/messagesComponents/messagesList'
 import { defaultPhoto } from '../../../../../assets/images'
 import { ProfileType } from '../../../../../types/types'
 import RequestError from '../../../../common/errors/requestError'
+import DialogPagination from './dialogPagination'
 
 
 const DialogsItem: React.FC = () => {
-    
+
     const messages = useSelector( (state: AppStateType) => state.dialogsPage.selectedDialogMessages )
     const interlocuter = useSelector( (state: AppStateType) => state.dialogsPage.dialogInterlocuterProfile)
     const authUserImg = useSelector( (state: AppStateType) => state.auth.authUserPhoto)
     const isLoading = useSelector( (state: AppStateType) => state.dialogsPage.isLoading )
     const requestingMessagesError = useSelector( (state: AppStateType) => state.dialogsPage.requestErrors.requestingMessagesError )
+
+
+    //pagination
+    const messagesPortionSize = 10
+
+
    
     const match = useRouteMatch<MatchParamsType>()
     const dispatch = useDispatch()
 
     const userId = Number(match.params.userId)
+
+
 
     const sendDialogMessage = (message: string) => {
         dispatch( sendMessage(userId, message) )
@@ -32,9 +41,10 @@ const DialogsItem: React.FC = () => {
     
 
     useEffect( () => {
-        dispatch( requestDialogMessages(userId) )
+        dispatch( requestDialogMessages(userId, 1, messagesPortionSize) )
 
         return () => {
+            dispatch( actions.dialogMessagesCleaned() )
             dispatch( actions.interlocuterProfileReceived(null) )
         }
     }, [])
@@ -50,11 +60,12 @@ const DialogsItem: React.FC = () => {
     }
     return (
         <div className="dialogs__item">
-            <DialogsItemHeader friend={interlocuter} />
-                                 
+            <DialogsItemHeader friend={interlocuter} />   
             <MessagesList 
                 dialogMessages={messages}
+                dialogMessagesPortionSize={messagesPortionSize}
                 isLoading={isLoading}
+                friendId={userId}
                 friendImg={interlocuter?.photos.small}
                 ownerImg={authUserImg} />
 

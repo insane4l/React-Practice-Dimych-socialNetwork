@@ -5,9 +5,9 @@ export const dialogsAPI = {
     getAllDialogsList() {
         return apiBase.get<AllDialogsListItemType[]>('dialogs').then((res) => res.data)
     },
-    getUserMessagesList(userId: number, pageSize: number, currentPage: number) {
+    getUserMessagesList(userId: number, pageNumber: number, pageSize: number) {
         return apiBase.get<DialogMessagesListResponseType>(
-            `dialogs/${userId}/messages?page=${currentPage}&count${pageSize}`).then((res) => res.data)
+            `dialogs/${userId}/messages?page=${pageNumber}&count${pageSize}`).then((res) => res.data)
     },
     sendMessageToUser(userId: number, message: string) {
         return apiBase.post<DialogsDefaultResponseType<SendDialogMessageResponseDataType, ResultCodesEnum>>(

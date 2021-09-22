@@ -19,7 +19,7 @@ const ProfileStatus: React.FC<PropsType> = ({isOwner}) => {
     
     useEffect( () => {
         return () => {
-            dispatch( actions.setUpdateProfileStatusError(null) )
+            dispatch( actions.setUpdateProfileStatusError(null) ) //error cleanup
         }
     }, [])
 
