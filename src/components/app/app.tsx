@@ -4,17 +4,12 @@ import SideBar from "./sideBar"
 import MainSection from "./mainSection"
 import Footer from './footer'
 import {connect} from 'react-redux'
-import {initializeApp} from '../../reducers/appReducer'
+import {actions, initializeApp} from '../../reducers/appReducer'
 import Spinner from '../common/spinner'
 import { AppStateType } from "../../reduxStore"
 
 import "./app.scss"
 
-
-type PropsType = {
-    appInitialized: boolean
-    initializeApp: () => Promise<void>
-}
 
 class App extends React.Component<PropsType> {
 
@@ -30,7 +25,7 @@ class App extends React.Component<PropsType> {
     }
 
     catchAllUnhandledErrors = () => {
-        alert("Something goes wrong, server error. Please try refresh the page")
+        this.props.unhandledErrorCatched(true)
     }
 
     render() {
@@ -52,4 +47,12 @@ class App extends React.Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType) => ({appInitialized: state.app.appInitialized})
 
-export default connect(mapStateToProps, {initializeApp})(App)
+export default connect(mapStateToProps, {initializeApp, unhandledErrorCatched: actions.unhandledErrorCatched})(App)
+
+
+
+type PropsType = {
+    appInitialized: boolean
+    initializeApp: () => Promise<void>
+    unhandledErrorCatched: (error: boolean) => void
+}

@@ -11,8 +11,15 @@
     border-bottom: 2px solid $bgPrimaryLightColor;
     background-color: $bgBlockColor;
     &__content {
+        position: relative;
         display: flex;
         justify-content: space-between;
+        .app-unhandled-error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
     &__logo {
         display: flex;
