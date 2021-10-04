@@ -1,14 +1,28 @@
 @import '../../sassStyles/_variables.scss';
+@import '../../sassStyles/_mixins.scss';
 
 .app {
-    &__wrapper {
-        width: 100%;
-        min-height: 100vh;
-        padding-top: 70px;
-        background-color: $bgPrimaryColor;
-        .page__layout {
-          display: grid;
-          grid-template-columns: 2.5fr 9.5fr;
-        }
-      }
+	&__wrapper {
+		width: 100%;
+		min-height: 100vh;
+		padding-top: 70px;
+		background-color: $bgPrimaryColor;
+
+		.page__layout {
+			display: grid;
+			grid-template-columns: 2.5fr 9.5fr;
+		}
+	}
+}
+
+
+
+
+// media queries
+.app__wrapper {
+	.page__layout {
+		@include lgMaxBreakPoint {
+			display: block;
+		}
+	}
 }

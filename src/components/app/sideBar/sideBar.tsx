@@ -3,16 +3,19 @@ import NavBar from '../navBar'
 import FriendsBlock from '../friendsBlock'
 import AdsBlock from '../adsBlock'
 import {connect} from 'react-redux'
-
-import './sideBar.scss'
 import { AppStateType } from '../../../reduxStore'
 import SideBarBlock from './sideBarBlock/'
 import { Link } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
 
-type PropsType = {
-    isUserAuthorized: boolean
-}
+import './sideBar.scss'
+
+
 const SideBar: React.FC<PropsType> = (props) => {
+
+    const isSmallerThanLgBreakPoint = useMediaQuery({ query: `(max-width: 992px)`})
+
+    if (isSmallerThanLgBreakPoint) return <span className="hidden-stub"></span>
     return (
         <aside className="sidebar">
             <NavBar />
@@ -34,4 +37,10 @@ const mapStateToProps = (state: AppStateType) => ({
     isUserAuthorized: state.auth.isAuthorized
 })
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps)(SideBar)
+
+
+
+type PropsType = {
+    isUserAuthorized: boolean
+}
