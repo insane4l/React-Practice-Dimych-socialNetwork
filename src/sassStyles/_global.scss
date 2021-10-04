@@ -1,4 +1,5 @@
-@import './variables';
+@import './variables.scss';
+@import './mixins.scss';
 
 html {
   box-sizing: border-box;
@@ -51,4 +52,7 @@ body {
 
 .container {
   margin: 0 50px;
+  @include smMaxBreakPoint {
+    margin: 0 20px;
+  }
 }

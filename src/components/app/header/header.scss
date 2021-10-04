@@ -1,4 +1,5 @@
 @import '../../../sassStyles/variables.scss';
+@import '../../../sassStyles/mixins.scss';
 
 .header {
     position: fixed;
@@ -58,6 +59,40 @@
             @extend %button;
             padding: 5px 22px;
             border-radius: 4px;
+        }
+    }
+}
+
+
+
+
+
+// media queries
+
+.header {
+    &__content {
+        .app-unhandled-error {
+            @include smMaxBreakPoint {
+                top: 100%;
+                width: 80%;
+            }
+        }
+    }
+    &__logo-text {
+        @include smMaxBreakPoint {
+            display: none;
+        }
+    }
+    &__login {
+        &-avatar {
+            @include customMaxBreakPoint(500) {
+                margin-right: 15px;
+            }
+        }
+        &-nickname {
+            @include customMaxBreakPoint(500) {
+                display: none;
+            }
         }
     }
 }
