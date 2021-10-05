@@ -9,6 +9,7 @@ import "./header.scss"
 import UserAvatar from "../../common/userAvatar/userAvatar"
 import { actions } from "../../../reducers/appReducer"
 import RequestError from "../../common/errors/requestError"
+import MobileMenu from "./mobileMenu"
 
 const Header: React.FC = () => {
 
@@ -44,6 +45,8 @@ const Header: React.FC = () => {
 		<header className="header">
 			<div className="container">
 			<div className="header__content">
+
+				<MobileMenu />
 
 				<Link className="header__logo" to="/chat">
 					<img className="header__logo-img" src={mainLogo} alt="main-logo" />

@@ -5,10 +5,16 @@ import NewMessagesCounter from './newMessagesCounter'
 import * as icons from '../../../assets/icons'
 import './navBar.scss'
 
-const NavBar: React.FC = () => {
+const NavBar: React.FC<NavBarPropsType> = ({closeMenu}) => {
+
+	const onMobileMenuClick = (e: React.MouseEvent<HTMLElement>) => {
+		console.log((e.target as Element).classList);
+		if (closeMenu) closeMenu()
+	}
+
     return (
 		<nav className="navbar">
-			<ul className="navbar__list">
+			<ul className="navbar__list" onClick={onMobileMenuClick}>
 				<NavbarLink url="/profile" iconLink={icons.profileIcon} label="Profile" />
 				<NavbarLink url="/users" iconLink={icons.usersIcon} label="Users" />
 				<NavbarLink url="/dialogs" iconLink={icons.dialogsIcon} label="Dialogs" showNewMessagesCounter />
@@ -40,6 +46,10 @@ const NavbarLink: React.FC<NavbarLinkPropsType> = ({url, iconLink, label, showNe
 export default NavBar
 
 
+
+type NavBarPropsType = {
+	closeMenu?: () => void
+}
 
 type NavbarLinkPropsType = {
   url: string

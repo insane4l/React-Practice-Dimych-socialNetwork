@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    z-index: 100;
     width: 100%;
     padding: 5px 0;
     border-bottom: 2px solid $bgPrimaryLightColor;
@@ -15,6 +15,7 @@
         position: relative;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         .app-unhandled-error {
             position: absolute;
             top: 50%;
@@ -76,6 +77,11 @@
                 top: 100%;
                 width: 80%;
             }
+        }
+    }
+    &__logo {
+        @include lgMaxBreakPoint {
+            margin-right: auto;
         }
     }
     &__logo-text {

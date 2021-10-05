@@ -1,0 +1,76 @@
+@import '../../../sassStyles/variables';
+@import '../../../sassStyles/mixins';
+
+.mobile__menu {
+    display: none;
+    &-btn {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 23px;
+        height: 23px;
+        margin-right: 15px;
+        cursor: pointer;
+        span {
+            width: 30px;
+            height: 5px;
+            background-color: $bgPrimaryLightColor;
+            border-radius: 4px;
+            transition: 0.3s all;
+        }
+        &_active {
+            span {
+                &:nth-child(1) {
+                    transform: rotate(45deg) translate(9px, 4px);
+                }
+                &:nth-child(2) {
+                    display: none;
+                }
+                &:nth-child(3) {
+                    transform: rotate(-45deg) translate(9px, -4px);
+                }
+            }
+        }
+    }
+    &-content {
+        position: fixed;
+        z-index: 300;
+        top: 45px;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        width: 100vw;
+        height: calc(100vh - 45px);
+        padding-top: 25px;
+        background-color: rgba(#000, 0.9);
+    }
+    .navbar {
+        padding: 0 6%;
+        margin: 0;
+        background-color: transparent;
+        &__list {
+            &-item {
+                &:nth-last-child(1) {
+                    border-top: none
+                }
+            }
+        }
+        &__link {
+            display: flex;
+            justify-content: center;
+            padding-left: 0;
+            border-radius: 30px;
+        }
+    }
+}
+
+
+
+
+
+// media queries
+.mobile__menu {
+    @include lgMaxBreakPoint {
+        display: block;
+    }
+}
