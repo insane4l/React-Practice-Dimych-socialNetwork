@@ -1,4 +1,5 @@
 @import '../../../../sassStyles/variables';
+@import '../../../../sassStyles/mixins';
 
 .login-page {
     &__wrapper {
@@ -51,3 +52,25 @@
     color: red;
 }
 
+
+
+
+
+// media queries
+.login-page {
+    &__wrapper {
+        @include mdMaxBreakPoint {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+    }
+}
+.login__form {
+    @include mdMaxBreakPoint {
+        width: 260px;
+    }
+}

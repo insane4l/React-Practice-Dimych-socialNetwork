@@ -1,4 +1,5 @@
 @import '../../../sassStyles/variables.scss';
+@import '../../../sassStyles/mixins';
 
 .message {
     max-width: 55%;
@@ -63,4 +64,20 @@
     line-height: 11px;
     color: $bgPrimaryLightColor;
     cursor: pointer;
+}
+
+
+
+
+
+// media queries
+.message {
+    @include smMaxBreakPoint {
+        max-width: 100%;
+    }
+    &__text {
+        @include smMaxBreakPoint {
+            padding: 3px;
+        }  
+    }
 }

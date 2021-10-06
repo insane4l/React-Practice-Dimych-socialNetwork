@@ -18,12 +18,12 @@ const DialogsListItem: React.FC<PropsType> = ({dialogsItem}) => {
                 </div>
                 <div className="dialog__content">
                     <div className="dialog__content-title">
-                        {userName}
-                        <span className="dialog__content-subtitle">
-                        &#160;(last seen&#160;
+                        {`${userName} `}
+                    </div>
+                    <div className="dialog__content-subtitle">
+                        (last seen&#160;
                             <Moment fromNow date={lastUserActivityDate} />
                             )
-                        </span>
                     </div>
                     
                     <div className="dialog__content-message">
