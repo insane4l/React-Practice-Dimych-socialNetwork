@@ -1,4 +1,5 @@
 @import '../../../../sassStyles/_variables.scss';
+@import '../../../../sassStyles/mixins';
 
 .profile__page {
     position: relative;
@@ -14,8 +15,19 @@
     bottom: 0;
     right: 40%;
     text-transform: uppercase;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 600;
     writing-mode: vertical-lr;
     text-orientation: upright;
+}
+
+
+
+
+
+// media queries
+.section-hardcoded {
+    @include mdMaxBreakPoint {
+        display: none;
+    }
 }

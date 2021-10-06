@@ -1,4 +1,5 @@
 @import '../../../../../sassStyles/variables.scss';
+@import '../../../../../sassStyles/mixins.scss';
 
 .profile {
     &__info {
@@ -138,6 +139,51 @@
         width: 400px;
         &:nth-last-child() {
             margin-left: 10px;
+        }
+    }
+}
+
+
+
+
+
+// media queries
+
+.profile {
+    &__info-avatar {
+        .fsi__wrapper {
+            @include lgMaxBreakPoint {
+                align-items: flex-start;
+                padding-top: 50px;
+            }
+        }
+        .fsi__picture {
+            @include lgMaxBreakPoint {
+                width: 90%;
+                height: auto;
+            }
+        }
+        .fsi_close {
+            @include lgMaxBreakPoint {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    }
+    &__buttons-wrapper {
+        @include smMaxBreakPoint {
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 10px;
+            .user__follow-btn, .user__messages-btn {
+                width: 120px;
+                padding: 0 10px;
+            }
+        }
+    }
+    &__data {
+        @include smMaxBreakPoint {
+            padding: 10px;
         }
     }
 }
