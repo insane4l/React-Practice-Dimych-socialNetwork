@@ -4,14 +4,6 @@ import { nextArrow, prevArrow } from '../../../assets/icons';
 
 import './pagination.scss'
 
-type PropsType = {
-    currentPage: number
-    totalItemsCount: number
-    pageSize: number
-    onPageSelected: (pageNumber: number) => void
-    portionSize?: number
-}
-
 
 const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
     
@@ -71,3 +63,13 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
 }
 
 export default Pagination
+
+
+
+type PropsType = {
+    currentPage: number
+    totalItemsCount: number
+    pageSize: number
+    onPageSelected: (pageNumber: number) => void
+    portionSize?: number
+}

@@ -3,16 +3,16 @@ import PostsTimline from './postsTimeline'
 import Spinner from '../../../common/spinner'
 import { ProfileType } from '../../../../types/types'
 import ProfileInfo from './profileInfo/profileInfo'
+import { useSelector } from 'react-redux'
+import * as profileSelectors from '../../../../selectors/profile'
 
 import './profilePage.scss'
-import { AppStateType } from '../../../../reduxStore'
-import { useSelector } from 'react-redux'
 
 
 const ProfilePage: React.FC<PropsType> = ({isOwner, updateProfileData }) => {
     
     const topAnchor = useRef<HTMLDivElement>(null)
-    const selectedProfile = useSelector( (state: AppStateType) => state.profilePage.selectedProfile)
+    const selectedProfile = useSelector(profileSelectors.getSelectedProfile)
 
     useEffect( () => {
         topAnchor.current?.scrollIntoView({block: 'start', behavior: 'smooth'}) // todo: need to fix (change top element)

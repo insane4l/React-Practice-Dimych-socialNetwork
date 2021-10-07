@@ -4,23 +4,23 @@ import DialogForm from './dialogForm'
 import * as icons from '../../../../../assets/icons'
 import './dialogsItem.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from '../../../../../reduxStore'
 import { useEffect } from 'react'
 import { actions, requestDialogMessages, sendMessage } from '../../../../../reducers/dialogsReducer'
 import MessagesList from '../../../../common/messagesComponents/messagesList'
 import { defaultPhoto } from '../../../../../assets/images'
 import { ProfileType } from '../../../../../types/types'
 import RequestError from '../../../../common/errors/requestError'
-import DialogPagination from './dialogPagination'
+import * as dialogsSelectors from '../../../../../selectors/dialogs'
+import * as authSelectors from '../../../../../selectors/auth'
 
 
 const DialogsItem: React.FC = () => {
 
-    const messages = useSelector( (state: AppStateType) => state.dialogsPage.selectedDialogMessages )
-    const interlocuter = useSelector( (state: AppStateType) => state.dialogsPage.dialogInterlocuterProfile)
-    const authUserImg = useSelector( (state: AppStateType) => state.auth.authUserPhoto)
-    const isLoading = useSelector( (state: AppStateType) => state.dialogsPage.isLoading )
-    const requestingMessagesError = useSelector( (state: AppStateType) => state.dialogsPage.requestErrors.requestingMessagesError )
+    const messages = useSelector(dialogsSelectors.getSelectedDialogMessages)
+    const interlocuter = useSelector(dialogsSelectors.getDialogInterlocuterProfile)
+    const isLoading = useSelector(dialogsSelectors.getIsLoading)
+    const requestingMessagesError = useSelector(dialogsSelectors.getRequestingMessagesError)
+    const authUserImg = useSelector(authSelectors.getAuthUserPhoto)
 
 
     //pagination

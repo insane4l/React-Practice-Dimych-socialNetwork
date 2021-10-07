@@ -1,11 +1,6 @@
-import React from 'react';
-import { ProfileContactsType, ProfileType } from '../../../../../types/types';
+import React from 'react'
+import { ProfileContactsType, ProfileType } from '../../../../../types/types'
 
-type PropsType = {
-    isOwner: boolean
-    user: ProfileType
-    setEditMode: () => void
-}
 
 const ProfileDataTable: React.FC<PropsType> = (props) => {
 
@@ -27,14 +22,9 @@ const ProfileDataTable: React.FC<PropsType> = (props) => {
             {isOwner && <button className="profile__data-btn" onClick={setEditMode} >Change data</button>}
         </>
     )
-};
-
-
-type RowPropsType = {
-    title: string
-    data: string | undefined
-    isLink?: boolean
 }
+
+
 const Row: React.FC<RowPropsType> = ({title, data, isLink}) => {
     let link = `http://${data}`
     if (data && /^http/im.test(data)) {
@@ -48,7 +38,21 @@ const Row: React.FC<RowPropsType> = ({title, data, isLink}) => {
                 : <div className="profile__data-descr">{data}</div>}
         </div>
     )
-};
+}
 
 
-export default ProfileDataTable;
+export default ProfileDataTable
+
+
+
+type PropsType = {
+    isOwner: boolean
+    user: ProfileType
+    setEditMode: () => void
+}
+
+type RowPropsType = {
+    title: string
+    data: string | undefined
+    isLink?: boolean
+}

@@ -4,6 +4,7 @@ import { defaultPhoto } from '../../../assets/images'
 
 import './userAvatar.scss'
 
+
 const UserAvatar: React.FC<UserAvatarPropsType & React.HTMLAttributes<HTMLDivElement>> = ({userImage, linkTo, className}) => {
     return (
         <Link className={className} to={linkTo}>

@@ -1,17 +1,7 @@
-import React from 'react';
-import {Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
-import { AppStateType } from '../../reduxStore';
-
-const mapStateToProps = (state: AppStateType) => ({
-        isAuth: state.auth.isAuthorized
-} as MapPropsType);
-
-type MapPropsType = {
-    isAuth: boolean
-}
-
-
+import React from 'react'
+import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
+import { AppStateType } from '../../reduxStore'
 
 
 const redirectHOC = function<WCP>(afterLoggingIn = false) { 
@@ -26,8 +16,18 @@ const redirectHOC = function<WCP>(afterLoggingIn = false) {
        
         return connect(mapStateToProps)(RedirectComponent)
     }
-};
+}
+
+const mapStateToProps = (state: AppStateType) => ({
+    isAuth: state.auth.isAuthorized
+} as MapPropsType)
 
 
-export const withAnonUserRedirect = redirectHOC();
-export const withSuccesAuthRedirect =  redirectHOC(true);
+export const withAnonUserRedirect = redirectHOC()
+export const withSuccesAuthRedirect =  redirectHOC(true)
+
+
+
+type MapPropsType = {
+    isAuth: boolean
+}

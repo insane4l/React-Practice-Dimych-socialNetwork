@@ -1,9 +1,9 @@
 import React from 'react'
 import {Formik, Form, Field, ErrorMessage} from 'formik'
-import { UsersListFiltersType } from '../../../../reducers/usersReducer';
-import { useSelector } from 'react-redux';
-import * as selectors from '../../../../selectors'
-import { getSearchTitleFromSetParameters } from '../../../../utils/transformFuncs';
+import { UsersListFiltersType } from '../../../../reducers/usersReducer'
+import { useSelector } from 'react-redux'
+import * as usersSelectors from '../../../../selectors/users'
+import { getSearchTitleFromSetParameters } from '../../../../utils/transformFuncs'
 
 
 const usersSearchFormValidators = (values: UsersListFiltersType) => {
@@ -14,16 +14,10 @@ const usersSearchFormValidators = (values: UsersListFiltersType) => {
     return errors;
 }
 
-type ReceivedValuesType = {term: string, friend: string | null | boolean}
-type PropsType = {
-    onFiltersChanged: (filter: UsersListFiltersType) => void
-    currentPage: number
-    pagesCount: number
-}
 
 const UsersSearchForm: React.FC<PropsType> = (props) => {
 
-    const stateFilters = useSelector(selectors.getUsersListFilters)
+    const stateFilters = useSelector(usersSelectors.getUsersListFilters)
 
     const onFormSubmit = (values: ReceivedValuesType, { setSubmitting }: {setSubmitting: (isSubmitting: boolean) => void} ) => {
         // filters constructing
@@ -76,3 +70,13 @@ const UsersSearchForm: React.FC<PropsType> = (props) => {
 }
 
 export default UsersSearchForm
+
+
+
+type ReceivedValuesType = {term: string, friend: string | null | boolean}
+
+type PropsType = {
+    onFiltersChanged: (filter: UsersListFiltersType) => void
+    currentPage: number
+    pagesCount: number
+}

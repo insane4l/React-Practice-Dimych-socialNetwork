@@ -1,17 +1,17 @@
 import React from 'react'
 import { PostType } from '../../../../../types/types'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../../../reduxStore'
 import Moment from 'react-moment'
 import UserAvatar from '../../../../common/userAvatar/userAvatar'
 import UserName from '../../../../common/userName/userName'
+import * as profileSelectors from '../../../../../selectors/profile'
 
 import * as icons from '../../../../../assets/icons'
 
 
 const Post: React.FC<PropsType> = ({item}) => {
 
-    const profile = useSelector( (state: AppStateType) => state.profilePage.selectedProfile)
+    const profile = useSelector(profileSelectors.getSelectedProfile)
 
     return (
         <div key={item.id} className="posts__item">

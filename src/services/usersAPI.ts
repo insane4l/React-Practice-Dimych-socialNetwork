@@ -1,15 +1,6 @@
-import {apiBase, ResponseType} from './API';
-import {ProfileType, UserPhotosType, UserType} from '../types/types';
+import {apiBase, ResponseType} from './API'
+import {ProfileType, UserPhotosType, UserType} from '../types/types'
 
-type GetUsersResponseType = {
-    items: Array<UserType>
-    totalCount: number
-    error: null | string
-}
-
-type SavePhotoResponseDataType = {
-    photos: UserPhotosType
-}
 
 export const usersAPI = {
     getUsers(pageSize: number, currentPage: number, term: string, friend: null | boolean) {
@@ -51,4 +42,16 @@ export const usersAPI = {
     unfollowFromUser(userId: number) {
         return apiBase.delete<ResponseType>(`follow/${userId}`).then(res => res.data)
     },
+}
+
+
+
+type GetUsersResponseType = {
+    items: Array<UserType>
+    totalCount: number
+    error: null | string
+}
+
+type SavePhotoResponseDataType = {
+    photos: UserPhotosType
 }

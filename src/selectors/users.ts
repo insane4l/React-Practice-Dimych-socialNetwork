@@ -29,7 +29,22 @@ export const getFollowingInProgress = (state: AppStateType) => {
     return state.usersPage.followingInProgress
 }
 
-export const getAuthUserId = (state: AppStateType) => {
-    return state.auth.id
+export const getRandomFriends = (state: AppStateType) => {
+    return state.usersPage.randomFriends
 }
 
+export const getTotalFriendsCount = (state: AppStateType) => {
+    return state.usersPage.totalFriendsCount
+}
+
+export const getRandomFriendsRequestError = (state: AppStateType) => {
+    return state.usersPage.requestErrors.randomFriendsRequestError
+}
+
+export const getChangingSubscriptionStatusError = (state: AppStateType) => {
+    return state.usersPage.requestErrors.changingSubscriptionStatusError
+}
+
+export const getUsersRequestError = (state: AppStateType) => {
+    return state.usersPage.requestErrors.usersRequestError
+}

@@ -1,13 +1,14 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { followOrUnfollow } from '../../../../reducers/usersReducer'
-import * as selectors from '../../../../selectors'
+import * as usersSelectors from '../../../../selectors/users'
 
 import '../buttons.scss'
 
+
 const FollowBtn: React.FC<FollowBtnPropsType> = ({isFollowed, userId}) => {
 
-    const followingInProgress = useSelector(selectors.getFollowingInProgress)
+    const followingInProgress = useSelector(usersSelectors.getFollowingInProgress)
     const btnLabel = isFollowed ? 'Unfollow' : isFollowed === false ? 'Follow' : ''
     const btnStyle = isFollowed ? 'user__follow-btn unfollow-btn' : 'user__follow-btn'
     const dispatch = useDispatch()

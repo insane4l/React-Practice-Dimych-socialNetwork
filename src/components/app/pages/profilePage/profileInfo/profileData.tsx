@@ -6,7 +6,7 @@ import {ProfileType} from '../../../../../types/types'
 import MessagesBtn from '../../../../common/buttons/messagesBtn/messagesBtn'
 import FollowBtn from '../../../../common/buttons/followBtn/followBtn'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../../../reduxStore'
+import * as profileSelectors from '../../../../../selectors/profile'
 
 
 const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfileData}) => {
@@ -29,7 +29,9 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfi
 
 
 const ProfileButtons: React.FC<ProfileButtonsPropsType> = ({userId}) => {
-    const profileFollowedInfo = useSelector( (state: AppStateType) => state.profilePage.selectedProfileFollowedInfo)
+
+    const profileFollowedInfo = useSelector(profileSelectors.getSelectedProfileFollowedInfo)
+
     return (
         <div className="profile__buttons-wrapper">
             <FollowBtn isFollowed={profileFollowedInfo.followedStatus} userId={profileFollowedInfo.userId} />

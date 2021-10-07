@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import Moment from 'react-moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions, requestMessageStatus } from '../../../../../reducers/dialogsReducer'
-import { AppStateType } from '../../../../../reduxStore'
 import { DialogMessageType } from '../../../../../services/dialogsAPI'
 import RequestError from '../../../../common/errors/requestError'
-
-import '../../../../common/messagesComponents/message.scss'
 import UserAvatar from '../../../../common/userAvatar/userAvatar'
 import UserName from '../../../../common/userName/userName'
+import * as dialogsSelectors from '../../../../../selectors/dialogs'
+
+import '../../../../common/messagesComponents/message.scss'
 
 
 const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwnerMessage, friendImg, ownerImg}) => {
@@ -53,8 +53,8 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
 
 
 const MessageStatus: React.FC<{messageId: string}> = ({messageId}) => {
-    const viewedMessages = useSelector( (state: AppStateType) => state.dialogsPage.viewedMessages)
-    const MessageStatusRequestError = useSelector( (state: AppStateType) => state.dialogsPage.requestErrors.messageStatusRequestError)
+    const viewedMessages = useSelector(dialogsSelectors.getViewedMessages)
+    const MessageStatusRequestError = useSelector(dialogsSelectors.getMessageStatusRequestError)
     
     if (MessageStatusRequestError) {
         return <div className="message__status">

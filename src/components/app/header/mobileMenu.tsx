@@ -3,6 +3,7 @@ import NavBar from '../navBar'
 
 import './mobileMenu.scss'
 
+
 const MobileMenu: React.FC = () => {
     
     const [isMenuVisible, setMenuVisibility] = useState(false)

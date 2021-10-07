@@ -1,14 +1,14 @@
 import React, {useState, useEffect, ChangeEvent} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions, updateProfileStatus } from '../../../../../reducers/profileReducer'
-import { AppStateType } from '../../../../../reduxStore'
 import RequestError from '../../../../common/errors/requestError'
+import * as profileSelectors from '../../../../../selectors/profile'
 
 
 const ProfileStatus: React.FC<PropsType> = ({isOwner}) => {
 
-    const updateProfileStatusError = useSelector( (state: AppStateType) => state.profilePage.requestErrors.updateProfileStatusError)
-    const profileStatusMessage = useSelector( (state: AppStateType) => state.profilePage.profileStatus)
+    const updateProfileStatusError = useSelector(profileSelectors.getUpdateProfileStatusError)
+    const profileStatusMessage = useSelector(profileSelectors.getProfileStatus)
     const [editMode, setEditMode] = useState(false)
     const [statusMessage, setStatus] = useState(profileStatusMessage)
     const dispatch = useDispatch()

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
-import * as selectors from '../../../selectors'
+import * as authSelectors from '../../../selectors/auth'
 import { DialogMessageType } from '../../../services/dialogsAPI'
 import { ChatMessageType } from '../../../types/types'
 import ChatMessage from '../../app/pages/chatPage/chatMessage'
@@ -10,13 +10,14 @@ import Spinner from '../spinner'
 
 import './messagesList.scss'
 
+
 const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMessages, dialogMessagesPortionSize, isLoading, friendId, friendImg, ownerImg}) => {
 
     const propsMessages = chatMessages || dialogMessages
 
     const [isAutoScroll, setIsAutoScroll] = useState(true)
     const messagesAnchor = useRef<HTMLDivElement>(null)
-    const authUserId = useSelector(selectors.getAuthUserId)
+    const authUserId = useSelector(authSelectors.getAuthUserId)
 
     const scrollHandler = (e: React.UIEvent<HTMLElement>) => {
         const element = e.currentTarget

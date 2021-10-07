@@ -3,19 +3,11 @@ import { useDispatch } from 'react-redux'
 import {InjectedFormProps, reduxForm, reset} from 'redux-form'
 import { actions } from '../../../../../../reducers/profileReducer'
 import { getCurrentDate } from '../../../../../../utils/getValueFuncs'
-
 import {required} from '../../../../../../utils/validation/validators'
 import {createField, Textarea} from '../../../../../common/formsControls/formsControls'
 
 import './postAddForm.scss'
 
-
-type PostFormValuesType = {
-    postBody: string
-}
-type PostFormValuesTypeKeys = Extract<keyof PostFormValuesType, string>
-
-type FormOwnPropsType = {}
 
 let ProfilePostsForm: React.FC< InjectedFormProps<PostFormValuesType, FormOwnPropsType> & FormOwnPropsType > = (props) => {
     return (
@@ -29,11 +21,7 @@ let ProfilePostsForm: React.FC< InjectedFormProps<PostFormValuesType, FormOwnPro
 }
 
 
-
-
 const ProfilePostsReduxForm = reduxForm<PostFormValuesType, FormOwnPropsType>({form: "postsForm"})(ProfilePostsForm);
-
-
 
 
 const PostAddForm: React.FC = () => {
@@ -55,4 +43,15 @@ const PostAddForm: React.FC = () => {
     )
 }
 
+
 export default PostAddForm
+
+
+
+
+type PostFormValuesType = {
+    postBody: string
+}
+type PostFormValuesTypeKeys = Extract<keyof PostFormValuesType, string>
+
+type FormOwnPropsType = {}

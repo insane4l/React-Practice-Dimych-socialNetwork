@@ -1,6 +1,7 @@
-import React from 'react';
-import './settingsPage.scss';
-import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
+import React from 'react'
+import './settingsPage.scss'
+import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
+
 
 const SettingsPage = () => {
     return (
@@ -10,4 +11,4 @@ const SettingsPage = () => {
     )
 }
 
-export default withAnonUserRedirect(SettingsPage);
+export default withAnonUserRedirect(SettingsPage)

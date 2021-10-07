@@ -2,6 +2,7 @@ import React from 'react'
 
 import './fullSizeImage.scss'
 
+
 const FullSizeImage: React.FC<FullSizeImagePropsType> = ({source, closeHandler}) => {
     
     return (

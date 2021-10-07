@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from '../../../../reduxStore'
 import { actions, sendMessage, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
 import ChatForm from './chatForm'
-
-import './chatPage.scss'
 import MessagesList from '../../../common/messagesComponents/messagesList'
 import { withAnonUserRedirect } from '../../../HOCs/withRedirect'
+import * as chatSelectors from '../../../../selectors/chat'
+
+import './chatPage.scss'
+
 
 const ChatPage: React.FC = () => {
     return (
@@ -16,8 +17,8 @@ const ChatPage: React.FC = () => {
 
 const Chat = () => {
 
-    const status = useSelector((state: AppStateType) => state.chat.status)
-    const messages = useSelector((state: AppStateType) => state.chat.messages)
+    const status = useSelector(chatSelectors.getStatus)
+    const messages = useSelector(chatSelectors.getMessages)
     const dispatch = useDispatch()
 
     const sendChatMessage = (message: string) => {

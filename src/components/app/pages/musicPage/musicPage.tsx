@@ -1,7 +1,8 @@
-import React from 'react';
-import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
+import React from 'react'
+import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 
-import './musicPage.scss';
+import './musicPage.scss'
+
 
 const MusicPage: React.FC = () => {
     return (
@@ -12,4 +13,4 @@ const MusicPage: React.FC = () => {
 }
 
 
-export default withAnonUserRedirect(MusicPage);
+export default withAnonUserRedirect(MusicPage)

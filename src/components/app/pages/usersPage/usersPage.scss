@@ -126,11 +126,6 @@
                 }
             }
         }
-        .user__follow-btn, .user__messages-btn {
-            @include smMaxBreakPoint {
-                padding: 0;
-            }
-        }
     }
 }
 

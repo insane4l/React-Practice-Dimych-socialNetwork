@@ -38,6 +38,7 @@ export const dialogsAPI = {
 }
 
 
+
 type DialogsDefaultResponseType<D = {}, RC = ResultCodesEnum, FE = []> = {
     data: D
     resultCode: RC

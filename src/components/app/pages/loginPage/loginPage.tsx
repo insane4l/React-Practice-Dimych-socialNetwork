@@ -1,30 +1,17 @@
-import React from 'react';
-import {reduxForm, InjectedFormProps} from 'redux-form';
-import {connect} from 'react-redux';
-import {login} from '../../../../reducers/authReducer';
-import {required, maxLengthCreator} from '../../../../utils/validation/validators';
-import {createField, Input} from '../../../common/formsControls/formsControls';
-import {withSuccesAuthRedirect} from '../../../HOCs/withRedirect';
-import {compose} from 'redux';
-import { AppStateType } from '../../../../reduxStore';
+import React from 'react'
+import {reduxForm, InjectedFormProps} from 'redux-form'
+import {connect} from 'react-redux'
+import {login} from '../../../../reducers/authReducer'
+import {required, maxLengthCreator} from '../../../../utils/validation/validators'
+import {createField, Input} from '../../../common/formsControls/formsControls'
+import {withSuccesAuthRedirect} from '../../../HOCs/withRedirect'
+import {compose} from 'redux'
+import { AppStateType } from '../../../../reduxStore'
 
-import './loginPage.scss';
-
-const maxLength25 = maxLengthCreator(25);
+import './loginPage.scss'
 
 
-type FormOwnPropsType = {
-    captchaUrl: string | null
-}
-
-type LoginFormValuesType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha: string
-}
-
-type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>
+const maxLength25 = maxLengthCreator(25)
 
 let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, FormOwnPropsType> & FormOwnPropsType> = (props) => {
     return (
@@ -60,18 +47,8 @@ let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, FormOwnPropsType>
     )
 }
 
+
 const LoginReduxForm = reduxForm<LoginFormValuesType, FormOwnPropsType>({form: 'login'})(LoginForm);
-
-
-
-type MapStatePropsType = {
-    captchaUrl: string | null
-}
-
-type MapDispatchPropsType = {
-    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-}
-
 
 
 const LoginPage: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
@@ -97,3 +74,27 @@ export default compose<React.ComponentType>(withSuccesAuthRedirect,
                        connect(mapStateToProps, {login})
                        )
                        (LoginPage);
+
+
+
+
+type FormOwnPropsType = {
+    captchaUrl: string | null
+}
+
+type LoginFormValuesType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
+}
+
+type LoginFormValuesTypeKeys = Extract<keyof LoginFormValuesType, string>
+
+type MapStatePropsType = {
+    captchaUrl: string | null
+}
+
+type MapDispatchPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+}

@@ -2,6 +2,7 @@ import React from 'react'
 
 import './requestError.scss'
 
+
 const RequestError: React.FC<RequestErrorPropsType> = ({errorMessage, className}) => {
     return (
         <div className={`request-error__block ${className}`}>

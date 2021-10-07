@@ -4,6 +4,7 @@ import { defaultPhoto } from '../../../../../assets/images'
 import { AllDialogsListItemType } from '../../../../../services/dialogsAPI'
 import Moment from 'react-moment'
 
+
 const DialogsListItem: React.FC<PropsType> = ({dialogsItem}) => {
 
     const {id, photos, userName, lastUserActivityDate, hasNewMessages,

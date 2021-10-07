@@ -1,8 +1,8 @@
 import React from 'react'
 import { UserType } from '../../../../types/types'
 import FollowBtn from '../../../common/buttons/followBtn/followBtn'
-
 import MessagesBtn from '../../../common/buttons/messagesBtn/messagesBtn'
+
 import UserAvatar from '../../../common/userAvatar/userAvatar'
 import UserName from '../../../common/userName/userName'
 

@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { requestNewMessagesCount } from '../../../reducers/dialogsReducer'
-import { AppStateType } from '../../../reduxStore'
+import * as authSelectors from '../../../selectors/auth'
+import * as dialogsSelectors from '../../../selectors/dialogs'
 
 import './newMessagesCounter.scss'
 
+
 const NewMessagesCounter: React.FC<NewMessagesCounterPropsType> = ({rerenderSecs}) => {
-    const newMessagesCountRequestError = useSelector( (state: AppStateType) => state.dialogsPage.requestErrors.newMessagesCountRequestError)
-    const newDialogsMessagesCount = useSelector( (state: AppStateType) => state.dialogsPage.newDialogsMessagesCount)
-    const isUserAuthorized = useSelector( (state: AppStateType) => state.auth.isAuthorized )
+    const newMessagesCountRequestError = useSelector(dialogsSelectors.getNewMessagesCountRequestError)
+    const newDialogsMessagesCount = useSelector(dialogsSelectors.getNewDialogsMessagesCount)
+    const isUserAuthorized = useSelector(authSelectors.getIsAuthorized)
     const rerenderInterval = rerenderSecs * 1000
     const dispatch = useDispatch()
   

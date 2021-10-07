@@ -1,7 +1,8 @@
-import React from 'react';
-import {NavLink} from 'react-router-dom';
+import React from 'react'
+import {NavLink} from 'react-router-dom'
 
-import './pageNotFound.scss';
+import './pageNotFound.scss'
+
 
 const PageNotFound: React.FC = () => {
     return (
@@ -13,4 +14,4 @@ const PageNotFound: React.FC = () => {
     )
 }
 
-export default PageNotFound;
+export default PageNotFound

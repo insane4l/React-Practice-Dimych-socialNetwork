@@ -1,12 +1,12 @@
-import React from 'react';
-import {Route, Redirect, Switch} from 'react-router-dom';
-import Spinner from '../../common/spinner';
-import {ProfilePageContainer, DialogsPage, NewsPage, MusicPage, SettingsPage, LoginPage, PageNotFound} from '../pages';
+import React from 'react'
+import {Route, Redirect, Switch} from 'react-router-dom'
+import Spinner from '../../common/spinner'
+import {ProfilePageContainer, DialogsPage, NewsPage, MusicPage, SettingsPage, LoginPage, PageNotFound} from '../pages'
 
-import './mainSection.scss';
+import './mainSection.scss'
 
-const UsersPage = React.lazy(() => import('../pages/usersPage/usersPage'));
-const ChatPage = React.lazy(() => import('../pages/chatPage/chatPage'));
+const UsersPage = React.lazy(() => import('../pages/usersPage/usersPage'))
+const ChatPage = React.lazy(() => import('../pages/chatPage/chatPage'))
 // todo: React lazy does not cause splitting bundle in chunks
 // try this https://stackoverflow.com/questions/53186595/react-lazy-does-not-cause-splitting-bundle-in-chunks
 
@@ -31,7 +31,7 @@ const MainSection: React.FC = () => {
             </React.Suspense>
             </div>
         </main>
-    );
+    )
 }
 
-export default MainSection;
+export default MainSection

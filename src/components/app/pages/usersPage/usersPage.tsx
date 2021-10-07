@@ -3,27 +3,26 @@ import { actions, requestUsers, UsersListFiltersType} from '../../../../reducers
 import Pagination from '../../../common/pagination/pagination'
 import UsersList from './usersList'
 import { useDispatch, useSelector } from 'react-redux'
-import * as selectors from '../../../../selectors'
+import * as usersSelectors from '../../../../selectors/users'
 import UsersSearchForm from './usersSearchForm'
 import Spinner from '../../../common/spinner'
 import { withAnonUserRedirect } from '../../../HOCs/withRedirect'
 import { compose } from 'redux'
 import { useHistory } from 'react-router-dom'
 import * as qs from 'qs'
-
-import './usersPage.scss';
 import RequestError from '../../../common/errors/requestError'
-import { AppStateType } from '../../../../reduxStore'
+
+import './usersPage.scss'
 
 
 const UsersPage: React.FC = () => {
 
-    const totalUsersCount = useSelector(selectors.getTotalUsersCount)
-    const pageSize = useSelector(selectors.getPageSize)
-    const currentPage = useSelector(selectors.getCurrentPage)
-    const isLoading = useSelector(selectors.getLoadingStatus)
-    const usersRequestError = useSelector( (state: AppStateType) => state.usersPage.requestErrors.usersRequestError)
-    const filters = useSelector(selectors.getUsersListFilters)
+    const totalUsersCount = useSelector(usersSelectors.getTotalUsersCount)
+    const pageSize = useSelector(usersSelectors.getPageSize)
+    const currentPage = useSelector(usersSelectors.getCurrentPage)
+    const isLoading = useSelector(usersSelectors.getLoadingStatus)
+    const usersRequestError = useSelector(usersSelectors.getUsersRequestError)
+    const filters = useSelector(usersSelectors.getUsersListFilters)
 
     const pagesCount = Math.ceil(totalUsersCount / pageSize)
 

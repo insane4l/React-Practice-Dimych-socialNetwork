@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import {Link, NavLink} from 'react-router-dom'
-import { AppStateType } from "../../../reduxStore"
 import {logout} from '../../../reducers/authReducer'
-
-import {mainLogo} from "../../../assets/images"
-import "./header.scss"
 import UserAvatar from "../../common/userAvatar/userAvatar"
 import { actions } from "../../../reducers/appReducer"
 import RequestError from "../../common/errors/requestError"
 import MobileMenu from "./mobileMenu"
+import * as authSelectors from "../../../selectors/auth"
+import * as appSelectors from "../../../selectors/app"
+
+import {mainLogo} from "../../../assets/images"
+import "./header.scss"
+
 
 const Header: React.FC = () => {
 
-	const isAuthorized = useSelector( (state: AppStateType) => state.auth.isAuthorized)
-	const userId = useSelector( (state: AppStateType) => state.auth.id)
-	const userLogin = useSelector( (state: AppStateType) => state.auth.login)
-	const userAvatar = useSelector( (state: AppStateType) => state.auth.authUserPhoto)
-	const unhandledError = useSelector( (state: AppStateType) => state.app.unhandledError)
+	const isAuthorized = useSelector(authSelectors.getIsAuthorized)
+	const userId = useSelector(authSelectors.getAuthUserId)
+	const userLogin = useSelector(authSelectors.getLogin)
+	const userAvatar = useSelector(authSelectors.getAuthUserPhoto)
+	const unhandledError = useSelector(appSelectors.getUnhandledError)
 	const dispatch = useDispatch()
 
 

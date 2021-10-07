@@ -4,7 +4,6 @@ import { ProfileType } from '../../../../../types/types';
 import {CustomFieldProps, Input, Textarea} from '../../../../common/formsControls/formsControls';
 
 
-
 let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormOwnPropsType> & FormOwnPropsType> = ({user, turnOffEditMode, handleSubmit, error}) => {
 
     return (
@@ -29,7 +28,6 @@ let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormO
 }
 
 
-
 const Row: React.FC<RowPropsType> = ({title, inputName, element, ...props}) => {
     return <div className="profile__data-row data-form__row">
                 <div className="profile__data-title">{title}:</div>
@@ -42,8 +40,9 @@ const Row: React.FC<RowPropsType> = ({title, inputName, element, ...props}) => {
 }
 
 
-
 const ProfileDataReduxForm = reduxForm<ProfileDataFormValuesType, FormOwnPropsType>({form: "profileData"})(ProfileDataForm)
+
+
 export default ProfileDataReduxForm
 
 

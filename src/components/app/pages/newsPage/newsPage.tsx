@@ -1,7 +1,8 @@
-import React from 'react';
-import {withAnonUserRedirect} from '../../../HOCs/withRedirect';
+import React from 'react'
+import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 
-import './newsPage.scss';
+import './newsPage.scss'
+
 
 const NewsPage: React.FC = () => {
     return (
@@ -11,4 +12,4 @@ const NewsPage: React.FC = () => {
     )
 }
 
-export default withAnonUserRedirect(NewsPage);
+export default withAnonUserRedirect(NewsPage)

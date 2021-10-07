@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 
+
 const UserName: React.FC<UserNamePropsType> = ({linkTo, userName, className}) => {
     return (
         <Link className={className} to={linkTo} >

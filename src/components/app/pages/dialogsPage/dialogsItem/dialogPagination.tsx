@@ -1,12 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { requestDialogMessages } from '../../../../../reducers/dialogsReducer'
-import { AppStateType } from '../../../../../reduxStore'
+import * as dialogsSelectors from '../../../../../selectors/dialogs'
+
 
 const DialogPagination: React.FC<DialogPaginationPropsType> = ({userId, messagesPortionSize}) => {
 
-    const loadedMessagesCount = useSelector( (state: AppStateType) => state.dialogsPage.selectedDialogMessages.length )
-    const dialogMessagesCount = useSelector( (state: AppStateType) => state.dialogsPage.selectedDialogMessagesCount )
+    const loadedMessagesCount = useSelector(dialogsSelectors.getLoadedMessagesCount)
+    const dialogMessagesCount = useSelector(dialogsSelectors.getSelectedDialogMessagesCount)
     const portionsCount = Math.ceil(dialogMessagesCount / messagesPortionSize)
     const viewedPortionsCount = Math.ceil(loadedMessagesCount / messagesPortionSize)
     const oldMessagesPortionNumber =  viewedPortionsCount + 1

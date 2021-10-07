@@ -1,13 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { AppStateType } from '../../../../../reduxStore'
 import RequestError from '../../../../common/errors/requestError'
 import SendMessageForm from '../../../../common/messagesComponents/sendMessageForm'
+import * as dialogsSelectors from '../../../../../selectors/dialogs'
 
 
 const DialogForm: React.FC<DialogFormPropsType> = ({sendMessage}) => {
 
-    const sendingMessageError = useSelector( (state: AppStateType) => state.dialogsPage.requestErrors.sendingMessageError )
+    const sendingMessageError = useSelector(dialogsSelectors.getSendingMessageError)
     
     return (
         <>

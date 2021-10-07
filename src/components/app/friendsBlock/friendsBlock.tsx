@@ -2,20 +2,20 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { requestRandomFriends } from '../../../reducers/usersReducer'
-import { AppStateType } from '../../../reduxStore'
 import { getRandomIntegerNum } from '../../../utils/getValueFuncs'
 import RequestError from '../../common/errors/requestError'
 import Spinner from '../../common/spinner'
 import UserAvatar from '../../common/userAvatar/userAvatar'
 import UserName from '../../common/userName/userName'
+import * as selectors from '../../../selectors/users'
 
 import './friendsBlock.scss'
 
 const FriendsBlock: React.FC<FriendsBlockPropsType> = React.memo( ({friendsPerPage, intervalSeconds}) => {
 
-    const randomFriends = useSelector( (state: AppStateType) => state.usersPage.randomFriends )
-    const randomFriendsRequestError = useSelector( (state: AppStateType) => state.usersPage.requestErrors.randomFriendsRequestError )
-    const totalFriendsCount = useSelector( (state: AppStateType) => state.usersPage.totalFriendsCount )
+    const randomFriends = useSelector(selectors.getRandomFriends)
+    const randomFriendsRequestError = useSelector(selectors.getRandomFriendsRequestError)
+    const totalFriendsCount = useSelector(selectors.getTotalFriendsCount)
     const dispatch = useDispatch()
 
     const firstPage = 1

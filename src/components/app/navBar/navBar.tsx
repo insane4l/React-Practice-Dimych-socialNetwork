@@ -5,10 +5,11 @@ import NewMessagesCounter from './newMessagesCounter'
 import * as icons from '../../../assets/icons'
 import './navBar.scss'
 
+
 const NavBar: React.FC<NavBarPropsType> = ({closeMenu}) => {
 
 	const onMobileMenuClick = (e: React.MouseEvent<HTMLElement>) => {
-		console.log((e.target as Element).classList);
+		// console.log((e.target as Element).classList);
 		if (closeMenu) closeMenu()
 	}
 
