@@ -31,10 +31,10 @@ class ProfilePageContainer extends Component<PropsType> {
             userId = +this.props.match.params.userId
         }
         if(!userId) {
-            userId = this.props.profileId
+            userId = this.props.authUserId
         }
         if (!userId) {
-            console.error("Id should exists in URI params or in state(profileId)")
+            console.error("Id should exists in URI params or in state(authUserId)")
         } else {
             this.props.getUserProfile(userId)
             this.props.getProfileStatus(userId)
@@ -50,7 +50,9 @@ class ProfilePageContainer extends Component<PropsType> {
         if (this.props.isLoading) return <Spinner />
 
         return (
-            <ProfilePage isOwner={!this.props.match.params.userId} updateProfileData={this.props.updateProfileData} />
+            <ProfilePage 
+                isOwner={!this.props.match.params.userId || +this.props.match.params.userId === this.props.authUserId}
+                updateProfileData={this.props.updateProfileData} />
         )
     }
 }
@@ -58,9 +60,9 @@ class ProfilePageContainer extends Component<PropsType> {
 
 const mapStateToProps = (state: AppStateType) => {
     return {
-        profileId: state.auth.id,
         isUserAuthorized: state.auth.isAuthorized,
-        isLoading: state.profilePage.isLoading
+        isLoading: state.profilePage.isLoading,
+        authUserId: state.auth.id
     }
 }
 
@@ -81,9 +83,9 @@ export default compose<React.ComponentType>(
 
 
 type MapStatePropsType = {
-    profileId: number
     isUserAuthorized: boolean
     isLoading: boolean
+    authUserId: number
 }
 
 type MapDispatchPropsType = {
