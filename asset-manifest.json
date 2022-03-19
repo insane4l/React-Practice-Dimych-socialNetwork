@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/React-Practice-Dimych-socialNetwork/static/css/main.1db91222.chunk.css",
+    "main.js": "/React-Practice-Dimych-socialNetwork/static/js/main.94dd81bf.chunk.js",
+    "main.js.map": "/React-Practice-Dimych-socialNetwork/static/js/main.94dd81bf.chunk.js.map",
+    "runtime-main.js": "/React-Practice-Dimych-socialNetwork/static/js/runtime-main.40aad9d6.js",
+    "runtime-main.js.map": "/React-Practice-Dimych-socialNetwork/static/js/runtime-main.40aad9d6.js.map",
+    "static/js/2.e29d43fe.chunk.js": "/React-Practice-Dimych-socialNetwork/static/js/2.e29d43fe.chunk.js",
+    "static/js/2.e29d43fe.chunk.js.map": "/React-Practice-Dimych-socialNetwork/static/js/2.e29d43fe.chunk.js.map",
+    "index.html": "/React-Practice-Dimych-socialNetwork/index.html",
+    "static/css/main.1db91222.chunk.css.map": "/React-Practice-Dimych-socialNetwork/static/css/main.1db91222.chunk.css.map",
+    "static/js/2.e29d43fe.chunk.js.LICENSE.txt": "/React-Practice-Dimych-socialNetwork/static/js/2.e29d43fe.chunk.js.LICENSE.txt",
+    "static/media/add-photo-icon.45c01ac0.svg": "/React-Practice-Dimych-socialNetwork/static/media/add-photo-icon.45c01ac0.svg",
+    "static/media/ads-img.1d74b859.jpg": "/React-Practice-Dimych-socialNetwork/static/media/ads-img.1d74b859.jpg",
+    "static/media/chat-icon.a043f4e1.svg": "/React-Practice-Dimych-socialNetwork/static/media/chat-icon.a043f4e1.svg",
+    "static/media/comments.21f4844f.svg": "/React-Practice-Dimych-socialNetwork/static/media/comments.21f4844f.svg",
+    "static/media/defaultCover.3694bd45.jpeg": "/React-Practice-Dimych-socialNetwork/static/media/defaultCover.3694bd45.jpeg",
+    "static/media/defaultPhoto.45a0af68.png": "/React-Practice-Dimych-socialNetwork/static/media/defaultPhoto.45a0af68.png",
+    "static/media/dialogs-icon.870a5747.svg": "/React-Practice-Dimych-socialNetwork/static/media/dialogs-icon.870a5747.svg",
+    "static/media/go-back-arrow.813569ed.svg": "/React-Practice-Dimych-socialNetwork/static/media/go-back-arrow.813569ed.svg",
+    "static/media/left-arrow.7e40e9c0.svg": "/React-Practice-Dimych-socialNetwork/static/media/left-arrow.7e40e9c0.svg",
+    "static/media/like.e0d25739.svg": "/React-Practice-Dimych-socialNetwork/static/media/like.e0d25739.svg",
+    "static/media/main-logo.09746948.svg": "/React-Practice-Dimych-socialNetwork/static/media/main-logo.09746948.svg",
+    "static/media/music-icon.ec793a2a.svg": "/React-Practice-Dimych-socialNetwork/static/media/music-icon.ec793a2a.svg",
+    "static/media/news-icon.63b638f3.svg": "/React-Practice-Dimych-socialNetwork/static/media/news-icon.63b638f3.svg",
+    "static/media/profile-icon.1e487f5e.svg": "/React-Practice-Dimych-socialNetwork/static/media/profile-icon.1e487f5e.svg",
+    "static/media/right-arrow.1cb0f8bb.svg": "/React-Practice-Dimych-socialNetwork/static/media/right-arrow.1cb0f8bb.svg",
+    "static/media/settings-icon.22166433.svg": "/React-Practice-Dimych-socialNetwork/static/media/settings-icon.22166433.svg",
+    "static/media/share.6b3c2621.svg": "/React-Practice-Dimych-socialNetwork/static/media/share.6b3c2621.svg",
+    "static/media/users-icon.0861fcfd.svg": "/React-Practice-Dimych-socialNetwork/static/media/users-icon.0861fcfd.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.40aad9d6.js",
+    "static/js/2.e29d43fe.chunk.js",
+    "static/css/main.1db91222.chunk.css",
+    "static/js/main.94dd81bf.chunk.js"
+  ]
+}
