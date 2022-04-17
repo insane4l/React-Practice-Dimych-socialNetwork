@@ -1,25 +1,129 @@
-@import '../../../sassStyles/variables.scss';
+@import '../../../sassStyles/variables';
+@import '../../../sassStyles/mixins';
 
 .pagination {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin: 8px 0;
+    &__list{
+        display: flex;
+        gap: 2px;
+        padding: 0 5px;
+    }
     &__item {
-        margin-right: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        border-radius: 50%;
+        border: 1px solid transparent;
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
         color: $textPrimaryColor;
         cursor: pointer;
+        outline: none;
+        user-select: none;
+        transition: all 0.3s;
         &:nth-last-child(1) {
             margin-right: 0;
         }
+        &:hover {
+            border-bottom: 1px solid $bgPrimaryLightColor;
+        }
+        &:focus-visible {
+            border-bottom: 1px solid $bgPrimaryLightColor;
+        }
         &_active {
-            font-weight: bold;
-            font-size: 16px;
-            line-height: 20px;
-            color: $textDarkColor;
-            border-bottom: 2px solid $bgPrimaryLightColor;
+            color: $bgPrimaryLightColor;
+            border: 1px solid $bgPrimaryLightColor;
         }
     }
-    &__prev-arrow, &__next-arrow{
-        height: 22px;
+    &__btn-stub {
+        width: 25px;
+        height: 25px;
+        background-color: transparent;
+    }
+    &__prev-btn, &__next-btn {
+        position: relative;
+        width: 25px;
+        height: 25px;
+        padding: 0;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        user-select: none;
+        cursor: pointer;
+    }
+    &__prev-btn:focus-visible, &__next-btn:focus-visible,
+    &__prev-btn:hover, &__next-btn:hover {
+        &:before, &:after {
+            content: '';
+            position: absolute;
+            width: 17px;
+            height: 1px;
+            background-color: $bgPrimaryLightColor;
+            border-radius: 40%;
+        }
+    }
+    &__prev-btn:focus-visible, &__prev-btn:hover {
+        &:before {
+            top: 6px;
+            left: -4px;
+            transform: rotate(-45deg);
+        }
+        &:after {
+            bottom: 6px;
+            left: -4px;
+            transform: rotate(45deg);
+        }
+    }
+    &__next-btn:focus-visible, &__next-btn:hover {
+        &:before {
+            top: 6px;
+            right: -4px;
+            transform: rotate(45deg);
+        }
+        &:after {
+            bottom: 6px;
+            right: -4px;
+            transform: rotate(-45deg);
+        }
+    }
+
+
+    &__prev-arrow, &__next-arrow {
+        height: 100%;
+        -webkit-user-drag: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+}
+
+
+
+
+
+
+// media queries
+.pagination {
+    &__list{
+        @include mdMaxBreakPoint {
+            gap: 0;
+            padding: 0;
+        }
+    }
+    &__item {
+        @include mdMaxBreakPoint {
+            width: 20px;
+            height: 20px;
+        }
     }
 }

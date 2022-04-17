@@ -6,8 +6,9 @@ import './pagination.scss'
 
 
 const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
-    
-    const [currentPortion, setCurrentPortion] = useState(1);
+
+    const [currentPortion, setCurrentPortion] = useState(currentPage);
+
     useEffect(() => {
         if (currentPortion !== selectedPagePortion) {
             setCurrentPortion(selectedPagePortion)
@@ -22,7 +23,7 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
     };
     
 
-    const selectedPagePortion = Math.ceil(currentPage / portionSize)
+    const selectedPagePortion = Math.ceil(currentPage / portionSize);
     const portionsCount = Math.ceil(pagesCount / portionSize);
     const firstPortionPageNum = (currentPortion -1) * portionSize + 1;
     const lastPortionPageNum = currentPortion * portionSize;
@@ -41,29 +42,36 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
     return (
         <div className="pagination">
             {currentPortion > 1 
-                && <button onClick={setPrevPortion}><img src={prevArrow} alt="prev" className="pagination__prev-arrow" /></button>}
+                ? <button onClick={setPrevPortion} className="pagination__prev-btn">
+                    <img src={prevArrow} alt="prev" className="pagination__prev-arrow" />
+                  </button>
+
+                : <div className="pagination__btn-stub"></div>
+            }
 
             <div className="pagination__list">
                 {pages
                     .filter(num => (num >= firstPortionPageNum && num <= lastPortionPageNum))
                     .map(num =>
-                        <span 
+                        <button 
                             key={num} 
                             className={`pagination__item ${num === currentPage ? 'pagination__item_active' : ''}`}
                             onClick={() => onPageSelected(num)}>
                             {num}
-                        </span>)
+                        </button>)
                 }
             </div>
 
             {currentPortion < portionsCount
-                && <button onClick={setNextPortion}><img src={nextArrow} alt="next" className="pagination__next-arrow" /></button>}
+                ? <button onClick={setNextPortion} className="pagination__next-btn">
+                    <img src={nextArrow} alt="next" className="pagination__next-arrow" />
+                  </button>
+                  
+                : <div className="pagination__btn-stub"></div>
+            }
         </div>
     )
 }
-
-export default Pagination
-
 
 
 type PropsType = {
@@ -73,3 +81,5 @@ type PropsType = {
     onPageSelected: (pageNumber: number) => void
     portionSize?: number
 }
+
+export default Pagination
