@@ -1,13 +1,16 @@
 import React, {useState} from 'react'
 import { useEffect } from 'react';
 import { nextArrow, prevArrow } from '../../../assets/icons';
+import { useMediaQuery } from 'react-responsive'
 
 import './pagination.scss'
 
 
 const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
-
     const [currentPortion, setCurrentPortion] = useState(currentPage);
+
+    const isSmallerThanLgBreakPoint = useMediaQuery({ query: `(max-width: 992px)`});
+    if (isSmallerThanLgBreakPoint) portionSize = 5;
 
     useEffect(() => {
         if (currentPortion !== selectedPagePortion) {

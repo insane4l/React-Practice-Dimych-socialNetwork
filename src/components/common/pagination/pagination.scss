@@ -8,7 +8,7 @@
     margin: 8px 0;
     &__list{
         display: flex;
-        gap: 2px;
+        gap: 5px;
         padding: 0 5px;
     }
     &__item {
@@ -112,18 +112,3 @@
 
 
 
-// media queries
-.pagination {
-    &__list{
-        @include mdMaxBreakPoint {
-            gap: 0;
-            padding: 0;
-        }
-    }
-    &__item {
-        @include mdMaxBreakPoint {
-            width: 20px;
-            height: 20px;
-        }
-    }
-}
