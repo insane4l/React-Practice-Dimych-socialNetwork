@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { calcBrowserScrollWidth } from '../../../utils/calcBrowserScrollWidth'
+import { toggleBodyScroll } from '../../../utils/toggleBodyScroll'
 
 import './fullSizeImage.scss'
 
@@ -7,19 +7,20 @@ import './fullSizeImage.scss'
 const FullSizeImage: React.FC<FullSizeImagePropsType> = ({source, closeHandler}) => {
 
     useEffect(() => {
-        const browserScrollWidth = calcBrowserScrollWidth();
-        document.body.style.overflow = 'hidden';
-        document.body.style.marginRight = `${browserScrollWidth}px`;
-        document.querySelector<HTMLElement>('header.header')!.style.paddingRight = `${browserScrollWidth}px`;
+        toggleBodyScroll('hide');
         return () => {
-            document.body.style.overflow = 'unset';
-            document.body.style.marginRight = `0`;
-            document.querySelector<HTMLElement>('header.header')!.style.paddingRight = `0`;
+            toggleBodyScroll('show');
         }
     },[])
+
+    const closeOnOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if ( !(e.target as HTMLImageElement)?.classList?.contains('fsi__picture') ) {
+            closeHandler();
+        }
+    }
     
     return (
-        <div className="fsi" onClick={closeHandler}>
+        <div className="fsi" onClick={closeOnOverlayClick}>
             <div className="fsi__wrapper">
                 <img className="fsi__picture" src={source} alt="full_size_image" />
                 <span className="fsi_close" onClick={closeHandler}>&times;</span>

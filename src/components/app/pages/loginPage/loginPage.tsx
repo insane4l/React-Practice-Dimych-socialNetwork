@@ -7,6 +7,7 @@ import {createField, Input} from '../../../common/formsControls/formsControls'
 import {withSuccesAuthRedirect} from '../../../HOCs/withRedirect'
 import {compose} from 'redux'
 import { AppStateType } from '../../../../reduxStore'
+import AppPage from '../../../common/appPage/AppPage'
 
 import './loginPage.scss'
 
@@ -57,10 +58,14 @@ const LoginPage: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) =>
     }
 
     return (
-        <div className="login-page__wrapper">
-            <h2 className="login-page__title">Login</h2>
-            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
-        </div>
+        <AppPage pageTitle="Login">
+
+            <div className="login-page__wrapper">
+                <h2 className="login-page__title">Login</h2>
+                <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
+            </div>
+
+        </AppPage>
     )
 }
 

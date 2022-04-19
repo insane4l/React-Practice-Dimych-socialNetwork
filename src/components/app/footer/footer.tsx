@@ -4,9 +4,13 @@ import './footer.scss';
 
 const Footer = () => {
     return (
+        <div className="container">
         <footer className="footer">
-            Сreated for educational purposes © <a href="http://karpeyev.ru" className="author-link">insane4L</a>
+            
+                Created for educational purposes © <a href="http://karpeyev.com" target="_blank" rel="noreferrer" className="author-link">insane4L</a>
+            
         </footer>
+        </div>
     )
 }
 

@@ -5,6 +5,7 @@ import ChatForm from './chatForm'
 import MessagesList from '../../../common/messagesComponents/messagesList'
 import { withAnonUserRedirect } from '../../../HOCs/withRedirect'
 import * as chatSelectors from '../../../../selectors/chat'
+import AppPage from '../../../common/appPage/AppPage'
 
 import './chatPage.scss'
 
@@ -35,15 +36,18 @@ const Chat = () => {
     }, [])
 
     return (
-        <div className="chat__page">
-            {status === 'error' && <div className="error-status">Connection error. Try refreshing the page</div>}
-            <div className="chat__page-header">Developers Chat</div>
-            <MessagesList chatMessages={messages} isLoading={status === 'pending' ? true : false} />
-           
-            <ChatForm sendMessage={sendChatMessage} status={status} />
-            
+        <AppPage pageTitle="Developers Chat">
 
-        </div>
+            <div className="chat__page">
+                {status === 'error' && <div className="error-status">Connection error. Try refreshing the page</div>}
+                <div className="chat__page-header">Developers Chat</div>
+                <MessagesList chatMessages={messages} isLoading={status === 'pending' ? true : false} />
+            
+                <ChatForm sendMessage={sendChatMessage} status={status} />
+            </div>
+
+        </AppPage>
+        
     )
 }
 

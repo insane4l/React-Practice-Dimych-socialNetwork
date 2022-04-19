@@ -1,4 +1,5 @@
 import React from 'react'
+import AppPage from '../../../common/appPage/AppPage'
 import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 
 import './musicPage.scss'
@@ -6,9 +7,13 @@ import './musicPage.scss'
 
 const MusicPage: React.FC = () => {
     return (
-        <div className="section">
-            Music Page
-        </div>
+        <AppPage pageTitle="Music">
+        
+            <div>
+                Music Page
+            </div>
+            
+        </AppPage>
     )
 }
 

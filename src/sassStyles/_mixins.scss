@@ -32,13 +32,13 @@
 }
 
 @mixin customMinBreakPoint($size) {
-    @media (min-width: $size+'px') {
+    @media (min-width: $size) {
         @content;
     }
  }
 
 @mixin customMaxBreakPoint($size) {
-    @media (max-width: $size+'px') {
+    @media (max-width: $size) {
         @content;
     }
  }

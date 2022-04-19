@@ -9,6 +9,7 @@ import Spinner from '../common/spinner'
 import { AppStateType } from "../../reduxStore"
 
 import "./app.scss"
+import { Helmet } from "react-helmet-async"
 
 
 class App extends React.Component<PropsType> {
@@ -33,14 +34,20 @@ class App extends React.Component<PropsType> {
         if (!this.props.appInitialized) return <Spinner />
 
         return (
-            <div className="app__wrapper">
-                <Header />
-                <div className="container page__layout">
-                    <SideBar />
-                    <MainSection />
+            <>
+                <Helmet>
+                    <title>Social Network</title>
+                </Helmet>
+                
+                <div className="app__wrapper">
+                    <Header />
+                    <div className="container page__layout">
+                        <SideBar />
+                        <MainSection />
+                    </div>
+                    <Footer />
                 </div>
-                <Footer />
-            </div>
+            </>
         )
     }
 }

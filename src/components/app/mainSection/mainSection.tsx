@@ -14,7 +14,6 @@ const ChatPage = React.lazy(() => import('../pages/chatPage/chatPage'))
 const MainSection: React.FC = () => {
     return (
         <main className="main-section">
-            <div className="section">
             <React.Suspense fallback={Spinner}>
                 <Switch>
                     <Redirect exact from="/" to="/profile" />
@@ -29,7 +28,6 @@ const MainSection: React.FC = () => {
                     <Route path="*" component={PageNotFound} />
                 </Switch>
             </React.Suspense>
-            </div>
         </main>
     )
 }

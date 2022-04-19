@@ -11,6 +11,8 @@ import { compose } from 'redux'
 import { useHistory } from 'react-router-dom'
 import * as qs from 'qs'
 import RequestError from '../../../common/errors/requestError'
+import { getSearchTitleFromSetParameters } from '../../../../utils/transformFuncs'
+import AppPage from '../../../common/appPage/AppPage'
 
 import './usersPage.scss'
 
@@ -25,6 +27,9 @@ const UsersPage: React.FC = () => {
     const filters = useSelector(usersSelectors.getUsersListFilters)
 
     const pagesCount = Math.ceil(totalUsersCount / pageSize)
+
+    const searchTitle = getSearchTitleFromSetParameters (filters.term, filters.friend,
+    currentPage, pagesCount)
 
     const dispatch = useDispatch()
     const history = useHistory()
@@ -87,20 +92,25 @@ const UsersPage: React.FC = () => {
         dispatch( requestUsers(pageSize, 1, filters) )
     }
 
-    return (  
-        <div className="users__wrapper">
-            <UsersSearchForm 
-                onFiltersChanged={onFiltersChanged}
-                currentPage={currentPage}
-                pagesCount={pagesCount} />
-            <Pagination 
-                currentPage={currentPage}
-                totalItemsCount={totalUsersCount}
-                pageSize={pageSize}
-                onPageSelected={onPageSelected} />
-            {isLoading ? <Spinner/> : <UsersList />}   
-            {usersRequestError && <RequestError errorMessage={usersRequestError} /> }
-        </div>
+    return (
+        <AppPage pageTitle={searchTitle}>
+            
+            <div className="users__wrapper">
+                <UsersSearchForm 
+                    onFiltersChanged={onFiltersChanged}
+                    currentPage={currentPage}
+                    pagesCount={pagesCount}
+                    searchTitle={searchTitle} />
+                <Pagination 
+                    currentPage={currentPage}
+                    totalItemsCount={totalUsersCount}
+                    pageSize={pageSize}
+                    onPageSelected={onPageSelected} />
+                {isLoading ? <Spinner/> : <UsersList />}   
+                {usersRequestError && <RequestError errorMessage={usersRequestError} /> }
+            </div>
+
+        </AppPage> 
     )
 }
 

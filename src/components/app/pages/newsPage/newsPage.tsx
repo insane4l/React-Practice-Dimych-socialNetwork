@@ -1,4 +1,5 @@
 import React from 'react'
+import AppPage from '../../../common/appPage/AppPage'
 import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 
 import './newsPage.scss'
@@ -6,9 +7,13 @@ import './newsPage.scss'
 
 const NewsPage: React.FC = () => {
     return (
-        <div className="section">
-            News Page
-        </div>
+        <AppPage pageTitle="News">
+
+            <div>
+                News Page
+            </div>
+
+        </AppPage>
     )
 }
 

@@ -12,6 +12,7 @@ import { ProfileType } from '../../../../../types/types'
 import RequestError from '../../../../common/errors/requestError'
 import * as dialogsSelectors from '../../../../../selectors/dialogs'
 import * as authSelectors from '../../../../../selectors/auth'
+import { Helmet } from 'react-helmet-async'
 
 
 const DialogsItem: React.FC = () => {
@@ -58,19 +59,26 @@ const DialogsItem: React.FC = () => {
             </div>
         )
     }
-    return (
-        <div className="dialogs__item">
-            <DialogsItemHeader friend={interlocuter} />   
-            <MessagesList 
-                dialogMessages={messages}
-                dialogMessagesPortionSize={messagesPortionSize}
-                isLoading={isLoading}
-                friendId={userId}
-                friendImg={interlocuter?.photos.small}
-                ownerImg={authUserImg} />
 
-            <DialogForm sendMessage={sendDialogMessage} />
-        </div>
+    return (
+        <>
+            <Helmet>
+                <title>{`${interlocuter?.fullName || ''} Messages`}</title>
+            </Helmet>
+
+            <div className="dialogs__item">
+                <DialogsItemHeader friend={interlocuter} />   
+                <MessagesList 
+                    dialogMessages={messages}
+                    dialogMessagesPortionSize={messagesPortionSize}
+                    isLoading={isLoading}
+                    friendId={userId}
+                    friendImg={interlocuter?.photos.small}
+                    ownerImg={authUserImg} />
+
+                <DialogForm sendMessage={sendDialogMessage} />
+            </div>
+        </> 
     )
 }
 

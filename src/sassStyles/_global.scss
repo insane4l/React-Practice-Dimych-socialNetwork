@@ -52,6 +52,10 @@ body {
 
 .container {
   margin: 0 50px;
+  @include customMinBreakPoint($screen-xl) {
+    width: 1100px;
+    margin: 0 auto;
+  }
   @include smMaxBreakPoint {
     margin: 0 20px;
   }

@@ -3,7 +3,6 @@ import {Formik, Form, Field, ErrorMessage} from 'formik'
 import { UsersListFiltersType } from '../../../../reducers/usersReducer'
 import { useSelector } from 'react-redux'
 import * as usersSelectors from '../../../../selectors/users'
-import { getSearchTitleFromSetParameters } from '../../../../utils/transformFuncs'
 
 
 const usersSearchFormValidators = (values: UsersListFiltersType) => {
@@ -31,6 +30,7 @@ const UsersSearchForm: React.FC<PropsType> = (props) => {
     }
 
     const friendInputValue = stateFilters.friend === false ? "Not Friends" : stateFilters.friend === true ? "Friends Only" : null
+    
     return (
         <Formik
             initialValues={{term: stateFilters.term, friend: friendInputValue as boolean | null}}
@@ -58,9 +58,9 @@ const UsersSearchForm: React.FC<PropsType> = (props) => {
                             <Field type="radio" name="friend" value="Friends Only" />
                             Friends
                         </label>
+
                         <h3 className="users__search-title">
-                            {getSearchTitleFromSetParameters(stateFilters.term, stateFilters.friend,
-                                                                props.currentPage, props.pagesCount)}
+                            {props.searchTitle}
                         </h3>
                     </Form>
                 )
@@ -79,4 +79,5 @@ type PropsType = {
     onFiltersChanged: (filter: UsersListFiltersType) => void
     currentPage: number
     pagesCount: number
+    searchTitle: string
 }
