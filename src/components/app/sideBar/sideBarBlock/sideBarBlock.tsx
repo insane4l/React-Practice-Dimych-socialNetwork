@@ -3,7 +3,7 @@ import React from 'react'
 import './sideBarBlock.scss'
 
 
-const SideBarBlock: React.FC<PropsType> = ({children, blockTitle}) => {
+const SideBarBlock: React.FC<PropsType> = React.memo( ({children, blockTitle}) => {
     return (
         <div className="sidebar__block">
             <div className="sidebar__block-title">{blockTitle}</div>
@@ -12,7 +12,7 @@ const SideBarBlock: React.FC<PropsType> = ({children, blockTitle}) => {
             </div>
         </div>
     )
-}
+})
 
 export default SideBarBlock
 

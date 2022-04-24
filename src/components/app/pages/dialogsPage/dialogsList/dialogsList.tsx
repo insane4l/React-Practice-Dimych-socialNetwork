@@ -9,7 +9,7 @@ import * as dialogsSelectors from '../../../../../selectors/dialogs'
 import './dialogsList.scss'
 
 
-const DialogsList: React.FC = () => {
+const DialogsList: React.FC = React.memo( () => {
     
     const dialogsList = useSelector(dialogsSelectors.getDialogsList)
     const isLoading = useSelector(dialogsSelectors.getIsLoading)
@@ -26,7 +26,7 @@ const DialogsList: React.FC = () => {
             </ul>
         </div>
     )
-}
+})
 
 
 export default DialogsList

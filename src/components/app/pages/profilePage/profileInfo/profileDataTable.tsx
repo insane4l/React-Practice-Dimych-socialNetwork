@@ -2,9 +2,9 @@ import React from 'react'
 import { ProfileContactsType, ProfileType } from '../../../../../types/types'
 
 
-const ProfileDataTable: React.FC<PropsType> = (props) => {
+const ProfileDataTable: React.FC<PropsType> = React.memo( (props) => {
 
-    const {isOwner, setEditMode, user: {contacts, aboutMe, lookingForAJob, lookingForAJobDescription}} = props
+    const {isOwner, turnOnEditMode, user: {contacts, aboutMe, lookingForAJob, lookingForAJobDescription}} = props
 
     const contactsList = Object.keys(contacts).map( key => {
         if (contacts[key as keyof ProfileContactsType]) {
@@ -19,13 +19,13 @@ const ProfileDataTable: React.FC<PropsType> = (props) => {
             {lookingForAJobDescription && <Row title="My skills" data={lookingForAJobDescription} />}
             {lookingForAJob && <div className="profile__data-descr">Looking for a job!</div>}
             {contactsList}
-            {isOwner && <button className="profile__data-btn" onClick={setEditMode} >Change data</button>}
+            {isOwner && <button className="profile__data-btn" onClick={turnOnEditMode} >Change data</button>}
         </>
     )
-}
+})
 
 
-const Row: React.FC<RowPropsType> = ({title, data, isLink}) => {
+const Row: React.FC<RowPropsType> = React.memo( ({title, data, isLink}) => {
     let link = `http://${data}`
     if (data && /^http/im.test(data)) {
         link = data
@@ -38,7 +38,7 @@ const Row: React.FC<RowPropsType> = ({title, data, isLink}) => {
                 : <div className="profile__data-descr">{data}</div>}
         </div>
     )
-}
+})
 
 
 export default ProfileDataTable
@@ -48,7 +48,7 @@ export default ProfileDataTable
 type PropsType = {
     isOwner: boolean
     user: ProfileType
-    setEditMode: () => void
+    turnOnEditMode: () => void
 }
 
 type RowPropsType = {

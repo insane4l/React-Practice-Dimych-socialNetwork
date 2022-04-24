@@ -5,7 +5,7 @@ import SendMessageForm from '../../../../common/messagesComponents/sendMessageFo
 import * as dialogsSelectors from '../../../../../selectors/dialogs'
 
 
-const DialogForm: React.FC<DialogFormPropsType> = ({sendMessage}) => {
+const DialogForm: React.FC<DialogFormPropsType> = React.memo( ({sendMessage}) => {
 
     const sendingMessageError = useSelector(dialogsSelectors.getSendingMessageError)
     
@@ -19,7 +19,7 @@ const DialogForm: React.FC<DialogFormPropsType> = ({sendMessage}) => {
             {sendingMessageError && <RequestError errorMessage={sendingMessageError} />}
         </>
     )
-}
+})
 
 export default DialogForm
 

@@ -7,7 +7,7 @@ import UserAvatar from '../../../common/userAvatar/userAvatar'
 import UserName from '../../../common/userName/userName'
 
 
-const User: React.FC<PropsType> = ({user, isAuthorized, authUserId}) => {
+const User: React.FC<PropsType> = React.memo( ({user, isAuthorized, authUserId}) => {
 
     const {id, photos, name, followed, status} = user
 
@@ -28,7 +28,7 @@ const User: React.FC<PropsType> = ({user, isAuthorized, authUserId}) => {
             </div>
         </li>
     )
-}
+})
 
 export default User
 

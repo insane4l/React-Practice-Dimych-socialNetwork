@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 
-const UserName: React.FC<UserNamePropsType> = ({linkTo, userName, className}) => {
+const UserName: React.FC<UserNamePropsType> = React.memo( ({linkTo, userName, className}) => {
     return (
         <Link className={className} to={linkTo} >
             <div className="user__component-name">
@@ -10,7 +10,7 @@ const UserName: React.FC<UserNamePropsType> = ({linkTo, userName, className}) =>
             </div>
         </Link>
     )
-}
+})
 
 export default UserName
 

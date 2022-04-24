@@ -15,7 +15,7 @@ const usersSearchFormValidators = (values: UsersListFiltersType) => {
 }
 
 
-const UsersSearchForm: React.FC<PropsType> = (props) => {
+const UsersSearchForm: React.FC<PropsType> = React.memo( (props) => {
 
     const isAuthorized = useSelector((state: AppStateType) => state.auth.isAuthorized)
     const stateFilters = useSelector(usersSelectors.getUsersListFilters)
@@ -74,7 +74,7 @@ const UsersSearchForm: React.FC<PropsType> = (props) => {
             }}
         </Formik>
     )
-}
+})
 
 export default UsersSearchForm
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {Link, useRouteMatch} from 'react-router-dom'
 import DialogForm from './dialogForm'
 import * as icons from '../../../../../assets/icons'
@@ -15,7 +15,7 @@ import * as authSelectors from '../../../../../selectors/auth'
 import { Helmet } from 'react-helmet-async'
 
 
-const DialogsItem: React.FC = () => {
+const DialogsItem: React.FC = React.memo( () => {
 
     const messages = useSelector(dialogsSelectors.getSelectedDialogMessages)
     const interlocuter = useSelector(dialogsSelectors.getDialogInterlocuterProfile)
@@ -36,9 +36,9 @@ const DialogsItem: React.FC = () => {
 
 
 
-    const sendDialogMessage = (message: string) => {
+    const sendDialogMessage = useCallback( (message: string) => {
         dispatch( sendMessage(userId, message) )
-    }
+    }, [dispatch, userId])
     
 
     useEffect( () => {
@@ -80,11 +80,11 @@ const DialogsItem: React.FC = () => {
             </div>
         </> 
     )
-}
+})
 
 
 
-const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friend}) => {
+const DialogsItemHeader: React.FC<DialogHeaderPropsType> = React.memo( ({friend}) => {
 
     return (
         <div className="dialogs__item-header">
@@ -101,7 +101,7 @@ const DialogsItemHeader: React.FC<DialogHeaderPropsType> = ({friend}) => {
             </Link>
         </div>
     )
-}
+})
 
 
 export default DialogsItem

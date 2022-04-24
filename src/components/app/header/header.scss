@@ -95,12 +95,12 @@
     }
     &__login {
         &-avatar {
-            @include customMaxBreakPoint(500) {
+            @include customMaxBreakPoint(500px) {
                 margin-right: 15px;
             }
         }
         &-nickname {
-            @include customMaxBreakPoint(500) {
+            @include customMaxBreakPoint(500px) {
                 display: none;
             }
         }

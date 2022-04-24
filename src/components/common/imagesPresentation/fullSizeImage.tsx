@@ -4,7 +4,7 @@ import { toggleBodyScroll } from '../../../utils/toggleBodyScroll'
 import './fullSizeImage.scss'
 
 
-const FullSizeImage: React.FC<FullSizeImagePropsType> = ({source, closeHandler}) => {
+const FullSizeImage: React.FC<FullSizeImagePropsType> = React.memo( ({source, closeHandler}) => {
 
     useEffect(() => {
         toggleBodyScroll('hide');
@@ -27,7 +27,7 @@ const FullSizeImage: React.FC<FullSizeImagePropsType> = ({source, closeHandler})
             </div>
         </div>
     )
-}
+})
 
 export default FullSizeImage
 

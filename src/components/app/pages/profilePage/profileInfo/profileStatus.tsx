@@ -5,7 +5,7 @@ import RequestError from '../../../../common/errors/requestError'
 import * as profileSelectors from '../../../../../selectors/profile'
 
 
-const ProfileStatus: React.FC<PropsType> = ({isOwner}) => {
+const ProfileStatus: React.FC<PropsType> = React.memo( ({isOwner}) => {
 
     const updateProfileStatusError = useSelector(profileSelectors.getUpdateProfileStatusError)
     const profileStatusMessage = useSelector(profileSelectors.getProfileStatus)
@@ -56,7 +56,7 @@ const ProfileStatus: React.FC<PropsType> = ({isOwner}) => {
         </div>
     )
 
-}
+})
 
 export default ProfileStatus
 

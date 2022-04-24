@@ -8,7 +8,7 @@ import PostAddForm from './postAddForm'
 import './postsTimeline.scss'
 
 
-const PostsTimline: React.FC<PropsType> = ({isOwner}) => {
+const PostsTimline: React.FC<PropsType> = React.memo( ({isOwner}) => {
     const messages = useSelector<AppStateType, PostType[]>( (state) => state.profilePage.messages )
     return (
         <>
@@ -22,7 +22,7 @@ const PostsTimline: React.FC<PropsType> = ({isOwner}) => {
             </div>
         </>
     )
-}
+})
 
 export default PostsTimline
 

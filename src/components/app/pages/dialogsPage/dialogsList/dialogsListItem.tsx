@@ -5,7 +5,7 @@ import { AllDialogsListItemType } from '../../../../../services/dialogsAPI'
 import Moment from 'react-moment'
 
 
-const DialogsListItem: React.FC<PropsType> = ({dialogsItem}) => {
+const DialogsListItem: React.FC<PropsType> = React.memo( ({dialogsItem}) => {
 
     const {id, photos, userName, lastUserActivityDate, hasNewMessages,
         newMessagesCount, lastDialogActivityDate} = dialogsItem
@@ -36,7 +36,7 @@ const DialogsListItem: React.FC<PropsType> = ({dialogsItem}) => {
             </Link>
         </li>
     )
-}
+})
 
 
 export default DialogsListItem

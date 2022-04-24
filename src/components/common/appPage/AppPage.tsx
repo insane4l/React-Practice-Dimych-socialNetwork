@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import './AppPage.scss'
 
-const AppPage: React.FC<AppPagePropsType> = ({pageTitle, canonicalLink, children}) => {
+const AppPage: React.FC<AppPagePropsType> = React.memo( ({pageTitle, canonicalLink, children}) => {
     return (
         <>
             <Helmet>
@@ -15,7 +15,7 @@ const AppPage: React.FC<AppPagePropsType> = ({pageTitle, canonicalLink, children
             </div>
         </>
     )
-}
+})
 
 export default AppPage
 

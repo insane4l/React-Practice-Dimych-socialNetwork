@@ -2,7 +2,7 @@ import React from 'react'
 import SendMessageForm from '../../../common/messagesComponents/sendMessageForm'
 
 
-const ChatForm: React.FC<ChatFormPropsType> = ({sendMessage, status}) => {
+const ChatForm: React.FC<ChatFormPropsType> = React.memo( ({sendMessage, status}) => {
 
     return (
         <SendMessageForm
@@ -10,7 +10,7 @@ const ChatForm: React.FC<ChatFormPropsType> = ({sendMessage, status}) => {
             btnDisabled={status !== 'ready'}
             sendMessage={sendMessage} />
     )
-}
+})
 
 export default ChatForm
 

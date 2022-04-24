@@ -11,7 +11,7 @@ import { useMediaQuery } from 'react-responsive'
 import './sideBar.scss'
 
 
-const SideBar: React.FC<PropsType> = (props) => {
+const SideBar: React.FC<PropsType> = React.memo( (props) => {
 
     const isSmallerThanLgBreakPoint = useMediaQuery({ query: `(max-width: 992px)`})
 
@@ -31,7 +31,7 @@ const SideBar: React.FC<PropsType> = (props) => {
             </SideBarBlock>
         </aside>
     );
-}
+})
 
 const mapStateToProps = (state: AppStateType) => ({
     isUserAuthorized: state.auth.isAuthorized

@@ -6,7 +6,7 @@ import { Route, Switch } from 'react-router-dom'
 import AppPage from '../../../common/appPage/AppPage'
 
 
-const DialogsPage: React.FC = () => {
+const DialogsPage: React.FC = React.memo( () => {
     return (
         <AppPage pageTitle="Dialogs">
         
@@ -17,6 +17,6 @@ const DialogsPage: React.FC = () => {
 
         </AppPage>
     )
-}
+})
 
 export default withAnonUserRedirect(DialogsPage)

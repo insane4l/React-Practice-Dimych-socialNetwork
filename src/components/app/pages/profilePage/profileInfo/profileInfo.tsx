@@ -6,7 +6,7 @@ import { ProfileType} from '../../../../../types/types'
 import './profileInfo.scss'
 
 
-const ProfileInfo: React.FC<PropsType> = ({user, isOwner, isUserAuthorized, updateProfileData}) => {
+const ProfileInfo: React.FC<PropsType> = React.memo( ({user, isOwner, isUserAuthorized, updateProfileData}) => {
     
     return (
         <div className="profile__info">
@@ -23,7 +23,7 @@ const ProfileInfo: React.FC<PropsType> = ({user, isOwner, isUserAuthorized, upda
                  />
         </div>
     )
-}
+})
 
 
 export default ProfileInfo

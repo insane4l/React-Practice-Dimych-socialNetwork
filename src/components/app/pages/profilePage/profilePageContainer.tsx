@@ -35,7 +35,8 @@ class ProfilePageContainer extends Component<PropsType> {
             this.props.history.push("/profile")
         }
         if (!userId) {
-            console.error("Id should exists in URI params or in state(authUserId)")
+            console.error("the userId must exist in the URI params or the user must be authorized") 
+            alert("Please add the correct user id to the url (/profile/<userID>)") // todo: mb show this message instead empty profile page
         } else {
             this.props.getUserProfile(userId)
             this.props.getProfileStatus(userId)

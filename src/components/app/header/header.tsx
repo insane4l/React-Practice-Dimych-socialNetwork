@@ -13,7 +13,7 @@ import {mainLogo} from "../../../assets/images"
 import "./header.scss"
 
 
-const Header: React.FC = () => {
+const Header: React.FC = React.memo( () => {
 
 	const isAuthorized = useSelector(authSelectors.getIsAuthorized)
 	const userId = useSelector(authSelectors.getAuthUserId)
@@ -29,10 +29,10 @@ const Header: React.FC = () => {
 				dispatch(actions.unhandledErrorCatched(false))
 			}, 10000)
 		}
-	}, [unhandledError])
+	}, [unhandledError, dispatch])
 
 	const onLogout = () => {
-	dispatch( logout() )
+		dispatch( logout() )
 	}
 
 	const loginLink = <NavLink className="header__login-btn" to="/login">Log in</NavLink>;
@@ -46,28 +46,27 @@ const Header: React.FC = () => {
 	return (
 		<header className="header">
 			<div className="container">
-			<div className="header__content">
+				<div className="header__content">
 
-				<MobileMenu />
+					<MobileMenu />
 
-				<Link className="header__logo" to="/chat">
-					<img className="header__logo-img" src={mainLogo} alt="main-logo" />
-					<span className="header__logo-text">Social Network</span>
-				</Link>
-				
-				<div className="header__login-panel">
-				{loginPanel}
+					<Link className="header__logo" to="/chat">
+						<img className="header__logo-img" src={mainLogo} alt="main-logo" />
+						<span className="header__logo-text">Social Network</span>
+					</Link>
+					
+					<div className="header__login-panel">
+						{loginPanel}
+					</div>
+
+					{unhandledError && <RequestError 
+										className="app-unhandled-error"
+										errorMessage="Something goes wrong, server error. Please try refresh the page" />}
+
 				</div>
-
-				{unhandledError && <RequestError 
-									className="app-unhandled-error"
-									errorMessage="Something goes wrong, server error. Please try refresh the page" />}
-
-			</div>
-			
 			</div>
 		</header>
 	)
-}
+})
 
 export default Header

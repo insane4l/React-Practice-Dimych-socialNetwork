@@ -5,7 +5,7 @@ import { defaultPhoto } from '../../../assets/images'
 import './userAvatar.scss'
 
 
-const UserAvatar: React.FC<UserAvatarPropsType & React.HTMLAttributes<HTMLDivElement>> = ({userImage, linkTo, className}) => {
+const UserAvatar: React.FC<UserAvatarPropsType & React.HTMLAttributes<HTMLDivElement>> = React.memo( ({userImage, linkTo, className}) => {
     return (
         <Link className={className} to={linkTo}>
             <div className="user__component-avatar">
@@ -13,7 +13,7 @@ const UserAvatar: React.FC<UserAvatarPropsType & React.HTMLAttributes<HTMLDivEle
             </div>
         </Link>
     )
-}
+})
 
 export default UserAvatar
 

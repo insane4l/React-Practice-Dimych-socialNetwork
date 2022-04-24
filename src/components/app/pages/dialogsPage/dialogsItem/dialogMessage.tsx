@@ -52,7 +52,7 @@ const DialogMessage: React.FC<MessagePropsType> = React.memo( ({message, isOwner
 })
 
 
-const MessageStatus: React.FC<{messageId: string}> = ({messageId}) => {
+const MessageStatus: React.FC<{messageId: string}> = React.memo( ({messageId}) => {
     const viewedMessages = useSelector(dialogsSelectors.getViewedMessages)
     const MessageStatusRequestError = useSelector(dialogsSelectors.getMessageStatusRequestError)
     
@@ -70,7 +70,7 @@ const MessageStatus: React.FC<{messageId: string}> = ({messageId}) => {
         </div>
         
     )
-}
+})
 
 export default DialogMessage
 

@@ -5,7 +5,7 @@ import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 import './musicPage.scss'
 
 
-const MusicPage: React.FC = () => {
+const MusicPage: React.FC = React.memo( () => {
     return (
         <AppPage pageTitle="Music">
         
@@ -15,7 +15,7 @@ const MusicPage: React.FC = () => {
             
         </AppPage>
     )
-}
+})
 
 
 export default withAnonUserRedirect(MusicPage)

@@ -10,7 +10,7 @@ import AppPage from '../../../common/appPage/AppPage'
 import './profilePage.scss'
 
 
-const ProfilePage: React.FC<PropsType> = ({ isOwner, isUserAuthorized, updateProfileData }) => {
+const ProfilePage: React.FC<PropsType> = React.memo( ({ isOwner, isUserAuthorized, updateProfileData }) => {
 
     const topAnchor = useRef<HTMLDivElement>(null)
     const selectedProfile = useSelector(profileSelectors.getSelectedProfile)
@@ -35,7 +35,7 @@ const ProfilePage: React.FC<PropsType> = ({ isOwner, isUserAuthorized, updatePro
 
         </AppPage>
     )
-}
+})
 
 export default ProfilePage
 

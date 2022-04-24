@@ -3,7 +3,7 @@ import React, { FormEvent, KeyboardEvent, useState } from 'react'
 import './sendMessageForm.scss'
 
 
-const SendMessageForm: React.FC<SendMessagePropsType> = ({fieldName, btnDisabled, sendMessage}) => {
+const SendMessageForm: React.FC<SendMessagePropsType> = React.memo( ({fieldName, btnDisabled, sendMessage}) => {
 
     const [message, setMessage] = useState('')
 
@@ -37,7 +37,7 @@ const SendMessageForm: React.FC<SendMessagePropsType> = ({fieldName, btnDisabled
             <button disabled={btnDisabled || !message} className="send-message__btn">Send Message</button>
         </form>
     )
-}
+})
 
 export default SendMessageForm
 

@@ -5,7 +5,7 @@ import {withAnonUserRedirect} from '../../../HOCs/withRedirect'
 import './newsPage.scss'
 
 
-const NewsPage: React.FC = () => {
+const NewsPage: React.FC = React.memo( () => {
     return (
         <AppPage pageTitle="News">
 
@@ -15,6 +15,6 @@ const NewsPage: React.FC = () => {
 
         </AppPage>
     )
-}
+})
 
 export default withAnonUserRedirect(NewsPage)

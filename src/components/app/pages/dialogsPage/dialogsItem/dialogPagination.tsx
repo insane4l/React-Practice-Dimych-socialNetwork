@@ -4,7 +4,7 @@ import { requestDialogMessages } from '../../../../../reducers/dialogsReducer'
 import * as dialogsSelectors from '../../../../../selectors/dialogs'
 
 
-const DialogPagination: React.FC<DialogPaginationPropsType> = ({userId, messagesPortionSize}) => {
+const DialogPagination: React.FC<DialogPaginationPropsType> = React.memo( ({userId, messagesPortionSize}) => {
 
     const loadedMessagesCount = useSelector(dialogsSelectors.getLoadedMessagesCount)
     const dialogMessagesCount = useSelector(dialogsSelectors.getSelectedDialogMessagesCount)
@@ -28,7 +28,7 @@ const DialogPagination: React.FC<DialogPaginationPropsType> = ({userId, messages
             }
         </>
     )
-}
+})
 
 export default DialogPagination
 

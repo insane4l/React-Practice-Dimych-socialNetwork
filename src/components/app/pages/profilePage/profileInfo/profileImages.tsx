@@ -8,7 +8,7 @@ import {defaultCover, defaultPhoto} from '../../../../../assets/images'
 import * as icons from '../../../../../assets/icons'
 
 
-const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto}) => {
+const ProfileImages: React.FC<PropsType> = React.memo( ({isOwner, userCover, userPhoto}) => {
 
     const [displayFSImage, setFSImageDisplay] = useState(false)
     const dispatch = useDispatch()
@@ -49,7 +49,7 @@ const ProfileImages: React.FC<PropsType> = ({isOwner, userCover, userPhoto}) => 
             </div>  
         </div>
     )
-}
+})
 
 export default ProfileImages
 

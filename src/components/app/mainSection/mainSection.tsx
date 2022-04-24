@@ -11,7 +11,7 @@ const ChatPage = React.lazy(() => import('../pages/chatPage/chatPage'))
 // try this https://stackoverflow.com/questions/53186595/react-lazy-does-not-cause-splitting-bundle-in-chunks
 
 
-const MainSection: React.FC = () => {
+const MainSection: React.FC = React.memo( () => {
     return (
         <main className="main-section">
             <React.Suspense fallback={Spinner}>
@@ -30,6 +30,6 @@ const MainSection: React.FC = () => {
             </React.Suspense>
         </main>
     )
-}
+})
 
 export default MainSection

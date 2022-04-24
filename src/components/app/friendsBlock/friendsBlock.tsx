@@ -65,14 +65,14 @@ const FriendsBlock: React.FC<FriendsBlockPropsType> = React.memo( ({friendsPerPa
     )
 })
 
-const Friend: React.FC<FriendPropsType> = ({friendImage, friendName, friendId}) => {
+const Friend: React.FC<FriendPropsType> = React.memo( ({friendImage, friendName, friendId}) => {
     return (
         <div className="friends__block-item">
             <UserAvatar className="friend__image" userImage={friendImage} linkTo={`/profile/${friendId}`} />
             <UserName className="friend__name" userName={friendName} linkTo={`/profile/${friendId}`} />
         </div>
     )
-}
+})
 
 export default FriendsBlock
 

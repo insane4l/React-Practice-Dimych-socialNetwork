@@ -7,7 +7,7 @@ import * as dialogsSelectors from '../../../selectors/dialogs'
 import './newMessagesCounter.scss'
 
 
-const NewMessagesCounter: React.FC<NewMessagesCounterPropsType> = ({rerenderSecs}) => {
+const NewMessagesCounter: React.FC<NewMessagesCounterPropsType> = React.memo( ({rerenderSecs}) => {
     const newMessagesCountRequestError = useSelector(dialogsSelectors.getNewMessagesCountRequestError)
     const newDialogsMessagesCount = useSelector(dialogsSelectors.getNewDialogsMessagesCount)
     const isUserAuthorized = useSelector(authSelectors.getIsAuthorized)
@@ -44,7 +44,7 @@ const NewMessagesCounter: React.FC<NewMessagesCounterPropsType> = ({rerenderSecs
                 {newMessagesCountRequestError || newDialogsMessagesCount}
         </span> 
     )
-}
+})
 
 export default NewMessagesCounter
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {NavLink} from 'react-router-dom'
 import NewMessagesCounter from './newMessagesCounter'
 
@@ -6,12 +6,12 @@ import * as icons from '../../../assets/icons'
 import './navBar.scss'
 
 
-const NavBar: React.FC<NavBarPropsType> = ({closeMenu}) => {
+const NavBar: React.FC<NavBarPropsType> = React.memo( ({closeMenu}) => {
 
-	const onMobileMenuClick = (e: React.MouseEvent<HTMLElement>) => {
+	const onMobileMenuClick = useCallback( (e: React.MouseEvent<HTMLElement>) => {
 		// console.log((e.target as Element).classList);
 		if (closeMenu) closeMenu()
-	}
+	}, [closeMenu])
 
     return (
 		<nav className="navbar">
@@ -27,10 +27,10 @@ const NavBar: React.FC<NavBarPropsType> = ({closeMenu}) => {
 			</ul>
       	</nav>
     )
-}
+})
 
 
-const NavbarLink: React.FC<NavbarLinkPropsType> = ({url, iconLink, label, showNewMessagesCounter}) => {
+const NavbarLink: React.FC<NavbarLinkPropsType> = React.memo( ({url, iconLink, label, showNewMessagesCounter}) => {
   return (
     <li className="navbar__list-item">
 		<NavLink className="navbar__link" to={url} activeClassName="navbar__link_active">
@@ -40,7 +40,7 @@ const NavbarLink: React.FC<NavbarLinkPropsType> = ({url, iconLink, label, showNe
 		</NavLink>
     </li>
   )
-}
+})
 
 
 

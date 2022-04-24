@@ -5,7 +5,7 @@ import AppPage from '../../../common/appPage/AppPage'
 import './settingsPage.scss'
 
 
-const SettingsPage = () => {
+const SettingsPage = React.memo( () => {
     return (
         <AppPage pageTitle="Settings">
 
@@ -15,6 +15,6 @@ const SettingsPage = () => {
             
         </AppPage>
     )
-}
+})
 
 export default withAnonUserRedirect(SettingsPage)

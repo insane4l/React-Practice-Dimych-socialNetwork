@@ -6,7 +6,7 @@ import * as usersSelectors from '../../../../selectors/users'
 import '../buttons.scss'
 
 
-const FollowBtn: React.FC<FollowBtnPropsType> = ({isFollowed, userId}) => {
+const FollowBtn: React.FC<FollowBtnPropsType> = React.memo( ({isFollowed, userId}) => {
 
     const followingInProgress = useSelector(usersSelectors.getFollowingInProgress)
     const btnLabel = isFollowed ? 'Unfollow' : isFollowed === false ? 'Follow' : ''
@@ -27,7 +27,7 @@ const FollowBtn: React.FC<FollowBtnPropsType> = ({isFollowed, userId}) => {
         {btnLabel}
         </button>
     )
-}
+})
 
 export default FollowBtn
 

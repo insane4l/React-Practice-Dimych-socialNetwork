@@ -11,7 +11,7 @@ import Spinner from '../spinner'
 import './messagesList.scss'
 
 
-const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMessages, dialogMessagesPortionSize, isLoading, friendId, friendImg, ownerImg}) => {
+const MessagesList: React.FC<MessagesListPropsType> = React.memo( ({chatMessages, dialogMessages, dialogMessagesPortionSize, isLoading, friendId, friendImg, ownerImg}) => {
 
     const propsMessages = chatMessages || dialogMessages
 
@@ -62,7 +62,7 @@ const MessagesList: React.FC<MessagesListPropsType> = ({chatMessages, dialogMess
             <div ref={messagesAnchor}></div>
         </div>
     )
-}
+})
 
 export default MessagesList
 

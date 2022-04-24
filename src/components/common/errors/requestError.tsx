@@ -3,7 +3,7 @@ import React from 'react'
 import './requestError.scss'
 
 
-const RequestError: React.FC<RequestErrorPropsType> = ({errorMessage, className}) => {
+const RequestError: React.FC<RequestErrorPropsType> = React.memo( ({errorMessage, className}) => {
     return (
         <div className={`request-error__block ${className}`}>
             <div className="request-error__message">
@@ -11,7 +11,7 @@ const RequestError: React.FC<RequestErrorPropsType> = ({errorMessage, className}
             </div>
         </div>
     )
-}
+})
 
 export default RequestError
 

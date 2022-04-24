@@ -9,7 +9,7 @@ import * as profileSelectors from '../../../../../selectors/profile'
 import * as icons from '../../../../../assets/icons'
 
 
-const Post: React.FC<PropsType> = ({item}) => {
+const Post: React.FC<PropsType> = React.memo( ({item}) => {
 
     const profile = useSelector(profileSelectors.getSelectedProfile)
 
@@ -43,7 +43,7 @@ const Post: React.FC<PropsType> = ({item}) => {
             </div>
         </div>
     )
-}
+})
 
 export default Post
 

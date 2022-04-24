@@ -14,7 +14,7 @@ import './loginPage.scss'
 
 const maxLength25 = maxLengthCreator(25)
 
-let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, FormOwnPropsType> & FormOwnPropsType> = (props) => {
+let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, FormOwnPropsType> & FormOwnPropsType> = React.memo( (props) => {
     return (
         <form className="login__form" onSubmit={props.handleSubmit}>
             <div>
@@ -46,13 +46,13 @@ let LoginForm: React.FC<InjectedFormProps<LoginFormValuesType, FormOwnPropsType>
             
         </form>
     )
-}
+})
 
 
 const LoginReduxForm = reduxForm<LoginFormValuesType, FormOwnPropsType>({form: 'login'})(LoginForm);
 
 
-const LoginPage: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
+const LoginPage: React.FC<MapStatePropsType & MapDispatchPropsType> = React.memo( (props) => {
     const onSubmit = (formData: LoginFormValuesType) => {
         props.login(formData.email, formData.password, formData.rememberMe, formData.captcha);
     }
@@ -67,7 +67,7 @@ const LoginPage: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) =>
 
         </AppPage>
     )
-}
+})
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType  => {
     return {

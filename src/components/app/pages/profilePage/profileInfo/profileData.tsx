@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import ProfileStatus from './profileStatus'
 import ProfileDataForm from './profileDataForm'
 import ProfileDataTable from './profileDataTable'
@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import * as profileSelectors from '../../../../../selectors/profile'
 
 
-const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfileData, isUserAuthorized}) => {
+const ProfileData: React.FC<ProfileDataPropsType> = React.memo( ({isOwner, user, updateProfileData, isUserAuthorized}) => {
     
     return (
         <div className="profile__data">
@@ -25,10 +25,10 @@ const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfi
                 updateProfileData={updateProfileData}/>
         </div>
     )
-}
+})
 
 
-const ProfileButtons: React.FC<ProfileButtonsPropsType> = ({userId}) => {
+const ProfileButtons: React.FC<ProfileButtonsPropsType> = React.memo( ({userId}) => {
 
     const profileFollowedInfo = useSelector(profileSelectors.getSelectedProfileFollowedInfo)
 
@@ -38,34 +38,45 @@ const ProfileButtons: React.FC<ProfileButtonsPropsType> = ({userId}) => {
             <MessagesBtn linkTo={`/dialogs/${userId}`} />
         </div>
     )
-}
+})
 
-const ProfileDataList: React.FC<ProfileDataListPropsType> = ({isOwner, user, updateProfileData}) => { 
+const ProfileDataList: React.FC<ProfileDataListPropsType> = React.memo( ({isOwner, user, updateProfileData}) => { 
     
-    const [dataVisibility, toggleDataVisibility] = useState(false)
+    const [dataVisibility, setDataVisibility] = useState(false)
     const [editMode, setEditMode] = useState(false)
+
+    const toggleDataVisibility = useCallback( () => {
+        setDataVisibility(isVisible => !isVisible)
+    }, [])
+
+    const turnOffEditMode = useCallback( () => {
+        setEditMode(false)
+    }, [])
+    const turnOnEditMode = useCallback( () => {
+        setEditMode(true)
+    }, [])
     
-    const onProfileDataSubmit = (formData: ProfileType) => {
+    const onProfileDataSubmit = useCallback( (formData: ProfileType) => {
         // todo: remove then
         updateProfileData(formData).then( () => {
             setEditMode(false);
         })
-    }
+    }, [updateProfileData])
 
     const displayedDataContent = editMode 
         ? <ProfileDataForm
             initialValues={user} 
             onSubmit={onProfileDataSubmit} 
             user={user}
-            turnOffEditMode={() => setEditMode(false)} />
+            turnOffEditMode={turnOffEditMode} />
         : <ProfileDataTable 
             user={user}
             isOwner={isOwner}
-            setEditMode={() => setEditMode(true)} />
+            turnOnEditMode={turnOnEditMode} />
     
     return (
         <>
-            <button onClick={() => toggleDataVisibility(!dataVisibility)} className="view-data__btn">
+            <button onClick={toggleDataVisibility} className="view-data__btn">
                 { dataVisibility ? "Hide Profile Info" : "Show Profile Info" }
             </button>
 
@@ -75,7 +86,7 @@ const ProfileDataList: React.FC<ProfileDataListPropsType> = ({isOwner, user, upd
                     </div> }
         </>
     )
-}
+})
 
 export default ProfileData
 

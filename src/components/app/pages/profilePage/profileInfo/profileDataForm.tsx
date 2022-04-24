@@ -4,7 +4,9 @@ import { ProfileType } from '../../../../../types/types';
 import {CustomFieldProps, Input, Textarea} from '../../../../common/formsControls/formsControls';
 
 
-let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormOwnPropsType> & FormOwnPropsType> = ({user, turnOffEditMode, handleSubmit, error}) => {
+let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType,
+    FormOwnPropsType> & FormOwnPropsType> 
+        = React.memo( ({user, turnOffEditMode, handleSubmit, error}) => {
 
     return (
         <form onSubmit={handleSubmit}>
@@ -25,10 +27,10 @@ let ProfileDataForm: React.FC<InjectedFormProps<ProfileDataFormValuesType, FormO
             </div>
         </form>
     )
-}
+})
 
 
-const Row: React.FC<RowPropsType> = ({title, inputName, element, ...props}) => {
+const Row: React.FC<RowPropsType> = React.memo( ({title, inputName, element, ...props}) => {
     return <div className="profile__data-row data-form__row">
                 <div className="profile__data-title">{title}:</div>
                 <Field 
@@ -37,7 +39,7 @@ const Row: React.FC<RowPropsType> = ({title, inputName, element, ...props}) => {
                     className="profile__data-descr profile__data-field"
                     {...props} />
            </div>
-}
+})
 
 
 const ProfileDataReduxForm = reduxForm<ProfileDataFormValuesType, FormOwnPropsType>({form: "profileData"})(ProfileDataForm)

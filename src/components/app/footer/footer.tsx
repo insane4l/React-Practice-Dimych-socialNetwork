@@ -2,7 +2,7 @@ import React from 'react';
 
 import './footer.scss';
 
-const Footer = () => {
+const Footer = React.memo( () => {
     return (
         <div className="container">
         <footer className="footer">
@@ -12,7 +12,7 @@ const Footer = () => {
         </footer>
         </div>
     )
-}
+})
 
 
 export default Footer;

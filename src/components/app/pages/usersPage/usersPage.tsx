@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { actions, requestUsers, UsersListFiltersType} from '../../../../reducers/usersReducer'
 import Pagination from '../../../common/pagination/pagination'
 import UsersList from './usersList'
@@ -15,7 +15,7 @@ import AppPage from '../../../common/appPage/AppPage'
 import './usersPage.scss'
 
 
-const UsersPage: React.FC = () => {
+const UsersPage: React.FC = React.memo( () => {
 
     const totalUsersCount = useSelector(usersSelectors.getTotalUsersCount)
     const pageSize = useSelector(usersSelectors.getPageSize)
@@ -86,9 +86,9 @@ const UsersPage: React.FC = () => {
         dispatch( requestUsers(pageSize, num, filters) )
     }
 
-    const onFiltersChanged = (filters: UsersListFiltersType) => {
+    const onFiltersChanged = useCallback( (filters: UsersListFiltersType) => {
         dispatch( requestUsers(pageSize, 1, filters) )
-    }
+    }, [dispatch, pageSize])
 
     return (
         <AppPage pageTitle={searchTitle}>
@@ -110,6 +110,6 @@ const UsersPage: React.FC = () => {
 
         </AppPage> 
     )
-}
+})
 
 export default UsersPage

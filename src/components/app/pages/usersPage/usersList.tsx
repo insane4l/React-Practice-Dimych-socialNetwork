@@ -7,7 +7,7 @@ import * as usersSelectors from '../../../../selectors/users'
 import { AppStateType } from '../../../../reduxStore'
 
 
-const UsersList: React.FC = () => {
+const UsersList: React.FC = React.memo( () => {
 
     const isAuthorized = useSelector((state: AppStateType) => state.auth.isAuthorized)
     const authUserId = useSelector((state: AppStateType) => state.auth.id)
@@ -31,6 +31,6 @@ const UsersList: React.FC = () => {
                 && <RequestError errorMessage={changingSubscriptionStatusError} className="users__list-item_error" />}
         </>
     )
-}
+})
 
 export default UsersList

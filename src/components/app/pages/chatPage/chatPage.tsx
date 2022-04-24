@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { actions, sendMessage, startMessagesListening, stopMessagesListening } from '../../../../reducers/chatReducer'
 import ChatForm from './chatForm'
@@ -10,21 +10,21 @@ import AppPage from '../../../common/appPage/AppPage'
 import './chatPage.scss'
 
 
-const ChatPage: React.FC = () => {
+const ChatPage: React.FC = React.memo( () => {
     return (
         <Chat />
     )
-}
+})
 
-const Chat = () => {
+const Chat = React.memo( () => {
 
     const status = useSelector(chatSelectors.getStatus)
     const messages = useSelector(chatSelectors.getMessages)
     const dispatch = useDispatch()
 
-    const sendChatMessage = (message: string) => {
+    const sendChatMessage = useCallback( (message: string) => {
         dispatch( sendMessage(message) )
-    }
+    }, [dispatch])
     
     useEffect(() => {
         dispatch(startMessagesListening())
@@ -48,7 +48,7 @@ const Chat = () => {
         </AppPage>
         
     )
-}
+})
 
 
 export default withAnonUserRedirect(ChatPage)

@@ -1,17 +1,26 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import NavBar from '../navBar'
 
 import './mobileMenu.scss'
 
 
-const MobileMenu: React.FC = () => {
+const MobileMenu: React.FC = React.memo( () => {
     
     const [isMenuVisible, setMenuVisibility] = useState(false)
+
+    const toggleMenuVisibility = useCallback( () => {
+        setMenuVisibility(isMenuVisible => !isMenuVisible)
+    }, [])
+
+    const hideMenu = useCallback(() => {
+        setMenuVisibility(false);
+    }, [])
+
     const burgerBtnStyle = isMenuVisible ? 'mobile__menu-btn mobile__menu-btn_active' : 'mobile__menu-btn'
 
     return (
         <div className="mobile__menu">
-            <div className={burgerBtnStyle} onClick={() => setMenuVisibility(!isMenuVisible)}>
+            <div className={burgerBtnStyle} onClick={toggleMenuVisibility}>
                 <span></span>
                 <span></span>
                 <span></span>
@@ -19,10 +28,10 @@ const MobileMenu: React.FC = () => {
 
             {isMenuVisible 
                 && <div className="mobile__menu-content">
-                        <NavBar closeMenu={() => setMenuVisibility(false)} />
+                        <NavBar closeMenu={hideMenu} />
                    </div>}
         </div>
     )
-}
+})
 
 export default MobileMenu

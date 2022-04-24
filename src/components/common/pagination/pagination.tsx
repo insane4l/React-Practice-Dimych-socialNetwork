@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive'
 import './pagination.scss'
 
 
-const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
+const Pagination: React.FC<PropsType> = React.memo( ({currentPage, totalItemsCount, pageSize, onPageSelected, portionSize = 10}) => {
     const [currentPortion, setCurrentPortion] = useState(currentPage);
 
     const isSmallerThanLgBreakPoint = useMediaQuery({ query: `(max-width: 992px)`});
@@ -74,7 +74,7 @@ const Pagination: React.FC<PropsType> = ({currentPage, totalItemsCount, pageSize
             }
         </div>
     )
-}
+})
 
 
 type PropsType = {
