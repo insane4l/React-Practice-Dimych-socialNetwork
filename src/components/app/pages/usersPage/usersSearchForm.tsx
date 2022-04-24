@@ -3,6 +3,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik'
 import { UsersListFiltersType } from '../../../../reducers/usersReducer'
 import { useSelector } from 'react-redux'
 import * as usersSelectors from '../../../../selectors/users'
+import { AppStateType } from '../../../../reduxStore'
 
 
 const usersSearchFormValidators = (values: UsersListFiltersType) => {
@@ -16,6 +17,7 @@ const usersSearchFormValidators = (values: UsersListFiltersType) => {
 
 const UsersSearchForm: React.FC<PropsType> = (props) => {
 
+    const isAuthorized = useSelector((state: AppStateType) => state.auth.isAuthorized)
     const stateFilters = useSelector(usersSelectors.getUsersListFilters)
 
     const onFormSubmit = (values: ReceivedValuesType, { setSubmitting }: {setSubmitting: (isSubmitting: boolean) => void} ) => {
@@ -50,18 +52,23 @@ const UsersSearchForm: React.FC<PropsType> = (props) => {
                         </div>
                         
                         <ErrorMessage className="users__search-error" name="term" component="div" />
-                        <label className="users__search-label">
-                            <Field type="radio" name="friend" value="Not Friends" />
-                            Not friends
-                        </label>
-                        <label className="users__search-label">
-                            <Field type="radio" name="friend" value="Friends Only" />
-                            Friends
-                        </label>
 
-                        <h3 className="users__search-title">
-                            {props.searchTitle}
-                        </h3>
+                        {isAuthorized 
+                            && <>
+                                <label className="users__search-label">
+                                    <Field type="radio" name="friend" value="Not Friends" />
+                                    Not friends
+                                </label>
+                                <label className="users__search-label">
+                                    <Field type="radio" name="friend" value="Friends Only" />
+                                    Friends
+                                </label>
+
+                                <h3 className="users__search-title">
+                                    {props.searchTitle}
+                                </h3>
+                            </>
+                        }
                     </Form>
                 )
             }}

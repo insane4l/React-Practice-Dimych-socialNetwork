@@ -32,13 +32,16 @@ class ProfilePageContainer extends Component<PropsType> {
         }
         if(!userId) {
             userId = this.props.authUserId
+            this.props.history.push("/profile")
         }
         if (!userId) {
             console.error("Id should exists in URI params or in state(authUserId)")
         } else {
             this.props.getUserProfile(userId)
             this.props.getProfileStatus(userId)
-            this.props.requestProfileFollowedInfo(userId)
+            if (this.props.isUserAuthorized) {
+                this.props.requestProfileFollowedInfo(userId)
+            }
         }
     }
 
@@ -51,7 +54,8 @@ class ProfilePageContainer extends Component<PropsType> {
 
         return (
             <ProfilePage 
-                isOwner={!this.props.match.params.userId || +this.props.match.params.userId === this.props.authUserId}
+                isOwner={this.props.isUserAuthorized && (!this.props.match.params.userId || +this.props.match.params.userId === this.props.authUserId)}
+                isUserAuthorized={this.props.isUserAuthorized}
                 updateProfileData={this.props.updateProfileData} />
         )
     }

@@ -10,7 +10,7 @@ import AppPage from '../../../common/appPage/AppPage'
 import './profilePage.scss'
 
 
-const ProfilePage: React.FC<PropsType> = ({ isOwner, updateProfileData }) => {
+const ProfilePage: React.FC<PropsType> = ({ isOwner, isUserAuthorized, updateProfileData }) => {
 
     const topAnchor = useRef<HTMLDivElement>(null)
     const selectedProfile = useSelector(profileSelectors.getSelectedProfile)
@@ -28,7 +28,7 @@ const ProfilePage: React.FC<PropsType> = ({ isOwner, updateProfileData }) => {
 
             <div className="page-top-anchor" ref={topAnchor}></div>
             <div className="profile__page">
-                <ProfileInfo user={selectedProfile} isOwner={isOwner} updateProfileData={updateProfileData} />
+                <ProfileInfo user={selectedProfile} isOwner={isOwner} isUserAuthorized={isUserAuthorized} updateProfileData={updateProfileData} />
                 <PostsTimline isOwner={isOwner} />
                 <span className="section-hardcoded">Section Hardcoded</span>
             </div>
@@ -43,5 +43,6 @@ export default ProfilePage
 
 type PropsType = {
     isOwner: boolean
+    isUserAuthorized: boolean
     updateProfileData: (formData: ProfileType) => Promise<any>
 }

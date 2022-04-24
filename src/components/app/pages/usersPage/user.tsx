@@ -7,7 +7,7 @@ import UserAvatar from '../../../common/userAvatar/userAvatar'
 import UserName from '../../../common/userName/userName'
 
 
-const User: React.FC<PropsType> = ({user}) => {
+const User: React.FC<PropsType> = ({user, isAuthorized, authUserId}) => {
 
     const {id, photos, name, followed, status} = user
 
@@ -19,10 +19,12 @@ const User: React.FC<PropsType> = ({user}) => {
                     <UserName className="user__name" userName={name} linkTo={`/profile/${id}`} />
                     <div className="user__status">{status}</div>
                 </div>
-                <div className="user__buttons-wrapper">
-                    <MessagesBtn linkTo={`/dialogs/${id}`} />
-                    <FollowBtn isFollowed={followed} userId={id} />
-                </div>
+                {( isAuthorized && (authUserId !== id) ) 
+                    && <div className="user__buttons-wrapper">
+                        <MessagesBtn linkTo={`/dialogs/${id}`} />
+                        <FollowBtn isFollowed={followed} userId={id} />
+                    </div>
+                }
             </div>
         </li>
     )
@@ -34,4 +36,6 @@ export default User
 
 type PropsType = {
     user: UserType
+    isAuthorized: boolean
+    authUserId: number | null
 }

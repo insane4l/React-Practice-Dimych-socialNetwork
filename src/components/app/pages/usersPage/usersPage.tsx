@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as usersSelectors from '../../../../selectors/users'
 import UsersSearchForm from './usersSearchForm'
 import Spinner from '../../../common/spinner'
-import { withAnonUserRedirect } from '../../../HOCs/withRedirect'
-import { compose } from 'redux'
 import { useHistory } from 'react-router-dom'
 import * as qs from 'qs'
 import RequestError from '../../../common/errors/requestError'
@@ -58,7 +56,7 @@ const UsersPage: React.FC = () => {
             dispatch ( actions.setFilters({term: '', friend: null}) )
         }
         // eslint-disable-next-line
-    }, [])
+    }, []) // todo: need to fix (when users page opened and then url search params changed, component already mounted - synchronization is not performed)
 
     useEffect(() => { // componentDidUpdate
         pushSearchParams(currentPage, filters.term, filters.friend)
@@ -114,6 +112,4 @@ const UsersPage: React.FC = () => {
     )
 }
 
-export default compose<React.ComponentType>(
-    withAnonUserRedirect
-)(UsersPage)
+export default UsersPage

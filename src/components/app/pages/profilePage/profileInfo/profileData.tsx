@@ -9,11 +9,11 @@ import { useSelector } from 'react-redux'
 import * as profileSelectors from '../../../../../selectors/profile'
 
 
-const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfileData}) => {
+const ProfileData: React.FC<ProfileDataPropsType> = ({isOwner, user, updateProfileData, isUserAuthorized}) => {
     
     return (
         <div className="profile__data">
-            { !isOwner && <ProfileButtons userId={user.userId}/> }
+            { (!isOwner && isUserAuthorized) && <ProfileButtons userId={user.userId}/> }
 
             <h1 className="page__name">{user.fullName}</h1>
 
@@ -84,6 +84,7 @@ export default ProfileData
 type ProfileDataPropsType = {
     user: ProfileType
     isOwner: boolean
+    isUserAuthorized: boolean
     updateProfileData: (formData: ProfileType) => Promise<any>
 }
 

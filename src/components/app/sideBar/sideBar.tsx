@@ -21,7 +21,7 @@ const SideBar: React.FC<PropsType> = (props) => {
             <NavBar />
 
             {props.isUserAuthorized && 
-                <SideBarBlock blockTitle={<Link to="/users?friend=true">Friends</Link>}>
+                <SideBarBlock blockTitle={<Link to="/users?page=1&friend=true">Friends</Link>}>
                     <FriendsBlock friendsPerPage={9} intervalSeconds={300} />
                 </SideBarBlock>
             }

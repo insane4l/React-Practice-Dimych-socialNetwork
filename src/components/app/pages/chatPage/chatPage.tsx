@@ -32,8 +32,7 @@ const Chat = () => {
             dispatch(stopMessagesListening())
             dispatch( actions.messagesCleaned() )
         }
-        // eslint-disable-next-line
-    }, [])
+    }, [dispatch])
 
     return (
         <AppPage pageTitle="Developers Chat">

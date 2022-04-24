@@ -6,7 +6,7 @@ import { ProfileType} from '../../../../../types/types'
 import './profileInfo.scss'
 
 
-const ProfileInfo: React.FC<PropsType> = ({user, isOwner, updateProfileData}) => {
+const ProfileInfo: React.FC<PropsType> = ({user, isOwner, isUserAuthorized, updateProfileData}) => {
     
     return (
         <div className="profile__info">
@@ -17,6 +17,7 @@ const ProfileInfo: React.FC<PropsType> = ({user, isOwner, updateProfileData}) =>
 
             <ProfileData
                 isOwner={isOwner}
+                isUserAuthorized={isUserAuthorized}
                 user={user}
                 updateProfileData={updateProfileData}
                  />
@@ -32,5 +33,6 @@ export default ProfileInfo
 type PropsType = {
     user: ProfileType
     isOwner: boolean
+    isUserAuthorized: boolean
     updateProfileData: (formData: ProfileType) => Promise<any>
 }
