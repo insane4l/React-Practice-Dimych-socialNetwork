@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/React-Practice-Dimych-socialNetwork/static/css/main.1db91222.chunk.css",
-    "main.js": "/React-Practice-Dimych-socialNetwork/static/js/main.13cfae40.chunk.js",
-    "main.js.map": "/React-Practice-Dimych-socialNetwork/static/js/main.13cfae40.chunk.js.map",
+    "main.css": "/React-Practice-Dimych-socialNetwork/static/css/main.96a906c4.chunk.css",
+    "main.js": "/React-Practice-Dimych-socialNetwork/static/js/main.c196f34d.chunk.js",
+    "main.js.map": "/React-Practice-Dimych-socialNetwork/static/js/main.c196f34d.chunk.js.map",
     "runtime-main.js": "/React-Practice-Dimych-socialNetwork/static/js/runtime-main.40aad9d6.js",
     "runtime-main.js.map": "/React-Practice-Dimych-socialNetwork/static/js/runtime-main.40aad9d6.js.map",
-    "static/js/2.9331d0d9.chunk.js": "/React-Practice-Dimych-socialNetwork/static/js/2.9331d0d9.chunk.js",
-    "static/js/2.9331d0d9.chunk.js.map": "/React-Practice-Dimych-socialNetwork/static/js/2.9331d0d9.chunk.js.map",
+    "static/js/2.bf80bfe0.chunk.js": "/React-Practice-Dimych-socialNetwork/static/js/2.bf80bfe0.chunk.js",
+    "static/js/2.bf80bfe0.chunk.js.map": "/React-Practice-Dimych-socialNetwork/static/js/2.bf80bfe0.chunk.js.map",
     "index.html": "/React-Practice-Dimych-socialNetwork/index.html",
-    "static/css/main.1db91222.chunk.css.map": "/React-Practice-Dimych-socialNetwork/static/css/main.1db91222.chunk.css.map",
-    "static/js/2.9331d0d9.chunk.js.LICENSE.txt": "/React-Practice-Dimych-socialNetwork/static/js/2.9331d0d9.chunk.js.LICENSE.txt",
+    "static/css/main.96a906c4.chunk.css.map": "/React-Practice-Dimych-socialNetwork/static/css/main.96a906c4.chunk.css.map",
+    "static/js/2.bf80bfe0.chunk.js.LICENSE.txt": "/React-Practice-Dimych-socialNetwork/static/js/2.bf80bfe0.chunk.js.LICENSE.txt",
     "static/media/add-photo-icon.45c01ac0.svg": "/React-Practice-Dimych-socialNetwork/static/media/add-photo-icon.45c01ac0.svg",
     "static/media/ads-img.1d74b859.jpg": "/React-Practice-Dimych-socialNetwork/static/media/ads-img.1d74b859.jpg",
     "static/media/chat-icon.a043f4e1.svg": "/React-Practice-Dimych-socialNetwork/static/media/chat-icon.a043f4e1.svg",
@@ -31,8 +31,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.40aad9d6.js",
-    "static/js/2.9331d0d9.chunk.js",
-    "static/css/main.1db91222.chunk.css",
-    "static/js/main.13cfae40.chunk.js"
+    "static/js/2.bf80bfe0.chunk.js",
+    "static/css/main.96a906c4.chunk.css",
+    "static/js/main.c196f34d.chunk.js"
   ]
 }
